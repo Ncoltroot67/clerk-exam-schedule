@@ -1,1 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 1 — CPL & Penal Law Study Schedule</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a1f3c;--navy-mid:#2d3561;
+  --gold:#c9952a;--gold-light:#f5e6c8;
+  --cream:#faf7f2;--sage:#4a7c6f;--sage-light:#e4edeb;
+  --coral:#c4503a;--coral-light:#f9e8e5;
+  --slate:#5a6279;--slate-light:#eaecf2;
+  --violet:#6b4fa0;--violet-light:#ede8f7;
+  --teal:#2a7f8c;--teal-light:#e1f2f4;
+  --text:#1a1f3c;--text-muted:#6b7194;
+  --border:#e2ddd6;--white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
 
+/* ── HEADER ── */
+.header{background:var(--navy);color:white;padding:30px 36px 24px;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;border:36px solid rgba(201,149,42,.14)}
+.header::after{content:'';position:absolute;bottom:-50px;left:32%;width:140px;height:140px;border-radius:50%;border:26px solid rgba(255,255,255,.05)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.header h1{font-family:'DM Serif Display',serif;font-size:28px;line-height:1.15;margin-bottom:8px}
+.header-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.meta-pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,.85)}
+.meta-pill strong{color:var(--gold)}
+
+/* ── BARS ── */
+.bar{padding:11px 36px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.bar-structure{background:var(--navy-mid)}
+.bar-reddit{background:#12173a}
+.bar-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.bar-label.gold{color:var(--gold)}
+.s-pill{background:rgba(255,255,255,.09);border-radius:4px;padding:2px 9px;font-size:11px;color:rgba(255,255,255,.8)}
+.s-pill.highlight{background:rgba(107,79,160,.35);color:#d4beff}
+.s-pill.rest{background:rgba(201,149,42,.2);color:var(--gold)}
+
+/* ── LEGEND ── */
+.legend{display:flex;flex-wrap:wrap;gap:10px;padding:11px 36px;background:var(--white);border-bottom:1px solid var(--border)}
+.li{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text-muted)}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+/* ── MAIN ── */
+.main{padding:18px 36px 44px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.full{grid-column:1/-1}
+
+/* ── WEEK VIZ ── */
+.week-viz{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 20px}
+.week-viz h3{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:12px}
+.viz-row{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.vd{border-radius:9px;padding:9px 6px;text-align:center}
+.vd-name{font-size:11px;font-weight:600;margin-bottom:3px}
+.vd-type{font-size:10px;line-height:1.35}
+.vd-study{background:#e8eef8;color:#1a3a7a}
+.vd-notes{background:var(--violet-light);color:var(--violet)}
+.vd-rest{background:var(--gold-light);color:#7a5010}
+.vd-deep{background:var(--sage-light);color:var(--sage)}
+.vd-light{background:var(--slate-light);color:var(--slate)}
+.vd-sun{grid-column:1/-1;border-radius:9px;padding:9px 14px;display:flex;align-items:center;gap:10px;margin-top:5px}
+.vd-sun .vd-name{white-space:nowrap;margin:0}
+.vd-sun .vd-type{text-align:left;margin:0}
+
+/* ── ARTICLE MAP ── */
+.article-map{background:var(--navy);color:white;border-radius:14px;padding:16px 20px}
+.article-map h3{font-family:'DM Serif Display',serif;font-size:16px;margin-bottom:12px;color:var(--gold)}
+.art-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.art-section h4{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px}
+.art-list{display:flex;flex-wrap:wrap;gap:5px}
+.ap{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:3px 9px;font-size:11px;color:rgba(255,255,255,.65)}
+.ap.tw{background:rgba(201,149,42,.18);border-color:rgba(201,149,42,.38);color:var(--gold);font-weight:500}
+
+/* ── DAY CARDS ── */
+.day-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.day-card.notes-day{border-color:#9b7fd488;box-shadow:0 0 0 2px #9b7fd418}
+.day-card.rest-day{border-color:#c9952a55}
+.day-card.deep-day{border-color:#4a7c6f55}
+.day-head{padding:12px 16px 10px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start}
+.day-name{font-family:'DM Serif Display',serif;font-size:19px;line-height:1;color:var(--navy)}
+.day-sub{font-size:11px;color:var(--text-muted);margin-top:1px}
+.day-badge{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 9px;border-radius:20px;margin-top:3px;display:inline-block}
+.b-cpl{background:#e8eef8;color:#1a3a7a}
+.b-penal{background:var(--coral-light);color:var(--coral)}
+.b-light{background:var(--slate-light);color:var(--slate)}
+.b-notes{background:var(--violet-light);color:var(--violet)}
+.b-deep{background:var(--sage-light);color:var(--sage)}
+.day-total{text-align:right;flex-shrink:0}
+.day-total strong{color:var(--navy);font-size:13px;font-weight:600;display:block}
+.day-total span{font-size:11px;color:var(--text-muted)}
+
+/* ── BLOCKS ── */
+.block{padding:10px 16px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:88px 1fr;gap:10px;align-items:start}
+.block:last-child{border-bottom:none}
+.block.wide{grid-template-columns:1fr}
+.bwindow{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted)}
+.bdur{font-size:12px;font-weight:500;color:var(--navy)}
+.noscreen{display:inline-block;font-size:9px;background:#fff8e1;color:#856404;border:1px solid #ffc10730;border-radius:3px;padding:1px 5px;font-weight:600;margin-top:3px;letter-spacing:.03em}
+.btitle{font-weight:600;font-size:13px;color:var(--navy);margin-bottom:3px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.bbody{font-size:12px;color:var(--text-muted);line-height:1.55}
+.bbody em{font-style:normal;color:var(--navy);font-weight:500}
+.step{display:block;margin-bottom:5px}
+.step:last-child{margin-bottom:0}
+
+/* callout boxes */
+.callout{border-radius:0 6px 6px 0;padding:6px 10px;font-size:11px;line-height:1.45;margin-top:7px}
+.callout-slate{background:var(--slate-light);border-left:3px solid var(--slate);color:var(--slate)}
+.callout-gold{background:var(--gold-light);border-left:3px solid var(--gold);color:#7a5010}
+.callout-violet{background:var(--violet-light);border-left:3px solid var(--violet);color:var(--violet)}
+.callout-teal{background:var(--teal-light);border-left:3px solid var(--teal);color:var(--teal)}
+.callout strong{font-weight:600}
+
+/* tags */
+.tool{display:inline-flex;font-size:10px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;padding:2px 7px;border-radius:4px}
+.t-co{background:#e8eef8;color:#1a3a7a}
+.t-anki{background:var(--sage-light);color:#2d6b5a}
+.t-bm{background:var(--gold-light);color:#7a5010}
+.t-paper{background:var(--slate-light);color:var(--slate)}
+.t-yt{background:#fde8e8;color:#b01c1c}
+.t-notes{background:var(--violet-light);color:var(--violet)}
+.t-rest{background:#f0f0f0;color:#888}
+.reddit{display:inline-flex;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--navy);color:var(--gold)}
+
+/* ── NOTES SESSION (BIG CARD) ── */
+.notes-section-head{background:var(--violet);color:white;padding:10px 16px;font-size:12px;font-weight:600;letter-spacing:.04em;display:flex;align-items:center;gap:8px}
+.notes-phase{background:var(--violet-light);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;padding:10px 13px;margin-bottom:8px}
+.notes-phase:last-child{margin-bottom:0}
+.notes-phase .ph-title{font-size:12px;font-weight:600;color:var(--violet);margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.notes-phase .ph-time{font-size:10px;font-weight:600;color:var(--violet);opacity:.7;margin-bottom:4px}
+.notes-phase .ph-body{font-size:12px;color:var(--text-muted);line-height:1.55}
+.notes-phase .ph-body em{font-style:normal;color:var(--navy);font-weight:500}
+
+/* ── METHOD EXPLANATION CARDS ── */
+.method-section{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.method-head{background:var(--navy);color:white;padding:13px 18px;font-family:'DM Serif Display',serif;font-size:18px}
+.method-head span{color:var(--gold)}
+.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.mc{padding:14px 16px;border-bottom:1px solid var(--border);border-right:1px solid var(--border)}
+.mc:nth-child(even){border-right:none}
+.mc:last-child,.mc:nth-last-child(2):nth-child(odd){border-bottom:none}
+.mc .mi{font-size:22px;margin-bottom:7px}
+.mc .mh{font-weight:600;font-size:13px;color:var(--navy);margin-bottom:2px}
+.mc .msrc{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:5px}
+.mc .mwhen{font-size:10px;color:var(--text-muted);margin-bottom:5px;font-style:italic}
+.mc .mb{font-size:12px;color:var(--text-muted);line-height:1.55}
+.mc .mb em{font-style:normal;color:var(--navy);font-weight:500}
+.mc .mb a{color:var(--teal);text-decoration:none}
+
+/* ── YT CHANNELS ── */
+.yt-section{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.yt-head{background:#b01c1c;color:white;padding:13px 18px;font-family:'DM Serif Display',serif;font-size:18px}
+.yt-list{padding:14px 18px;display:flex;flex-direction:column;gap:10px}
+.yt-item{background:#fde8e8;border-left:3px solid #b01c1c;border-radius:0 8px 8px 0;padding:9px 12px}
+.yt-item .yt-name{font-size:13px;font-weight:600;color:#7a0f0f;margin-bottom:2px}
+.yt-item .yt-use{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#b01c1c;margin-bottom:3px}
+.yt-item .yt-body{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+/* ── FOOTER ── */
+.footer-note{background:var(--gold-light);border:1px solid #e8c97044;border-radius:12px;padding:13px 17px;font-size:12px;color:#5a3d0a;line-height:1.65}
+.footer-note strong{color:var(--navy)}
+
+@media(max-width:680px){
+  .header,.bar,.legend,.main{padding-left:14px;padding-right:14px}
+  .main{grid-template-columns:1fr}
+  .full{grid-column:1}
+  .art-grid{grid-template-columns:1fr}
+  .viz-row{grid-template-columns:repeat(4,1fr)}
+  .method-grid{grid-template-columns:1fr}
+  .mc{border-right:none}
+}
+@media print{
+  .header,.bar-structure,.bar-reddit{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859 · Oct 10, 2026</div>
+  <h1>Week 1 Study Schedule<br><em style="font-style:italic;color:var(--gold);font-size:20px">CPL Articles 1, 10, 30 &amp; Penal Law Articles 10, 55, 80</em></h1>
+  <div class="header-meta">
+    <div class="meta-pill">📅 <strong>Starts:</strong> Mon May 26</div>
+    <div class="meta-pill">⏱ <strong>20 weeks</strong> to exam</div>
+    <div class="meta-pill">🛑 <strong>1.5 days off:</strong> Sat PM + Sun rest after session</div>
+    <div class="meta-pill">📓 <strong>Sat AM:</strong> Notes &amp; material creation only</div>
+    <div class="meta-pill">🎥 <strong>YouTube:</strong> Notes session + commute audio</div>
+  </div>
+</div>
+
+<!-- STRUCTURE BAR -->
+<div class="bar bar-structure">
+  <span class="bar-label gold">Week structure →</span>
+  <span class="s-pill">Mon–Thu: 30 min AM · 50 min lunch · 20 min PM · 15 min wind-down</span>
+  <span class="s-pill">Fri: Light day ~55 min</span>
+  <span class="s-pill highlight">Sat AM: Notes creation · YouTube · Spaced rep diary · ~2 hrs</span>
+  <span class="s-pill rest">Sat PM onward: Full rest 🛑</span>
+  <span class="s-pill">Sun: Deep session + plan Week 2 ~2.5 hrs</span>
+</div>
+
+<!-- REDDIT BAR -->
+<div class="bar bar-reddit">
+  <span class="bar-label gold">Reddit + YouTube methods this week →</span>
+  <span class="s-pill">✍️ Free recall / blurting</span>
+  <span class="s-pill">🔁 Expanding gap spaced rep</span>
+  <span class="s-pill">📓 Spaced rep diary (planner)</span>
+  <span class="s-pill">🗣 Active recall micro-practice</span>
+  <span class="s-pill">📖 Layered reading</span>
+  <span class="s-pill">⏱ Pomodoro (25+5)</span>
+  <span class="s-pill">🏛 Roman Room / Memory Palace</span>
+  <span class="s-pill">🎥 YouTube encoding (Notes session)</span>
+  <span class="s-pill">🚶 Move + sleep</span>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="li"><div class="dot" style="background:#1a3a7a"></div>ClerkOne 2026</div>
+  <div class="li"><div class="dot" style="background:#2d6b5a"></div>Anki</div>
+  <div class="li"><div class="dot" style="background:#c9952a"></div>Bluemedia 360</div>
+  <div class="li"><div class="dot" style="background:#b01c1c"></div>YouTube</div>
+  <div class="li"><div class="dot" style="background:#5a6279"></div>Paper / no screen</div>
+  <div class="li"><div class="dot" style="background:#6b4fa0"></div>Notes creation</div>
+  <div class="li"><div class="dot" style="background:#1a1f3c"></div>Reddit/YouTube method</div>
+</div>
+
+<div class="main">
+
+<!-- WEEK VIZ -->
+<div class="week-viz full">
+  <h3>Your week at a glance</h3>
+  <div class="viz-row">
+    <div class="vd vd-study"><div class="vd-name">Mon</div><div class="vd-type">CPL Art. 1<br>~100 min</div></div>
+    <div class="vd vd-study"><div class="vd-name">Tue</div><div class="vd-type">CPL Art. 10<br>~100 min</div></div>
+    <div class="vd vd-study"><div class="vd-name">Wed</div><div class="vd-type">CPL Art. 30<br>~100 min</div></div>
+    <div class="vd vd-study"><div class="vd-name">Thu</div><div class="vd-type">PL Arts 10+55<br>~100 min</div></div>
+    <div class="vd vd-light"><div class="vd-name">Fri</div><div class="vd-type">Light review<br>~55 min</div></div>
+    <div class="vd vd-notes"><div class="vd-name">Sat AM</div><div class="vd-type">📓 Notes + mnemonics<br>~2.5 hrs</div></div>
+    <div class="vd vd-rest"><div class="vd-name">Sat PM</div><div class="vd-type">🛑 Full rest<br>no study</div></div>
+  </div>
+  <div class="vd vd-deep vd-sun">
+    <div class="vd-name">Sunday 📍 Library</div>
+    <div class="vd-type">5–6 hr intensive · 7 Pomodoro blocks · heavy practice testing · layered reading · Anki + memory palace · plan Week 2 · screens off early</div>
+  </div>
+</div>
+
+<!-- ARTICLE MAP -->
+<div class="article-map full">
+  <h3>Week 1 articles — CPL &amp; Penal Law</h3>
+  <div class="art-grid">
+    <div>
+      <h4>Criminal Procedure Law — this week</h4>
+      <div class="art-list">
+        <div class="ap tw">CPL Art. 1 · General Provisions</div>
+        <div class="ap tw">CPL Art. 10 · Jurisdiction</div>
+        <div class="ap tw">CPL Art. 30 · Speedy Trial</div>
+        <div class="ap">CPL Art. 100 → Week 2</div>
+        <div class="ap">CPL Art. 110 → Week 2</div>
+      </div>
+    </div>
+    <div>
+      <h4>Penal Law — this week</h4>
+      <div class="art-list">
+        <div class="ap tw">PL Art. 10 · Definitions &amp; Mental States</div>
+        <div class="ap tw">PL Art. 55 · Offense Classification</div>
+        <div class="ap tw">PL Art. 80 · Fines — covered in Sat notes session</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MONDAY -->
+<div class="day-card">
+  <div class="day-head">
+    <div><div class="day-name">Monday</div><div class="day-sub">May 26</div><div class="day-badge b-cpl">CPL Art. 1 · Intro day</div></div>
+    <div class="day-total"><strong>~100 min</strong><span>total study</span></div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    <div>
+      <div class="btitle"><span>ClerkOne — CPL Art. 1 Notes</span><span class="tool t-co">ClerkOne</span></div>
+      <div class="bbody">Read the <em>first half</em> of CPL Art. 1 plain-English notes. Stop at 30 min even if mid-section — phone down, rest your eyes for the rest of the ride.
+        <div class="callout callout-slate">🚌 <strong>Commute rule (every day):</strong> 30 min morning, 20 min evening — then rest. Studying the full commute burns you out by Wednesday. The limits are the strategy.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    <div>
+      <div class="btitle"><span>Free recall → Quiz → Anki build</span><span class="reddit">Free recall</span><span class="reddit">Spaced rep</span></div>
+      <div class="bbody">
+        <span class="step"><em>10 min — Blurt:</em> Blank paper, write everything you remember from the morning ride. No notes open. Then flip and gap-fill in a different color pen.</span>
+        <span class="step"><em>20 min — Bluemedia quizzer:</em> 10 True/False on CPL Art. 1. Read the explanation for every wrong answer — that's where the real learning happens.</span>
+        <span class="step"><em>20 min — Anki:</em> Create your first 5 cards. Phrase as questions: <em>"What does CPL Art. 1 define as a criminal action?"</em> Your own words only — never copy the statute verbatim.</span>
+        <div class="callout callout-violet">📓 <strong>Spaced rep diary (start today):</strong> In a planner or notebook, write: "CPL Art. 1 — learned May 26. Review on: May 27 · May 29 · June 10 · June 26 · July 28 · Oct 1." These are your fixed review dates regardless of Anki. This is the method from the Reddit post — the diary makes the gap schedule visible and gives you a record of what you've covered.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    <div>
+      <div class="btitle"><span>ClerkOne — Ring the Bell (game mode)</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
+      <div class="bbody">Game mode on CPL Art. 1 only. 20 min then stop — rest of the commute is downtime. No guilt.
+        <div class="callout callout-teal">🗣 <strong>Active recall micro-practice:</strong> While waiting at your stop, walking to the car, or standing in the elevator — mentally recite what you know about CPL Art. 1. Out loud if you can, silent if you can't. This is the Reddit poster's key point: actively reciting signals to your brain the information is important and moves it from short-term to long-term memory. Passive re-reading doesn't do this.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div>
+      <div class="btitle"><span>Book — layered preview CPL Art. 10</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
+      <div class="bbody">Physical Bluemedia book only. Read: <em>index → end questions → summary</em> of CPL Art. 10. Stop after 15 min. Screens off 1 hour before sleep — this is not soft advice, it directly affects how much you retain overnight.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TUESDAY -->
+<div class="day-card">
+  <div class="day-head">
+    <div><div class="day-name">Tuesday</div><div class="day-sub">May 27</div><div class="day-badge b-cpl">CPL Art. 10 · Jurisdiction</div></div>
+    <div class="day-total"><strong>~100 min</strong><span>total study</span></div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    <div>
+      <div class="btitle"><span>ClerkOne — CPL Art. 10 Notes</span><span class="tool t-co">ClerkOne</span></div>
+      <div class="bbody">Read first half of CPL Art. 10 notes. Because you previewed the index last night, the structure will feel familiar — your brain already has a frame for the content.
+        <div class="callout callout-teal">🗣 <strong>Active recall micro-practice:</strong> At any idle moment today (waiting for coffee, elevator, bathroom) — mentally recite what you remember from yesterday's CPL Art. 1. No phone. Just recall. This is the Reddit method: reciting during daily activities is training your retrieval pathway, not just reviewing facts.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    <div>
+      <div class="btitle"><span>Blurt Art. 1 (Day 2) → quiz Art. 10 → Anki</span><span class="reddit">Expanding gap</span><span class="reddit">Free recall</span></div>
+      <div class="bbody">
+        <span class="step"><em>10 min — Blurt CPL Art. 1 (Day 2 of gap cycle):</em> This is your first scheduled review from the diary entry you made Monday. Write everything, gap-fill after. This is Day 2 — the gap widens each time.</span>
+        <span class="step"><em>20 min — ClerkOne True/False:</em> CPL Art. 10 questions. Check your Report Card — it tracks which sections are weak automatically.</span>
+        <span class="step"><em>20 min — Anki:</em> Review Monday's 5 due cards + add 5 new Art. 10 cards.</span>
+        <div class="callout callout-violet">📓 <strong>Diary entry:</strong> "CPL Art. 10 — learned May 27. Review on: May 28 · May 30 · June 11 · June 27 · July 29."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    <div>
+      <div class="btitle"><span>Clerk Quest — Arts. 1 &amp; 10</span><span class="tool t-co">ClerkOne</span></div>
+      <div class="bbody">Game mode covering both articles. 20 min only. Evening retrieval hit with no reading required.</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div>
+      <div class="btitle"><span>Book — preview CPL Art. 30</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
+      <div class="bbody">Index → questions → summary of CPL Art. 30. 15 min, then close the book. Screens off.</div>
+    </div>
+  </div>
+</div>
+
+<!-- WEDNESDAY -->
+<div class="day-card">
+  <div class="day-head">
+    <div><div class="day-name">Wednesday</div><div class="day-sub">May 28</div><div class="day-badge b-cpl">CPL Art. 30 · Speedy Trial</div></div>
+    <div class="day-total"><strong>~100 min</strong><span>total study</span></div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    <div>
+      <div class="btitle"><span>ClerkOne — CPL Art. 30 Notes</span><span class="tool t-co">ClerkOne</span></div>
+      <div class="bbody">Read CPL Art. 30. <em>Lock in the time frames</em> — 30, 90, 180-day speedy trial deadlines are high-frequency exam questions. These numbers go into your Roman Room Saturday.
+        <div class="callout callout-teal">🗣 <strong>Active recall all day today:</strong> In the shower this morning, recite CPL Art. 1 and 10 key points. At lunch before you study, recite Art. 30 time frames. This is the exact practice the Reddit poster describes — reciting during meals, walking, showering trains your brain to treat the information as permanent.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    <div>
+      <div class="btitle"><span>Blurt Art. 10 (Day 2) + Art. 1 (Day 3) → quiz Art. 30</span><span class="reddit">Expanding gap</span><span class="reddit">Free recall</span></div>
+      <div class="bbody">
+        <span class="step"><em>10 min — Blurt CPL Art. 10 (Day 2) + 2-line recall on Art. 1 (Day 3):</em> Art. 1 is now on its third retrieval in three days. The gap is expanding.</span>
+        <span class="step"><em>20 min — Bluemedia quizzer:</em> 10–12 questions on CPL Art. 30. Wrong answers → add to Anki as priority cards.</span>
+        <span class="step"><em>20 min — Anki:</em> Due cards from Mon + Tue + 5 new Art. 30 cards focused on the time limits.</span>
+        <div class="callout callout-violet">📓 <strong>Diary entry:</strong> "CPL Art. 30 — learned May 28. Review on: May 29 · June 1 · June 13 · June 29 · July 31."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    <div>
+      <div class="btitle"><span>ClerkOne Law Highlights — Arts. 1, 10, 30</span><span class="tool t-co">ClerkOne</span></div>
+      <div class="bbody">Switch from Notes to <em>Law Highlights</em> — the condensed mode. Skim all three CPL articles. Reinforcement, not new intake. 20 min only.</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div>
+      <div class="btitle"><span>Book — preview PL Art. 10</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
+      <div class="bbody">Switching to Penal Law tomorrow. Index → questions → summary of PL Art. 10. Note any unfamiliar terms — they'll anchor tomorrow's commute reading.</div>
+    </div>
+  </div>
+</div>
+
+<!-- THURSDAY -->
+<div class="day-card">
+  <div class="day-head">
+    <div><div class="day-name">Thursday</div><div class="day-sub">May 29</div><div class="day-badge b-penal">Penal Law Arts. 10 &amp; 55</div></div>
+    <div class="day-total"><strong>~100 min</strong><span>total study</span></div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    <div>
+      <div class="btitle"><span>ClerkOne — PL Art. 10 Notes</span><span class="tool t-co">ClerkOne</span></div>
+      <div class="bbody">PL Art. 10 is definition-heavy. Focus on the <em>four mental states: intentionally, knowingly, recklessly, criminal negligence.</em> Don't memorize everything — absorb the structure and the distinctions between each state.
+        <div class="callout callout-slate">🚌 30 min, then rest. These definitions consolidate better after sleep than after forcing another hour of reading.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    <div>
+      <div class="btitle"><span>Blurt Art. 30 (Day 2) → PL quiz → Roman Room build</span><span class="reddit">Free recall</span><span class="reddit">Roman Room</span></div>
+      <div class="bbody">
+        <span class="step"><em>10 min — Blurt CPL Art. 30 (Day 2) + 1-line recall Arts. 1 &amp; 10 (Days 4 &amp; 3):</em> Art. 1 is now on Day 4 — your expanding gap diary should show May 29 as a scheduled review date.</span>
+        <span class="step"><em>15 min — ClerkOne T/F:</em> Penal Law Art. 10. Note which mental state definitions trip you up.</span>
+        <span class="step"><em>10 min — Roman Room / Memory Palace (first build):</em> Place the four mental states on specific objects in your bedroom. <em>Intentionally</em> on your pillow (you deliberately lay your head there every night). <em>Knowingly</em> on your nightstand (you know it's there). <em>Recklessly</em> on your dresser (stuff falls off the edge). <em>Criminal negligence</em> on the door (you keep forgetting to close it). Picture each one vividly and dramatically. Walk the room in your mind 3 times in order.</span>
+        <span class="step"><em>15 min — Anki:</em> Due cards + 5 new PL Art. 10 cards. One card per mental state.</span>
+        <div class="callout callout-violet">📓 <strong>Diary entries:</strong> "PL Art. 10 — May 29. Review: May 30 · June 1 · June 13 · June 30." Also log your Roman Room: "Memory Palace: Bedroom. Objects: pillow=intentionally, nightstand=knowingly, dresser=recklessly, door=criminal negligence." Keep this map in your diary so you can extend it Saturday.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    <div>
+      <div class="btitle"><span>Clerk Quest — Penal Law</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
+      <div class="bbody">Game mode on Penal Law. After each wrong answer, walk back to your Roman Room and retrace the image mentally. 20 min then stop.
+        <div class="callout callout-teal">🗣 <strong>Active recall — whole commute home:</strong> Even after you put the phone down, silently recite the four mental states and their definitions. Do it until you get off the train/bus. This is the Reddit poster's core habit — reciting during travel, not just studying during it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div>
+      <div class="btitle"><span>Book — preview PL Arts. 55 &amp; 80</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
+      <div class="bbody">Layered preview of PL Arts. 55 and 80: index → questions → summary. Note the classification chart — Class A felony down to violation. That hierarchy goes in your notes session Saturday.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FRIDAY -->
+<div class="day-card">
+  <div class="day-head">
+    <div><div class="day-name">Friday</div><div class="day-sub">May 30</div><div class="day-badge b-light">Light day · Full-week recall</div></div>
+    <div class="day-total"><strong>~55 min</strong><span>total study</span></div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Morning commute</div><div class="bdur">20 min</div></div>
+    <div>
+      <div class="btitle"><span>Anki — due cards only</span><span class="tool t-anki">Anki</span></div>
+      <div class="bbody">Only cards that are due today. No new cards. No reading. 20 min then rest. Intentionally light — your brain needs reduced load going into the rest day.
+        <div class="callout callout-teal">🗣 <strong>Active recall on the rest of the ride:</strong> Silently walk your Roman Room. Pillow, nightstand, dresser, door — can you retrieve all four mental states without the cards? Try to extend to CPL Art. 30 time limits as well.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Lunch</div><div class="bdur">35 min</div></div>
+    <div>
+      <div class="btitle"><span>Full-week blurt + walk</span><span class="reddit">Free recall</span><span class="reddit">Move</span></div>
+      <div class="bbody">
+        <span class="step"><em>20 min — Full-week blurt:</em> Blank paper. Write everything you know across all 5 articles this week. Stream of consciousness, no order needed. Then gap-fill in red.</span>
+        <span class="step"><em>15 min — Walk outside:</em> 10–15 minutes of movement measurably boosts memory consolidation. The research on this is clear. This is active recovery, not wasted lunch time.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Evening commute</div><div class="bdur">0 min</div></div>
+    <div>
+      <div class="btitle"><span>Complete rest — no studying</span><span class="tool t-rest">Rest</span></div>
+      <div class="bbody">Phone away. Music, podcast, anything non-law. Your brain consolidates all week's input during genuine downtime.
+        <div class="callout callout-gold">🛑 Saturday rest starts tonight. Begin winding down early. Your notes session tomorrow runs best on a rested brain.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SATURDAY — NOTES DAY -->
+<div class="day-card notes-day full">
+  <div class="day-head">
+    <div><div class="day-name">Saturday</div><div class="day-sub">May 31 · Notes &amp; material creation AM · Full rest PM onward</div><div class="day-badge b-notes">Notes session · ~2.5 hrs · then 🛑 full rest</div></div>
+    <div class="day-total"><strong>~2.5 hrs</strong><span>AM only, then rest</span></div>
+  </div>
+
+  <div class="notes-section-head">📓 Saturday Notes &amp; Material Creation Session — what this time is for</div>
+
+  <div class="block wide">
+    <div class="bbody" style="padding:4px 0">
+      This session is not studying. It is not quizzing. It is <em>building the materials you will use for the next 20 weeks.</em> Your summary sheets, memory palace map, mnemonics sheet, Anki deck, and spaced rep diary are all assets — this is when you build and maintain them. Every piece you create here gets tested on Sunday at the library.
+    </div>
+  </div>
+
+  <div class="block wide">
+    <div>
+      <div class="notes-phase">
+        <div class="ph-title"><span class="tool t-yt">YouTube</span> Phase 1 — Encoding with video (30 min)</div>
+        <div class="ph-time">Watch, pause, write — not passive viewing</div>
+        <div class="ph-body">
+          Open <em>Zain Asif on YouTube</em> — search "Zain Asif study techniques." Watch one video on memory or retention. <em>Pause every 2–3 minutes and write the key idea in your own words</em> before continuing. Rotate weekly: Week 1 = Zain Asif, Week 2 = Benjamin Keep, Week 3 = Dr Justin Sung.<br><br>
+          <strong>Goal: 2–3 concrete techniques written in your diary in your own words.</strong>
+        </div>
+      </div>
+
+      <div class="notes-phase">
+        <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 2 — Master summary sheets (35 min)</div>
+        <div class="ph-time">One page per law group, your own words, no copying</div>
+        <div class="ph-body">
+          <em>CPL Arts. 1, 10, 30 — one sheet:</em> Key definitions from Art. 1. Jurisdiction rules from Art. 10. Time frames from Art. 30 — circle the numbers (30, 90, 180 days). Write it as if explaining to a coworker.<br><br>
+          <em>PL Arts. 10, 55, 80 — one sheet:</em> Four mental states table (draw four boxes, one per state, definition + example in each). Offense classification ladder drawn top to bottom: Class A felony → B → C → D → E → A misdemeanor → B misdemeanor → violation. Fine ranges from Art. 80.<br><br>
+          <strong>Label, date, file both sheets. You will reference these every week for 20 weeks.</strong>
+        </div>
+      </div>
+
+      <div class="notes-phase" style="border-left-color:var(--coral);background:var(--coral-light)">
+        <div class="ph-title" style="color:var(--coral)">🧠 Phase 3 — Mnemonic creation session (30 min)</div>
+        <div class="ph-time" style="color:var(--coral)">Build one mnemonic per hard-to-remember list · mix all three types based on content · write every one in your diary</div>
+        <div class="ph-body">
+          This is dedicated time to turn the content from your summary sheets into memory devices. You are not reviewing — you are engineering shortcuts your brain can retrieve fast under exam pressure. Use all three types depending on what the content is:<br><br>
+
+          <strong>Type 1 — Acronyms</strong> (best for ordered lists and classifications)<br>
+          Take the first letter of each item and form a word or phrase. The stranger and more vivid the better — your brain holds weird things better than neutral ones.<br><br>
+          <em>Week 1 example — PL Art. 55 offense classifications (top to bottom):</em><br>
+          <strong>A B C D E · A B V</strong> → <em>"Always Bring Cold Drinks Every Afternoon Before Visiting"</em><br>
+          (Class A Felony, B Felony, C Felony, D Felony, E Felony, A Misdemeanor, B Misdemeanor, Violation)<br>
+          Write this phrase on your summary sheet next to the classification ladder. Add an Anki card: front = "What's the mnemonic for the offense classification order?" Back = the phrase + the full list.<br><br>
+
+          <em>Week 1 example — PL Art. 10 mental states (in order of culpability, most to least):</em><br>
+          <strong>I K R N</strong> → <em>"I Know Real Negligence"</em><br>
+          (Intentionally, Knowingly, Recklessly, criminal Negligence)<br><br>
+
+          <strong>Type 2 — Story / link method</strong> (best for sequences, procedures, and relationships)<br>
+          Create a short vivid story where each element represents the next piece of information in order. The more absurd and visual the story, the better it sticks.<br><br>
+          <em>Week 1 example — CPL Art. 30 speedy trial time frames:</em><br>
+          Picture a <em>clock (30 days)</em> running a race. It trips after 30 steps and grabs a <em>calendar showing 90</em> to steady itself. It finishes the race at a finish line marked <em>180</em> — exactly six months after it started.<br>
+          Every time you think "speedy trial," run that story. 30 → 90 → 180 in sequence, visualized.<br><br>
+
+          <strong>Type 3 — Rhymes and phrases</strong> (best for numbers, deadlines, and single facts)<br>
+          Short, rhythmic phrases are surprisingly durable in memory — your brain processes rhythm differently from plain text.<br><br>
+          <em>Week 1 examples:</em><br>
+          <em>"Thirty days, then ninety more — one eighty's when they close the door."</em> (CPL Art. 30 speedy trial ladder)<br>
+          <em>"Intentional means you meant it, knowing means you knew — reckless is the gamble, negligence slipped through."</em> (PL Art. 10 mental states in plain English)<br><br>
+
+          <strong>How to build your mnemonic each Saturday:</strong><br>
+          1. Look at your new summary sheets. Circle every list, every ordered sequence, every number cluster.<br>
+          2. For each circle: decide which type fits — acronym for lists, story for sequences, rhyme for numbers.<br>
+          3. Write the mnemonic next to the circled content on your summary sheet.<br>
+          4. Write it again in a dedicated <em>Mnemonic Master List</em> page in your diary (one running page you add to each week).<br>
+          5. Add one Anki card per mnemonic: front = the question, back = the mnemonic + what it stands for.<br>
+          6. Test it immediately: close the summary sheet and try to recite the list using only the mnemonic. If you can't, the mnemonic isn't vivid enough — revise it until it works.
+        </div>
+      </div>
+
+      <div class="notes-phase">
+        <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 4 — Extend your Memory Palace map (20 min)</div>
+        <div class="ph-time">Sketch the map, add new locations · mnemonics and palace work together</div>
+        <div class="ph-body">
+          Pull out your diary bedroom map from Thursday. Add your kitchen for PL Art. 55 offense classifications.<br><br>
+          <em>Kitchen:</em> Refrigerator = Class A felony. Stove = Class B. Counter = C. Sink = D. Microwave = E. Trash can = A misdemeanor. Window = B misdemeanor. Door mat = violation.<br><br>
+          <strong>Combine with your mnemonic:</strong> At each kitchen location, picture the character from your acronym phrase doing something dramatic — <em>"Always Bring Cold Drinks Every Afternoon Before Visiting"</em> — visualize someone bringing cold drinks to the refrigerator, then carrying them to the stove, then the counter, etc. The mnemonic and the palace reinforce each other.<br><br>
+          Walk both rooms 3× in your mind. Add palace review dates to diary: June 1, June 4, June 16, July 2, Aug 3.
+        </div>
+      </div>
+
+      <div class="notes-phase">
+        <div class="ph-title"><span class="tool t-anki">Anki</span> Phase 5 — Build cards from summary sheets + mnemonics (20 min)</div>
+        <div class="ph-time">One card per mnemonic minimum — cards from your own words only</div>
+        <div class="ph-body">
+          Add 10–15 new Anki cards from your summary sheets. Then add one card per mnemonic you created in Phase 3:<br><br>
+          <em>Card front:</em> "What mnemonic helps you remember the offense classification order?"<br>
+          <em>Card back:</em> "Always Bring Cold Drinks Every Afternoon Before Visiting → A Felony, B Felony, C Felony, D Felony, E Felony, A Misd., B Misd., Violation"<br><br>
+          Include all mental states, Art. 30 time limits, classification tiers, and fine caps. Every mnemonic gets its own card.
+        </div>
+      </div>
+
+      <div class="notes-phase">
+        <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 6 — Spaced rep diary check + update (15 min)</div>
+        <div class="ph-time">5 minutes of diary work catches everything Anki misses</div>
+        <div class="ph-body">
+          Verify all article entries are written (Arts. 1, 10, 30, PL 10, PL 55). Check next week's review dates are visible. Add palace review dates. Add mnemonic review dates to your Master List page (same gap schedule: +1, +3, +15, +31 days). Write Sunday's library plan: which articles, which Anki cards are due, which mnemonics to test on arrival.
+        </div>
+      </div>
+
+      <div class="callout callout-gold" style="margin:10px 16px">
+        🛑 <strong>After Phase 6 — full rest for the remainder of Saturday.</strong> No ClerkOne, no quizzer, no VJC, no Anki. The 1.5-day break is what makes 20 consecutive weeks sustainable. Rest is a biological requirement for memory consolidation, not a reward.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUNDAY -->
+<div class="day-card deep-day full">
+  <div class="day-head">
+    <div>
+      <div class="day-name">Sunday</div>
+      <div class="day-sub">June 1 · 📍 Library · 5–6 hour intensive · practice testing focus</div>
+      <div class="day-badge b-deep">Library day · 7 Pomodoro blocks · phone + books only</div>
+    </div>
+    <div class="day-total"><strong>5–6 hrs</strong><span>then early rest</span></div>
+  </div>
+
+  <div class="block wide">
+    <div>
+      <div class="callout callout-teal" style="margin:0 0 10px">
+        📍 <strong>Library environment rules:</strong> Phone on silent, face-down between Pomodoro sessions. Books and paper on the desk before you sit down. No social media between blocks — use the 5-min breaks to stand up, stretch, get water. The library removes your home distractions; protect that advantage by keeping the phone disciplined. Bring: Bluemedia books, your diary/planner, blank paper for blurting, two colored pens, Anki on your phone, ClerkOne on your phone.
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Arrival · settle in</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div>
+      <div class="btitle"><span>Setup + diary check + full-week blurt warm-up</span><span class="tool t-paper">Paper</span><span class="reddit">Free recall</span></div>
+      <div class="bbody">Get settled, arrange your materials. Open your diary — check what reviews are due today (CPL Art. 30 Day 3, PL Art. 10 Day 2). Then immediately do a 10-minute free recall warm-up: blank paper, write everything you know across all 6 articles from the week. No phone, no books. This primes your brain before any testing begins and counts as your Day 3–4 review for each article.
+        <div class="callout callout-violet">📓 <strong>Diary check on arrival:</strong> Any article whose review date falls on June 1 gets blurted first before you touch any other material.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Block 1</div><div class="bdur">25+5 min</div></div>
+    <div>
+      <div class="btitle"><span>Bluemedia book — PL Arts. 55 &amp; 80 full layered read</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
+      <div class="bbody">Physical book only. Full layered read: index → end questions → summary → intro → full text. Underline key terms in pen. Circle every number and dollar amount. Write 3 margin takeaways per article. PL 55 classification hierarchy and PL 80 fine caps are direct exam questions. Break = stand up, walk to water fountain, stretch.
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Block 2</div><div class="bdur">25+5 min</div></div>
+    <div>
+      <div class="btitle"><span>Free recall blurt — PL Arts. 55 &amp; 80</span><span class="tool t-paper">Paper</span><span class="reddit">Free recall</span></div>
+      <div class="bbody">Close the book immediately. Blank paper — write everything you just read about PL 55 and 80 from memory. Every definition, every number, every classification tier. Then open the book and gap-fill in a different color. Every gap you find is an Anki card. <em>This retrieval immediately after reading is the Day 1 pass of your spaced rep cycle for these articles.</em>
+        <div class="callout callout-violet">📓 <strong>Diary entry on the break:</strong> "PL Art. 55 — June 1. Review: June 2, June 4, June 16, July 2." Same for PL Art. 80.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Block 3</div><div class="bdur">25+5 min</div></div>
+    <div>
+      <div class="btitle"><span>ClerkOne — CPL Arts. 1 &amp; 10 full practice test</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
+      <div class="bbody">Custom multiple-choice test on CPL Arts. 1 and 10 only. Exam format, timed, no checking notes mid-test. After the 25 min, spend your 5-min break reviewing wrong answers in ClerkOne — read each explanation fully. <em>Wrong answers are your highest-value study material.</em> Circle the topics on your summary sheet that tripped you up.
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Block 4</div><div class="bdur">25+5 min</div></div>
+    <div>
+      <div class="btitle"><span>ClerkOne — CPL Art. 30 + PL Arts. 10 &amp; 55 practice test</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
+      <div class="bbody">Second custom test — CPL Art. 30 (time limits) + PL Arts. 10 and 55. Same rules: timed, no notes during. After the test, review wrong answers and cross-reference your summary sheet. Check your Report Card — you now have two tests worth of data showing exactly which articles need the most attention next week.
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Long break</div><div class="bdur">20–30 min</div></div>
+    <div>
+      <div class="btitle"><span>Real break — leave the building if possible</span><span class="tool t-rest">Rest</span><span class="reddit">Move</span></div>
+      <div class="bbody">After 4 Pomodoro blocks your prefrontal cortex needs a genuine reset — not a phone scroll, a real break. Walk outside the library for 15–20 minutes. Get food or water. No law content. This is the same principle as the Friday lunch walk: movement consolidates what you've done in Blocks 1–4 and resets focus for Blocks 5–7.
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Block 5</div><div class="bdur">25+5 min</div></div>
+    <div>
+      <div class="btitle"><span>Bluemedia quizzer — Penal Law full set</span><span class="tool t-bm">Book</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
+      <div class="bbody">Switch to the Bluemedia quizzer for a full Penal Law question set — this is different question phrasing from ClerkOne, which matters because the exam may phrase things differently than any single source. Do as many questions as you can in 25 min. Mark every wrong answer in your diary under the relevant article. Break = Anki — add any new cards from wrong answers.
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Block 6</div><div class="bdur">25+5 min</div></div>
+    <div>
+      <div class="btitle"><span>Anki full deck review + Memory Palace walk</span><span class="tool t-anki">Anki</span><span class="reddit">Roman Room</span><span class="reddit">Spaced rep</span></div>
+      <div class="bbody">All Anki cards due today — work through every one. After the deck, put the phone down and spend 10 min walking your full memory palace in your mind: bedroom (4 mental states) → kitchen (offense classifications). Walk it 3 times without looking at your diary map.
+        <div class="callout callout-teal">🗣 <strong>Active recall test at the library table:</strong> Quietly but out loud (or a whisper), recite all 4 mental states and all offense classification tiers from memory. If you stumble on anything, that's a new Anki card and a red circle in your diary.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Block 7</div><div class="bdur">25+5 min</div></div>
+    <div>
+      <div class="btitle"><span>Full week simulated exam — all 6 articles, timed</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
+      <div class="bbody">Set ClerkOne to a custom test covering <em>all</em> of this week's articles: CPL 1, 10, 30 + PL 10, 55, 80. Treat this exactly like exam day — sit up straight, no notes, timed. Your score here is your Week 1 baseline. <em>Write your score and date in your diary.</em> Any article below 70% = that article goes on your sticky note for Monday commute priority reading.
+        <div class="callout callout-violet">📓 <strong>Record in diary:</strong> "Week 1 baseline score: ___%. Weak articles: ___. Retested June 1."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div><div class="bwindow">Before leaving</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div>
+      <div class="btitle"><span>Plan Week 2 + layered preview of CPL Art. 100</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span></div>
+      <div class="bbody">
+        While still at the library, assign Week 2: <em>Mon = CPL 100 · Tue = CPL 110 · Wed = CPL 120 · Thu = CPL 160 + 170.</em> Write on a sticky note for your bag — this is your Monday morning reminder.<br><br>
+        Then do the layered preview of CPL Art. 100 right now while the book is in front of you: index → end questions → summary only. 10 min. This means your Monday morning commute starts with a pre-scaffolded article instead of cold reading.
+        <div class="callout callout-gold">🛑 <strong>Leave the library with nothing left to do tonight.</strong> Screens off within an hour of getting home. You put in 5–6 hours — your brain needs uninterrupted consolidation time overnight. Early sleep = better Monday retention.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- YOUTUBE CHANNELS -->
+<div class="yt-section full">
+  <div class="yt-head">🎥 YouTube Channels — when &amp; how to use them</div>
+  <div class="yt-list">
+    <div class="yt-item">
+      <div class="yt-name">Zain Asif</div>
+      <div class="yt-use">Saturday notes session · Phase 1 · Encoding</div>
+      <div class="yt-body">Zain covers practical study systems — how to encode information efficiently, how to structure notes for retrieval rather than for reading. Watch with a pen: pause every 2–3 minutes and write the key idea in your own words before continuing. His content is directly applicable to what you're doing — he emphasizes active encoding (processing the material, not just receiving it), which is why his students go from B/C averages to A/A+. Use him to improve <em>how you take notes</em> during the Saturday session, not just what you know.</div>
+    </div>
+    <div class="yt-item">
+      <div class="yt-name">Benjamin Keep</div>
+      <div class="yt-use">Saturday notes session · Phase 1 · Understanding the science</div>
+      <div class="yt-body">Benjamin Keep is a cognitive scientist who explains <em>why</em> spaced repetition, retrieval practice, and interleaving work at the brain level. Watching him once or twice gives you the understanding to apply the Reddit methods with intention rather than just following steps blindly. Recommended video types: "why spaced repetition works," "retrieval practice science," "how memory consolidation works." When you understand the mechanism — that retrieval strengthens the neural pathway while passive review doesn't — you'll never skip a blurt session again.</div>
+    </div>
+    <div class="yt-item">
+      <div class="yt-name">Dr Justin Sung</div>
+      <div class="yt-use">Saturday notes session · Phase 1 · Higher-order frameworks</div>
+      <div class="yt-body">Justin Sung focuses on how to process large volumes of information efficiently — exactly your situation with 37 CPL articles, 22 CPLR articles, FCA, MHL, RPAPL, and the rest. He teaches "higher-order thinking" in notes: rather than listing facts, you create frameworks that show how concepts relate. For law, this means understanding <em>why</em> a time limit exists, not just that it's 90 days — which makes it far easier to answer trick questions on the exam. Use him when you're building summary sheets to structure your notes around relationships and reasoning, not bullet points.</div>
+    </div>
+    <div class="yt-item">
+      <div class="yt-name">How to use all three without screen overload</div>
+      <div class="yt-use">One channel per Saturday · Rotate weekly · Strict 30-min cap</div>
+      <div class="yt-body">You are not watching these channels to relax — you are watching them as active encoding sessions. The cap is 30 minutes per Saturday session, and you must pause and write every few minutes or it becomes passive consumption. Rotate: Week 1 = Zain Asif, Week 2 = Benjamin Keep, Week 3 = Justin Sung, Week 4 = revisit the one that gave you the most actionable techniques. As VJC classes begin in July, the YouTube slot may shrink — that is fine. Use these channels to build your system in the pre-VJC phase (Weeks 1–7) when you have more self-directed time.</div>
+    </div>
+  </div>
+</div>
+
+<!-- METHOD EXPLANATIONS -->
+<div class="method-section full">
+  <div class="method-head">Every method explained — <span>what it is, why it works, exactly when to use it</span></div>
+  <div class="method-grid">
+
+    <div class="mc">
+      <div class="mi">✍️</div>
+      <div class="mh">Free recall / blurting</div>
+      <div class="msrc">From Reddit (r/GetStudying)</div>
+      <div class="mwhen">When: Daily lunch (10 min) · Friday lunch (20 min) · Sunday Pomodoro #1</div>
+      <div class="mb">You write down everything you know about a topic on blank paper <em>before</em> looking at any notes. Then you check and fill gaps in a different color. <br><br><em>Why it works:</em> Retrieval practice — the act of pulling information out of your brain — strengthens the neural pathway far more than re-reading does. Re-reading creates familiarity, not recall. On exam day, you need recall. Blurting trains exactly that. The Reddit poster (Weak-One2521) went from B/C average to A/A+ using this as the core technique. <em>Never re-read notes immediately before blurting</em> — it cues the information artificially and defeats the purpose.</div>
+    </div>
+
+    <div class="mc">
+      <div class="mi">🔁</div>
+      <div class="mh">Expanding gap spaced repetition</div>
+      <div class="msrc">From Reddit (r/GetStudying) + Anki algorithm</div>
+      <div class="mwhen">When: Built into every lunch blurt · Anki automates card gaps · Diary tracks long-gap reviews</div>
+      <div class="mb">You review material at increasing time intervals: same day → 1 day → 3 days → 1 week → 3 weeks → 2 months → etc. The gap widens each time you successfully recall. <br><br><em>Why it works:</em> The science (Ebbinghaus forgetting curve) shows that reviewing just before you would forget something produces far stronger retention than reviewing immediately after learning. Anki calculates this automatically for cards. Your diary handles the longer gaps (15 days, 31 days, 63 days) that Anki may not reach before the exam. <em>The Reddit poster memorized 200+ poems using this exact calendar-diary method.</em></div>
+    </div>
+
+    <div class="mc">
+      <div class="mi">📓</div>
+      <div class="mh">Spaced repetition diary (year planner)</div>
+      <div class="msrc">From Reddit (poem memorization post)</div>
+      <div class="mwhen">When: Write entry same day you learn each article · Check daily for scheduled reviews · Update Saturday</div>
+      <div class="mb">In a physical planner or diary, write the date you learned each article and then write the exact future dates you will review it: +1 day, +3 days, +15 days, +31 days, +63 days, +127 days. Those dates go in your calendar. <br><br><em>Why it works:</em> Anki handles short-gap card reviews well, but it won't schedule a full article blurt at 63 days out. The diary does. It also gives you a visible record of how much you've covered, which reduces anxiety and helps you plan. The Reddit poster used this to memorize 200 poems verbatim and reach the top 100 competitive mnemonists globally. <em>The system is simple — the discipline is in writing the entry every single time you learn something new.</em></div>
+    </div>
+
+    <div class="mc">
+      <div class="mi">🗣</div>
+      <div class="mh">Active recall micro-practice</div>
+      <div class="msrc">From Reddit (poem memorization post)</div>
+      <div class="mwhen">When: Shower · Elevator · Walking to train · Waiting · Any idle moment</div>
+      <div class="mb">During any non-studying moment — shower, toilet, walking, eating, commute rest time — you mentally or verbally recite what you've learned. No phone, no notes. Just retrieval from memory. <br><br><em>Why it works:</em> The Reddit poster's key insight is that the brain decides what to store long-term based on how often you signal that information is important. Passive exposure (re-reading, listening) does not send that signal strongly. Actively reciting — especially out loud — tells your brain this information matters and routes it from short-term to long-term memory. <em>After a few months, this practice makes you measurably faster at memorization.</em> It requires zero extra time because you do it during time you already have.</div>
+    </div>
+
+    <div class="mc">
+      <div class="mi">📖</div>
+      <div class="mh">Layered reading</div>
+      <div class="msrc">From the Reddit study document (shared in conversation)</div>
+      <div class="mwhen">When: Every night wind-down (previewing next day's article) · Sunday morning Bluemedia book read</div>
+      <div class="mb">Instead of reading a chapter start to finish, you read in layers: <em>index → end questions → summary → introduction → full text.</em> Each pass gives you a progressively detailed picture. <br><br><em>Why it works:</em> When you read the index and end questions first, your brain knows what to look for before it reaches the full text. This converts passive reading into active searching — you're hunting for answers, not consuming information. The document notes that text in bold and italic is typically exam-critical; layered reading helps you identify those sections faster. For law articles, reading the questions first tells you which definitions and procedures are tested, so when you hit them in the full text they register as important.</div>
+    </div>
+
+    <div class="mc">
+      <div class="mi">⏱</div>
+      <div class="mh">Pomodoro technique (25+5 min)</div>
+      <div class="msrc">Established method · Used Sunday deep sessions</div>
+      <div class="mwhen">When: Sunday only — 3 blocks. Commute sessions use a simpler 20/30-min cap instead.</div>
+      <div class="mb">You work for exactly 25 minutes on one task, then take a mandatory 5-minute break before the next block. After 4 blocks, take a longer 20-minute break. <br><br><em>Why it works:</em> Sustained attention degrades after roughly 25–30 minutes on a single cognitive task. The break resets your prefrontal cortex so the next block starts at full capacity. Working for 2 hours straight produces less output than three 25-minute blocks with breaks. It also prevents the specific fatigue you mentioned — screen tiredness — because each break is a genuine cognitive reset. <em>Use a phone timer app. Do not use a browser tab — the temptation to check other tabs defeats the focus.</em></div>
+    </div>
+
+    <div class="mc">
+      <div class="mi">🏛</div>
+      <div class="mh">Roman Room / Memory Palace</div>
+      <div class="msrc">From the Reddit study document + Reddit memory post</div>
+      <div class="mwhen">When: Thursday lunch (build) · Saturday notes session (extend + map) · Sunday Pomodoro #3 (walk)</div>
+      <div class="mb">You mentally place items you want to memorize on specific objects in a familiar location (your bedroom, kitchen, etc.) and visualize them interacting dramatically. You then recall them by mentally walking the route in order. <br><br><em>Why it works:</em> Your spatial memory is one of the most powerful memory systems you have — it's why you can navigate places you've visited once but forget a list you read yesterday. Attaching abstract information (statute numbers, mental states, classifications) to spatial locations converts it into something your brain is already excellent at storing. <em>The Reddit poster's important caveat: the palace itself requires spaced repetition. Walking it mentally on a schedule — just like your diary — is what prevents the images from fading.</em> This is why Pomodoro #3 every Sunday includes a palace walk.</div>
+    </div>
+
+    <div class="mc">
+      <div class="mi">🚶</div>
+      <div class="mh">Move + sleep</div>
+      <div class="msrc">From the Reddit study document (John Ratey — Spark)</div>
+      <div class="mwhen">When: Friday lunch walk (mandatory) · Screens off 1 hr before bed every night · Dark, ventilated room</div>
+      <div class="mb">Regular physical movement and quality sleep are not lifestyle tips — they are direct inputs to memory formation. The document cites research by John Ratey showing that students who exercise regularly score roughly 20% better than those who don't. <br><br><em>Why it works:</em> Exercise increases BDNF (brain-derived neurotrophic factor), which promotes the growth of new neural connections — the physical substrate of learning. Sleep is when your brain consolidates the day's learning: it replays and encodes memories during deep sleep. Cutting sleep short literally deletes what you studied that day. Screens before bed suppress melatonin and delay deep sleep onset. <em>For a 20-week exam prep, protecting sleep is one of the highest-leverage things you can do — more than adding another 30 minutes of studying.</em></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-note full">
+  <strong>Commute rule (every day, non-negotiable):</strong> Morning = 30 min on, then rest your eyes. Evening = 20 min on, then done. Studying the full commute both ways will burn you out by Week 3. The limits are the strategy — not a concession to laziness.<br><br>
+  <strong>Saturday structure:</strong> Notes session ends by late morning — everything after is genuine rest. The 1.5-day break (Saturday PM through Sunday pre-session) is what makes 20 consecutive weeks sustainable. Skipping rest to squeeze in more studying is a net negative after the first few weeks.<br><br>
+  <strong>Starting July 14 (VJC classes):</strong> Tuesday, Wednesday, Thursday evening wind-down blocks shift to VJC live sessions (7–9PM). The nightly layered preview either moves to before the class or gets skipped those nights. Classes are recorded so no coverage is ever lost. The Saturday notes session remains — it becomes the place where you consolidate each week's VJC material into your summary sheets and memory palace.
+</div>
+
+
+<!-- WEEKLY CHECKLIST -->
+<div class="full" id="checklist-section" style="margin-top:4px">
+  <div class="checklist-wrap">
+
+    <div class="cl-header">
+      <div>
+        <div class="cl-eyebrow">Week 1 · May 26 – June 1</div>
+        <div class="cl-title">Weekly Study Checklist</div>
+        <div class="cl-sub">Check off each block as you complete it. Progress saves automatically in your browser. Sunday = 📍 Library day.</div>
+      </div>
+      <div class="cl-progress-wrap">
+        <div class="cl-progress-ring">
+          <svg width="72" height="72" viewBox="0 0 72 72">
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#e2ddd6" stroke-width="6"/>
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#c9952a" stroke-width="6"
+              stroke-dasharray="188.5" stroke-dashoffset="188.5"
+              stroke-linecap="round" transform="rotate(-90 36 36)"
+              id="progress-ring"/>
+          </svg>
+          <div class="cl-pct" id="pct-label">0%</div>
+        </div>
+        <div style="text-align:center">
+          <div class="cl-count" id="count-label">0 / 0 done</div>
+          <button class="cl-reset" onclick="resetAll()">Reset week</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cl-days">
+
+      <!-- MONDAY -->
+      <div class="cl-day">
+        <div class="cl-day-head" style="background:#e8eef8;color:#1a3a7a">
+          <span class="cl-day-name">Monday</span>
+          <span class="cl-day-label">CPL Art. 1 · May 26</span>
+          <span class="cl-day-done" id="done-mon"></span>
+        </div>
+        <div class="cl-items">
+          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute · 30 min</span><span class="ci-text">ClerkOne — read first half of CPL Art. 1 Notes. Stop at 30 min.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 10 min</span><span class="ci-text">Free recall blurt — blank paper, write everything from the morning ride. Gap-fill in a different color.</span><span class="ci-tag reddit">Free recall</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Bluemedia quizzer — 10 True/False on CPL Art. 1. Read every wrong-answer explanation.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Anki — create first 5 cards in your own words. Phrase as questions.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — write: "CPL Art. 1 · May 26 · Review: May 27, May 29, June 10, June 26, July 28, Oct 1."</span><span class="ci-tag violet">Diary</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">ClerkOne — Ring the Bell game mode on CPL Art. 1 only. Stop at 20 min.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Any idle moment today</span><span class="ci-text">Active recall micro-practice — mentally recite CPL Art. 1 key points while waiting, walking, or in elevator.</span><span class="ci-tag teal">Active recall</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Physical Bluemedia book — layered preview of CPL Art. 10: index → end questions → summary only. Stop at 15 min.</span><span class="ci-tag gold">Layered read</span></div></label>
+        </div>
+      </div>
+
+      <!-- TUESDAY -->
+      <div class="cl-day">
+        <div class="cl-day-head" style="background:#e8eef8;color:#1a3a7a">
+          <span class="cl-day-name">Tuesday</span>
+          <span class="cl-day-label">CPL Art. 10 · May 27</span>
+          <span class="cl-day-done" id="done-tue"></span>
+        </div>
+        <div class="cl-items">
+          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute · 30 min</span><span class="ci-text">ClerkOne — read first half of CPL Art. 10 Notes. The preview last night made this faster.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Any idle moment</span><span class="ci-text">Active recall — mentally recite CPL Art. 1 from yesterday. Elevator, waiting for coffee, anywhere.</span><span class="ci-tag teal">Active recall</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 10 min</span><span class="ci-text">Free recall blurt on CPL Art. 1 (Day 2 of gap cycle — first scheduled diary review). Gap-fill after.</span><span class="ci-tag reddit">Expanding gap</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">ClerkOne True/False — CPL Art. 10. Check Report Card for weak sections.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Anki — review Monday's 5 due cards + add 5 new CPL Art. 10 cards.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — "CPL Art. 10 · May 27 · Review: May 28, May 30, June 11, June 27, July 29."</span><span class="ci-tag violet">Diary</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Clerk Quest — game mode covering CPL Arts. 1 &amp; 10. 20 min then rest.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Book — layered preview of CPL Art. 30: index → end questions → summary. Stop at 15 min.</span><span class="ci-tag gold">Layered read</span></div></label>
+        </div>
+      </div>
+
+      <!-- WEDNESDAY -->
+      <div class="cl-day">
+        <div class="cl-day-head" style="background:#e8eef8;color:#1a3a7a">
+          <span class="cl-day-name">Wednesday</span>
+          <span class="cl-day-label">CPL Art. 30 · May 28</span>
+          <span class="cl-day-done" id="done-wed"></span>
+        </div>
+        <div class="cl-items">
+          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute · 30 min</span><span class="ci-text">ClerkOne — CPL Art. 30 Notes. Lock in the time frames: 30, 90, 180 days. Flag those numbers for Roman Room Saturday.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning shower / before work</span><span class="ci-text">Active recall — recite CPL Arts. 1 and 10 key points out loud. Recite Art. 30 time frames you just read.</span><span class="ci-tag teal">Active recall</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 10 min</span><span class="ci-text">Blurt CPL Art. 10 (Day 2) + 2-line recall on Art. 1 (Day 3). Expanding gap compounding.</span><span class="ci-tag reddit">Expanding gap</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Bluemedia quizzer — 10–12 questions on CPL Art. 30. Wrong answers → add to Anki as priority cards.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Anki — due cards from Mon + Tue + 5 new Art. 30 cards focused on time limits.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — "CPL Art. 30 · May 28 · Review: May 29, June 1, June 13, June 29, July 31."</span><span class="ci-tag violet">Diary</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">ClerkOne Law Highlights — skim Arts. 1, 10, 30 in condensed mode. Reinforcement only, not new intake.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Book — layered preview of PL Art. 10: index → end questions → summary. Note any unfamiliar terms.</span><span class="ci-tag gold">Layered read</span></div></label>
+        </div>
+      </div>
+
+      <!-- THURSDAY -->
+      <div class="cl-day">
+        <div class="cl-day-head" style="background:#f9e8e5;color:#7a2a1a">
+          <span class="cl-day-name">Thursday</span>
+          <span class="cl-day-label">Penal Law Arts. 10 &amp; 55 · May 29</span>
+          <span class="cl-day-done" id="done-thu"></span>
+        </div>
+        <div class="cl-items">
+          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute · 30 min</span><span class="ci-text">ClerkOne — PL Art. 10 Notes. Focus on the 4 mental states: intentionally, knowingly, recklessly, criminal negligence.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 10 min</span><span class="ci-text">Blurt CPL Art. 30 (Day 2) + 1-line recall on Arts. 1 &amp; 10. Check diary — Art. 1 should show May 29 as a review date.</span><span class="ci-tag reddit">Expanding gap</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 15 min</span><span class="ci-text">ClerkOne T/F — Penal Law Art. 10 questions. Note which mental state definitions trip you up.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 10 min</span><span class="ci-text">Roman Room build — place 4 mental states on bedroom objects. Walk the room 3× in your mind. Log the map in your diary.</span><span class="ci-tag sage">Roman Room</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 15 min</span><span class="ci-text">Anki — due cards + 5 new PL Art. 10 cards, one per mental state.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — "PL Art. 10 · May 29 · Review: May 30, June 1, June 13, June 30." Also log memory palace map.</span><span class="ci-tag violet">Diary</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Clerk Quest — Penal Law. After each wrong answer, mentally retrace the Roman Room image for that concept.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute (rest of ride)</span><span class="ci-text">Active recall — silently recite all 4 mental states and their definitions until you reach your stop.</span><span class="ci-tag teal">Active recall</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-9"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Book — layered preview of PL Arts. 55 &amp; 80: index → end questions → summary. Note the classification chart.</span><span class="ci-tag gold">Layered read</span></div></label>
+        </div>
+      </div>
+
+      <!-- FRIDAY -->
+      <div class="cl-day">
+        <div class="cl-day-head" style="background:#eaecf2;color:#3a3f5a">
+          <span class="cl-day-name">Friday</span>
+          <span class="cl-day-label">Light day · May 30</span>
+          <span class="cl-day-done" id="done-fri"></span>
+        </div>
+        <div class="cl-items">
+          <label class="ci"><input type="checkbox" data-day="fri" data-key="fri-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute · 20 min</span><span class="ci-text">Anki — due cards only. No new cards. No reading. 20 min then rest your eyes for the remainder.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="fri" data-key="fri-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute (rest of ride)</span><span class="ci-text">Active recall — walk your Roman Room silently. Can you recall all 4 mental states from memory? Try CPL Art. 30 time frames too.</span><span class="ci-tag teal">Active recall</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="fri" data-key="fri-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Full-week blurt — blank paper, write everything across all 5 articles this week. Stream of consciousness. Gap-fill in red after.</span><span class="ci-tag reddit">Free recall</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="fri" data-key="fri-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 15 min</span><span class="ci-text">Walk outside — 10–15 min of movement. Mandatory for memory consolidation. This is active recovery.</span><span class="ci-tag gold">Move</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="fri" data-key="fri-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute</span><span class="ci-text">Complete rest — no studying. Music, podcast, anything non-law. Saturday rest begins tonight.</span></div></label>
+        </div>
+      </div>
+
+      <!-- SATURDAY -->
+      <div class="cl-day">
+        <div class="cl-day-head" style="background:#ede8f7;color:#3d2570">
+          <span class="cl-day-name">Saturday AM</span>
+          <span class="cl-day-label">Notes + mnemonics · May 31 · then 🛑 full rest</span>
+          <span class="cl-day-done" id="done-sat"></span>
+        </div>
+        <div class="cl-items">
+          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 1 · 30 min</span><span class="ci-text">YouTube — Zain Asif (Week 1). Pause every 2–3 min, write the key idea in your own words. Do not watch passively.</span><span class="ci-tag red">YouTube</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 2 · 35 min · NO SCREEN</span><span class="ci-text">Master summary sheets — CPL Arts. 1, 10, 30 (one page) + PL Arts. 10, 55, 80 (one page). Your own words. Label, date, file both.</span><span class="ci-tag violet">Notes</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 3 · 30 min · NO SCREEN</span><span class="ci-text">Mnemonic creation — circle every list/number cluster on your summary sheets. Build one mnemonic per circle using the right type: acronym for lists, story for sequences, rhyme for numbers.</span><span class="ci-tag" style="background:#f9e8e5;color:#7a2a1a">Mnemonics</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-3b"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 3 · continued</span><span class="ci-text">Write every mnemonic on the summary sheet next to its content + in your Mnemonic Master List diary page. Test each one immediately — if you can't recite the list from it, revise until it works.</span><span class="ci-tag violet">Diary</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 4 · 20 min · NO SCREEN</span><span class="ci-text">Memory palace — add kitchen room for PL Art. 55 classifications. Layer your acronym mnemonic onto each location. Walk both rooms 3× in your mind. Log review dates in diary.</span><span class="ci-tag sage">Memory Palace</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 5 · 20 min</span><span class="ci-text">Anki — build 10–15 cards from summary sheets + one card per mnemonic created today. Front = the question, back = the mnemonic + what it stands for.</span><span class="ci-tag sage">Anki</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 6 · 15 min</span><span class="ci-text">Diary check — verify all 5 article entries, add palace + mnemonic review dates to Master List, write Sunday library plan (articles, Anki due, mnemonics to test on arrival).</span><span class="ci-tag violet">Diary</span></div></label>
+          <label class="ci rest-item"><input type="checkbox" data-day="sat" data-key="sat-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Saturday PM onward</span><span class="ci-text">🛑 Full rest — no studying for the remainder of Saturday. Go outside, eat well, do something non-law. Required recovery.</span></div></label>
+        </div>
+      </div>
+
+      <!-- SUNDAY -->
+      <div class="cl-day">
+        <div class="cl-day-head" style="background:#e4edeb;color:#1f4d42">
+          <span class="cl-day-name">Sunday 📍 Library</span>
+          <span class="cl-day-label">5–6 hr intensive · practice testing focus · June 1</span>
+          <span class="cl-day-done" id="done-sun"></span>
+        </div>
+        <div class="cl-items">
+          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Arrival · 15 min · NO SCREEN</span><span class="ci-text">Set up materials (books, diary, blank paper, 2 pens). Check diary for today's due reviews. Do a 10-min free recall warm-up on all 6 articles before touching your phone.</span><span class="ci-tag reddit">Free recall</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 1 · 25+5 min · NO SCREEN</span><span class="ci-text">Bluemedia book — PL Arts. 55 &amp; 80 full layered read. Underline terms, circle every number, write 3 margin takeaways per article.</span><span class="ci-tag gold">Layered read</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 2 · 25+5 min · NO SCREEN</span><span class="ci-text">Free recall blurt — close the book, write everything you just read about PL 55 &amp; 80 from memory. Gap-fill in a different color. Diary entries for both articles on the break.</span><span class="ci-tag reddit">Free recall</span><span class="ci-tag violet">Diary</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 3 · 25+5 min</span><span class="ci-text">ClerkOne — custom practice test on CPL Arts. 1 &amp; 10. Timed, no notes. Review wrong-answer explanations on the break. Circle weak topics on your summary sheet.</span><span class="ci-tag reddit">Retrieval</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 4 · 25+5 min</span><span class="ci-text">ClerkOne — custom practice test on CPL Art. 30 + PL Arts. 10 &amp; 55. Timed, no notes. Check Report Card — you now have two tests showing your weakest articles.</span><span class="ci-tag reddit">Retrieval</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Long break · 20–30 min</span><span class="ci-text">Leave the building if possible. Walk outside, get water or food. No law content. Movement consolidates Blocks 1–4 and resets focus for the afternoon.</span><span class="ci-tag gold">Move</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 5 · 25+5 min</span><span class="ci-text">Bluemedia quizzer — full Penal Law question set. Different phrasing from ClerkOne = broader exam coverage. Mark every wrong answer under the relevant article in your diary. Add new Anki cards on the break.</span><span class="ci-tag reddit">Retrieval</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 6 · 25+5 min</span><span class="ci-text">Anki full deck review — all due cards. Then memory palace walk: bedroom (4 mental states) → kitchen (offense classifications), 3× without looking at your map. Log palace review dates in diary.</span><span class="ci-tag sage">Memory Palace</span><span class="ci-tag violet">Diary</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-9"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 6 · active recall test</span><span class="ci-text">Whisper or mouth silently: all 4 mental states + all offense classification tiers from memory. Stumbles = new Anki card + red circle in diary.</span><span class="ci-tag teal">Active recall</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-10"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 7 · 25+5 min</span><span class="ci-text">Full simulated exam — all 6 articles (CPL 1, 10, 30 + PL 10, 55, 80), timed, exam conditions. Write your score + date in diary as Week 1 baseline. Articles below 70% go on Monday sticky note.</span><span class="ci-tag reddit">Retrieval</span><span class="ci-tag violet">Diary</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-11"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Before leaving · 20 min · NO SCREEN</span><span class="ci-text">Plan Week 2 — write sticky note: Mon=CPL 100, Tue=CPL 110, Wed=CPL 120, Thu=CPL 160+170. Then layered preview of CPL Art. 100 in book (index → questions → summary). Put in bag for Monday.</span><span class="ci-tag gold">Plan + preview</span></div></label>
+          <label class="ci rest-item"><input type="checkbox" data-day="sun" data-key="sun-12"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">At home · screens off within 1 hr</span><span class="ci-text">🛑 You put in 5–6 hours today. Nothing left to do tonight. Screens off, early sleep. Overnight consolidation is part of the session.</span></div></label>
+        </div>
+      </div>
+
+    </div><!-- /cl-days -->
+  </div><!-- /checklist-wrap -->
+</div>
+
+<style>
+.checklist-wrap{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:0 36px 40px}
+.cl-header{background:var(--navy);color:white;padding:20px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.cl-eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.cl-title{font-family:'DM Serif Display',serif;font-size:22px;line-height:1.1;margin-bottom:5px}
+.cl-sub{font-size:12px;color:rgba(255,255,255,.65);max-width:340px}
+.cl-progress-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0}
+.cl-progress-ring{position:relative;width:72px;height:72px}
+.cl-pct{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:14px;font-weight:600;color:var(--gold)}
+.cl-count{font-size:11px;color:rgba(255,255,255,.65);text-align:center}
+.cl-reset{margin-top:4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;color:rgba(255,255,255,.7);font-size:10px;padding:3px 10px;cursor:pointer;font-family:inherit;transition:background .15s}
+.cl-reset:hover{background:rgba(255,255,255,.18)}
+
+.cl-days{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border)}
+.cl-day{border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.cl-day:nth-child(even){border-right:none}
+.cl-day:nth-last-child(-n+2){border-bottom:none}
+
+.cl-day-head{padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cl-day-name{font-family:'DM Serif Display',serif;font-size:16px;flex-shrink:0}
+.cl-day-label{font-size:11px;opacity:.75;flex:1}
+.cl-day-done{font-size:11px;font-weight:600;margin-left:auto;white-space:nowrap}
+
+.cl-items{padding:4px 0}
+.ci{display:flex;align-items:flex-start;gap:0;padding:8px 14px;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--border)}
+.ci:last-child{border-bottom:none}
+.ci:hover{background:var(--cream)}
+.ci input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.ci-check{width:18px;height:18px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:2px;margin-right:10px;display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--white)}
+.ci input:checked ~ .ci-check{background:var(--navy);border-color:var(--navy)}
+.ci input:checked ~ .ci-check::after{content:'';display:block;width:5px;height:9px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px)}
+.ci input:checked ~ .ci-body .ci-text{text-decoration:line-through;color:var(--text-muted);opacity:.6}
+.ci-body{flex:1;min-width:0}
+.ci-time{display:block;font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);margin-bottom:2px}
+.ci-text{display:block;font-size:12px;color:var(--text);line-height:1.5}
+.ci-tag{display:inline-block;font-size:9.5px;font-weight:600;padding:1px 6px;border-radius:3px;margin-top:4px;letter-spacing:.03em}
+.ci-tag.reddit{background:var(--navy);color:var(--gold)}
+.ci-tag.violet{background:var(--violet-light);color:var(--violet)}
+.ci-tag.teal{background:var(--teal-light);color:var(--teal)}
+.ci-tag.gold{background:var(--gold-light);color:#7a5010}
+.ci-tag.sage{background:var(--sage-light);color:var(--sage)}
+.ci-tag.red{background:#fde8e8;color:#7a0f0f}
+.rest-item .ci-text{color:var(--text-muted);font-style:italic}
+.day-complete .ci-check{background:var(--sage)!important;border-color:var(--sage)!important}
+
+@media(max-width:680px){
+  .checklist-wrap{margin:0 14px 32px}
+  .cl-days{grid-template-columns:1fr}
+  .cl-day{border-right:none}
+  .cl-day:nth-last-child(-n+2){border-bottom:1px solid var(--border)}
+  .cl-day:last-child{border-bottom:none}
+  .cl-header{flex-direction:column}
+  .cl-progress-wrap{flex-direction:row;align-self:stretch;justify-content:flex-start}
+}
+</style>
+
+<script>
+const DAYS = ['mon','tue','wed','thu','fri','sat','sun'];
+const KEYS = {
+  mon:['mon-1','mon-2','mon-3','mon-4','mon-5','mon-6','mon-7','mon-8'],
+  tue:['tue-1','tue-2','tue-3','tue-4','tue-5','tue-6','tue-7','tue-8'],
+  wed:['wed-1','wed-2','wed-3','wed-4','wed-5','wed-6','wed-7','wed-8'],
+  thu:['thu-1','thu-2','thu-3','thu-4','thu-5','thu-6','thu-7','thu-8','thu-9'],
+  fri:['fri-1','fri-2','fri-3','fri-4','fri-5'],
+  sat:['sat-1','sat-2','sat-3','sat-3b','sat-4','sat-5','sat-6','sat-7'],
+  sun:['sun-1','sun-2','sun-3','sun-4','sun-5','sun-6','sun-7','sun-8','sun-9','sun-10','sun-11','sun-12']
+};
+const STORE_KEY = 'nys_week1_checklist';
+
+function save(state){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
+function load(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }catch(e){ return {}; } }
+
+function allKeys(){
+  let all=[];
+  DAYS.forEach(d=>{ KEYS[d].forEach(k=>all.push(k)); });
+  return all;
+}
+
+function updateProgress(state){
+  const all = allKeys();
+  const done = all.filter(k=>state[k]).length;
+  const total = all.length;
+  const pct = total ? Math.round(done/total*100) : 0;
+  const circ = 2*Math.PI*30;
+  const ring = document.getElementById('progress-ring');
+  if(ring) ring.style.strokeDashoffset = circ - (circ*pct/100);
+  const pl = document.getElementById('pct-label');
+  if(pl) pl.textContent = pct+'%';
+  const cl = document.getElementById('count-label');
+  if(cl) cl.textContent = done+' / '+total+' done';
+
+  DAYS.forEach(day=>{
+    const dayKeys = KEYS[day];
+    const dayDone = dayKeys.filter(k=>state[k]).length;
+    const el = document.getElementById('done-'+day);
+    if(el){
+      if(dayDone === dayKeys.length){
+        el.textContent = '✓ Complete';
+        el.style.color = '#2d6b5a';
+      } else {
+        el.textContent = dayDone+'/'+dayKeys.length;
+        el.style.color = 'inherit';
+        el.style.opacity = '.65';
+      }
+    }
+  });
+}
+
+function init(){
+  const state = load();
+  document.querySelectorAll('.ci input[type=checkbox]').forEach(cb=>{
+    const k = cb.dataset.key;
+    if(state[k]) cb.checked = true;
+    cb.addEventListener('change', function(){
+      const s = load();
+      s[this.dataset.key] = this.checked;
+      save(s);
+      updateProgress(s);
+    });
+  });
+  updateProgress(state);
+}
+
+function resetAll(){
+  if(!confirm('Reset all checkboxes for Week 1? This cannot be undone.')) return;
+  save({});
+  document.querySelectorAll('.ci input[type=checkbox]').forEach(cb=>cb.checked=false);
+  updateProgress({});
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</div><!-- /main -->
+</body>
+</html>

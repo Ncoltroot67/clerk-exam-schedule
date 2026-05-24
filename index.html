@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NYS Court Clerk Exam — 20-Week Master Schedule</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a1f3c;--navy-mid:#2d3561;--navy-light:#3d4a7a;
+  --gold:#c9952a;--gold-light:#f5e6c8;--gold-mid:#e8c870;
+  --cream:#faf7f2;--sage:#4a7c6f;--sage-light:#e4edeb;
+  --coral:#c4503a;--coral-light:#f9e8e5;
+  --slate:#5a6279;--slate-light:#eaecf2;
+  --violet:#6b4fa0;--violet-light:#ede8f7;
+  --teal:#2a7f8c;--teal-light:#e1f2f4;
+  --red:#b01c1c;--red-light:#fde8e8;
+  --text:#1a1f3c;--text-muted:#6b7194;
+  --border:#e2ddd6;--white:#fff;
+  --phase1:#e8eef8;--phase1t:#1a3a7a;
+  --phase2:#ede8f7;--phase2t:#3d2570;
+  --phase3:#e4edeb;--phase3t:#1f4d42;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
+
+/* ── HEADER ── */
+.header{background:var(--navy);color:white;padding:32px 40px 28px;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-50px;right:-50px;width:240px;height:240px;border-radius:50%;border:44px solid rgba(201,149,42,.12)}
+.header::after{content:'';position:absolute;bottom:-60px;left:28%;width:180px;height:180px;border-radius:50%;border:32px solid rgba(255,255,255,.05)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.header h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.12;margin-bottom:6px}
+.header-sub{font-size:14px;color:rgba(255,255,255,.65);margin-bottom:18px}
+.header-meta{display:flex;flex-wrap:wrap;gap:10px}
+.meta-pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,.85)}
+.meta-pill strong{color:var(--gold)}
+
+/* ── COUNTDOWN ── */
+.countdown{background:var(--navy-mid);padding:16px 40px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.cd-left{display:flex;gap:16px;flex-wrap:wrap}
+.cd-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 18px;text-align:center;min-width:72px}
+.cd-num{font-family:'DM Serif Display',serif;font-size:28px;color:var(--gold);line-height:1}
+.cd-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px}
+.cd-right{font-size:13px;color:rgba(255,255,255,.65);text-align:right}
+.cd-right strong{color:white;display:block;font-size:15px}
+
+/* ── OVERALL PROGRESS ── */
+.overall-bar{background:var(--white);border-bottom:1px solid var(--border);padding:16px 40px;display:flex;align-items:center;gap:20px}
+.ob-label{font-size:12px;font-weight:600;color:var(--navy);white-space:nowrap}
+.ob-track{flex:1;height:10px;background:var(--slate-light);border-radius:5px;overflow:hidden}
+.ob-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--sage),var(--gold));transition:width .4s}
+.ob-pct{font-size:13px;font-weight:600;color:var(--navy);min-width:40px}
+.ob-count{font-size:12px;color:var(--text-muted);white-space:nowrap}
+
+/* ── PHASE LEGEND ── */
+.phase-bar{padding:12px 40px;background:var(--white);border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.phase-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-right:4px}
+.phase-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500}
+.pt1{background:var(--phase1);color:var(--phase1t)}
+.pt2{background:var(--phase2);color:var(--phase2t)}
+.pt3{background:var(--phase3);color:var(--phase3t)}
+.pt-vjc{background:var(--coral-light);color:var(--coral)}
+.pt-exam{background:var(--gold-light);color:#7a5010}
+
+/* ── MILESTONE STRIP ── */
+.milestones{background:var(--navy);padding:14px 40px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ms-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-right:4px;white-space:nowrap}
+.ms-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:5px;padding:3px 10px;font-size:11px;color:rgba(255,255,255,.8)}
+.ms-pill .ms-date{font-weight:600;color:var(--gold-mid)}
+
+/* ── MAIN GRID ── */
+.main{padding:24px 40px 48px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+
+/* ── WEEK CARD ── */
+.wk{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s,transform .18s}
+.wk:hover{box-shadow:0 4px 20px rgba(26,31,60,.1);transform:translateY(-2px)}
+.wk.phase1{border-top:3px solid var(--phase1t)}
+.wk.phase2{border-top:3px solid var(--violet)}
+.wk.phase3{border-top:3px solid var(--sage)}
+.wk.vjc-week{border-top:3px solid var(--coral)}
+.wk.exam-week{border-top:3px solid var(--gold);box-shadow:0 0 0 2px var(--gold-light)}
+.wk.rest-week{border-top:3px solid var(--slate)}
+.wk.current{box-shadow:0 0 0 2.5px var(--gold),0 4px 24px rgba(201,149,42,.18)}
+
+.wk-head{padding:13px 16px 10px;border-bottom:1px solid var(--border)}
+.wk-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px}
+.wk-num{font-family:'DM Serif Display',serif;font-size:18px;color:var(--navy);line-height:1}
+.wk-badge{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:20px}
+.wb-p1{background:var(--phase1);color:var(--phase1t)}
+.wb-p2{background:var(--phase2);color:var(--phase2t)}
+.wb-p3{background:var(--phase3);color:var(--phase3t)}
+.wb-vjc{background:var(--coral-light);color:var(--coral)}
+.wb-exam{background:var(--gold-light);color:#7a5010}
+.wb-rest{background:var(--slate-light);color:var(--slate)}
+.wb-current{background:var(--gold);color:var(--navy)}
+.wk-dates{font-size:11px;color:var(--text-muted)}
+
+.wk-body{padding:11px 16px;flex:1}
+.wk-focus{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:5px}
+.wk-articles{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.art{font-size:10px;padding:2px 7px;border-radius:4px;font-weight:500}
+.art-cpl{background:#e8eef8;color:#1a3a7a}
+.art-cplr{background:var(--teal-light);color:var(--teal)}
+.art-pl{background:var(--coral-light);color:var(--coral)}
+.art-fca{background:var(--violet-light);color:var(--violet)}
+.art-misc{background:var(--gold-light);color:#7a5010}
+.art-review{background:var(--slate-light);color:var(--slate)}
+.art-exam{background:var(--gold-light);color:#7a5010}
+
+.wk-vjc{background:var(--coral-light);border-left:2px solid var(--coral);border-radius:0 4px 4px 0;padding:4px 8px;font-size:11px;color:var(--coral);margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.wk-note{font-size:11px;color:var(--text-muted);line-height:1.45;margin-bottom:6px}
+
+.wk-progress{margin-top:6px}
+.wk-prog-bar{height:5px;background:var(--slate-light);border-radius:3px;overflow:hidden;margin-bottom:3px}
+.wk-prog-fill{height:100%;border-radius:3px;background:var(--sage);transition:width .3s}
+.wk-prog-label{font-size:10px;color:var(--text-muted)}
+
+.wk-foot{padding:10px 16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.wk-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--navy);text-decoration:none;background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:5px 12px;transition:background .15s,border-color .15s}
+.wk-link:hover{background:var(--navy);color:white;border-color:var(--navy)}
+.wk-link.disabled{color:var(--text-muted);pointer-events:none;opacity:.55}
+.wk-status{font-size:11px;color:var(--text-muted)}
+.wk-status.done{color:var(--sage);font-weight:600}
+.wk-status.current{color:var(--gold);font-weight:600}
+
+/* ── OBSIDIAN INSTRUCTIONS ── */
+.obsidian-box{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin:0 40px 24px;grid-column:1/-1}
+.obs-head{font-family:'DM Serif Display',serif;font-size:18px;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.obs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.obs-step{background:var(--cream);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;padding:10px 13px}
+.obs-step .os-num{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--violet);margin-bottom:3px}
+.obs-step .os-text{font-size:12px;color:var(--text-muted);line-height:1.5}
+.obs-step .os-text strong{color:var(--navy)}
+.obs-step code{background:var(--slate-light);color:var(--slate);padding:1px 5px;border-radius:3px;font-size:11px;font-family:monospace}
+
+/* ── STUDY STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:0 40px 20px}
+.stat{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-align:center}
+.stat-num{font-family:'DM Serif Display',serif;font-size:26px;color:var(--navy);line-height:1;margin-bottom:3px}
+.stat-num span{font-size:14px;color:var(--text-muted)}
+.stat-label{font-size:11px;color:var(--text-muted);font-weight:500}
+
+@media(max-width:700px){
+  .header,.countdown,.phase-bar,.milestones,.main,.overall-bar,.stats-row,.obsidian-box{padding-left:16px;padding-right:16px}
+  .obs-grid{grid-template-columns:1fr}
+  .cd-left{gap:10px}
+  .cd-box{padding:8px 12px;min-width:60px}
+  .cd-num{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859</div>
+  <h1>20-Week Master Study Schedule</h1>
+  <div class="header-sub">May 26, 2026 → October 10, 2026 · Phone + books · Library Sundays · VJC starts July 14</div>
+  <div class="header-meta">
+    <div class="meta-pill">📅 <strong>Start:</strong> Mon May 26, 2026</div>
+    <div class="meta-pill">🎯 <strong>Exam:</strong> Sat Oct 10, 2026</div>
+    <div class="meta-pill">📋 <strong>105</strong> multiple-choice questions · passing 70</div>
+    <div class="meta-pill">🎓 <strong>VJC classes:</strong> Jul 14 – Oct 3</div>
+    <div class="meta-pill">🛑 <strong>Days off:</strong> Sat PM + Sun post-library</div>
+    <div class="meta-pill">📍 <strong>Sunday:</strong> Library intensive (5–6 hrs)</div>
+  </div>
+</div>
+
+<!-- COUNTDOWN -->
+<div class="countdown">
+  <div class="cd-left">
+    <div class="cd-box"><div class="cd-num" id="cd-weeks">20</div><div class="cd-label">Weeks</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-days">137</div><div class="cd-label">Days</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-vjc">52</div><div class="cd-label">Days to VJC</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-app">43</div><div class="cd-label">Days to File</div></div>
+  </div>
+  <div class="cd-right">
+    <strong id="today-str">Loading...</strong>
+    Application window: Jul 8 – Aug 5, 2026
+  </div>
+</div>
+
+<!-- OVERALL PROGRESS -->
+<div class="overall-bar">
+  <span class="ob-label">Overall progress</span>
+  <div class="ob-track"><div class="ob-fill" id="overall-fill" style="width:0%"></div></div>
+  <span class="ob-pct" id="overall-pct">0%</span>
+  <span class="ob-count" id="overall-count">0 / 20 weeks started</span>
+</div>
+
+<!-- PHASE LEGEND -->
+<div class="phase-bar">
+  <span class="phase-label">Phases →</span>
+  <span class="phase-tag pt1">Phase 1 · Wks 1–7 · Pre-VJC foundation (CPL + PL + CPLR start)</span>
+  <span class="phase-tag pt2">Phase 2 · Wks 8–18 · VJC active + full statute coverage</span>
+  <span class="phase-tag pt3">Phase 3 · Wks 19–20 · Consolidation + exam prep only</span>
+  <span class="phase-tag pt-vjc">🎓 VJC class weeks</span>
+  <span class="phase-tag pt-exam">📝 Exam week</span>
+</div>
+
+<!-- MILESTONES -->
+<div class="milestones">
+  <span class="ms-label">Key dates →</span>
+  <span class="ms-pill"><span class="ms-date">May 26</span> Week 1 starts · CPL + PL</span>
+  <span class="ms-pill"><span class="ms-date">Jul 8</span> 📋 File application opens</span>
+  <span class="ms-pill"><span class="ms-date">Jul 14</span> 🎓 VJC classes begin</span>
+  <span class="ms-pill"><span class="ms-date">Aug 5</span> 📋 Application deadline</span>
+  <span class="ms-pill"><span class="ms-date">Sep 30</span> Self-scheduling link sent</span>
+  <span class="ms-pill"><span class="ms-date">Oct 3</span> 🛑 No new material after this</span>
+  <span class="ms-pill"><span class="ms-date">Oct 9</span> 🌙 Rest night · screens off 9PM</span>
+  <span class="ms-pill"><span class="ms-date">Oct 10</span> 📝 EXAM DAY</span>
+</div>
+
+<!-- STATS -->
+<div class="stats-row" style="margin-top:24px">
+  <div class="stat"><div class="stat-num">37</div><div class="stat-label">CPL articles on scope</div></div>
+  <div class="stat"><div class="stat-num">22</div><div class="stat-label">CPLR articles on scope</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Penal Law articles</div></div>
+  <div class="stat"><div class="stat-num">11+</div><div class="stat-label">FCA article groups</div></div>
+  <div class="stat"><div class="stat-num">6</div><div class="stat-label">Misc. statute groups</div></div>
+  <div class="stat"><div class="stat-num">~20<span>hrs</span></div><div class="stat-label">Study time per week</div></div>
+  <div class="stat"><div class="stat-num">~400<span>hrs</span></div><div class="stat-label">Total study hours</div></div>
+  <div class="stat"><div class="stat-num">105</div><div class="stat-label">Exam questions (3 hrs)</div></div>
+</div>
+
+<!-- OBSIDIAN SETUP -->
+<div class="obsidian-box" style="grid-column:1/-1;margin-top:0">
+  <div class="obs-head">🪨 Setting up in Obsidian</div>
+  <div class="obs-grid">
+    <div class="obs-step"><div class="os-num">Step 1 — Create your vault folder</div><div class="os-text">In your Obsidian vault, create a folder called <strong>NYS Clerk Exam</strong>. Inside it create a subfolder called <strong>Weekly Schedules</strong>. All week HTML files go in that subfolder.</div></div>
+    <div class="obs-step"><div class="os-num">Step 2 — Save all HTML files there</div><div class="os-text">Save <strong>master_schedule.html</strong> directly in the <strong>NYS Clerk Exam</strong> folder. Save each <strong>week_N.html</strong> file inside <strong>Weekly Schedules/</strong>. The links in this dashboard use relative paths like <code>Weekly Schedules/week2.html</code>.</div></div>
+    <div class="obs-step"><div class="os-num">Step 3 — Open HTML files</div><div class="os-text">In Obsidian's file sidebar, right-click any HTML file → <strong>"Open in default app"</strong>. It opens in your browser where all checkboxes, progress rings, and localStorage saving work perfectly. Do not try to preview inside Obsidian itself.</div></div>
+    <div class="obs-step"><div class="os-num">Step 4 — Link from your Obsidian notes</div><div class="os-text">In any Obsidian note, link to the dashboard with: <code>[Master Schedule](NYS Clerk Exam/master_schedule.html)</code>. Pin that note to your sidebar so it's one click away every week.</div></div>
+    <div class="obs-step"><div class="os-num">Step 5 — Checklist progress</div><div class="os-text">Each weekly HTML file saves checkbox state to your browser's localStorage — so as long as you open it in the same browser each time, your progress persists automatically between sessions.</div></div>
+    <div class="obs-step"><div class="os-num">Step 6 — Diary in Obsidian</div><div class="os-text">Use Obsidian's Daily Notes for your spaced rep diary entries. Create a note for each day and log: article learned, review dates (+1, +3, +15, +31, +63, +127 days). Use the Calendar plugin to see your review schedule at a glance.</div></div>
+  </div>
+</div>
+
+<!-- WEEK CARDS -->
+<div class="main">
+
+<!-- ═══ PHASE 1 HEADER ═══ -->
+<div style="grid-column:1/-1;padding:6px 0 2px">
+  <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy)">Phase 1 — Foundation <span style="font-size:14px;font-weight:400;color:var(--text-muted)">Weeks 1–7 · May 26 – Jul 13 · Pre-VJC · CPL, Penal Law, CPLR start</span></div>
+</div>
+
+<!-- WEEK 1 -->
+<div class="wk phase1 current" id="wk-1">
+  <div class="wk-head">
+    <div class="wk-top">
+      <div class="wk-num">Week 1</div>
+      <span class="wk-badge wb-current">Current week</span>
+    </div>
+    <div class="wk-dates">May 26 – Jun 1</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">CPL Arts. 1, 10, 30 · Penal Law Arts. 10, 55, 80</div>
+    <div class="wk-articles">
+      <span class="art art-cpl">CPL 1</span><span class="art art-cpl">CPL 10</span><span class="art art-cpl">CPL 30</span>
+      <span class="art art-pl">PL 10</span><span class="art art-pl">PL 55</span><span class="art art-pl">PL 80</span>
+    </div>
+    <div class="wk-note">Intro week · Roman Room build (bedroom) · first mnemonic session Sat · library debut Sun</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-1" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-1">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link" href="Weekly Schedules/week1_schedule_final.html">Open Week 1 →</a>
+    <span class="wk-status current">▶ In progress</span>
+  </div>
+</div>
+
+<!-- WEEK 2 -->
+<div class="wk phase1" id="wk-2">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 2</div><span class="wk-badge wb-p1">Phase 1</span></div>
+    <div class="wk-dates">Jun 2 – Jun 8</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">CPL Arts. 100, 110, 120, 160, 170</div>
+    <div class="wk-articles">
+      <span class="art art-cpl">CPL 100</span><span class="art art-cpl">CPL 110</span><span class="art art-cpl">CPL 120</span><span class="art art-cpl">CPL 160</span><span class="art art-cpl">CPL 170</span>
+    </div>
+    <div class="wk-note">Accusatory instruments · arrest procedures · Roman Room extends to living room · Week 1 Day-7 reviews due</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-2" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-2">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week2.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 3 -->
+<div class="wk phase1" id="wk-3">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 3</div><span class="wk-badge wb-p1">Phase 1</span></div>
+    <div class="wk-dates">Jun 9 – Jun 15</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">CPL Arts. 180, 190, 195, 200, 210</div>
+    <div class="wk-articles">
+      <span class="art art-cpl">CPL 180</span><span class="art art-cpl">CPL 190</span><span class="art art-cpl">CPL 195</span><span class="art art-cpl">CPL 200</span><span class="art art-cpl">CPL 210</span>
+    </div>
+    <div class="wk-note">Grand jury · indictments · preliminary hearings · Week 1 Day-15 diary reviews due</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-3" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-3">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week3.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 4 -->
+<div class="wk phase1" id="wk-4">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 4</div><span class="wk-badge wb-p1">Phase 1</span></div>
+    <div class="wk-dates">Jun 16 – Jun 22</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">CPL Arts. 220, 260, 270, 280, 300</div>
+    <div class="wk-articles">
+      <span class="art art-cpl">CPL 220</span><span class="art art-cpl">CPL 260</span><span class="art art-cpl">CPL 270</span><span class="art art-cpl">CPL 280</span><span class="art art-cpl">CPL 300</span>
+    </div>
+    <div class="wk-note">Pleas · trial prep · jury selection · verdict · Week 1 Day-21 diary reviews due</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-4" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-4">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week4.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 5 -->
+<div class="wk phase1" id="wk-5">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 5</div><span class="wk-badge wb-p1">Phase 1</span></div>
+    <div class="wk-dates">Jun 23 – Jun 29</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">CPL Arts. 310, 320, 330, 340, 350</div>
+    <div class="wk-articles">
+      <span class="art art-cpl">CPL 310</span><span class="art art-cpl">CPL 320</span><span class="art art-cpl">CPL 330</span><span class="art art-cpl">CPL 340</span><span class="art art-cpl">CPL 350</span>
+    </div>
+    <div class="wk-note">Jury deliberation · bench trials · post-verdict motions · NEW: CPL 340 &amp; 350 added May 2026</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-5" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-5">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week5.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 6 -->
+<div class="wk phase1" id="wk-6">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 6</div><span class="wk-badge wb-p1">Phase 1</span></div>
+    <div class="wk-dates">Jun 30 – Jul 6</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">CPL Arts. 360, 380, 390, 410, 420</div>
+    <div class="wk-articles">
+      <span class="art art-cpl">CPL 360</span><span class="art art-cpl">CPL 380</span><span class="art art-cpl">CPL 390</span><span class="art art-cpl">CPL 410</span><span class="art art-cpl">CPL 420</span>
+    </div>
+    <div class="wk-note">Sentencing · fines · probation · ⚠️ File application opens Jul 8 — prepare this week</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-6" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-6">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week6.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 7 -->
+<div class="wk phase1" id="wk-7">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 7</div><span class="wk-badge wb-p1">Phase 1</span></div>
+    <div class="wk-dates">Jul 7 – Jul 13</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">CPL Arts. 430, 440, 500, 510, 520</div>
+    <div class="wk-articles">
+      <span class="art art-cpl">CPL 430</span><span class="art art-cpl">CPL 440</span><span class="art art-cpl">CPL 500</span><span class="art art-cpl">CPL 510</span><span class="art art-cpl">CPL 520</span>
+    </div>
+    <div class="wk-note">Post-judgment motions · bail · release · 📋 FILE APPLICATION this week (Jul 8–13) · VJC starts next week</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-7" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-7">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week7.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- ═══ PHASE 2 HEADER ═══ -->
+<div style="grid-column:1/-1;padding:14px 0 2px;border-top:1px solid var(--border);margin-top:6px">
+  <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy)">Phase 2 — VJC Active <span style="font-size:14px;font-weight:400;color:var(--text-muted)">Weeks 8–18 · Jul 14 – Sep 27 · Classes Tue/Wed/Thu 7PM + Sat 10AM · Full statute coverage</span></div>
+</div>
+
+<!-- WEEK 8 -->
+<div class="wk phase2 vjc-week" id="wk-8">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 8</div><span class="wk-badge wb-vjc">🎓 VJC starts</span></div>
+    <div class="wk-dates">Jul 14 – Jul 20</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">CPL Arts. 530, 550, 720, 722, 725, 730 + CPLR 2, 3, 4</div>
+    <div class="wk-articles">
+      <span class="art art-cpl">CPL 530</span><span class="art art-cpl">CPL 550</span><span class="art art-cpl">CPL 720</span><span class="art art-cpl">CPL 722</span><span class="art art-cpl">CPL 725</span><span class="art art-cpl">CPL 730</span>
+      <span class="art art-cplr">CPLR 2</span><span class="art art-cplr">CPLR 3</span><span class="art art-cplr">CPLR 4</span>
+    </div>
+    <div class="wk-vjc">🎓 VJC: Tue=PL+CPL · Wed=CPLR · Thu=Court Rules · Sat=FCA</div>
+    <div class="wk-note">First VJC week — Tue/Wed/Thu 7–9PM replace evening wind-down. Read VJC notes before each class.</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-8" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-8">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week8.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 9 -->
+<div class="wk phase2 vjc-week" id="wk-9">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 9</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
+    <div class="wk-dates">Jul 21 – Jul 27</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">CPLR Arts. 5, 10, 11, 21, 22, 23</div>
+    <div class="wk-articles">
+      <span class="art art-cplr">CPLR 5</span><span class="art art-cplr">CPLR 10</span><span class="art art-cplr">CPLR 11</span><span class="art art-cplr">CPLR 21</span><span class="art art-cplr">CPLR 22</span><span class="art art-cplr">CPLR 23</span>
+    </div>
+    <div class="wk-vjc">🎓 VJC: Tue=PL+CPL · Wed=CPLR · Thu=Court Rules · Sat=FCA</div>
+    <div class="wk-note">Statute of limitations · parties · venue · service of process · Wed VJC aligns with CPLR commute reading</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-9" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-9">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week9.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 10 -->
+<div class="wk phase2 vjc-week" id="wk-10">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 10</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
+    <div class="wk-dates">Jul 28 – Aug 3</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">CPLR Arts. 30, 32, 34, 40, 41, 42</div>
+    <div class="wk-articles">
+      <span class="art art-cplr">CPLR 30</span><span class="art art-cplr">CPLR 32</span><span class="art art-cplr">CPLR 34</span><span class="art art-cplr">CPLR 40</span><span class="art art-cplr">CPLR 41</span><span class="art art-cplr">CPLR 42</span>
+    </div>
+    <div class="wk-vjc">🎓 VJC active · ⚠️ Application deadline Aug 5 — confirm filed</div>
+    <div class="wk-note">General rules of pleading · Bill of Particulars · ⚠️ APPLICATION DEADLINE AUG 5</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-10" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-10">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week10.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 11 -->
+<div class="wk phase2 vjc-week" id="wk-11">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 11</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
+    <div class="wk-dates">Aug 4 – Aug 10</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">CPLR Arts. 43, 44, 50, 52, 55, 70, 78</div>
+    <div class="wk-articles">
+      <span class="art art-cplr">CPLR 43</span><span class="art art-cplr">CPLR 44</span><span class="art art-cplr">CPLR 50</span><span class="art art-cplr">CPLR 52</span><span class="art art-cplr">CPLR 55</span><span class="art art-cplr">CPLR 70</span><span class="art art-cplr">CPLR 78</span>
+    </div>
+    <div class="wk-vjc">🎓 VJC active</div>
+    <div class="wk-note">Judgments · enforcement · appeals · Article 78 proceedings · CPLR scope now complete</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-11" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-11">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week11.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 12 -->
+<div class="wk phase2 vjc-week" id="wk-12">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 12</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
+    <div class="wk-dates">Aug 11 – Aug 17</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">FCA Arts. 1, 2 + Court Rules Part 200</div>
+    <div class="wk-articles">
+      <span class="art art-fca">FCA 1</span><span class="art art-fca">FCA 2</span>
+      <span class="art art-misc">Court Rules 200</span>
+    </div>
+    <div class="wk-vjc">🎓 VJC: Sat 10AM = Family Court Act · Thu = Court Rules</div>
+    <div class="wk-note">Family Court jurisdiction · proceedings · Uniform Court Rules §200 · Sat VJC aligns with FCA reading</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-12" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-12">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week12.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 13 -->
+<div class="wk phase2 vjc-week" id="wk-13">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 13</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
+    <div class="wk-dates">Aug 18 – Aug 24</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">FCA Arts. 3, 4, 5, 5-B + Court Rules Part 202</div>
+    <div class="wk-articles">
+      <span class="art art-fca">FCA 3</span><span class="art art-fca">FCA 4</span><span class="art art-fca">FCA 5</span><span class="art art-fca">FCA 5-B</span>
+      <span class="art art-misc">Court Rules 202</span>
+    </div>
+    <div class="wk-vjc">🎓 VJC: Sat = FCA · Thu = Court Rules 202</div>
+    <div class="wk-note">Juvenile delinquency · support proceedings · custody · Supreme Court rules §202</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-13" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-13">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week13.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 14 -->
+<div class="wk phase2 vjc-week" id="wk-14">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 14</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
+    <div class="wk-dates">Aug 25 – Aug 31</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">FCA Arts. 6, 7, 8, 10 + Court Rules Part 205</div>
+    <div class="wk-articles">
+      <span class="art art-fca">FCA 6</span><span class="art art-fca">FCA 7</span><span class="art art-fca">FCA 8</span><span class="art art-fca">FCA 10</span>
+      <span class="art art-misc">Court Rules 205</span>
+    </div>
+    <div class="wk-vjc">🎓 VJC: Sat = FCA · Thu = Court Rules 205</div>
+    <div class="wk-note">Visitation · PINS · family offenses · child protective proceedings · Family Court rules §205</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-14" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-14">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week14.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 15 -->
+<div class="wk phase2 vjc-week" id="wk-15">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 15</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
+    <div class="wk-dates">Sep 1 – Sep 7</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">FCA Arts. 10-A, 10-C, 11 + MHL Arts. 9, 10, 81</div>
+    <div class="wk-articles">
+      <span class="art art-fca">FCA 10-A</span><span class="art art-fca">FCA 10-C</span><span class="art art-fca">FCA 11</span>
+      <span class="art art-misc">MHL 9</span><span class="art art-misc">MHL 10</span><span class="art art-misc">MHL 81</span>
+    </div>
+    <div class="wk-vjc">🎓 VJC: Thu = MHL · Sat = FCA final articles</div>
+    <div class="wk-note">Permanency · adoption · Mental Hygiene Law · involuntary commitment · NEW: MHL 9 added May 2026</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-15" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-15">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week15.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 16 -->
+<div class="wk phase2 vjc-week" id="wk-16">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 16</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
+    <div class="wk-dates">Sep 8 – Sep 14</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">RPAPL Art. 7 · DRL Art. 5-A · SSL §384-C · VTL §§511, 1192, 1193</div>
+    <div class="wk-articles">
+      <span class="art art-misc">RPAPL 7</span><span class="art art-misc">DRL 5-A</span><span class="art art-misc">SSL 384-C</span>
+      <span class="art art-misc">VTL 511</span><span class="art art-misc">VTL 1192</span><span class="art art-misc">VTL 1193</span>
+    </div>
+    <div class="wk-vjc">🎓 VJC: Thu = VTL + misc. statutes</div>
+    <div class="wk-note">Summary proceedings · UCCJEA · DWI statutes · misc. statutes scope complete after this week</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-16" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-16">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week16.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 17 -->
+<div class="wk phase2 vjc-week" id="wk-17">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 17</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
+    <div class="wk-dates">Sep 15 – Sep 21</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">Court Rules Part 208 · Full CPL weak-area review</div>
+    <div class="wk-articles">
+      <span class="art art-misc">Court Rules 208</span>
+      <span class="art art-review">CPL weak areas</span><span class="art art-review">CPLR weak areas</span>
+    </div>
+    <div class="wk-vjc">🎓 VJC: All sessions · use recordings for any missed classes</div>
+    <div class="wk-note">All statutes now covered · this week = targeted weak-area review based on ClerkOne Report Card data</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-17" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-17">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week17.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 18 -->
+<div class="wk phase2 vjc-week" id="wk-18">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 18</div><span class="wk-badge wb-vjc">🎓 VJC final</span></div>
+    <div class="wk-dates">Sep 22 – Sep 27</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">Full FCA review · PL review · Mnemonic master test</div>
+    <div class="wk-articles">
+      <span class="art art-fca">FCA full review</span><span class="art art-pl">PL review</span><span class="art art-review">Memory palace walk</span>
+    </div>
+    <div class="wk-vjc">🎓 Final VJC week · attend all sessions · download all notes</div>
+    <div class="wk-note">Last VJC week · test every mnemonic from your Master List · walk every room in your palace · no new material</div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-18" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-18">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week18.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- ═══ PHASE 3 HEADER ═══ -->
+<div style="grid-column:1/-1;padding:14px 0 2px;border-top:1px solid var(--border);margin-top:6px">
+  <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy)">Phase 3 — Exam Prep <span style="font-size:14px;font-weight:400;color:var(--text-muted)">Weeks 19–20 · Sep 28 – Oct 10 · Retrieval only · no new material after Oct 3</span></div>
+</div>
+
+<!-- WEEK 19 -->
+<div class="wk phase3" id="wk-19">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 19</div><span class="wk-badge wb-p3">Phase 3 · Consolidation</span></div>
+    <div class="wk-dates">Sep 28 – Oct 4</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">Full scope review · timed practice · weak-area blitz</div>
+    <div class="wk-articles">
+      <span class="art art-review">All CPL</span><span class="art art-review">All CPLR</span><span class="art art-review">All FCA</span><span class="art art-review">All misc.</span>
+    </div>
+    <div class="wk-note">
+      Sep 28: Full 105-question timed practice exam · score it · identify top 3 weak areas<br>
+      Sep 29–30: Anki full deck · blurt weak areas on paper<br>
+      Oct 1: Bluemedia quizzer on hardest articles only<br>
+      Oct 2: Rewatch 1 CPL + 1 FCA VJC recording on weak area<br>
+      Oct 3: Final blurt — all statute groups on blank paper · 🛑 NO NEW MATERIAL AFTER THIS DATE
+    </div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-19" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-19">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week19.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+<!-- WEEK 20 / EXAM WEEK -->
+<div class="wk exam-week" id="wk-20">
+  <div class="wk-head">
+    <div class="wk-top"><div class="wk-num">Week 20</div><span class="wk-badge wb-exam">📝 Exam week</span></div>
+    <div class="wk-dates">Oct 5 – Oct 10</div>
+  </div>
+  <div class="wk-body">
+    <div class="wk-focus">Light review only · rest · exam day Saturday Oct 10</div>
+    <div class="wk-articles">
+      <span class="art art-review">Anki only</span><span class="art art-review">Active recall</span><span class="art art-exam">🎯 Oct 10 EXAM</span>
+    </div>
+    <div class="wk-note">
+      Oct 5–8: 20 min Anki morning commute only · active recall micro-practice throughout day · NO new content<br>
+      Oct 4–5 (weekend): Light Anki only · walk · sleep · no cramming<br>
+      Oct 9 (Fri): Light walk · early dinner · confirm test center location · screens off 9PM · early sleep<br>
+      Oct 10 (Sat): 🎯 EXAM — Senior Court Clerk · 105 questions · 3 hours
+    </div>
+    <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-20" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-20">Not started</div></div>
+  </div>
+  <div class="wk-foot">
+    <a class="wk-link disabled" href="Weekly Schedules/week20.html">Coming soon</a>
+    <span class="wk-status">Not started</span>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// Countdown
+function updateCountdown(){
+  const exam = new Date('2026-10-10');
+  const vjc  = new Date('2026-07-14');
+  const app  = new Date('2026-07-08');
+  const now  = new Date();
+  const dayMs = 86400000;
+  const diffDays = d => Math.max(0, Math.ceil((d - now) / dayMs));
+  const diffWeeks = d => Math.max(0, Math.ceil(diffDays(d) / 7));
+
+  const el = id => document.getElementById(id);
+  if(el('cd-weeks')) el('cd-weeks').textContent = diffWeeks(exam);
+  if(el('cd-days'))  el('cd-days').textContent  = diffDays(exam);
+  if(el('cd-vjc'))   el('cd-vjc').textContent   = diffDays(vjc);
+  if(el('cd-app'))   el('cd-app').textContent   = diffDays(app);
+  if(el('today-str')) el('today-str').textContent = 'Today: ' + now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+}
+updateCountdown();
+
+// Per-week progress from localStorage
+const WEEK_KEYS = {
+  1: { key:'nys_week1_checklist', total:62 },
+  // additional weeks will store their own keys
+};
+
+function loadWeekProgress(){
+  // Week 1 — read from its checklist store
+  try {
+    const s = JSON.parse(localStorage.getItem('nys_week1_checklist')||'{}');
+    const done = Object.values(s).filter(Boolean).length;
+    const total = 62; // approximate total items
+    const pct = total ? Math.min(100, Math.round(done/total*100)) : 0;
+    const bar = document.getElementById('prog-1');
+    const lbl = document.getElementById('prog-label-1');
+    if(bar) bar.style.width = pct+'%';
+    if(lbl) lbl.textContent = pct > 0 ? done+' items checked · '+pct+'% complete' : 'Not started';
+
+    // Overall
+    const fill = document.getElementById('overall-fill');
+    const pctEl = document.getElementById('overall-pct');
+    const cntEl = document.getElementById('overall-count');
+    const weeksStarted = pct > 0 ? 1 : 0;
+    const overallPct = Math.round((pct / 100) / 20 * 100);
+    if(fill) fill.style.width = overallPct+'%';
+    if(pctEl) pctEl.textContent = overallPct+'%';
+    if(cntEl) cntEl.textContent = weeksStarted+' / 20 weeks started';
+  } catch(e){}
+}
+loadWeekProgress();
+</script>
+
+</body>
+</html>

@@ -123,16 +123,6 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .wk-status.done{color:var(--sage);font-weight:600}
 .wk-status.current{color:var(--gold);font-weight:600}
 
-/* ── OBSIDIAN INSTRUCTIONS ── */
-.obsidian-box{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin:0 40px 24px;grid-column:1/-1}
-.obs-head{font-family:'DM Serif Display',serif;font-size:18px;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.obs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.obs-step{background:var(--cream);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;padding:10px 13px}
-.obs-step .os-num{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--violet);margin-bottom:3px}
-.obs-step .os-text{font-size:12px;color:var(--text-muted);line-height:1.5}
-.obs-step .os-text strong{color:var(--navy)}
-.obs-step code{background:var(--slate-light);color:var(--slate);padding:1px 5px;border-radius:3px;font-size:11px;font-family:monospace}
-
 /* ── STUDY STATS ── */
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:0 40px 20px}
 .stat{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-align:center}
@@ -223,19 +213,6 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   <div class="stat"><div class="stat-num">105</div><div class="stat-label">Exam questions (3 hrs)</div></div>
 </div>
 
-<!-- OBSIDIAN SETUP -->
-<div class="obsidian-box" style="grid-column:1/-1;margin-top:0">
-  <div class="obs-head">🪨 Setting up in Obsidian</div>
-  <div class="obs-grid">
-    <div class="obs-step"><div class="os-num">Step 1 — Create your vault folder</div><div class="os-text">In your Obsidian vault, create a folder called <strong>NYS Clerk Exam</strong>. Inside it create a subfolder called <strong>Weekly Schedules</strong>. All week HTML files go in that subfolder.</div></div>
-    <div class="obs-step"><div class="os-num">Step 2 — Save all HTML files there</div><div class="os-text">Save <strong>index.html</strong> (master dashboard) and ALL weekly files — <strong>week1_schedule_final.html</strong>, <strong>week2.html</strong>, etc. — directly in the same <strong>NYS Clerk Exam</strong> folder. Keep everything flat in one folder. No subfolders needed.</div></div>
-    <div class="obs-step"><div class="os-num">Step 3 — Open HTML files</div><div class="os-text">In Obsidian's file sidebar, right-click any HTML file → <strong>"Open in default app"</strong>. It opens in your browser where all checkboxes, progress rings, and localStorage saving work perfectly. Do not try to preview inside Obsidian itself.</div></div>
-    <div class="obs-step"><div class="os-num">Step 4 — Link from your Obsidian notes</div><div class="os-text">In any Obsidian note, link to the dashboard with: <code>[Master Schedule](NYS Clerk Exam/master_schedule.html)</code>. Pin that note to your sidebar so it's one click away every week.</div></div>
-    <div class="obs-step"><div class="os-num">Step 5 — Checklist progress</div><div class="os-text">Each weekly HTML file saves checkbox state to your browser's localStorage — so as long as you open it in the same browser each time, your progress persists automatically between sessions.</div></div>
-    <div class="obs-step"><div class="os-num">Step 6 — Diary in Obsidian</div><div class="os-text">Use Obsidian's Daily Notes for your spaced rep diary entries. Create a note for each day and log: article learned, review dates (+1, +3, +15, +31, +63, +127 days). Use the Calendar plugin to see your review schedule at a glance.</div></div>
-  </div>
-</div>
-
 <!-- WEEK CARDS -->
 <div class="main">
 
@@ -264,6 +241,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   </div>
   <div class="wk-foot">
     <a class="wk-link" href="week1_schedule_final.html">Open Week 1 →</a>
+    <a class="wk-link" href="week1_notes_quiz.html" style="background:var(--gold-light);border-color:var(--gold);color:#7a5010">📋 Notes &amp; Quiz</a>
     <span class="wk-status current">▶ In progress</span>
   </div>
 </div>

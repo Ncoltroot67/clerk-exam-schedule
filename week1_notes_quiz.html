@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
 <title>Week 1 — Notes & Quiz · CPL Art. 1</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
@@ -18,7 +18,7 @@
   --border:#e2ddd6;--white:#fff;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6}
 
 /* HEADER */
 .header{background:var(--navy);color:white;padding:24px 36px 20px;position:relative;overflow:hidden}
@@ -45,7 +45,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 /* SCORE BAR */
 .score-bar{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .score-main{font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy)}
-.score-sub{font-size:12px;color:var(--text-muted)}
+.score-sub{font-size:14px;color:var(--text-muted)}
 .score-track{flex:1;min-width:120px;height:8px;background:var(--slate-light);border-radius:4px;overflow:hidden}
 .score-fill{height:100%;border-radius:4px;background:var(--sage);transition:width .4s}
 .score-actions{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
@@ -65,7 +65,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .notes-body{display:flex;flex-direction:column;gap:10px}
 .nb{background:var(--white);border-radius:10px;padding:12px 14px;border:0.5px solid var(--border)}
 .ns{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:8px}
-.ni{font-size:12px;color:var(--text-muted);line-height:1.55;margin-bottom:5px;padding-left:8px;border-left:2px solid var(--border)}
+.ni{font-size:14px;color:var(--text-muted);line-height:1.55;margin-bottom:5px;padding-left:8px;border-left:2px solid var(--border)}
 .ni:last-child{margin-bottom:0}
 .ni strong{color:var(--navy);font-weight:600}
 .ni em{font-style:normal;color:var(--navy)}
@@ -73,7 +73,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .ni.upd{background:#e8f5e9;border-left-color:#4caf50!important;border-radius:0 4px 4px 0;padding:5px 8px!important;color:#1b5e20}
 .nl{font-weight:600;color:var(--navy);margin-right:4px}
 .nlist{margin:5px 0 5px 8px;display:flex;flex-direction:column;gap:3px}
-.nli{font-size:12px;color:var(--text-muted);display:flex;align-items:flex-start;gap:6px}
+.nli{font-size:14px;color:var(--text-muted);display:flex;align-items:flex-start;gap:6px}
 .nln{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--navy);color:white;font-size:10px;font-weight:600;flex-shrink:0;margin-top:2px}
 
 /* QUIZ QUESTIONS — Bluemedia style */
@@ -123,6 +123,25 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   .back-btn{margin-left:0;margin-top:8px}
   .score-actions{width:100%}
 }
+
+@media(max-width:768px){
+  :root{--pad-h:16px;--grid-cols:1fr;--fs-h1:26px;--fs-h2:20px}
+  body{font-size:16px!important}
+  .main,.header,.bar,.bar-structure,.bar-reddit,.legend,.phase-bar,
+  .milestones,.stats-row,.panel,.tab-bar,.nq-wrap{padding-left:16px!important;padding-right:16px!important}
+  .main{grid-template-columns:1fr!important;padding-left:16px!important;padding-right:16px!important}
+  .hub-grid,.obs-grid,.method-grid,.art-grid,.viz-row{grid-template-columns:1fr!important}
+  .cd-left{gap:8px}
+  .cd-box{padding:8px 10px;min-width:56px}
+  .cd-num{font-size:22px}
+  .header h1{font-size:26px!important}
+  .wk{font-size:14px}
+  .score-bar{flex-direction:column;align-items:flex-start}
+  .qi-actions,.dq-opts{flex-direction:column}
+  .notes-body,.quiz-wrap{padding:0}
+}
+html.mobile-view .main{padding-left:16px!important;padding-right:16px!important;grid-template-columns:1fr!important}
+html.desktop-view .main{padding-left:40px!important;padding-right:40px!important;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))!important}
 </style>
 </head>
 <body>

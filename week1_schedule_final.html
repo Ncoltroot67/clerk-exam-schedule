@@ -37,16 +37,16 @@
 /* ── DESKTOP: large screens keep two-column layout ── */
 @media (min-width: 769px) {
   :root{
-    --fs-base:16px;
-    --fs-sm:15px;
-    --fs-xs:13px;
-    --fs-xxs:12px;
-    --fs-h1:34px;
-    --fs-h2:24px;
-    --fs-h3:17px;
-    --fs-btitle:15px;
-    --fs-bbody:14px;
-    --fs-callout:13px;
+    --fs-base:20px;
+    --fs-sm:18px;
+    --fs-xs:16px;
+    --fs-xxs:14px;
+    --fs-h1:38px;
+    --fs-h2:28px;
+    --fs-h3:22px;
+    --fs-btitle:20px;
+    --fs-bbody:19px;
+    --fs-callout:17px;
     --pad-h:36px;
     --grid-cols:1fr 1fr;
     --block-cols:100px 1fr;
@@ -56,16 +56,16 @@
 /* ── MOBILE: single column, larger touch-friendly text ── */
 @media (max-width: 768px) {
   :root{
-    --fs-base:16px;
-    --fs-sm:15px;
-    --fs-xs:13px;
-    --fs-xxs:12px;
-    --fs-h1:26px;
-    --fs-h2:21px;
-    --fs-h3:16px;
-    --fs-btitle:15px;
-    --fs-bbody:14px;
-    --fs-callout:13px;
+    --fs-base:20px;
+    --fs-sm:18px;
+    --fs-xs:16px;
+    --fs-xxs:14px;
+    --fs-h1:30px;
+    --fs-h2:24px;
+    --fs-h3:20px;
+    --fs-btitle:19px;
+    --fs-bbody:18px;
+    --fs-callout:16px;
     --pad-h:16px;
     --grid-cols:1fr;
     --block-cols:86px 1fr;
@@ -128,11 +128,11 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 
 /* ── WEEK VIZ ── */
 .week-viz{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 20px}
-.week-viz h3{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:12px}
+.week-viz h3{font-size:var(--fs-xs);font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:12px}
 .viz-row{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
 .vd{border-radius:9px;padding:9px 6px;text-align:center}
-.vd-name{font-size:11px;font-weight:600;margin-bottom:3px}
-.vd-type{font-size:10px;line-height:1.35}
+.vd-name{font-size:var(--fs-xxs);font-weight:600;margin-bottom:3px}
+.vd-type{font-size:var(--fs-xxs);line-height:1.35}
 .vd-study{background:#e8eef8;color:#1a3a7a}
 .vd-notes{background:var(--violet-light);color:var(--violet)}
 .vd-rest{background:var(--gold-light);color:#7a5010}
@@ -146,9 +146,9 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .article-map{background:var(--navy);color:white;border-radius:14px;padding:16px 20px}
 .article-map h3{font-family:'DM Serif Display',serif;font-size:16px;margin-bottom:12px;color:var(--gold)}
 .art-grid{display:grid;grid-template-columns:var(--grid-cols);gap:12px}
-.art-section h4{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px}
+.art-section h4{font-size:var(--fs-xxs);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px}
 .art-list{display:flex;flex-wrap:wrap;gap:5px}
-.ap{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:3px 9px;font-size:11px;color:rgba(255,255,255,.65)}
+.ap{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:3px 9px;font-size:var(--fs-xxs);color:rgba(255,255,255,.65)}
 .ap.tw{background:rgba(201,149,42,.18);border-color:rgba(201,149,42,.38);color:var(--gold);font-weight:500}
 
 /* ── DAY CARDS ── */
@@ -202,12 +202,12 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .reddit{display:inline-flex;font-size:var(--fs-xxs);font-weight:600;padding:2px 8px;border-radius:4px;background:var(--navy);color:var(--gold)}
 
 /* ── NOTES SESSION (BIG CARD) ── */
-.notes-section-head{background:var(--violet);color:white;padding:10px 16px;font-size:12px;font-weight:600;letter-spacing:.04em;display:flex;align-items:center;gap:8px}
-.notes-phase{background:var(--violet-light);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;padding:10px 13px;margin-bottom:8px}
+.notes-section-head{background:var(--violet);color:white;padding:12px 18px;font-size:var(--fs-sm);font-weight:600;letter-spacing:.04em;display:flex;align-items:center;gap:8px}
+.notes-phase{background:var(--violet-light);border-left:4px solid var(--violet);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:10px}
 .notes-phase:last-child{margin-bottom:0}
-.notes-phase .ph-title{font-size:12px;font-weight:600;color:var(--violet);margin-bottom:3px;display:flex;align-items:center;gap:6px}
-.notes-phase .ph-time{font-size:10px;font-weight:600;color:var(--violet);opacity:.7;margin-bottom:4px}
-.notes-phase .ph-body{font-size:12px;color:var(--text-muted);line-height:1.55}
+.notes-phase .ph-title{font-size:var(--fs-btitle);font-weight:600;color:var(--violet);margin-bottom:5px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.notes-phase .ph-time{font-size:var(--fs-xs);font-weight:600;color:var(--violet);opacity:.75;margin-bottom:6px}
+.notes-phase .ph-body{font-size:var(--fs-bbody);color:var(--text-muted);line-height:1.65}
 .notes-phase .ph-body em{font-style:normal;color:var(--navy);font-weight:500}
 
 /* ── METHOD EXPLANATION CARDS ── */
@@ -219,10 +219,10 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .mc:nth-child(even){border-right:none}
 .mc:last-child,.mc:nth-last-child(2):nth-child(odd){border-bottom:none}
 .mc .mi{font-size:22px;margin-bottom:7px}
-.mc .mh{font-weight:600;font-size:13px;color:var(--navy);margin-bottom:2px}
-.mc .msrc{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:5px}
-.mc .mwhen{font-size:10px;color:var(--text-muted);margin-bottom:5px;font-style:italic}
-.mc .mb{font-size:12px;color:var(--text-muted);line-height:1.55}
+.mc .mh{font-weight:600;font-size:var(--fs-sm);color:var(--navy);margin-bottom:2px}
+.mc .msrc{font-size:var(--fs-xxs);font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:5px}
+.mc .mwhen{font-size:var(--fs-xxs);color:var(--text-muted);margin-bottom:5px;font-style:italic}
+.mc .mb{font-size:var(--fs-xs);color:var(--text-muted);line-height:1.55}
 .mc .mb em{font-style:normal;color:var(--navy);font-weight:500}
 .mc .mb a{color:var(--teal);text-decoration:none}
 
@@ -231,12 +231,12 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .yt-head{background:#b01c1c;color:white;padding:13px 18px;font-family:'DM Serif Display',serif;font-size:18px}
 .yt-list{padding:14px 18px;display:flex;flex-direction:column;gap:10px}
 .yt-item{background:#fde8e8;border-left:3px solid #b01c1c;border-radius:0 8px 8px 0;padding:9px 12px}
-.yt-item .yt-name{font-size:13px;font-weight:600;color:#7a0f0f;margin-bottom:2px}
-.yt-item .yt-use{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#b01c1c;margin-bottom:3px}
-.yt-item .yt-body{font-size:12px;color:var(--text-muted);line-height:1.5}
+.yt-item .yt-name{font-size:var(--fs-sm);font-weight:600;color:#7a0f0f;margin-bottom:2px}
+.yt-item .yt-use{font-size:var(--fs-xxs);font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#b01c1c;margin-bottom:3px}
+.yt-item .yt-body{font-size:20px;color:var(--text-muted);line-height:1.5}
 
 /* ── FOOTER ── */
-.footer-note{background:var(--gold-light);border:1px solid #e8c97044;border-radius:12px;padding:13px 17px;font-size:12px;color:#5a3d0a;line-height:1.65}
+.footer-note{background:var(--gold-light);border:1px solid #e8c97044;border-radius:12px;padding:13px 17px;font-size:var(--fs-xs);color:#5a3d0a;line-height:1.65}
 .footer-note strong{color:var(--navy)}
 
 @media(max-width:680px){
@@ -250,57 +250,80 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 }
 @media print{
   .header,.bar-structure,.bar-reddit{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  body{font-size:12px}
+  body{font-size:20px}
 }
+
+
+/* ── INLINE CHECKBOXES ── */
+.block-cb{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.block-cb-box{
+  width:22px;height:22px;border-radius:5px;border:2px solid var(--border);
+  background:var(--white);cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;margin-top:2px;
+}
+.block-cb-box:hover{border-color:var(--gold)}
+.block-cb-box.checked{background:var(--sage);border-color:var(--sage)}
+.block-cb-box.checked::after{content:'✓';color:white;font-size:var(--fs-sm);font-weight:700;line-height:1}
+.block.done{background:var(--sage-light)!important;opacity:.75}
+.block.done .btitle{text-decoration:line-through;opacity:.6}
+/* Progress ring in day header */
+.day-progress{display:flex;align-items:center;gap:8px}
+.dp-ring{width:36px;height:36px;flex-shrink:0}
+.dp-ring circle{fill:none;stroke-width:3}
+.dp-ring .dp-bg{stroke:var(--border)}
+.dp-ring .dp-fill{stroke:var(--sage);stroke-linecap:round;transition:stroke-dashoffset .4s;transform-origin:center;transform:rotate(-90deg)}
+.dp-label{font-size:var(--fs-xxs);color:var(--text-muted);text-align:right}
+.dp-label strong{display:block;font-size:var(--fs-xs);color:var(--navy)}
 
 /* ── QUIZ PANEL ── */
 .quiz-panel{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:10px 0 0}
 .qp-head{display:flex;align-items:center;gap:8px;padding:9px 13px;cursor:pointer;background:var(--cream);border-bottom:0.5px solid var(--border);user-select:none}
 .qp-head:hover{background:var(--slate-light)}
-.qp-icon{font-size:14px}
-.qp-title{font-size:12px;font-weight:600;color:var(--navy);flex:1}
-.qp-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--gold-light);color:#7a5010}
-.qp-arrow{font-size:11px;color:var(--text-muted);transition:transform .2s}
+.qp-icon{font-size:var(--fs-sm)}
+.qp-title{font-size:var(--fs-xs);font-weight:600;color:var(--navy);flex:1}
+.qp-badge{font-size:var(--fs-xxs);font-weight:600;padding:2px 8px;border-radius:10px;background:var(--gold-light);color:#7a5010}
+.qp-arrow{font-size:var(--fs-xxs);color:var(--text-muted);transition:transform .2s}
 .qp-arrow.open{transform:rotate(180deg)}
 .qp-body{display:none;padding:12px}
 .qp-body.open{display:block}
-.qp-score{font-size:11px;font-weight:600;color:var(--sage);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.qp-score{font-size:var(--fs-xxs);font-weight:600;color:var(--sage);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .qp-track{flex:1;height:5px;background:var(--slate-light);border-radius:3px;overflow:hidden}
 .qp-fill{height:100%;border-radius:3px;background:var(--sage);transition:width .3s}
 .dq{background:var(--white);border:0.5px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px}
 .dq:last-child{margin-bottom:0}
 .dq.dq-correct{border-color:#4caf50;background:#f1f8f1}
 .dq.dq-wrong{border-color:var(--coral);background:var(--coral-light)}
-.dq-num{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:4px}
-.dq-q{font-size:12.5px;font-weight:500;color:var(--navy);margin-bottom:7px;line-height:1.5}
+.dq-num{font-size:var(--fs-xxs);font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:4px}
+.dq-q{font-size:var(--fs-xs);font-weight:500;color:var(--navy);margin-bottom:7px;line-height:1.5}
 .dq-opts{display:flex;flex-direction:column;gap:5px;margin-bottom:0}
-.dq-opt{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border:0.5px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px;color:var(--text);transition:all .15s;background:var(--white)}
+.dq-opt{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border:0.5px solid var(--border);border-radius:6px;cursor:pointer;font-size:var(--fs-xs);color:var(--text);transition:all .15s;background:var(--white)}
 .dq-opt:hover:not(.locked){background:var(--cream);border-color:var(--slate)}
 .dq-opt.opt-correct{background:#e8f5e9;border-color:#4caf50;cursor:default}
 .dq-opt.opt-wrong{background:var(--coral-light);border-color:var(--coral);cursor:default}
 .dq-opt.locked{cursor:default;opacity:.7}
-.dq-letter{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--text-muted);flex-shrink:0;background:var(--white)}
+.dq-letter{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:var(--fs-xxs);font-weight:600;color:var(--text-muted);flex-shrink:0;background:var(--white)}
 .dq-opt.opt-correct .dq-letter{background:#4caf50;border-color:#4caf50;color:white}
 .dq-opt.opt-wrong   .dq-letter{background:var(--coral);border-color:var(--coral);color:white}
-.dq-exp{font-size:11px;color:var(--text-muted);line-height:1.5;background:var(--cream);border-radius:6px;padding:7px 9px;margin-top:7px;border-left:3px solid var(--gold);display:none}
+.dq-exp{font-size:var(--fs-xxs);color:var(--text-muted);line-height:1.5;background:var(--cream);border-radius:6px;padding:7px 9px;margin-top:7px;border-left:3px solid var(--gold);display:none}
 .dq-exp.show{display:block}
 .dq-exp strong{color:var(--navy)}
 /* ── MNEMONIC BLOCK ── */
 .mnemo-block{background:linear-gradient(135deg,#f0ebff,#ede8f7);border:1px solid #c5b8f0;border-radius:10px;padding:12px 14px;margin-top:10px}
-.mnemo-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--violet);margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.mnemo-article{font-size:11px;font-weight:600;color:var(--navy);margin-bottom:8px}
-.mnemo-prompt{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:8px}
+.mnemo-label{font-size:var(--fs-xxs);font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--violet);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.mnemo-article{font-size:var(--fs-xxs);font-weight:600;color:var(--navy);margin-bottom:8px}
+.mnemo-prompt{font-size:var(--fs-xs);color:var(--text-muted);line-height:1.6;margin-bottom:8px}
 .mnemo-prompt strong{color:var(--navy)}
-.mnemo-input{width:100%;border:1px solid #c5b8f0;border-radius:6px;padding:8px 10px;font-size:12px;font-family:inherit;color:var(--navy);background:var(--white);resize:none;min-height:52px;outline:none;transition:border-color .15s}
+.mnemo-input{width:100%;border:1px solid #c5b8f0;border-radius:6px;padding:8px 10px;font-size:var(--fs-xs);font-family:inherit;color:var(--navy);background:var(--white);resize:none;min-height:52px;outline:none;transition:border-color .15s}
 .mnemo-input:focus{border-color:var(--violet)}
 .mnemo-save-row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
-.mnemo-btn{font-size:11px;font-weight:600;padding:5px 12px;border-radius:5px;border:none;cursor:pointer;font-family:inherit;transition:all .15s}
+.mnemo-btn{font-size:var(--fs-xxs);font-weight:600;padding:5px 12px;border-radius:5px;border:none;cursor:pointer;font-family:inherit;transition:all .15s}
 .mnemo-btn-save{background:var(--violet);color:white}
 .mnemo-btn-save:hover{background:#5a3d90}
 .mnemo-btn-clear{background:var(--slate-light);color:var(--slate)}
 .mnemo-btn-clear:hover{background:var(--slate);color:white}
-.mnemo-saved{font-size:11px;color:var(--violet);font-style:italic;margin-top:5px;display:none}
-.mnemo-example{background:rgba(107,79,160,.08);border-radius:6px;padding:7px 10px;font-size:11px;color:var(--violet);margin-bottom:8px;line-height:1.5}
+.mnemo-saved{font-size:var(--fs-xxs);color:var(--violet);font-style:italic;margin-top:5px;display:none}
+.mnemo-example{background:rgba(107,79,160,.08);border-radius:6px;padding:7px 10px;font-size:var(--fs-xxs);color:var(--violet);margin-bottom:8px;line-height:1.5}
 .mnemo-example strong{font-weight:600;display:block;margin-bottom:2px}
 
 /* ── MOBILE LAYOUT OVERRIDES ── */
@@ -328,6 +351,8 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   .block{padding:12px 14px!important}
   .ci{padding:10px 12px!important}
   .ci-check{width:22px!important;height:22px!important}
+  /* Library rules two-col → single col on mobile */
+  .lib-rules-grid{grid-template-columns:1fr!important}
 }
 
 /* ── PWA mobile-view class overrides ── */
@@ -445,11 +470,22 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 <div class="day-card">
   <div class="day-head">
     <div><div class="day-name">Monday</div><div class="day-sub">May 26</div><div class="day-badge b-cpl">CPL Art. 1 · Intro day</div></div>
+    <div class="day-progress">
+      <svg class="dp-ring" viewBox="0 0 36 36">
+        <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
+        <circle class="dp-fill" id="dpfill-monday" cx="18" cy="18" r="15.9"
+          stroke-dasharray="100 100" stroke-dashoffset="100"/>
+      </svg>
+      <div class="dp-label"><strong id="dppct-monday">0%</strong>done</div>
+    </div>
     <div class="day-total"><strong>~100 min</strong><span>total study</span></div>
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-monday_morning_commute" onclick="toggleBlockCB(this,'monday_morning_commute')"></div>
+      <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>ClerkOne — CPL Art. 1 Notes</span><span class="tool t-co">ClerkOne</span></div>
       <div class="bbody">Read the <em>first half</em> of CPL Art. 1 plain-English notes. Stop at 30 min even if mid-section — phone down, rest your eyes for the rest of the ride.
@@ -459,7 +495,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-monday_lunch" onclick="toggleBlockCB(this,'monday_lunch')"></div>
+      <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Free recall → Quiz → Anki build</span><span class="reddit">Free recall</span><span class="reddit">Spaced rep</span></div>
       <div class="bbody">
@@ -472,7 +511,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-monday_evening_commute" onclick="toggleBlockCB(this,'monday_evening_commute')"></div>
+      <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Active recall — CPL Art. 1 mental quiz</span><span class="tool t-paper">No phone</span><span class="reddit">Active recall</span></div>
       <div class="bbody">Phone away. Answer these from memory — eyes closed or looking out the window:
@@ -487,7 +529,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Wind-down</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-monday_wind_down" onclick="toggleBlockCB(this,'monday_wind_down')"></div>
+      <div><div class="bwindow">Wind-down</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Book — layered preview CPL Art. 10 + tonight's mnemonic</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
       <div class="bbody">Physical Bluemedia book only. Read: <em>index → end questions → summary</em> of CPL Art. 10. Then spend 5 min creating tonight's mnemonic below before closing everything. Screens off 1 hour before sleep.
@@ -503,23 +548,23 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
           <span class="qp-score" style="margin:0" id="dqscore-mon">0 / 5 · 0%</span>
           <div class="qp-track" style="flex:1;min-width:80px"><div class="qp-fill" id="dqfill-mon" style="width:0%"></div></div>
-          <button onclick="resetDayQuiz('mon')" style="font-size:10px;font-weight:600;background:var(--slate-light);color:var(--slate);border:none;border-radius:4px;padding:3px 9px;cursor:pointer;font-family:inherit">Reset</button>
+          <button onclick="resetDayQuiz('mon')" style="font-size:var(--fs-xxs);font-weight:600;background:var(--slate-light);color:var(--slate);border:none;border-radius:4px;padding:3px 9px;cursor:pointer;font-family:inherit">Reset</button>
         </div>
         <div class="dq" id="dq-mon-1">
           <div class="dq-num">Q1</div>
           <div class="dq-q">A criminal action commences when:</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-mon-1-a" onclick="selectDQ('mon',1,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">A defendant is arrested</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">A defendant is arrested</div>
             </div><div class="dq-opt" id="dqopt-mon-1-b" onclick="selectDQ('mon',1,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">The first accusatory instrument is filed against the defendant</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">The first accusatory instrument is filed against the defendant</div>
             </div><div class="dq-opt" id="dqopt-mon-1-c" onclick="selectDQ('mon',1,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">An indictment is voted by a grand jury</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">An indictment is voted by a grand jury</div>
             </div><div class="dq-opt" id="dqopt-mon-1-d" onclick="selectDQ('mon',1,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">The crime was committed</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">The crime was committed</div>
             </div></div>
           <div class="dq-exp" id="dqexp-mon-1"><strong>Correct: b.</strong> CPL 1.20-16,17. Filing of the first accusatory instrument is the trigger — not arrest, not crime date, not indictment.</div>
         </div><div class="dq" id="dq-mon-2">
@@ -527,16 +572,16 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <div class="dq-q">A felony complaint can serve as:</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-mon-2-a" onclick="selectDQ('mon',2,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">Both basis to commence AND basis for prosecution</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Both basis to commence AND basis for prosecution</div>
             </div><div class="dq-opt" id="dqopt-mon-2-b" onclick="selectDQ('mon',2,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">Basis to commence a criminal action only — NOT basis for prosecution</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Basis to commence a criminal action only — NOT basis for prosecution</div>
             </div><div class="dq-opt" id="dqopt-mon-2-c" onclick="selectDQ('mon',2,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">Basis for prosecution only</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Basis for prosecution only</div>
             </div><div class="dq-opt" id="dqopt-mon-2-d" onclick="selectDQ('mon',2,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">Neither — it must be replaced by an information</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Neither — it must be replaced by an information</div>
             </div></div>
           <div class="dq-exp" id="dqexp-mon-2"><strong>Correct: b.</strong> CPL 1.20-8. A felony complaint commences the action but only an indictment or SCI can be the basis for prosecuting a felony.</div>
         </div><div class="dq" id="dq-mon-3">
@@ -544,16 +589,16 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <div class="dq-q">Which of the following is a petty offense?</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-mon-3-a" onclick="selectDQ('mon',3,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">Class B misdemeanor</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Class B misdemeanor</div>
             </div><div class="dq-opt" id="dqopt-mon-3-b" onclick="selectDQ('mon',3,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">Class A misdemeanor</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Class A misdemeanor</div>
             </div><div class="dq-opt" id="dqopt-mon-3-c" onclick="selectDQ('mon',3,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">Traffic infraction</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Traffic infraction</div>
             </div><div class="dq-opt" id="dqopt-mon-3-d" onclick="selectDQ('mon',3,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">Class E felony</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Class E felony</div>
             </div></div>
           <div class="dq-exp" id="dqexp-mon-3"><strong>Correct: c.</strong> CPL 1.20-39. Petty offense = violation OR traffic infraction. Misdemeanors are NOT petty offenses.</div>
         </div><div class="dq" id="dq-mon-4">
@@ -561,16 +606,16 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <div class="dq-q">A summons in a criminal action may be issued by:</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-mon-4-a" onclick="selectDQ('mon',4,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">A local criminal court only</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">A local criminal court only</div>
             </div><div class="dq-opt" id="dqopt-mon-4-b" onclick="selectDQ('mon',4,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">A police officer</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">A police officer</div>
             </div><div class="dq-opt" id="dqopt-mon-4-c" onclick="selectDQ('mon',4,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">A district attorney</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">A district attorney</div>
             </div><div class="dq-opt" id="dqopt-mon-4-d" onclick="selectDQ('mon',4,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">A local or superior court</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">A local or superior court</div>
             </div></div>
           <div class="dq-exp" id="dqexp-mon-4"><strong>Correct: d.</strong> Effective 11/1/93 superior courts were also authorized to issue a summons. Police officers issue appearance tickets, not summonses.</div>
         </div><div class="dq" id="dq-mon-5">
@@ -578,16 +623,16 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <div class="dq-q">The purpose of a bench warrant is to:</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-mon-5-a" onclick="selectDQ('mon',5,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">Arrest a defendant for initial arraignment</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Arrest a defendant for initial arraignment</div>
             </div><div class="dq-opt" id="dqopt-mon-5-b" onclick="selectDQ('mon',5,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">Produce a previously arraigned defendant for a purpose other than initial arraignment</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Produce a previously arraigned defendant for a purpose other than initial arraignment</div>
             </div><div class="dq-opt" id="dqopt-mon-5-c" onclick="selectDQ('mon',5,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">Search a defendant's premises</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Search a defendant's premises</div>
             </div><div class="dq-opt" id="dqopt-mon-5-d" onclick="selectDQ('mon',5,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">Issue a summons requiring a defendant to appear</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Issue a summons requiring a defendant to appear</div>
             </div></div>
           <div class="dq-exp" id="dqexp-mon-5"><strong>Correct: b.</strong> A bench warrant is used when a defendant in a pending case has already been arraigned and further court appearance is required.</div>
         </div>
@@ -616,11 +661,22 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 <div class="day-card">
   <div class="day-head">
     <div><div class="day-name">Tuesday</div><div class="day-sub">May 27</div><div class="day-badge b-cpl">CPL Art. 10 · Jurisdiction</div></div>
+    <div class="day-progress">
+      <svg class="dp-ring" viewBox="0 0 36 36">
+        <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
+        <circle class="dp-fill" id="dpfill-tuesday" cx="18" cy="18" r="15.9"
+          stroke-dasharray="100 100" stroke-dashoffset="100"/>
+      </svg>
+      <div class="dp-label"><strong id="dppct-tuesday">0%</strong>done</div>
+    </div>
     <div class="day-total"><strong>~100 min</strong><span>total study</span></div>
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-tuesday_morning_commute" onclick="toggleBlockCB(this,'tuesday_morning_commute')"></div>
+      <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>ClerkOne — CPL Art. 10 Notes</span><span class="tool t-co">ClerkOne</span></div>
       <div class="bbody">Read first half of CPL Art. 10 notes. Because you previewed the index last night, the structure will feel familiar — your brain already has a frame for the content.
@@ -630,7 +686,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-tuesday_lunch" onclick="toggleBlockCB(this,'tuesday_lunch')"></div>
+      <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Blurt Art. 1 (Day 2) → quiz Art. 10 → Anki</span><span class="reddit">Expanding gap</span><span class="reddit">Free recall</span></div>
       <div class="bbody">
@@ -643,7 +702,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-tuesday_evening_commute" onclick="toggleBlockCB(this,'tuesday_evening_commute')"></div>
+      <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Active recall — CPL Arts. 1 &amp; 10 mental quiz</span><span class="tool t-paper">No phone</span><span class="reddit">Active recall</span></div>
       <div class="bbody">Phone away. Work through these from memory:
@@ -658,7 +720,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Wind-down</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-tuesday_wind_down" onclick="toggleBlockCB(this,'tuesday_wind_down')"></div>
+      <div><div class="bwindow">Wind-down</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Book — preview CPL Art. 30 + tonight's mnemonic</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
       <div class="bbody">Index → questions → summary of CPL Art. 30. Then create tonight's mnemonic below. Screens off.
@@ -674,23 +739,23 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
           <span class="qp-score" style="margin:0" id="dqscore-tue">0 / 4 · 0%</span>
           <div class="qp-track" style="flex:1;min-width:80px"><div class="qp-fill" id="dqfill-tue" style="width:0%"></div></div>
-          <button onclick="resetDayQuiz('tue')" style="font-size:10px;font-weight:600;background:var(--slate-light);color:var(--slate);border:none;border-radius:4px;padding:3px 9px;cursor:pointer;font-family:inherit">Reset</button>
+          <button onclick="resetDayQuiz('tue')" style="font-size:var(--fs-xxs);font-weight:600;background:var(--slate-light);color:var(--slate);border:none;border-radius:4px;padding:3px 9px;cursor:pointer;font-family:inherit">Reset</button>
         </div>
         <div class="dq" id="dq-tue-1">
           <div class="dq-num">Q1</div>
           <div class="dq-q">A court has 'trial jurisdiction' when:</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-tue-1-a" onclick="selectDQ('tue',1,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">It has authority to issue an arrest warrant</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">It has authority to issue an arrest warrant</div>
             </div><div class="dq-opt" id="dqopt-tue-1-b" onclick="selectDQ('tue',1,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">It has authority to conduct a preliminary hearing only</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">It has authority to conduct a preliminary hearing only</div>
             </div><div class="dq-opt" id="dqopt-tue-1-c" onclick="selectDQ('tue',1,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">It is the proper venue to file AND has authority to take a plea or enter a verdict</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">It is the proper venue to file AND has authority to take a plea or enter a verdict</div>
             </div><div class="dq-opt" id="dqopt-tue-1-d" onclick="selectDQ('tue',1,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">It has jurisdiction over all offenses in the county</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">It has jurisdiction over all offenses in the county</div>
             </div></div>
           <div class="dq-exp" id="dqexp-tue-1"><strong>Correct: c.</strong> CPL 1.20-24-25. Both elements required — proper venue AND authority to take a plea or enter verdict.</div>
         </div><div class="dq" id="dq-tue-2">
@@ -698,16 +763,16 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <div class="dq-q">Which court has only preliminary jurisdiction over felonies?</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-tue-2-a" onclick="selectDQ('tue',2,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">Supreme Court</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Supreme Court</div>
             </div><div class="dq-opt" id="dqopt-tue-2-b" onclick="selectDQ('tue',2,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">County Court</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">County Court</div>
             </div><div class="dq-opt" id="dqopt-tue-2-c" onclick="selectDQ('tue',2,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">Local criminal court</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Local criminal court</div>
             </div><div class="dq-opt" id="dqopt-tue-2-d" onclick="selectDQ('tue',2,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">Court of Appeals</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Court of Appeals</div>
             </div></div>
           <div class="dq-exp" id="dqexp-tue-2"><strong>Correct: c.</strong> Local criminal courts handle arraignments and preliminary proceedings but cannot try felonies. Trial jurisdiction over felonies belongs to superior courts.</div>
         </div><div class="dq" id="dq-tue-3">
@@ -715,16 +780,16 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <div class="dq-q">An indictment is filed in:</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-tue-3-a" onclick="selectDQ('tue',3,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">The same local criminal court where the felony complaint was filed</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">The same local criminal court where the felony complaint was filed</div>
             </div><div class="dq-opt" id="dqopt-tue-3-b" onclick="selectDQ('tue',3,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">The Court of Appeals</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">The Court of Appeals</div>
             </div><div class="dq-opt" id="dqopt-tue-3-c" onclick="selectDQ('tue',3,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">A superior court (Supreme or County Court)</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">A superior court (Supreme or County Court)</div>
             </div><div class="dq-opt" id="dqopt-tue-3-d" onclick="selectDQ('tue',3,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">The Appellate Division</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">The Appellate Division</div>
             </div></div>
           <div class="dq-exp" id="dqexp-tue-3"><strong>Correct: c.</strong> Indictments are filed in and tried in superior courts — Supreme Court or County Court.</div>
         </div><div class="dq" id="dq-tue-4">
@@ -732,16 +797,16 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <div class="dq-q">Preliminary jurisdiction means:</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-tue-4-a" onclick="selectDQ('tue',4,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">Full authority to try the case on its merits</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Full authority to try the case on its merits</div>
             </div><div class="dq-opt" id="dqopt-tue-4-b" onclick="selectDQ('tue',4,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">Authority only to conduct proceedings prior to final disposition — not to make a final disposition</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Authority only to conduct proceedings prior to final disposition — not to make a final disposition</div>
             </div><div class="dq-opt" id="dqopt-tue-4-c" onclick="selectDQ('tue',4,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">Exclusive jurisdiction over all felonies</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Exclusive jurisdiction over all felonies</div>
             </div><div class="dq-opt" id="dqopt-tue-4-d" onclick="selectDQ('tue',4,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">Jurisdiction only over violations and traffic infractions</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Jurisdiction only over violations and traffic infractions</div>
             </div></div>
           <div class="dq-exp" id="dqexp-tue-4"><strong>Correct: b.</strong> Preliminary jurisdiction = authority to commence proceedings. Trial jurisdiction = authority to make final disposition on the merits.</div>
         </div>
@@ -770,11 +835,22 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 <div class="day-card">
   <div class="day-head">
     <div><div class="day-name">Wednesday</div><div class="day-sub">May 28</div><div class="day-badge b-cpl">CPL Art. 30 · Speedy Trial</div></div>
+    <div class="day-progress">
+      <svg class="dp-ring" viewBox="0 0 36 36">
+        <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
+        <circle class="dp-fill" id="dpfill-wednesday" cx="18" cy="18" r="15.9"
+          stroke-dasharray="100 100" stroke-dashoffset="100"/>
+      </svg>
+      <div class="dp-label"><strong id="dppct-wednesday">0%</strong>done</div>
+    </div>
     <div class="day-total"><strong>~100 min</strong><span>total study</span></div>
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-wednesday_morning_commute" onclick="toggleBlockCB(this,'wednesday_morning_commute')"></div>
+      <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>ClerkOne — CPL Art. 30 Notes</span><span class="tool t-co">ClerkOne</span></div>
       <div class="bbody">Read CPL Art. 30. <em>Lock in the time frames</em> — 30, 90, 180-day speedy trial deadlines are high-frequency exam questions. These numbers go into your Roman Room Saturday.
@@ -784,7 +860,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-wednesday_lunch" onclick="toggleBlockCB(this,'wednesday_lunch')"></div>
+      <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Blurt Art. 10 (Day 2) + Art. 1 (Day 3) → quiz Art. 30</span><span class="reddit">Expanding gap</span><span class="reddit">Free recall</span></div>
       <div class="bbody">
@@ -797,7 +876,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-wednesday_evening_commute" onclick="toggleBlockCB(this,'wednesday_evening_commute')"></div>
+      <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Active recall — CPL Arts. 1, 10 &amp; 30 mental quiz</span><span class="tool t-paper">No phone</span><span class="reddit">Active recall</span></div>
       <div class="bbody">Phone away. This is your Day 2 pass on Art. 30 — answer without looking:
@@ -812,7 +894,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Wind-down</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-wednesday_wind_down" onclick="toggleBlockCB(this,'wednesday_wind_down')"></div>
+      <div><div class="bwindow">Wind-down</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Book — preview PL Art. 10 + tonight's mnemonic</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
       <div class="bbody">Switching to Penal Law tomorrow. Index → questions → summary of PL Art. 10. Then create tonight's mnemonic below. Screens off.
@@ -828,23 +913,23 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
           <span class="qp-score" style="margin:0" id="dqscore-wed">0 / 5 · 0%</span>
           <div class="qp-track" style="flex:1;min-width:80px"><div class="qp-fill" id="dqfill-wed" style="width:0%"></div></div>
-          <button onclick="resetDayQuiz('wed')" style="font-size:10px;font-weight:600;background:var(--slate-light);color:var(--slate);border:none;border-radius:4px;padding:3px 9px;cursor:pointer;font-family:inherit">Reset</button>
+          <button onclick="resetDayQuiz('wed')" style="font-size:var(--fs-xxs);font-weight:600;background:var(--slate-light);color:var(--slate);border:none;border-radius:4px;padding:3px 9px;cursor:pointer;font-family:inherit">Reset</button>
         </div>
         <div class="dq" id="dq-wed-1">
           <div class="dq-num">Q1</div>
           <div class="dq-q">For a felony, the People must be ready for trial within:</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-wed-1-a" onclick="selectDQ('wed',1,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">30 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">30 days</div>
             </div><div class="dq-opt" id="dqopt-wed-1-b" onclick="selectDQ('wed',1,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">90 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">90 days</div>
             </div><div class="dq-opt" id="dqopt-wed-1-c" onclick="selectDQ('wed',1,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">180 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">180 days</div>
             </div><div class="dq-opt" id="dqopt-wed-1-d" onclick="selectDQ('wed',1,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">365 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">365 days</div>
             </div></div>
           <div class="dq-exp" id="dqexp-wed-1"><strong>Correct: c.</strong> CPL 30.30 — 180 days for a felony.</div>
         </div><div class="dq" id="dq-wed-2">
@@ -852,16 +937,16 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <div class="dq-q">For a class A misdemeanor, the speedy trial time limit is:</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-wed-2-a" onclick="selectDQ('wed',2,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">30 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">30 days</div>
             </div><div class="dq-opt" id="dqopt-wed-2-b" onclick="selectDQ('wed',2,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">60 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">60 days</div>
             </div><div class="dq-opt" id="dqopt-wed-2-c" onclick="selectDQ('wed',2,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">90 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">90 days</div>
             </div><div class="dq-opt" id="dqopt-wed-2-d" onclick="selectDQ('wed',2,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">180 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">180 days</div>
             </div></div>
           <div class="dq-exp" id="dqexp-wed-2"><strong>Correct: c.</strong> CPL 30.30 — 90 days for a class A misdemeanor.</div>
         </div><div class="dq" id="dq-wed-3">
@@ -869,16 +954,16 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <div class="dq-q">For a violation or traffic infraction, the speedy trial limit is:</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-wed-3-a" onclick="selectDQ('wed',3,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">15 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">15 days</div>
             </div><div class="dq-opt" id="dqopt-wed-3-b" onclick="selectDQ('wed',3,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">30 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">30 days</div>
             </div><div class="dq-opt" id="dqopt-wed-3-c" onclick="selectDQ('wed',3,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">60 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">60 days</div>
             </div><div class="dq-opt" id="dqopt-wed-3-d" onclick="selectDQ('wed',3,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">90 days</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">90 days</div>
             </div></div>
           <div class="dq-exp" id="dqexp-wed-3"><strong>Correct: b.</strong> CPL 30.30 — 30 days for a violation or traffic infraction.</div>
         </div><div class="dq" id="dq-wed-4">
@@ -886,16 +971,16 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <div class="dq-q">The speedy trial clock under CPL 30.30 is triggered by:</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-wed-4-a" onclick="selectDQ('wed',4,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">The date the crime was committed</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">The date the crime was committed</div>
             </div><div class="dq-opt" id="dqopt-wed-4-b" onclick="selectDQ('wed',4,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">The date of defendant's arrest</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">The date of defendant's arrest</div>
             </div><div class="dq-opt" id="dqopt-wed-4-c" onclick="selectDQ('wed',4,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">The commencement of the criminal action — filing of first accusatory instrument</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">The commencement of the criminal action — filing of first accusatory instrument</div>
             </div><div class="dq-opt" id="dqopt-wed-4-d" onclick="selectDQ('wed',4,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">The date of arraignment</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">The date of arraignment</div>
             </div></div>
           <div class="dq-exp" id="dqexp-wed-4"><strong>Correct: c.</strong> The clock runs from commencement of the criminal action — filing of the first accusatory instrument.</div>
         </div><div class="dq" id="dq-wed-5">
@@ -903,16 +988,16 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <div class="dq-q">Which period is excluded from speedy trial calculations?</div>
           <div class="dq-opts"><div class="dq-opt" id="dqopt-wed-5-a" onclick="selectDQ('wed',5,'a')">
               <div class="dq-letter">A</div>
-              <div style="font-size:12px;line-height:1.45">Time when defendant is awaiting grand jury action</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Time when defendant is awaiting grand jury action</div>
             </div><div class="dq-opt" id="dqopt-wed-5-b" onclick="selectDQ('wed',5,'b')">
               <div class="dq-letter">B</div>
-              <div style="font-size:12px;line-height:1.45">Delays caused solely by the defendant</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Delays caused solely by the defendant</div>
             </div><div class="dq-opt" id="dqopt-wed-5-c" onclick="selectDQ('wed',5,'c')">
               <div class="dq-letter">C</div>
-              <div style="font-size:12px;line-height:1.45">Adjournments at defendant's request</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">Adjournments at defendant's request</div>
             </div><div class="dq-opt" id="dqopt-wed-5-d" onclick="selectDQ('wed',5,'d')">
               <div class="dq-letter">D</div>
-              <div style="font-size:12px;line-height:1.45">All of the above</div>
+              <div style="font-size:var(--fs-xs);line-height:1.45">All of the above</div>
             </div></div>
           <div class="dq-exp" id="dqexp-wed-5"><strong>Correct: d.</strong> CPL 30.30 lists many excludable periods — delays caused by defendant, adjournments on consent, time awaiting grand jury action.</div>
         </div>
@@ -941,11 +1026,22 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 <div class="day-card">
   <div class="day-head">
     <div><div class="day-name">Thursday</div><div class="day-sub">May 29</div><div class="day-badge b-penal">Penal Law Arts. 10 &amp; 55</div></div>
+    <div class="day-progress">
+      <svg class="dp-ring" viewBox="0 0 36 36">
+        <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
+        <circle class="dp-fill" id="dpfill-thursday" cx="18" cy="18" r="15.9"
+          stroke-dasharray="100 100" stroke-dashoffset="100"/>
+      </svg>
+      <div class="dp-label"><strong id="dppct-thursday">0%</strong>done</div>
+    </div>
     <div class="day-total"><strong>~100 min</strong><span>total study</span></div>
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-thursday_morning_commute" onclick="toggleBlockCB(this,'thursday_morning_commute')"></div>
+      <div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>ClerkOne — PL Art. 10 Notes</span><span class="tool t-co">ClerkOne</span></div>
       <div class="bbody">PL Art. 10 is definition-heavy. Focus on the <em>four mental states: intentionally, knowingly, recklessly, criminal negligence.</em> Don't memorize everything — absorb the structure and the distinctions between each state.
@@ -955,7 +1051,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-thursday_lunch" onclick="toggleBlockCB(this,'thursday_lunch')"></div>
+      <div><div class="bwindow">Lunch</div><div class="bdur">50 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Blurt Art. 30 (Day 2) → PL quiz → Roman Room build</span><span class="reddit">Free recall</span><span class="reddit">Roman Room</span></div>
       <div class="bbody">
@@ -969,7 +1068,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-thursday_evening_commute" onclick="toggleBlockCB(this,'thursday_evening_commute')"></div>
+      <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Active recall — PL Arts. 10 &amp; 55 mental quiz</span><span class="tool t-paper">No phone</span><span class="reddit">Active recall</span></div>
       <div class="bbody">Phone away. Work through your Roman Room and these questions:
@@ -984,7 +1086,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-thursday_wind_down" onclick="toggleBlockCB(this,'thursday_wind_down')"></div>
+      <div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Book — preview PL Arts. 55 &amp; 80</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
       <div class="bbody">Layered preview of PL Arts. 55 and 80: index → questions → summary. Note the classification chart — Class A felony down to violation. That hierarchy goes in your notes session Saturday.</div>
@@ -996,11 +1101,22 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 <div class="day-card">
   <div class="day-head">
     <div><div class="day-name">Friday</div><div class="day-sub">May 30</div><div class="day-badge b-light">Light day · Full-week recall</div></div>
+    <div class="day-progress">
+      <svg class="dp-ring" viewBox="0 0 36 36">
+        <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
+        <circle class="dp-fill" id="dpfill-friday" cx="18" cy="18" r="15.9"
+          stroke-dasharray="100 100" stroke-dashoffset="100"/>
+      </svg>
+      <div class="dp-label"><strong id="dppct-friday">0%</strong>done</div>
+    </div>
     <div class="day-total"><strong>~55 min</strong><span>total study</span></div>
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Morning commute</div><div class="bdur">20 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-friday_morning_commute" onclick="toggleBlockCB(this,'friday_morning_commute')"></div>
+      <div><div class="bwindow">Morning commute</div><div class="bdur">20 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Anki — due cards only</span><span class="tool t-anki">Anki</span></div>
       <div class="bbody">Only cards that are due today. No new cards. No reading. 20 min then rest. Intentionally light — your brain needs reduced load going into the rest day.
@@ -1010,7 +1126,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Lunch</div><div class="bdur">35 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-friday_lunch" onclick="toggleBlockCB(this,'friday_lunch')"></div>
+      <div><div class="bwindow">Lunch</div><div class="bdur">35 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Full-week blurt + walk</span><span class="reddit">Free recall</span><span class="reddit">Move</span></div>
       <div class="bbody">
@@ -1021,7 +1140,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Evening commute</div><div class="bdur">0 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-friday_evening_commute" onclick="toggleBlockCB(this,'friday_evening_commute')"></div>
+      <div><div class="bwindow">Evening commute</div><div class="bdur">0 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Complete rest — no studying</span><span class="tool t-rest">Rest</span></div>
       <div class="bbody">Phone away. Music, podcast, anything non-law. Your brain consolidates all week's input during genuine downtime.
@@ -1035,18 +1157,30 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 <div class="day-card notes-day full">
   <div class="day-head">
     <div><div class="day-name">Saturday</div><div class="day-sub">May 31 · Notes &amp; material creation AM · Full rest PM onward</div><div class="day-badge b-notes">Notes session · ~2.5 hrs · then 🛑 full rest</div></div>
+    <div class="day-progress">
+      <svg class="dp-ring" viewBox="0 0 36 36">
+        <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
+        <circle class="dp-fill" id="dpfill-saturday" cx="18" cy="18" r="15.9"
+          stroke-dasharray="100 100" stroke-dashoffset="100"/>
+      </svg>
+      <div class="dp-label"><strong id="dppct-saturday">0%</strong>done</div>
+    </div>
     <div class="day-total"><strong>~2.5 hrs</strong><span>AM only, then rest</span></div>
   </div>
 
   <div class="notes-section-head">📓 Saturday Notes &amp; Material Creation Session — what this time is for</div>
 
-  <div class="block wide">
-    <div class="bbody" style="padding:4px 0">
-      This session is not studying. It is not quizzing. It is <em>building the materials you will use for the next 20 weeks.</em> Your summary sheets, memory palace map, mnemonics sheet, Anki deck, and spaced rep diary are all assets — this is when you build and maintain them. Every piece you create here gets tested on Sunday at the library.
+  <div style="padding:14px 16px;border-bottom:1px solid var(--border);background:var(--violet-light)">
+    <div style="font-size:var(--fs-xs);color:var(--violet);line-height:1.7">
+      This session is not studying. It is not quizzing. It is <strong style="color:var(--navy)">building the materials you will use for the next 20 weeks.</strong> Your summary sheets, memory palace map, mnemonics sheet, Anki deck, and spaced rep diary are all assets — this is when you build and maintain them. Every piece you create here gets tested on Sunday at the library.
     </div>
   </div>
 
-  <div class="block wide">
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sat_phase1" onclick="toggleBlockCB(this,'sat_phase1')"></div>
+      <div><div class="bwindow">Phase 1</div><div class="bdur">30 min</div></div>
+    </div>
     <div>
       <div class="notes-phase">
         <div class="ph-title"><span class="tool t-yt">YouTube</span> Phase 1 — Encoding with video (30 min)</div>
@@ -1057,6 +1191,15 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sat_phase2" onclick="toggleBlockCB(this,'sat_phase2')"></div>
+      <div><div class="bwindow">Phase 2</div><div class="bdur">35 min</div><div class="noscreen">NO SCREEN</div></div>
+    </div>
+    <div>
       <div class="notes-phase">
         <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 2 — Master summary sheets (35 min)</div>
         <div class="ph-time">One page per law group, your own words, no copying</div>
@@ -1066,7 +1209,15 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
           <strong>Label, date, file both sheets. You will reference these every week for 20 weeks.</strong>
         </div>
       </div>
+    </div>
+  </div>
 
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sat_phase3" onclick="toggleBlockCB(this,'sat_phase3')"></div>
+      <div><div class="bwindow">Phase 3</div><div class="bdur">30 min</div></div>
+    </div>
+    <div>
       <div class="notes-phase" style="border-left-color:var(--coral);background:var(--coral-light)">
         <div class="ph-title" style="color:var(--coral)">🧠 Phase 3 — Mnemonic creation session (30 min)</div>
         <div class="ph-time" style="color:var(--coral)">Build one mnemonic per hard-to-remember list · mix all three types based on content · write every one in your diary</div>
@@ -1106,6 +1257,15 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sat_phase4" onclick="toggleBlockCB(this,'sat_phase4')"></div>
+      <div><div class="bwindow">Phase 4</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
+    </div>
+    <div>
       <div class="notes-phase">
         <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 4 — Extend your Memory Palace map (20 min)</div>
         <div class="ph-time">Sketch the map, add new locations · mnemonics and palace work together</div>
@@ -1117,6 +1277,15 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sat_phase5" onclick="toggleBlockCB(this,'sat_phase5')"></div>
+      <div><div class="bwindow">Phase 5</div><div class="bdur">20 min</div></div>
+    </div>
+    <div>
       <div class="notes-phase">
         <div class="ph-title"><span class="tool t-anki">Anki</span> Phase 5 — Build cards from summary sheets + mnemonics (20 min)</div>
         <div class="ph-time">One card per mnemonic minimum — cards from your own words only</div>
@@ -1128,6 +1297,15 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sat_phase6" onclick="toggleBlockCB(this,'sat_phase6')"></div>
+      <div><div class="bwindow">Phase 6</div><div class="bdur">15 min</div></div>
+    </div>
+    <div>
       <div class="notes-phase">
         <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 6 — Spaced rep diary check + update (15 min)</div>
         <div class="ph-time">5 minutes of diary work catches everything Anki misses</div>
@@ -1136,8 +1314,17 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
         </div>
       </div>
 
-      <div class="callout callout-gold" style="margin:10px 16px">
-        🛑 <strong>After Phase 6 — full rest for the remainder of Saturday.</strong> No ClerkOne, no quizzer, no VJC, no Anki. The 1.5-day break is what makes 20 consecutive weeks sustainable. Rest is a biological requirement for memory consolidation, not a reward.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sat_rest" onclick="toggleBlockCB(this,'sat_rest')"></div>
+      <div><div class="bwindow">Sat PM</div><div class="bdur">Full rest</div></div>
+    </div>
+    <div>
+      <div class="callout callout-gold" style="margin:0">
+        🛑 <strong>Full rest for the remainder of Saturday.</strong> No ClerkOne, no quizzer, no VJC, no Anki. The 1.5-day break is what makes 20 consecutive weeks sustainable. Rest is a biological requirement for memory consolidation, not a reward.
       </div>
     </div>
   </div>
@@ -1151,19 +1338,38 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
       <div class="day-sub">June 1 · 📍 Library · 5–6 hour intensive · practice testing focus</div>
       <div class="day-badge b-deep">Library day · 7 Pomodoro blocks · phone + books only</div>
     </div>
+    <div class="day-progress">
+      <svg class="dp-ring" viewBox="0 0 36 36">
+        <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
+        <circle class="dp-fill" id="dpfill-sunday" cx="18" cy="18" r="15.9"
+          stroke-dasharray="100 100" stroke-dashoffset="100"/>
+      </svg>
+      <div class="dp-label"><strong id="dppct-sunday">0%</strong>done</div>
+    </div>
     <div class="day-total"><strong>5–6 hrs</strong><span>then early rest</span></div>
   </div>
 
-  <div class="block wide">
-    <div>
-      <div class="callout callout-teal" style="margin:0 0 10px">
-        📍 <strong>Library environment rules:</strong> Phone on silent, face-down between Pomodoro sessions. Books and paper on the desk before you sit down. No social media between blocks — use the 5-min breaks to stand up, stretch, get water. The library removes your home distractions; protect that advantage by keeping the phone disciplined. Bring: Bluemedia books, your diary/planner, blank paper for blurting, two colored pens, Anki on your phone, ClerkOne on your phone.
+  <div style="padding:14px 16px 10px;border-bottom:1px solid var(--border)">
+    <div style="background:var(--teal-light);border-left:4px solid var(--teal);border-radius:0 10px 10px 0;padding:14px 16px">
+      <div style="font-size:var(--fs-sm);font-weight:600;color:var(--teal);margin-bottom:8px">📍 Library environment rules</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" class="lib-rules-grid">
+        <div style="font-size:var(--fs-xs);color:var(--text-muted);line-height:1.6">
+          <strong style="color:var(--navy);display:block;margin-bottom:3px">During sessions</strong>
+          Phone on silent, face-down between Pomodoro blocks. No social media on breaks — stand up, stretch, get water instead.
+        </div>
+        <div style="font-size:var(--fs-xs);color:var(--text-muted);line-height:1.6">
+          <strong style="color:var(--navy);display:block;margin-bottom:3px">What to bring</strong>
+          Bluemedia books · diary/planner · blank paper · two colored pens · Anki on phone · ClerkOne on phone
+        </div>
       </div>
     </div>
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Arrival · settle in</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sunday_arrival" onclick="toggleBlockCB(this,'sunday_arrival')"></div>
+      <div><div class="bwindow">Arrival · settle in</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Setup + diary check + full-week blurt warm-up</span><span class="tool t-paper">Paper</span><span class="reddit">Free recall</span></div>
       <div class="bbody">Get settled, arrange your materials. Open your diary — check what reviews are due today (CPL Art. 30 Day 3, PL Art. 10 Day 2). Then immediately do a 10-minute free recall warm-up: blank paper, write everything you know across all 6 articles from the week. No phone, no books. This primes your brain before any testing begins and counts as your Day 3–4 review for each article.
@@ -1173,7 +1379,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Block 1</div><div class="bdur">25+5 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sunday_block1" onclick="toggleBlockCB(this,'sunday_block1')"></div>
+      <div><div class="bwindow">Block 1</div><div class="bdur">25+5 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Bluemedia book — PL Arts. 55 &amp; 80 full layered read</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
       <div class="bbody">Physical book only. Full layered read: index → end questions → summary → intro → full text. Underline key terms in pen. Circle every number and dollar amount. Write 3 margin takeaways per article. PL 55 classification hierarchy and PL 80 fine caps are direct exam questions. Break = stand up, walk to water fountain, stretch.
@@ -1182,7 +1391,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Block 2</div><div class="bdur">25+5 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sunday_block2" onclick="toggleBlockCB(this,'sunday_block2')"></div>
+      <div><div class="bwindow">Block 2</div><div class="bdur">25+5 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Free recall blurt — PL Arts. 55 &amp; 80</span><span class="tool t-paper">Paper</span><span class="reddit">Free recall</span></div>
       <div class="bbody">Close the book immediately. Blank paper — write everything you just read about PL 55 and 80 from memory. Every definition, every number, every classification tier. Then open the book and gap-fill in a different color. Every gap you find is an Anki card. <em>This retrieval immediately after reading is the Day 1 pass of your spaced rep cycle for these articles.</em>
@@ -1192,7 +1404,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Block 3</div><div class="bdur">25+5 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sunday_block3" onclick="toggleBlockCB(this,'sunday_block3')"></div>
+      <div><div class="bwindow">Block 3</div><div class="bdur">25+5 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>ClerkOne — CPL Arts. 1 &amp; 10 full practice test</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
       <div class="bbody">Custom multiple-choice test on CPL Arts. 1 and 10 only. Exam format, timed, no checking notes mid-test. After the 25 min, spend your 5-min break reviewing wrong answers in ClerkOne — read each explanation fully. <em>Wrong answers are your highest-value study material.</em> Circle the topics on your summary sheet that tripped you up.
@@ -1201,7 +1416,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Block 4</div><div class="bdur">25+5 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sunday_block4" onclick="toggleBlockCB(this,'sunday_block4')"></div>
+      <div><div class="bwindow">Block 4</div><div class="bdur">25+5 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>ClerkOne — CPL Art. 30 + PL Arts. 10 &amp; 55 practice test</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
       <div class="bbody">Second custom test — CPL Art. 30 (time limits) + PL Arts. 10 and 55. Same rules: timed, no notes during. After the test, review wrong answers and cross-reference your summary sheet. Check your Report Card — you now have two tests worth of data showing exactly which articles need the most attention next week.
@@ -1210,7 +1428,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Long break</div><div class="bdur">20–30 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sunday_long_break" onclick="toggleBlockCB(this,'sunday_long_break')"></div>
+      <div><div class="bwindow">Long break</div><div class="bdur">20–30 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Real break — leave the building if possible</span><span class="tool t-rest">Rest</span><span class="reddit">Move</span></div>
       <div class="bbody">After 4 Pomodoro blocks your prefrontal cortex needs a genuine reset — not a phone scroll, a real break. Walk outside the library for 15–20 minutes. Get food or water. No law content. This is the same principle as the Friday lunch walk: movement consolidates what you've done in Blocks 1–4 and resets focus for Blocks 5–7.
@@ -1219,7 +1440,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Block 5</div><div class="bdur">25+5 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sunday_block5" onclick="toggleBlockCB(this,'sunday_block5')"></div>
+      <div><div class="bwindow">Block 5</div><div class="bdur">25+5 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Bluemedia quizzer — Penal Law full set</span><span class="tool t-bm">Book</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
       <div class="bbody">Switch to the Bluemedia quizzer for a full Penal Law question set — this is different question phrasing from ClerkOne, which matters because the exam may phrase things differently than any single source. Do as many questions as you can in 25 min. Mark every wrong answer in your diary under the relevant article. Break = Anki — add any new cards from wrong answers.
@@ -1228,7 +1452,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Block 6</div><div class="bdur">25+5 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sunday_block6" onclick="toggleBlockCB(this,'sunday_block6')"></div>
+      <div><div class="bwindow">Block 6</div><div class="bdur">25+5 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Anki full deck review + Memory Palace walk</span><span class="tool t-anki">Anki</span><span class="reddit">Roman Room</span><span class="reddit">Spaced rep</span></div>
       <div class="bbody">All Anki cards due today — work through every one. After the deck, put the phone down and spend 10 min walking your full memory palace in your mind: bedroom (4 mental states) → kitchen (offense classifications). Walk it 3 times without looking at your diary map.
@@ -1238,7 +1465,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Block 7</div><div class="bdur">25+5 min</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sunday_block7" onclick="toggleBlockCB(this,'sunday_block7')"></div>
+      <div><div class="bwindow">Block 7</div><div class="bdur">25+5 min</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Full week simulated exam — all 6 articles, timed</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
       <div class="bbody">Set ClerkOne to a custom test covering <em>all</em> of this week's articles: CPL 1, 10, 30 + PL 10, 55, 80. Treat this exactly like exam day — sit up straight, no notes, timed. Your score here is your Week 1 baseline. <em>Write your score and date in your diary.</em> Any article below 70% = that article goes on your sticky note for Monday commute priority reading.
@@ -1248,7 +1478,10 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Before leaving</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-sunday_before_leaving" onclick="toggleBlockCB(this,'sunday_before_leaving')"></div>
+      <div><div class="bwindow">Before leaving</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
+    </div>
     <div>
       <div class="btitle"><span>Plan Week 2 + layered preview of CPL Art. 100</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span></div>
       <div class="bbody">
@@ -1367,331 +1600,99 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 </div>
 
 
-<!-- WEEKLY CHECKLIST -->
-<div class="full" id="checklist-section" style="margin-top:4px">
-  <div class="checklist-wrap">
-
-    <div class="cl-header">
-      <div>
-        <div class="cl-eyebrow">Week 1 · May 26 – June 1</div>
-        <div class="cl-title">Weekly Study Checklist</div>
-        <div class="cl-sub">Check off each block as you complete it. Progress saves automatically in your browser. Sunday = 📍 Library day.</div>
-      </div>
-      <div class="cl-progress-wrap">
-        <div class="cl-progress-ring">
-          <svg width="72" height="72" viewBox="0 0 72 72">
-            <circle cx="36" cy="36" r="30" fill="none" stroke="#e2ddd6" stroke-width="6"/>
-            <circle cx="36" cy="36" r="30" fill="none" stroke="#c9952a" stroke-width="6"
-              stroke-dasharray="188.5" stroke-dashoffset="188.5"
-              stroke-linecap="round" transform="rotate(-90 36 36)"
-              id="progress-ring"/>
-          </svg>
-          <div class="cl-pct" id="pct-label">0%</div>
-        </div>
-        <div style="text-align:center">
-          <div class="cl-count" id="count-label">0 / 0 done</div>
-          <button class="cl-reset" onclick="resetAll()">Reset week</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="cl-days">
-
-      <!-- MONDAY -->
-      <div class="cl-day">
-        <div class="cl-day-head" style="background:#e8eef8;color:#1a3a7a">
-          <span class="cl-day-name">Monday</span>
-          <span class="cl-day-label">CPL Art. 1 · May 26</span>
-          <span class="cl-day-done" id="done-mon"></span>
-        </div>
-        <div class="cl-items">
-          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute · 30 min</span><span class="ci-text">ClerkOne — read first half of CPL Art. 1 Notes. Stop at 30 min.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 10 min</span><span class="ci-text">Free recall blurt — blank paper, write everything from the morning ride. Gap-fill in a different color.</span><span class="ci-tag reddit">Free recall</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Bluemedia quizzer — 10 True/False on CPL Art. 1. Read every wrong-answer explanation.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Anki — create first 5 cards in your own words. Phrase as questions.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — write: "CPL Art. 1 · May 26 · Review: May 27, May 29, June 10, June 26, July 28, Oct 1."</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Active recall — phone away, answer from memory: 7 accusatory instruments · warrant vs bench warrant · when criminal action commences · what is a petty offense · who issues summons vs appearance ticket.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Any idle moment today</span><span class="ci-text">Active recall micro-practice — mentally recite CPL Art. 1 key points while waiting, walking, or in elevator.</span><span class="ci-tag teal">Active recall</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Physical Bluemedia book — layered preview of CPL Art. 10: index → end questions → summary only. Stop at 15 min.</span><span class="ci-tag gold">Layered read</span></div></label>
-        </div>
-      </div>
-
-      <!-- TUESDAY -->
-      <div class="cl-day">
-        <div class="cl-day-head" style="background:#e8eef8;color:#1a3a7a">
-          <span class="cl-day-name">Tuesday</span>
-          <span class="cl-day-label">CPL Art. 10 · May 27</span>
-          <span class="cl-day-done" id="done-tue"></span>
-        </div>
-        <div class="cl-items">
-          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute · 30 min</span><span class="ci-text">ClerkOne — read first half of CPL Art. 10 Notes. The preview last night made this faster.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Any idle moment</span><span class="ci-text">Active recall — mentally recite CPL Art. 1 from yesterday. Elevator, waiting for coffee, anywhere.</span><span class="ci-tag teal">Active recall</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 10 min</span><span class="ci-text">Free recall blurt on CPL Art. 1 (Day 2 of gap cycle — first scheduled diary review). Gap-fill after.</span><span class="ci-tag reddit">Expanding gap</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">ClerkOne True/False — CPL Art. 10. Check Report Card for weak sections.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Anki — review Monday's 5 due cards + add 5 new CPL Art. 10 cards.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — "CPL Art. 10 · May 27 · Review: May 28, May 30, June 11, June 27, July 29."</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Active recall — phone away: felony complaint basis for prosecution? · conviction vs judgment · courts with trial jurisdiction over felonies · preliminary vs trial jurisdiction.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Book — layered preview of CPL Art. 30: index → end questions → summary. Stop at 15 min.</span><span class="ci-tag gold">Layered read</span></div></label>
-        </div>
-      </div>
-
-      <!-- WEDNESDAY -->
-      <div class="cl-day">
-        <div class="cl-day-head" style="background:#e8eef8;color:#1a3a7a">
-          <span class="cl-day-name">Wednesday</span>
-          <span class="cl-day-label">CPL Art. 30 · May 28</span>
-          <span class="cl-day-done" id="done-wed"></span>
-        </div>
-        <div class="cl-items">
-          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute · 30 min</span><span class="ci-text">ClerkOne — CPL Art. 30 Notes. Lock in the time frames: 30, 90, 180 days. Flag those numbers for Roman Room Saturday.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning shower / before work</span><span class="ci-text">Active recall — recite CPL Arts. 1 and 10 key points out loud. Recite Art. 30 time frames you just read.</span><span class="ci-tag teal">Active recall</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 10 min</span><span class="ci-text">Blurt CPL Art. 10 (Day 2) + 2-line recall on Art. 1 (Day 3). Expanding gap compounding.</span><span class="ci-tag reddit">Expanding gap</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Bluemedia quizzer — 10–12 questions on CPL Art. 30. Wrong answers → add to Anki as priority cards.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Anki — due cards from Mon + Tue + 5 new Art. 30 cards focused on time limits.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — "CPL Art. 30 · May 28 · Review: May 29, June 1, June 13, June 29, July 31."</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Active recall — phone away: 3 speedy trial time frames · what triggers the clock · why felony complaint can't be basis for prosecution · name a court with only preliminary jurisdiction.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Book — layered preview of PL Art. 10: index → end questions → summary. Note any unfamiliar terms.</span><span class="ci-tag gold">Layered read</span></div></label>
-        </div>
-      </div>
-
-      <!-- THURSDAY -->
-      <div class="cl-day">
-        <div class="cl-day-head" style="background:#f9e8e5;color:#7a2a1a">
-          <span class="cl-day-name">Thursday</span>
-          <span class="cl-day-label">Penal Law Arts. 10 &amp; 55 · May 29</span>
-          <span class="cl-day-done" id="done-thu"></span>
-        </div>
-        <div class="cl-items">
-          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute · 30 min</span><span class="ci-text">ClerkOne — PL Art. 10 Notes. Focus on the 4 mental states: intentionally, knowingly, recklessly, criminal negligence.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 10 min</span><span class="ci-text">Blurt CPL Art. 30 (Day 2) + 1-line recall on Arts. 1 &amp; 10. Check diary — Art. 1 should show May 29 as a review date.</span><span class="ci-tag reddit">Expanding gap</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 15 min</span><span class="ci-text">ClerkOne T/F — Penal Law Art. 10 questions. Note which mental state definitions trip you up.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 10 min</span><span class="ci-text">Roman Room build — place 4 mental states on bedroom objects. Walk the room 3× in your mind. Log the map in your diary.</span><span class="ci-tag sage">Roman Room</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 15 min</span><span class="ci-text">Anki — due cards + 5 new PL Art. 10 cards, one per mental state.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — "PL Art. 10 · May 29 · Review: May 30, June 1, June 13, June 30." Also log memory palace map.</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Active recall — phone away: walk Roman Room (pillow/nightstand/dresser/door) · recite all 4 mental states with definitions · recite offense classification ladder all 8 tiers using your mnemonic.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute (rest of ride)</span><span class="ci-text">Active recall — silently recite all 4 mental states and their definitions until you reach your stop.</span><span class="ci-tag teal">Active recall</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-9"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Book — layered preview of PL Arts. 55 &amp; 80: index → end questions → summary. Note the classification chart.</span><span class="ci-tag gold">Layered read</span></div></label>
-        </div>
-      </div>
-
-      <!-- FRIDAY -->
-      <div class="cl-day">
-        <div class="cl-day-head" style="background:#eaecf2;color:#3a3f5a">
-          <span class="cl-day-name">Friday</span>
-          <span class="cl-day-label">Light day · May 30</span>
-          <span class="cl-day-done" id="done-fri"></span>
-        </div>
-        <div class="cl-items">
-          <label class="ci"><input type="checkbox" data-day="fri" data-key="fri-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute · 20 min</span><span class="ci-text">Anki — due cards only. No new cards. No reading. 20 min then rest your eyes for the remainder.</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="fri" data-key="fri-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Morning commute (rest of ride)</span><span class="ci-text">Active recall — walk your Roman Room silently. Can you recall all 4 mental states from memory? Try CPL Art. 30 time frames too.</span><span class="ci-tag teal">Active recall</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="fri" data-key="fri-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Full-week blurt — blank paper, write everything across all 5 articles this week. Stream of consciousness. Gap-fill in red after.</span><span class="ci-tag reddit">Free recall</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="fri" data-key="fri-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 15 min</span><span class="ci-text">Walk outside — 10–15 min of movement. Mandatory for memory consolidation. This is active recovery.</span><span class="ci-tag gold">Move</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="fri" data-key="fri-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute</span><span class="ci-text">Complete rest — no studying. Music, podcast, anything non-law. Saturday rest begins tonight.</span></div></label>
-        </div>
-      </div>
-
-      <!-- SATURDAY -->
-      <div class="cl-day">
-        <div class="cl-day-head" style="background:#ede8f7;color:#3d2570">
-          <span class="cl-day-name">Saturday AM</span>
-          <span class="cl-day-label">Notes + mnemonics · May 31 · then 🛑 full rest</span>
-          <span class="cl-day-done" id="done-sat"></span>
-        </div>
-        <div class="cl-items">
-          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 1 · 30 min</span><span class="ci-text">YouTube — Zain Asif (Week 1). Pause every 2–3 min, write the key idea in your own words. Do not watch passively.</span><span class="ci-tag red">YouTube</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 2 · 35 min · NO SCREEN</span><span class="ci-text">Master summary sheets — CPL Arts. 1, 10, 30 (one page) + PL Arts. 10, 55, 80 (one page). Your own words. Label, date, file both.</span><span class="ci-tag violet">Notes</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 3 · 30 min · NO SCREEN</span><span class="ci-text">Mnemonic creation — circle every list/number cluster on your summary sheets. Build one mnemonic per circle using the right type: acronym for lists, story for sequences, rhyme for numbers.</span><span class="ci-tag" style="background:#f9e8e5;color:#7a2a1a">Mnemonics</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-3b"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 3 · continued</span><span class="ci-text">Write every mnemonic on the summary sheet next to its content + in your Mnemonic Master List diary page. Test each one immediately — if you can't recite the list from it, revise until it works.</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 4 · 20 min · NO SCREEN</span><span class="ci-text">Memory palace — add kitchen room for PL Art. 55 classifications. Layer your acronym mnemonic onto each location. Walk both rooms 3× in your mind. Log review dates in diary.</span><span class="ci-tag sage">Memory Palace</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 5 · 20 min</span><span class="ci-text">Anki — build 10–15 cards from summary sheets + one card per mnemonic created today. Front = the question, back = the mnemonic + what it stands for.</span><span class="ci-tag sage">Anki</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sat" data-key="sat-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Phase 6 · 15 min</span><span class="ci-text">Diary check — verify all 5 article entries, add palace + mnemonic review dates to Master List, write Sunday library plan (articles, Anki due, mnemonics to test on arrival).</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci rest-item"><input type="checkbox" data-day="sat" data-key="sat-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Saturday PM onward</span><span class="ci-text">🛑 Full rest — no studying for the remainder of Saturday. Go outside, eat well, do something non-law. Required recovery.</span></div></label>
-        </div>
-      </div>
-
-      <!-- SUNDAY -->
-      <div class="cl-day">
-        <div class="cl-day-head" style="background:#e4edeb;color:#1f4d42">
-          <span class="cl-day-name">Sunday 📍 Library</span>
-          <span class="cl-day-label">5–6 hr intensive · practice testing focus · June 1</span>
-          <span class="cl-day-done" id="done-sun"></span>
-        </div>
-        <div class="cl-items">
-          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-1"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Arrival · 15 min · NO SCREEN</span><span class="ci-text">Set up materials (books, diary, blank paper, 2 pens). Check diary for today's due reviews. Do a 10-min free recall warm-up on all 6 articles before touching your phone.</span><span class="ci-tag reddit">Free recall</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-2"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 1 · 25+5 min · NO SCREEN</span><span class="ci-text">Bluemedia book — PL Arts. 55 &amp; 80 full layered read. Underline terms, circle every number, write 3 margin takeaways per article.</span><span class="ci-tag gold">Layered read</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 2 · 25+5 min · NO SCREEN</span><span class="ci-text">Free recall blurt — close the book, write everything you just read about PL 55 &amp; 80 from memory. Gap-fill in a different color. Diary entries for both articles on the break.</span><span class="ci-tag reddit">Free recall</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 3 · 25+5 min</span><span class="ci-text">ClerkOne — custom practice test on CPL Arts. 1 &amp; 10. Timed, no notes. Review wrong-answer explanations on the break. Circle weak topics on your summary sheet.</span><span class="ci-tag reddit">Retrieval</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 4 · 25+5 min</span><span class="ci-text">ClerkOne — custom practice test on CPL Art. 30 + PL Arts. 10 &amp; 55. Timed, no notes. Check Report Card — you now have two tests showing your weakest articles.</span><span class="ci-tag reddit">Retrieval</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Long break · 20–30 min</span><span class="ci-text">Leave the building if possible. Walk outside, get water or food. No law content. Movement consolidates Blocks 1–4 and resets focus for the afternoon.</span><span class="ci-tag gold">Move</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 5 · 25+5 min</span><span class="ci-text">Bluemedia quizzer — full Penal Law question set. Different phrasing from ClerkOne = broader exam coverage. Mark every wrong answer under the relevant article in your diary. Add new Anki cards on the break.</span><span class="ci-tag reddit">Retrieval</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 6 · 25+5 min</span><span class="ci-text">Anki full deck review — all due cards. Then memory palace walk: bedroom (4 mental states) → kitchen (offense classifications), 3× without looking at your map. Log palace review dates in diary.</span><span class="ci-tag sage">Memory Palace</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-9"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 6 · active recall test</span><span class="ci-text">Whisper or mouth silently: all 4 mental states + all offense classification tiers from memory. Stumbles = new Anki card + red circle in diary.</span><span class="ci-tag teal">Active recall</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-10"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Block 7 · 25+5 min</span><span class="ci-text">Full simulated exam — all 6 articles (CPL 1, 10, 30 + PL 10, 55, 80), timed, exam conditions. Write your score + date in diary as Week 1 baseline. Articles below 70% go on Monday sticky note.</span><span class="ci-tag reddit">Retrieval</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="sun" data-key="sun-11"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Before leaving · 20 min · NO SCREEN</span><span class="ci-text">Plan Week 2 — write sticky note: Mon=CPL 100, Tue=CPL 110, Wed=CPL 120, Thu=CPL 160+170. Then layered preview of CPL Art. 100 in book (index → questions → summary). Put in bag for Monday.</span><span class="ci-tag gold">Plan + preview</span></div></label>
-          <label class="ci rest-item"><input type="checkbox" data-day="sun" data-key="sun-12"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">At home · screens off within 1 hr</span><span class="ci-text">🛑 You put in 5–6 hours today. Nothing left to do tonight. Screens off, early sleep. Overnight consolidation is part of the session.</span></div></label>
-        </div>
-      </div>
-
-    </div><!-- /cl-days -->
-  </div><!-- /checklist-wrap -->
-</div>
-
-<style>
-.checklist-wrap{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:0 36px 40px}
-.cl-header{background:var(--navy);color:white;padding:20px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
-.cl-eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
-.cl-title{font-family:'DM Serif Display',serif;font-size:var(--fs-h2);line-height:1.1;margin-bottom:5px}
-.cl-sub{font-size:var(--fs-xs);color:rgba(255,255,255,.65);max-width:340px}
-.cl-progress-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0}
-.cl-progress-ring{position:relative;width:72px;height:72px}
-.cl-pct{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:14px;font-weight:600;color:var(--gold)}
-.cl-count{font-size:11px;color:rgba(255,255,255,.65);text-align:center}
-.cl-reset{margin-top:4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;color:rgba(255,255,255,.7);font-size:10px;padding:3px 10px;cursor:pointer;font-family:inherit;transition:background .15s}
-.cl-reset:hover{background:rgba(255,255,255,.18)}
-
-.cl-days{display:grid;grid-template-columns:var(--grid-cols);border-top:1px solid var(--border)}
-.cl-day{border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
-.cl-day:nth-child(even){border-right:none}
-.cl-day:nth-last-child(-n+2){border-bottom:none}
-
-.cl-day-head{padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.cl-day-name{font-family:'DM Serif Display',serif;font-size:16px;flex-shrink:0}
-.cl-day-label{font-size:11px;opacity:.75;flex:1}
-.cl-day-done{font-size:11px;font-weight:600;margin-left:auto;white-space:nowrap}
-
-.cl-items{padding:4px 0}
-.ci{display:flex;align-items:flex-start;gap:0;padding:8px 14px;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--border)}
-.ci:last-child{border-bottom:none}
-.ci:hover{background:var(--cream)}
-.ci input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
-.ci-check{width:18px;height:18px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:2px;margin-right:10px;display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--white)}
-.ci input:checked ~ .ci-check{background:var(--navy);border-color:var(--navy)}
-.ci input:checked ~ .ci-check::after{content:'';display:block;width:5px;height:9px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px)}
-.ci input:checked ~ .ci-body .ci-text{text-decoration:line-through;color:var(--text-muted);opacity:.6}
-.ci-body{flex:1;min-width:0}
-.ci-time{display:block;font-size:var(--fs-xxs);font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);margin-bottom:2px}
-.ci-text{display:block;font-size:var(--fs-xs);color:var(--text);line-height:1.5}
-.ci-tag{display:inline-block;font-size:9.5px;font-weight:600;padding:1px 6px;border-radius:3px;margin-top:4px;letter-spacing:.03em}
-.ci-tag.reddit{background:var(--navy);color:var(--gold)}
-.ci-tag.violet{background:var(--violet-light);color:var(--violet)}
-.ci-tag.teal{background:var(--teal-light);color:var(--teal)}
-.ci-tag.gold{background:var(--gold-light);color:#7a5010}
-.ci-tag.sage{background:var(--sage-light);color:var(--sage)}
-.ci-tag.red{background:#fde8e8;color:#7a0f0f}
-.rest-item .ci-text{color:var(--text-muted);font-style:italic}
-.day-complete .ci-check{background:var(--sage)!important;border-color:var(--sage)!important}
-
-@media(max-width:680px){
-  .checklist-wrap{margin:0 14px 32px}
-  .cl-days{grid-template-columns:1fr}
-  .cl-day{border-right:none}
-  .cl-day:nth-last-child(-n+2){border-bottom:1px solid var(--border)}
-  .cl-day:last-child{border-bottom:none}
-  .cl-header{flex-direction:column}
-  .cl-progress-wrap{flex-direction:row;align-self:stretch;justify-content:flex-start}
-}
-</style>
-
-<script>
-const DAYS = ['mon','tue','wed','thu','fri','sat','sun'];
-const KEYS = {
-  mon:['mon-1','mon-2','mon-3','mon-4','mon-5','mon-6','mon-7','mon-8'],
-  tue:['tue-1','tue-2','tue-3','tue-4','tue-5','tue-6','tue-7','tue-8'],
-  wed:['wed-1','wed-2','wed-3','wed-4','wed-5','wed-6','wed-7','wed-8'],
-  thu:['thu-1','thu-2','thu-3','thu-4','thu-5','thu-6','thu-7','thu-8','thu-9'],
-  fri:['fri-1','fri-2','fri-3','fri-4','fri-5'],
-  sat:['sat-1','sat-2','sat-3','sat-3b','sat-4','sat-5','sat-6','sat-7'],
-  sun:['sun-1','sun-2','sun-3','sun-4','sun-5','sun-6','sun-7','sun-8','sun-9','sun-10','sun-11','sun-12']
-};
-const STORE_KEY = 'nys_week1_checklist';
-
-function save(state){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
-function load(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }catch(e){ return {}; } }
-
-function allKeys(){
-  let all=[];
-  DAYS.forEach(d=>{ KEYS[d].forEach(k=>all.push(k)); });
-  return all;
-}
-
-function updateProgress(state){
-  const all = allKeys();
-  const done = all.filter(k=>state[k]).length;
-  const total = all.length;
-  const pct = total ? Math.round(done/total*100) : 0;
-  const circ = 2*Math.PI*30;
-  const ring = document.getElementById('progress-ring');
-  if(ring) ring.style.strokeDashoffset = circ - (circ*pct/100);
-  const pl = document.getElementById('pct-label');
-  if(pl) pl.textContent = pct+'%';
-  const cl = document.getElementById('count-label');
-  if(cl) cl.textContent = done+' / '+total+' done';
-
-  DAYS.forEach(day=>{
-    const dayKeys = KEYS[day];
-    const dayDone = dayKeys.filter(k=>state[k]).length;
-    const el = document.getElementById('done-'+day);
-    if(el){
-      if(dayDone === dayKeys.length){
-        el.textContent = '✓ Complete';
-        el.style.color = '#2d6b5a';
-      } else {
-        el.textContent = dayDone+'/'+dayKeys.length;
-        el.style.color = 'inherit';
-        el.style.opacity = '.65';
-      }
-    }
-  });
-}
-
-function init(){
-  const state = load();
-  document.querySelectorAll('.ci input[type=checkbox]').forEach(cb=>{
-    const k = cb.dataset.key;
-    if(state[k]) cb.checked = true;
-    cb.addEventListener('change', function(){
-      const s = load();
-      s[this.dataset.key] = this.checked;
-      save(s);
-      updateProgress(s);
-    });
-  });
-  updateProgress(state);
-}
-
-function resetAll(){
-  if(!confirm('Reset all checkboxes for Week 1? This cannot be undone.')) return;
-  save({});
-  document.querySelectorAll('.ci input[type=checkbox]').forEach(cb=>cb.checked=false);
-  updateProgress({});
-}
-
-document.addEventListener('DOMContentLoaded', init);
-</script>
-
-
 <!-- NOTES & QUIZ LINK BANNER -->
-<div class="full" style="margin:0 36px 16px">
+<div class="full" style="margin:0 var(--pad-h) 16px">
   <div style="background:var(--navy);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
     <div>
-      <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:5px">Week 1 · CPL Art. 1 · PL Arts. 10, 55, 80</div>
-      <div style="font-family:'DM Serif Display',serif;font-size:20px;color:white;margin-bottom:4px">Notes &amp; Quiz</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.6)">43 questions · formatted study notes · score tracking · answer reveal</div>
+      <div style="font-size:var(--fs-xxs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:5px">Week 1 · CPL Art. 1 · PL Arts. 10, 55, 80</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:var(--fs-h3);color:white;margin-bottom:4px">Notes &amp; Quiz</div>
+      <div style="font-size:var(--fs-xs);color:rgba(255,255,255,.6)">43 questions · formatted study notes · score tracking · answer reveal</div>
     </div>
-    <a href="week1_notes_quiz.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;text-decoration:none;flex-shrink:0">
+    <a href="week1_notes_quiz.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-size:var(--fs-sm);font-weight:600;padding:10px 20px;border-radius:8px;text-decoration:none;flex-shrink:0">
       Open Notes &amp; Quiz →
     </a>
   </div>
 </div>
 
 <!-- BACK TO DASHBOARD -->
-<div class="full" style="margin:0 36px 40px">
-  <a href="index.html" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:13px;font-weight:600;color:var(--navy);text-decoration:none;transition:background .15s">
+<div class="full" style="margin:0 var(--pad-h) 40px">
+  <a href="index.html" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:var(--fs-sm);font-weight:600;color:var(--navy);text-decoration:none;transition:background .15s">
     ← Back to Dashboard
   </a>
 </div>
 
 </div><!-- /main -->
+
+<script>
+// ── BLOCK CHECKBOXES ────────────────────────────────────
+const CB_STORE = 'nys_w1_blocks';
+const cbState = {};
+
+// Map each checkbox key to its day
+const CB_DAY_MAP = {};
+document.querySelectorAll && setTimeout(() => {
+  document.querySelectorAll('.block-cb-box').forEach(el => {
+    const key = el.id.replace('bcb-','');
+    const dayCard = el.closest('.day-card');
+    if(dayCard){
+      const dayName = dayCard.querySelector('.day-name');
+      if(dayName) CB_DAY_MAP[key] = dayName.textContent.trim().toLowerCase();
+    }
+  });
+},0);
+
+function loadCBState(){
+  try{ Object.assign(cbState, JSON.parse(localStorage.getItem(CB_STORE)||'{}')); }catch(e){}
+  Object.keys(cbState).forEach(key => {
+    if(cbState[key]) applyChecked(key, true, false);
+  });
+  updateAllRings();
+}
+
+function toggleBlockCB(el, key){
+  const isChecked = el.classList.contains('checked');
+  cbState[key] = !isChecked;
+  try{ localStorage.setItem(CB_STORE, JSON.stringify(cbState)); }catch(e){}
+  applyChecked(key, !isChecked, true);
+  updateAllRings();
+  if(typeof PWA !== 'undefined') PWA.updateBadge && PWA.updateBadge();
+}
+
+function applyChecked(key, checked, animate){
+  const el = document.getElementById('bcb-'+key);
+  if(!el) return;
+  el.classList.toggle('checked', checked);
+  const block = el.closest('.block');
+  if(block) block.classList.toggle('done', checked);
+}
+
+function updateAllRings(){
+  const days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+  days.forEach(day => {
+    const cards = document.querySelectorAll('.day-card');
+    cards.forEach(card => {
+      const nameEl = card.querySelector('.day-name');
+      if(!nameEl || nameEl.textContent.trim().toLowerCase() !== day) return;
+      const boxes = card.querySelectorAll('.block-cb-box');
+      const total = boxes.length;
+      if(!total) return;
+      const done = Array.from(boxes).filter(b => b.classList.contains('checked')).length;
+      const pct = Math.round(done/total*100);
+      // Update ring
+      const ring = document.getElementById('dpfill-'+day);
+      const pctEl = document.getElementById('dppct-'+day);
+      if(ring){
+        const offset = 100 - pct;
+        ring.setAttribute('stroke-dashoffset', offset);
+      }
+      if(pctEl) pctEl.textContent = pct+'%';
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', loadCBState);
+</script>
+
 <script>
 const DAY_QUESTIONS = {
   mon: [

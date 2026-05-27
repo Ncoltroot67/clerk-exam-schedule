@@ -177,6 +177,56 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   .header,.bar-structure,.bar-reddit{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{font-size:12px}
 }
+
+/* ── QUIZ PANEL ── */
+.quiz-panel{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:10px 0 0}
+.qp-head{display:flex;align-items:center;gap:8px;padding:9px 13px;cursor:pointer;background:var(--cream);border-bottom:0.5px solid var(--border);user-select:none}
+.qp-head:hover{background:var(--slate-light)}
+.qp-icon{font-size:14px}
+.qp-title{font-size:12px;font-weight:600;color:var(--navy);flex:1}
+.qp-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--gold-light);color:#7a5010}
+.qp-arrow{font-size:11px;color:var(--text-muted);transition:transform .2s}
+.qp-arrow.open{transform:rotate(180deg)}
+.qp-body{display:none;padding:12px}
+.qp-body.open{display:block}
+.qp-score{font-size:11px;font-weight:600;color:var(--sage);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.qp-track{flex:1;height:5px;background:var(--slate-light);border-radius:3px;overflow:hidden}
+.qp-fill{height:100%;border-radius:3px;background:var(--sage);transition:width .3s}
+.dq{background:var(--white);border:0.5px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.dq:last-child{margin-bottom:0}
+.dq.dq-correct{border-color:#4caf50;background:#f1f8f1}
+.dq.dq-wrong{border-color:var(--coral);background:var(--coral-light)}
+.dq-num{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:4px}
+.dq-q{font-size:12.5px;font-weight:500;color:var(--navy);margin-bottom:7px;line-height:1.5}
+.dq-opts{display:flex;flex-direction:column;gap:5px;margin-bottom:0}
+.dq-opt{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border:0.5px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px;color:var(--text);transition:all .15s;background:var(--white)}
+.dq-opt:hover:not(.locked){background:var(--cream);border-color:var(--slate)}
+.dq-opt.opt-correct{background:#e8f5e9;border-color:#4caf50;cursor:default}
+.dq-opt.opt-wrong{background:var(--coral-light);border-color:var(--coral);cursor:default}
+.dq-opt.locked{cursor:default;opacity:.7}
+.dq-letter{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--text-muted);flex-shrink:0;background:var(--white)}
+.dq-opt.opt-correct .dq-letter{background:#4caf50;border-color:#4caf50;color:white}
+.dq-opt.opt-wrong   .dq-letter{background:var(--coral);border-color:var(--coral);color:white}
+.dq-exp{font-size:11px;color:var(--text-muted);line-height:1.5;background:var(--cream);border-radius:6px;padding:7px 9px;margin-top:7px;border-left:3px solid var(--gold);display:none}
+.dq-exp.show{display:block}
+.dq-exp strong{color:var(--navy)}
+/* ── MNEMONIC BLOCK ── */
+.mnemo-block{background:linear-gradient(135deg,#f0ebff,#ede8f7);border:1px solid #c5b8f0;border-radius:10px;padding:12px 14px;margin-top:10px}
+.mnemo-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--violet);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.mnemo-article{font-size:11px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.mnemo-prompt{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:8px}
+.mnemo-prompt strong{color:var(--navy)}
+.mnemo-input{width:100%;border:1px solid #c5b8f0;border-radius:6px;padding:8px 10px;font-size:12px;font-family:inherit;color:var(--navy);background:var(--white);resize:none;min-height:52px;outline:none;transition:border-color .15s}
+.mnemo-input:focus{border-color:var(--violet)}
+.mnemo-save-row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.mnemo-btn{font-size:11px;font-weight:600;padding:5px 12px;border-radius:5px;border:none;cursor:pointer;font-family:inherit;transition:all .15s}
+.mnemo-btn-save{background:var(--violet);color:white}
+.mnemo-btn-save:hover{background:#5a3d90}
+.mnemo-btn-clear{background:var(--slate-light);color:var(--slate)}
+.mnemo-btn-clear:hover{background:var(--slate);color:white}
+.mnemo-saved{font-size:11px;color:var(--violet);font-style:italic;margin-top:5px;display:none}
+.mnemo-example{background:rgba(107,79,160,.08);border-radius:6px;padding:7px 10px;font-size:11px;color:var(--violet);margin-bottom:8px;line-height:1.5}
+.mnemo-example strong{font-weight:600;display:block;margin-bottom:2px}
 </style>
 </head>
 <body>
@@ -308,18 +358,140 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   <div class="block">
     <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
     <div>
-      <div class="btitle"><span>ClerkOne — Ring the Bell (game mode)</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
-      <div class="bbody">Game mode on CPL Art. 1 only. 20 min then stop — rest of the commute is downtime. No guilt.
-        <div class="callout callout-teal">🗣 <strong>Active recall micro-practice:</strong> While waiting at your stop, walking to the car, or standing in the elevator — mentally recite what you know about CPL Art. 1. Out loud if you can, silent if you can't. This is the Reddit poster's key point: actively reciting signals to your brain the information is important and moves it from short-term to long-term memory. Passive re-reading doesn't do this.</div>
+      <div class="btitle"><span>Active recall — CPL Art. 1 mental quiz</span><span class="tool t-paper">No phone</span><span class="reddit">Active recall</span></div>
+      <div class="bbody">Phone away. Answer these from memory — eyes closed or looking out the window:
+        <span class="step"><em>1.</em> Name all 7 accusatory instruments in order.</span>
+        <span class="step"><em>2.</em> Difference between a warrant of arrest and a bench warrant?</span>
+        <span class="step"><em>3.</em> When exactly does a criminal action commence?</span>
+        <span class="step"><em>4.</em> What is a petty offense — what does it include and exclude?</span>
+        <span class="step"><em>5.</em> Who can issue a summons? Who issues an appearance ticket?</span>
+        <div class="callout callout-teal">🗣 Say the answers out loud quietly or mouth them silently. No phone needed — this works with zero signal and builds stronger recall than any app.</div>
       </div>
     </div>
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div><div class="bwindow">Wind-down</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
     <div>
-      <div class="btitle"><span>Book — layered preview CPL Art. 10</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
-      <div class="bbody">Physical Bluemedia book only. Read: <em>index → end questions → summary</em> of CPL Art. 10. Stop after 15 min. Screens off 1 hour before sleep — this is not soft advice, it directly affects how much you retain overnight.</div>
+      <div class="btitle"><span>Book — layered preview CPL Art. 10 + tonight's mnemonic</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
+      <div class="bbody">Physical Bluemedia book only. Read: <em>index → end questions → summary</em> of CPL Art. 10. Then spend 5 min creating tonight's mnemonic below before closing everything. Screens off 1 hour before sleep.
+
+    <div class="quiz-panel">
+      <div class="qp-head" onclick="toggleQuizPanel('mon')">
+        <span class="qp-icon">❓</span>
+        <span class="qp-title">ClerkOne-style Practice Quiz — CPL Art. 1</span>
+        <span class="qp-badge">5 questions</span>
+        <span class="qp-arrow" id="qpa-mon">▼</span>
+      </div>
+      <div class="qp-body" id="qpb-mon">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+          <span class="qp-score" style="margin:0" id="dqscore-mon">0 / 5 · 0%</span>
+          <div class="qp-track" style="flex:1;min-width:80px"><div class="qp-fill" id="dqfill-mon" style="width:0%"></div></div>
+          <button onclick="resetDayQuiz('mon')" style="font-size:10px;font-weight:600;background:var(--slate-light);color:var(--slate);border:none;border-radius:4px;padding:3px 9px;cursor:pointer;font-family:inherit">Reset</button>
+        </div>
+        <div class="dq" id="dq-mon-1">
+          <div class="dq-num">Q1</div>
+          <div class="dq-q">A criminal action commences when:</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-mon-1-a" onclick="selectDQ('mon',1,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">A defendant is arrested</div>
+            </div><div class="dq-opt" id="dqopt-mon-1-b" onclick="selectDQ('mon',1,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">The first accusatory instrument is filed against the defendant</div>
+            </div><div class="dq-opt" id="dqopt-mon-1-c" onclick="selectDQ('mon',1,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">An indictment is voted by a grand jury</div>
+            </div><div class="dq-opt" id="dqopt-mon-1-d" onclick="selectDQ('mon',1,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">The crime was committed</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-mon-1"><strong>Correct: b.</strong> CPL 1.20-16,17. Filing of the first accusatory instrument is the trigger — not arrest, not crime date, not indictment.</div>
+        </div><div class="dq" id="dq-mon-2">
+          <div class="dq-num">Q2</div>
+          <div class="dq-q">A felony complaint can serve as:</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-mon-2-a" onclick="selectDQ('mon',2,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">Both basis to commence AND basis for prosecution</div>
+            </div><div class="dq-opt" id="dqopt-mon-2-b" onclick="selectDQ('mon',2,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">Basis to commence a criminal action only — NOT basis for prosecution</div>
+            </div><div class="dq-opt" id="dqopt-mon-2-c" onclick="selectDQ('mon',2,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">Basis for prosecution only</div>
+            </div><div class="dq-opt" id="dqopt-mon-2-d" onclick="selectDQ('mon',2,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">Neither — it must be replaced by an information</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-mon-2"><strong>Correct: b.</strong> CPL 1.20-8. A felony complaint commences the action but only an indictment or SCI can be the basis for prosecuting a felony.</div>
+        </div><div class="dq" id="dq-mon-3">
+          <div class="dq-num">Q3</div>
+          <div class="dq-q">Which of the following is a petty offense?</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-mon-3-a" onclick="selectDQ('mon',3,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">Class B misdemeanor</div>
+            </div><div class="dq-opt" id="dqopt-mon-3-b" onclick="selectDQ('mon',3,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">Class A misdemeanor</div>
+            </div><div class="dq-opt" id="dqopt-mon-3-c" onclick="selectDQ('mon',3,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">Traffic infraction</div>
+            </div><div class="dq-opt" id="dqopt-mon-3-d" onclick="selectDQ('mon',3,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">Class E felony</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-mon-3"><strong>Correct: c.</strong> CPL 1.20-39. Petty offense = violation OR traffic infraction. Misdemeanors are NOT petty offenses.</div>
+        </div><div class="dq" id="dq-mon-4">
+          <div class="dq-num">Q4</div>
+          <div class="dq-q">A summons in a criminal action may be issued by:</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-mon-4-a" onclick="selectDQ('mon',4,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">A local criminal court only</div>
+            </div><div class="dq-opt" id="dqopt-mon-4-b" onclick="selectDQ('mon',4,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">A police officer</div>
+            </div><div class="dq-opt" id="dqopt-mon-4-c" onclick="selectDQ('mon',4,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">A district attorney</div>
+            </div><div class="dq-opt" id="dqopt-mon-4-d" onclick="selectDQ('mon',4,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">A local or superior court</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-mon-4"><strong>Correct: d.</strong> Effective 11/1/93 superior courts were also authorized to issue a summons. Police officers issue appearance tickets, not summonses.</div>
+        </div><div class="dq" id="dq-mon-5">
+          <div class="dq-num">Q5</div>
+          <div class="dq-q">The purpose of a bench warrant is to:</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-mon-5-a" onclick="selectDQ('mon',5,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">Arrest a defendant for initial arraignment</div>
+            </div><div class="dq-opt" id="dqopt-mon-5-b" onclick="selectDQ('mon',5,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">Produce a previously arraigned defendant for a purpose other than initial arraignment</div>
+            </div><div class="dq-opt" id="dqopt-mon-5-c" onclick="selectDQ('mon',5,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">Search a defendant's premises</div>
+            </div><div class="dq-opt" id="dqopt-mon-5-d" onclick="selectDQ('mon',5,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">Issue a summons requiring a defendant to appear</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-mon-5"><strong>Correct: b.</strong> A bench warrant is used when a defendant in a pending case has already been arraigned and further court appearance is required.</div>
+        </div>
+      </div>
+    </div>
+    <div class="mnemo-block">
+      <div class="mnemo-label">🧠 Tonight's mnemonic — create before you close the book</div>
+      <div class="mnemo-article">CPL Art 1 · Accusatory Instruments</div>
+      <div class="mnemo-example">
+        <strong>Example (Acronym):</strong> <em>I IS PM SF MC FC</em> → Indictment · Information · Simplified · Prosecutor's · Superior Court · Misdemeanor Complaint · Felony Complaint
+      </div>
+      <div class="mnemo-prompt">You read Art. 1 today. Create a mnemonic for the <strong>7 accusatory instruments</strong> — this is a guaranteed exam question type. Try an acronym using the first letter of each instrument.</div>
+      <textarea class="mnemo-input" id="mn-input-mon_CPL_Art_1" placeholder="Write your mnemonic here — acronym, story, or rhyme..."></textarea>
+      <div class="mnemo-save-row">
+        <button class="mnemo-btn mnemo-btn-save" onclick="saveMnemonic('mon','CPL_Art_1')" >💾 Save to Master List</button>
+        <button class="mnemo-btn mnemo-btn-clear" onclick="clearMnemonic('mon','CPL_Art_1')" >Clear</button>
+      </div>
+      <div class="mnemo-saved" id="mn-saved-mon_CPL_Art_1"></div>
+    </div>
+      </div>
     </div>
   </div>
 </div>
@@ -357,16 +529,123 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   <div class="block">
     <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
     <div>
-      <div class="btitle"><span>Clerk Quest — Arts. 1 &amp; 10</span><span class="tool t-co">ClerkOne</span></div>
-      <div class="bbody">Game mode covering both articles. 20 min only. Evening retrieval hit with no reading required.</div>
+      <div class="btitle"><span>Active recall — CPL Arts. 1 &amp; 10 mental quiz</span><span class="tool t-paper">No phone</span><span class="reddit">Active recall</span></div>
+      <div class="bbody">Phone away. Work through these from memory:
+        <span class="step"><em>Art. 1:</em> What instrument commences a felony action but cannot be the basis for prosecution?</span>
+        <span class="step"><em>Art. 1:</em> What is the difference between a conviction and a judgment?</span>
+        <span class="step"><em>Art. 1:</em> Recite the 7 accusatory instruments — did you get all 7 yesterday?</span>
+        <span class="step"><em>Art. 10:</em> Which courts have trial jurisdiction over felonies?</span>
+        <span class="step"><em>Art. 10:</em> What is the difference between preliminary jurisdiction and trial jurisdiction?</span>
+        <div class="callout callout-teal">🗣 Each question you can't answer = the most important Anki card to add tomorrow.</div>
+      </div>
     </div>
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div><div class="bwindow">Wind-down</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
     <div>
-      <div class="btitle"><span>Book — preview CPL Art. 30</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
-      <div class="bbody">Index → questions → summary of CPL Art. 30. 15 min, then close the book. Screens off.</div>
+      <div class="btitle"><span>Book — preview CPL Art. 30 + tonight's mnemonic</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
+      <div class="bbody">Index → questions → summary of CPL Art. 30. Then create tonight's mnemonic below. Screens off.
+
+    <div class="quiz-panel">
+      <div class="qp-head" onclick="toggleQuizPanel('tue')">
+        <span class="qp-icon">❓</span>
+        <span class="qp-title">ClerkOne-style Practice Quiz — CPL Art. 10</span>
+        <span class="qp-badge">4 questions</span>
+        <span class="qp-arrow" id="qpa-tue">▼</span>
+      </div>
+      <div class="qp-body" id="qpb-tue">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+          <span class="qp-score" style="margin:0" id="dqscore-tue">0 / 4 · 0%</span>
+          <div class="qp-track" style="flex:1;min-width:80px"><div class="qp-fill" id="dqfill-tue" style="width:0%"></div></div>
+          <button onclick="resetDayQuiz('tue')" style="font-size:10px;font-weight:600;background:var(--slate-light);color:var(--slate);border:none;border-radius:4px;padding:3px 9px;cursor:pointer;font-family:inherit">Reset</button>
+        </div>
+        <div class="dq" id="dq-tue-1">
+          <div class="dq-num">Q1</div>
+          <div class="dq-q">A court has 'trial jurisdiction' when:</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-tue-1-a" onclick="selectDQ('tue',1,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">It has authority to issue an arrest warrant</div>
+            </div><div class="dq-opt" id="dqopt-tue-1-b" onclick="selectDQ('tue',1,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">It has authority to conduct a preliminary hearing only</div>
+            </div><div class="dq-opt" id="dqopt-tue-1-c" onclick="selectDQ('tue',1,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">It is the proper venue to file AND has authority to take a plea or enter a verdict</div>
+            </div><div class="dq-opt" id="dqopt-tue-1-d" onclick="selectDQ('tue',1,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">It has jurisdiction over all offenses in the county</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-tue-1"><strong>Correct: c.</strong> CPL 1.20-24-25. Both elements required — proper venue AND authority to take a plea or enter verdict.</div>
+        </div><div class="dq" id="dq-tue-2">
+          <div class="dq-num">Q2</div>
+          <div class="dq-q">Which court has only preliminary jurisdiction over felonies?</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-tue-2-a" onclick="selectDQ('tue',2,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">Supreme Court</div>
+            </div><div class="dq-opt" id="dqopt-tue-2-b" onclick="selectDQ('tue',2,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">County Court</div>
+            </div><div class="dq-opt" id="dqopt-tue-2-c" onclick="selectDQ('tue',2,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">Local criminal court</div>
+            </div><div class="dq-opt" id="dqopt-tue-2-d" onclick="selectDQ('tue',2,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">Court of Appeals</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-tue-2"><strong>Correct: c.</strong> Local criminal courts handle arraignments and preliminary proceedings but cannot try felonies. Trial jurisdiction over felonies belongs to superior courts.</div>
+        </div><div class="dq" id="dq-tue-3">
+          <div class="dq-num">Q3</div>
+          <div class="dq-q">An indictment is filed in:</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-tue-3-a" onclick="selectDQ('tue',3,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">The same local criminal court where the felony complaint was filed</div>
+            </div><div class="dq-opt" id="dqopt-tue-3-b" onclick="selectDQ('tue',3,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">The Court of Appeals</div>
+            </div><div class="dq-opt" id="dqopt-tue-3-c" onclick="selectDQ('tue',3,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">A superior court (Supreme or County Court)</div>
+            </div><div class="dq-opt" id="dqopt-tue-3-d" onclick="selectDQ('tue',3,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">The Appellate Division</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-tue-3"><strong>Correct: c.</strong> Indictments are filed in and tried in superior courts — Supreme Court or County Court.</div>
+        </div><div class="dq" id="dq-tue-4">
+          <div class="dq-num">Q4</div>
+          <div class="dq-q">Preliminary jurisdiction means:</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-tue-4-a" onclick="selectDQ('tue',4,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">Full authority to try the case on its merits</div>
+            </div><div class="dq-opt" id="dqopt-tue-4-b" onclick="selectDQ('tue',4,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">Authority only to conduct proceedings prior to final disposition — not to make a final disposition</div>
+            </div><div class="dq-opt" id="dqopt-tue-4-c" onclick="selectDQ('tue',4,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">Exclusive jurisdiction over all felonies</div>
+            </div><div class="dq-opt" id="dqopt-tue-4-d" onclick="selectDQ('tue',4,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">Jurisdiction only over violations and traffic infractions</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-tue-4"><strong>Correct: b.</strong> Preliminary jurisdiction = authority to commence proceedings. Trial jurisdiction = authority to make final disposition on the merits.</div>
+        </div>
+      </div>
+    </div>
+    <div class="mnemo-block">
+      <div class="mnemo-label">🧠 Tonight's mnemonic — create before you close the book</div>
+      <div class="mnemo-article">CPL Art 10 · Jurisdiction</div>
+      <div class="mnemo-example">
+        <strong>Example (Rhyme):</strong> <em>"Local courts start it, superior courts try it"</em> → preliminary jurisdiction vs trial jurisdiction
+      </div>
+      <div class="mnemo-prompt">Create a mnemonic for <strong>trial vs preliminary jurisdiction</strong> — or for the different courts and their jurisdiction levels. A rhyme or short phrase works well here.</div>
+      <textarea class="mnemo-input" id="mn-input-tue_CPL_Art_10" placeholder="Write your mnemonic here — acronym, story, or rhyme..."></textarea>
+      <div class="mnemo-save-row">
+        <button class="mnemo-btn mnemo-btn-save" onclick="saveMnemonic('tue','CPL_Art_10')" >💾 Save to Master List</button>
+        <button class="mnemo-btn mnemo-btn-clear" onclick="clearMnemonic('tue','CPL_Art_10')" >Clear</button>
+      </div>
+      <div class="mnemo-saved" id="mn-saved-tue_CPL_Art_10"></div>
+    </div>
+      </div>
     </div>
   </div>
 </div>
@@ -404,16 +683,140 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   <div class="block">
     <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
     <div>
-      <div class="btitle"><span>ClerkOne Law Highlights — Arts. 1, 10, 30</span><span class="tool t-co">ClerkOne</span></div>
-      <div class="bbody">Switch from Notes to <em>Law Highlights</em> — the condensed mode. Skim all three CPL articles. Reinforcement, not new intake. 20 min only.</div>
+      <div class="btitle"><span>Active recall — CPL Arts. 1, 10 &amp; 30 mental quiz</span><span class="tool t-paper">No phone</span><span class="reddit">Active recall</span></div>
+      <div class="bbody">Phone away. This is your Day 2 pass on Art. 30 — answer without looking:
+        <span class="step"><em>Art. 30:</em> What are the three speedy trial time frames? (name all three)</span>
+        <span class="step"><em>Art. 30:</em> What triggers the speedy trial clock?</span>
+        <span class="step"><em>Art. 1:</em> Can a felony complaint serve as the basis for prosecution? Why not?</span>
+        <span class="step"><em>Art. 10:</em> Name a court with only preliminary jurisdiction over felonies.</span>
+        <span class="step"><em>All three:</em> What connects Art. 1, Art. 10 and Art. 30 conceptually?</span>
+        <div class="callout callout-teal">🗣 The last question forces your brain to link articles together — exactly the kind of thinking exam questions test.</div>
+      </div>
     </div>
   </div>
 
   <div class="block">
-    <div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div>
+    <div><div class="bwindow">Wind-down</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
     <div>
-      <div class="btitle"><span>Book — preview PL Art. 10</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
-      <div class="bbody">Switching to Penal Law tomorrow. Index → questions → summary of PL Art. 10. Note any unfamiliar terms — they'll anchor tomorrow's commute reading.</div>
+      <div class="btitle"><span>Book — preview PL Art. 10 + tonight's mnemonic</span><span class="tool t-bm">Book</span><span class="tool t-paper">Paper</span><span class="reddit">Layered reading</span></div>
+      <div class="bbody">Switching to Penal Law tomorrow. Index → questions → summary of PL Art. 10. Then create tonight's mnemonic below. Screens off.
+
+    <div class="quiz-panel">
+      <div class="qp-head" onclick="toggleQuizPanel('wed')">
+        <span class="qp-icon">❓</span>
+        <span class="qp-title">ClerkOne-style Practice Quiz — CPL Art. 30</span>
+        <span class="qp-badge">5 questions</span>
+        <span class="qp-arrow" id="qpa-wed">▼</span>
+      </div>
+      <div class="qp-body" id="qpb-wed">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+          <span class="qp-score" style="margin:0" id="dqscore-wed">0 / 5 · 0%</span>
+          <div class="qp-track" style="flex:1;min-width:80px"><div class="qp-fill" id="dqfill-wed" style="width:0%"></div></div>
+          <button onclick="resetDayQuiz('wed')" style="font-size:10px;font-weight:600;background:var(--slate-light);color:var(--slate);border:none;border-radius:4px;padding:3px 9px;cursor:pointer;font-family:inherit">Reset</button>
+        </div>
+        <div class="dq" id="dq-wed-1">
+          <div class="dq-num">Q1</div>
+          <div class="dq-q">For a felony, the People must be ready for trial within:</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-wed-1-a" onclick="selectDQ('wed',1,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">30 days</div>
+            </div><div class="dq-opt" id="dqopt-wed-1-b" onclick="selectDQ('wed',1,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">90 days</div>
+            </div><div class="dq-opt" id="dqopt-wed-1-c" onclick="selectDQ('wed',1,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">180 days</div>
+            </div><div class="dq-opt" id="dqopt-wed-1-d" onclick="selectDQ('wed',1,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">365 days</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-wed-1"><strong>Correct: c.</strong> CPL 30.30 — 180 days for a felony.</div>
+        </div><div class="dq" id="dq-wed-2">
+          <div class="dq-num">Q2</div>
+          <div class="dq-q">For a class A misdemeanor, the speedy trial time limit is:</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-wed-2-a" onclick="selectDQ('wed',2,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">30 days</div>
+            </div><div class="dq-opt" id="dqopt-wed-2-b" onclick="selectDQ('wed',2,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">60 days</div>
+            </div><div class="dq-opt" id="dqopt-wed-2-c" onclick="selectDQ('wed',2,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">90 days</div>
+            </div><div class="dq-opt" id="dqopt-wed-2-d" onclick="selectDQ('wed',2,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">180 days</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-wed-2"><strong>Correct: c.</strong> CPL 30.30 — 90 days for a class A misdemeanor.</div>
+        </div><div class="dq" id="dq-wed-3">
+          <div class="dq-num">Q3</div>
+          <div class="dq-q">For a violation or traffic infraction, the speedy trial limit is:</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-wed-3-a" onclick="selectDQ('wed',3,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">15 days</div>
+            </div><div class="dq-opt" id="dqopt-wed-3-b" onclick="selectDQ('wed',3,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">30 days</div>
+            </div><div class="dq-opt" id="dqopt-wed-3-c" onclick="selectDQ('wed',3,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">60 days</div>
+            </div><div class="dq-opt" id="dqopt-wed-3-d" onclick="selectDQ('wed',3,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">90 days</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-wed-3"><strong>Correct: b.</strong> CPL 30.30 — 30 days for a violation or traffic infraction.</div>
+        </div><div class="dq" id="dq-wed-4">
+          <div class="dq-num">Q4</div>
+          <div class="dq-q">The speedy trial clock under CPL 30.30 is triggered by:</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-wed-4-a" onclick="selectDQ('wed',4,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">The date the crime was committed</div>
+            </div><div class="dq-opt" id="dqopt-wed-4-b" onclick="selectDQ('wed',4,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">The date of defendant's arrest</div>
+            </div><div class="dq-opt" id="dqopt-wed-4-c" onclick="selectDQ('wed',4,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">The commencement of the criminal action — filing of first accusatory instrument</div>
+            </div><div class="dq-opt" id="dqopt-wed-4-d" onclick="selectDQ('wed',4,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">The date of arraignment</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-wed-4"><strong>Correct: c.</strong> The clock runs from commencement of the criminal action — filing of the first accusatory instrument.</div>
+        </div><div class="dq" id="dq-wed-5">
+          <div class="dq-num">Q5</div>
+          <div class="dq-q">Which period is excluded from speedy trial calculations?</div>
+          <div class="dq-opts"><div class="dq-opt" id="dqopt-wed-5-a" onclick="selectDQ('wed',5,'a')">
+              <div class="dq-letter">A</div>
+              <div style="font-size:12px;line-height:1.45">Time when defendant is awaiting grand jury action</div>
+            </div><div class="dq-opt" id="dqopt-wed-5-b" onclick="selectDQ('wed',5,'b')">
+              <div class="dq-letter">B</div>
+              <div style="font-size:12px;line-height:1.45">Delays caused solely by the defendant</div>
+            </div><div class="dq-opt" id="dqopt-wed-5-c" onclick="selectDQ('wed',5,'c')">
+              <div class="dq-letter">C</div>
+              <div style="font-size:12px;line-height:1.45">Adjournments at defendant's request</div>
+            </div><div class="dq-opt" id="dqopt-wed-5-d" onclick="selectDQ('wed',5,'d')">
+              <div class="dq-letter">D</div>
+              <div style="font-size:12px;line-height:1.45">All of the above</div>
+            </div></div>
+          <div class="dq-exp" id="dqexp-wed-5"><strong>Correct: d.</strong> CPL 30.30 lists many excludable periods — delays caused by defendant, adjournments on consent, time awaiting grand jury action.</div>
+        </div>
+      </div>
+    </div>
+    <div class="mnemo-block">
+      <div class="mnemo-label">🧠 Tonight's mnemonic — create before you close the book</div>
+      <div class="mnemo-article">CPL Art 30 · Speedy Trial Time Frames</div>
+      <div class="mnemo-example">
+        <strong>Example (Rhyme):</strong> <em>"Thirty days to go, ninety for a crime, one-eighty for a felony — do it all in time"</em>
+      </div>
+      <div class="mnemo-prompt">Create a mnemonic for the <strong>three speedy trial deadlines</strong>: 30 days (violation), 90 days (A misdemeanor), 180 days (felony). A rhyme or story works best for numbers.</div>
+      <textarea class="mnemo-input" id="mn-input-wed_CPL_Art_30" placeholder="Write your mnemonic here — acronym, story, or rhyme..."></textarea>
+      <div class="mnemo-save-row">
+        <button class="mnemo-btn mnemo-btn-save" onclick="saveMnemonic('wed','CPL_Art_30')" >💾 Save to Master List</button>
+        <button class="mnemo-btn mnemo-btn-clear" onclick="clearMnemonic('wed','CPL_Art_30')" >Clear</button>
+      </div>
+      <div class="mnemo-saved" id="mn-saved-wed_CPL_Art_30"></div>
+    </div>
+      </div>
     </div>
   </div>
 </div>
@@ -452,9 +855,14 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   <div class="block">
     <div><div class="bwindow">Evening commute</div><div class="bdur">20 min</div></div>
     <div>
-      <div class="btitle"><span>Clerk Quest — Penal Law</span><span class="tool t-co">ClerkOne</span><span class="reddit">Retrieval</span></div>
-      <div class="bbody">Game mode on Penal Law. After each wrong answer, walk back to your Roman Room and retrace the image mentally. 20 min then stop.
-        <div class="callout callout-teal">🗣 <strong>Active recall — whole commute home:</strong> Even after you put the phone down, silently recite the four mental states and their definitions. Do it until you get off the train/bus. This is the Reddit poster's core habit — reciting during travel, not just studying during it.</div>
+      <div class="btitle"><span>Active recall — PL Arts. 10 &amp; 55 mental quiz</span><span class="tool t-paper">No phone</span><span class="reddit">Active recall</span></div>
+      <div class="bbody">Phone away. Work through your Roman Room and these questions:
+        <span class="step"><em>Roman Room walk:</em> Pillow → nightstand → dresser → door. Name the mental state at each location and its definition.</span>
+        <span class="step"><em>PL Art. 10:</em> What is the difference between recklessly and criminal negligence?</span>
+        <span class="step"><em>PL Art. 10:</em> Which mental state requires conscious awareness of the risk?</span>
+        <span class="step"><em>PL Art. 55:</em> Recite the offense classification ladder top to bottom — all 8 tiers.</span>
+        <span class="step"><em>PL Art. 55:</em> Use your acronym mnemonic — does it give you all 8 without hesitation?</span>
+        <div class="callout callout-teal">🗣 Keep reciting the mental states and classification ladder for the rest of the commute after you finish. Repetition in the same session deepens the neural pathway.</div>
       </div>
     </div>
   </div>
@@ -886,7 +1294,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
           <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-3"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Bluemedia quizzer — 10 True/False on CPL Art. 1. Read every wrong-answer explanation.</span></div></label>
           <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Anki — create first 5 cards in your own words. Phrase as questions.</span></div></label>
           <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — write: "CPL Art. 1 · May 26 · Review: May 27, May 29, June 10, June 26, July 28, Oct 1."</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">ClerkOne — Ring the Bell game mode on CPL Art. 1 only. Stop at 20 min.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Active recall — phone away, answer from memory: 7 accusatory instruments · warrant vs bench warrant · when criminal action commences · what is a petty offense · who issues summons vs appearance ticket.</span></div></label>
           <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Any idle moment today</span><span class="ci-text">Active recall micro-practice — mentally recite CPL Art. 1 key points while waiting, walking, or in elevator.</span><span class="ci-tag teal">Active recall</span></div></label>
           <label class="ci"><input type="checkbox" data-day="mon" data-key="mon-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Physical Bluemedia book — layered preview of CPL Art. 10: index → end questions → summary only. Stop at 15 min.</span><span class="ci-tag gold">Layered read</span></div></label>
         </div>
@@ -906,7 +1314,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
           <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">ClerkOne True/False — CPL Art. 10. Check Report Card for weak sections.</span></div></label>
           <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Anki — review Monday's 5 due cards + add 5 new CPL Art. 10 cards.</span></div></label>
           <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — "CPL Art. 10 · May 27 · Review: May 28, May 30, June 11, June 27, July 29."</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Clerk Quest — game mode covering CPL Arts. 1 &amp; 10. 20 min then rest.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Active recall — phone away: felony complaint basis for prosecution? · conviction vs judgment · courts with trial jurisdiction over felonies · preliminary vs trial jurisdiction.</span></div></label>
           <label class="ci"><input type="checkbox" data-day="tue" data-key="tue-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Book — layered preview of CPL Art. 30: index → end questions → summary. Stop at 15 min.</span><span class="ci-tag gold">Layered read</span></div></label>
         </div>
       </div>
@@ -925,7 +1333,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
           <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Bluemedia quizzer — 10–12 questions on CPL Art. 30. Wrong answers → add to Anki as priority cards.</span></div></label>
           <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 20 min</span><span class="ci-text">Anki — due cards from Mon + Tue + 5 new Art. 30 cards focused on time limits.</span></div></label>
           <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — "CPL Art. 30 · May 28 · Review: May 29, June 1, June 13, June 29, July 31."</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">ClerkOne Law Highlights — skim Arts. 1, 10, 30 in condensed mode. Reinforcement only, not new intake.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Active recall — phone away: 3 speedy trial time frames · what triggers the clock · why felony complaint can't be basis for prosecution · name a court with only preliminary jurisdiction.</span></div></label>
           <label class="ci"><input type="checkbox" data-day="wed" data-key="wed-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Book — layered preview of PL Art. 10: index → end questions → summary. Note any unfamiliar terms.</span><span class="ci-tag gold">Layered read</span></div></label>
         </div>
       </div>
@@ -944,7 +1352,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
           <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-4"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 10 min</span><span class="ci-text">Roman Room build — place 4 mental states on bedroom objects. Walk the room 3× in your mind. Log the map in your diary.</span><span class="ci-tag sage">Roman Room</span></div></label>
           <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-5"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 15 min</span><span class="ci-text">Anki — due cards + 5 new PL Art. 10 cards, one per mental state.</span></div></label>
           <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-6"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Lunch · 5 min</span><span class="ci-text">Diary entry — "PL Art. 10 · May 29 · Review: May 30, June 1, June 13, June 30." Also log memory palace map.</span><span class="ci-tag violet">Diary</span></div></label>
-          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Clerk Quest — Penal Law. After each wrong answer, mentally retrace the Roman Room image for that concept.</span></div></label>
+          <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-7"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute · 20 min</span><span class="ci-text">Active recall — phone away: walk Roman Room (pillow/nightstand/dresser/door) · recite all 4 mental states with definitions · recite offense classification ladder all 8 tiers using your mnemonic.</span></div></label>
           <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-8"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Evening commute (rest of ride)</span><span class="ci-text">Active recall — silently recite all 4 mental states and their definitions until you reach your stop.</span><span class="ci-tag teal">Active recall</span></div></label>
           <label class="ci"><input type="checkbox" data-day="thu" data-key="thu-9"><span class="ci-check"></span><div class="ci-body"><span class="ci-time">Wind-down · 15 min · NO SCREEN</span><span class="ci-text">Book — layered preview of PL Arts. 55 &amp; 80: index → end questions → summary. Note the classification chart.</span><span class="ci-tag gold">Layered read</span></div></label>
         </div>
@@ -1168,5 +1576,220 @@ document.addEventListener('DOMContentLoaded', init);
 </div>
 
 </div><!-- /main -->
+<script>
+const DAY_QUESTIONS = {
+  mon: [
+    { q: "A criminal action commences when:",
+      opts: ["a. A defendant is arrested by a police officer","b. The first accusatory instrument is filed against the defendant","c. An indictment is voted by a grand jury","d. The crime was committed"],
+      correct: "b",
+      exp: "<strong>Correct: b.</strong> Filing of the first accusatory instrument is the trigger per CPL 1.20-16, 17. Not at arrest, not at crime date, not at indictment." },
+    { q: "A felony complaint can serve as:",
+      opts: ["a. Both the basis to commence and the basis for prosecution","b. The basis to commence a criminal action only — NOT basis for prosecution","c. The basis for prosecution only","d. Neither — it must be replaced by an information"],
+      correct: "b",
+      exp: "<strong>Correct: b.</strong> CPL 1.20-8. A felony complaint commences the action but only an indictment or superior court information can be the basis for prosecuting a felony." },
+    { q: "Which of the following is a petty offense?",
+      opts: ["a. Class B misdemeanor","b. Class A misdemeanor","c. Traffic infraction","d. Class E felony"],
+      correct: "c",
+      exp: "<strong>Correct: c.</strong> Petty offense = violation OR traffic infraction per CPL 1.20-39. Misdemeanors are NOT petty offenses." },
+    { q: "A summons in a criminal action may be issued by:",
+      opts: ["a. A local criminal court only","b. A police officer","c. A district attorney","d. A local or superior court"],
+      correct: "d",
+      exp: "<strong>Correct: d.</strong> Effective 11/1/93, superior courts were also authorized to issue a summons. A police officer issues an appearance ticket, not a summons." },
+    { q: "The purpose of a bench warrant is to:",
+      opts: ["a. Arrest a defendant for initial arraignment","b. Produce a previously arraigned defendant for some purpose other than initial arraignment","c. Search a defendant's premises","d. Issue a summons requiring a defendant to appear"],
+      correct: "b",
+      exp: "<strong>Correct: b.</strong> A bench warrant is used when a defendant in a pending case has already been arraigned and further court appearance is required." }
+  ],
+  tue: [
+    { q: "A court has 'trial jurisdiction' when:",
+      opts: ["a. It has authority to issue an arrest warrant","b. It has authority to conduct a preliminary hearing only","c. It is the proper venue to file the accusatory instrument AND has authority to take a plea or enter a verdict","d. It has jurisdiction over all offenses in the county"],
+      correct: "c",
+      exp: "<strong>Correct: c.</strong> CPL 1.20-24-25. Both elements are required — proper venue AND authority to take a plea or enter a verdict." },
+    { q: "Which court has only preliminary jurisdiction over felonies?",
+      opts: ["a. Supreme Court","b. County Court","c. Local criminal court (e.g. Criminal Court of NYC)","d. Court of Appeals"],
+      correct: "c",
+      exp: "<strong>Correct: c.</strong> Local criminal courts handle arraignments and preliminary proceedings for felonies but cannot try them. Trial jurisdiction over felonies belongs to superior courts." },
+    { q: "The New York Court of Appeals has jurisdiction to hear:",
+      opts: ["a. All criminal trials","b. Appeals from final judgments — it is the state's highest court","c. Only felony arraignments","d. Civil matters only"],
+      correct: "b",
+      exp: "<strong>Correct: b.</strong> The Court of Appeals is NY's highest court and hears appeals. It does not conduct criminal trials." },
+    { q: "A defendant is arraigned in local criminal court on a felony complaint. The case is then presented to a grand jury which returns an indictment. The indictment is filed in:",
+      opts: ["a. The same local criminal court","b. The Court of Appeals","c. A superior court (Supreme or County Court)","d. The Appellate Division"],
+      correct: "c",
+      exp: "<strong>Correct: c.</strong> Indictments are filed in and tried in superior courts — Supreme Court or County Court." }
+  ],
+  wed: [
+    { q: "For a felony charged in an indictment, the speedy trial time limit is:",
+      opts: ["a. 30 days","b. 90 days","c. 180 days","d. 365 days"],
+      correct: "c",
+      exp: "<strong>Correct: c.</strong> CPL 30.30 — the People must be ready for trial within 180 days for a felony." },
+    { q: "For a class A misdemeanor, the speedy trial time limit is:",
+      opts: ["a. 30 days","b. 60 days","c. 90 days","d. 180 days"],
+      correct: "c",
+      exp: "<strong>Correct: c.</strong> CPL 30.30 — 90 days for a class A misdemeanor." },
+    { q: "For a violation or traffic infraction, the speedy trial limit is:",
+      opts: ["a. 15 days","b. 30 days","c. 60 days","d. 90 days"],
+      correct: "b",
+      exp: "<strong>Correct: b.</strong> CPL 30.30 — 30 days for a violation or traffic infraction." },
+    { q: "The speedy trial clock under CPL 30.30 is triggered by:",
+      opts: ["a. The date the crime was committed","b. The date of the defendant's arrest","c. The commencement of the criminal action (filing of first accusatory instrument)","d. The date of arraignment"],
+      correct: "c",
+      exp: "<strong>Correct: c.</strong> The clock runs from commencement of the criminal action — filing of the first accusatory instrument." },
+    { q: "Which period is excluded from speedy trial calculations under CPL 30.30?",
+      opts: ["a. Time when defendant is awaiting grand jury action","b. Delays caused solely by the defendant or on consent","c. Adjournments at defendant's request","d. All of the above"],
+      correct: "d",
+      exp: "<strong>Correct: d.</strong> CPL 30.30 lists many excludable periods including delays caused by the defendant, adjournments on consent, and periods awaiting grand jury action." }
+  ],
+  thu: [
+    { q: "A person acts 'intentionally' when:",
+      opts: ["a. They are aware their conduct may cause a result but disregard the risk","b. Their conscious objective is to cause the result","c. They fail to perceive a substantial risk","d. They are aware their conduct is of that nature"],
+      correct: "b",
+      exp: "<strong>Correct: b.</strong> PL 15.05(1) — a person acts intentionally when their conscious objective is to cause the proscribed result or engage in that conduct." },
+    { q: "A person acts 'recklessly' when:",
+      opts: ["a. Their conscious objective is to cause the result","b. They are aware of and consciously disregard a substantial and unjustifiable risk","c. They fail to perceive a substantial risk that a reasonable person would have","d. They knowingly cause the result"],
+      correct: "b",
+      exp: "<strong>Correct: b.</strong> PL 15.05(3) — recklessness requires conscious disregard of a substantial and unjustifiable risk. This distinguishes it from criminal negligence, which is failure to perceive." },
+    { q: "The difference between recklessness and criminal negligence is:",
+      opts: ["a. The severity of the risk involved","b. Whether the person caused actual harm","c. Whether the person was aware of the risk (reckless) or failed to perceive it (negligence)","d. The type of offense charged"],
+      correct: "c",
+      exp: "<strong>Correct: c.</strong> Recklessness = aware of and disregards the risk. Criminal negligence = fails to perceive the risk. Awareness is the key distinction." },
+    { q: "Under PL Art. 55, which is the most serious offense classification?",
+      opts: ["a. Class B felony","b. Class A misdemeanor","c. Class A felony","d. Violation"],
+      correct: "c",
+      exp: "<strong>Correct: c.</strong> The classification ladder from most to least serious: Class A felony → B → C → D → E → A misdemeanor → B misdemeanor → Violation." },
+    { q: "A violation under the Penal Law is:",
+      opts: ["a. A crime","b. A felony","c. A misdemeanor","d. An offense that is not a crime"],
+      correct: "d",
+      exp: "<strong>Correct: d.</strong> A violation is an offense but NOT a crime. Crimes under NY law are limited to misdemeanors and felonies per PL 10.00." }
+  ]
+};
+</script>
+
+<script>
+// ── DAY QUIZ ENGINE ──────────────────────────────────────
+const DQ_STORE = 'nys_w1_day_quiz';
+const dqState = {};
+
+function loadDQState(){
+  try{ Object.assign(dqState, JSON.parse(localStorage.getItem(DQ_STORE)||'{}')); }catch(e){}
+}
+function saveDQState(){ try{ localStorage.setItem(DQ_STORE, JSON.stringify(dqState)); }catch(e){} }
+
+function toggleQuizPanel(id){
+  const body = document.getElementById('qpb-'+id);
+  const arrow = document.getElementById('qpa-'+id);
+  if(!body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if(arrow) arrow.classList.toggle('open', !isOpen);
+}
+
+function selectDQ(day, qn, letter){
+  const key = day+'_q'+qn;
+  if(dqState[key]) return;
+  const q = DAY_QUESTIONS[day] && DAY_QUESTIONS[day][qn-1];
+  if(!q) return;
+  dqState[key] = letter;
+  saveDQState();
+  renderDQ(day, qn, q, letter);
+  updateDQScore(day);
+}
+
+function renderDQ(day, qn, q, chosen){
+  const card = document.getElementById('dq-'+day+'-'+qn);
+  if(!card) return;
+  const isCorrect = chosen === q.correct;
+  card.classList.toggle('dq-correct', isCorrect);
+  card.classList.toggle('dq-wrong', !isCorrect);
+  const letters = ['a','b','c','d'];
+  letters.forEach(l => {
+    const opt = document.getElementById('dqopt-'+day+'-'+qn+'-'+l);
+    if(!opt) return;
+    opt.classList.add('locked');
+    if(l === q.correct) opt.classList.add('opt-correct');
+    else if(l === chosen && !isCorrect) opt.classList.add('opt-wrong');
+  });
+  const exp = document.getElementById('dqexp-'+day+'-'+qn);
+  if(exp) exp.classList.add('show');
+}
+
+function updateDQScore(day){
+  const qs = DAY_QUESTIONS[day];
+  if(!qs) return;
+  const answered = qs.filter((_,i) => dqState[day+'_q'+(i+1)]).length;
+  const correct = qs.filter((q,i) => dqState[day+'_q'+(i+1)] === q.correct).length;
+  const pct = qs.length ? Math.round(correct/qs.length*100) : 0;
+  const scoreEl = document.getElementById('dqscore-'+day);
+  const fillEl = document.getElementById('dqfill-'+day);
+  if(scoreEl) scoreEl.textContent = correct+' / '+qs.length+' · '+pct+'%';
+  if(fillEl)  fillEl.style.width = pct+'%';
+}
+
+function resetDayQuiz(day){
+  const qs = DAY_QUESTIONS[day];
+  if(!qs || !confirm('Reset '+day+' quiz?')) return;
+  qs.forEach((_,i) => delete dqState[day+'_q'+(i+1)]);
+  saveDQState();
+  location.reload();
+}
+
+function initDayQuizzes(){
+  loadDQState();
+  Object.keys(DAY_QUESTIONS).forEach(day => {
+    const qs = DAY_QUESTIONS[day];
+    qs.forEach((q,i) => {
+      const chosen = dqState[day+'_q'+(i+1)];
+      if(chosen) renderDQ(day, i+1, q, chosen);
+    });
+    updateDQScore(day);
+  });
+}
+
+// ── MNEMONIC ENGINE ──────────────────────────────────────
+const MN_STORE = 'nys_w1_mnemonics';
+
+function saveMnemonic(day, article){
+  const key = day+'_'+article;
+  const input = document.getElementById('mn-input-'+key);
+  if(!input) return;
+  const val = input.value.trim();
+  if(!val) return;
+  try{
+    const all = JSON.parse(localStorage.getItem(MN_STORE)||'{}');
+    all[key] = { text: val, saved: new Date().toISOString(), article };
+    localStorage.setItem(MN_STORE, JSON.stringify(all));
+    const saved = document.getElementById('mn-saved-'+key);
+    if(saved){ saved.style.display='block'; saved.textContent='✓ Saved — will appear in Saturday Master List'; }
+    setTimeout(() => { if(saved) saved.style.display='none'; }, 3000);
+  }catch(e){}
+}
+
+function clearMnemonic(day, article){
+  const key = day+'_'+article;
+  const input = document.getElementById('mn-input-'+key);
+  if(input) input.value = '';
+  try{
+    const all = JSON.parse(localStorage.getItem(MN_STORE)||'{}');
+    delete all[key];
+    localStorage.setItem(MN_STORE, JSON.stringify(all));
+  }catch(e){}
+}
+
+function loadMnemonics(){
+  try{
+    const all = JSON.parse(localStorage.getItem(MN_STORE)||'{}');
+    Object.keys(all).forEach(key => {
+      const input = document.getElementById('mn-input-'+key);
+      if(input && all[key].text) input.value = all[key].text;
+    });
+  }catch(e){}
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initDayQuizzes();
+  loadMnemonics();
+});
+</script>
+
 </body>
 </html>

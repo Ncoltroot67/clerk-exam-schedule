@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-<title>Week 1 — Notes & Quiz · CPL Art. 1</title>
+<title>Week 1 — Notes & Quiz · CPL Arts. 1, 10, 30</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -18,7 +18,7 @@
   --border:#e2ddd6;--white:#fff;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;font-size:20px;line-height:1.6}
 
 /* HEADER */
 .header{background:var(--navy);color:white;padding:24px 36px 20px;position:relative;overflow:hidden}
@@ -115,7 +115,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .coming-soon{text-align:center;padding:48px 20px;color:var(--text-muted)}
 .cs-icon{font-size:40px;margin-bottom:14px}
 .cs-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy);margin-bottom:6px}
-.cs-body{font-size:13px;margin-bottom:14px}
+.cs-body{font-size:20px;margin-bottom:14px}
 .cs-note{background:var(--gold-light);border-radius:8px;padding:10px 14px;font-size:12px;color:#7a5010;display:inline-block}
 
 @media(max-width:680px){
@@ -126,7 +126,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 
 @media(max-width:768px){
   :root{--pad-h:16px;--grid-cols:1fr;--fs-h1:26px;--fs-h2:20px}
-  body{font-size:16px!important}
+  body{font-size:20px!important}
   .main,.header,.bar,.bar-structure,.bar-reddit,.legend,.phase-bar,
   .milestones,.stats-row,.panel,.tab-bar,.nq-wrap{padding-left:16px!important;padding-right:16px!important}
   .main{grid-template-columns:1fr!important;padding-left:16px!important;padding-right:16px!important}
@@ -151,16 +151,16 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
   <h1>Notes &amp; Quiz</h1>
   <div class="header-meta">
     <div class="meta-pill">📋 <strong>CPL Art. 1</strong> — 43 questions</div>
-    <div class="meta-pill">📋 <strong>CPL Art. 10</strong> — coming soon</div>
-    <div class="meta-pill">⚖️ <strong>PL Art. 10</strong> — coming soon</div>
+    <div class="meta-pill">📋 <strong>CPL Art. 10</strong> — 8 questions</div>
+    <div class="meta-pill">📋 <strong>CPL Art. 30</strong> — 5 questions</div>
     <a class="back-btn" href="index.html">← Dashboard</a>
   </div>
 </div>
 
 <div class="tab-bar">
   <button class="tab active" onclick="switchTab('art1',this)">CPL Art. 1 <span class="tab-count">43 Qs</span></button>
-  <button class="tab" onclick="switchTab('art10',this)">CPL Art. 10 <span class="tab-count">coming soon</span></button>
-  <button class="tab" onclick="switchTab('pl10',this)">PL Art. 10 <span class="tab-count">coming soon</span></button>
+  <button class="tab" onclick="switchTab('art10',this)">CPL Art. 10 <span class="tab-count">8 Qs</span></button>
+  <button class="tab" onclick="switchTab('pl10',this)">CPL Art. 30 <span class="tab-count">5 Qs</span></button>
 </div>
 
 <!-- ══════════════════════════════════════════════ -->
@@ -276,25 +276,192 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 
 </div><!-- /panel-art1 -->
 
-<!-- CPL ART 10 PLACEHOLDER -->
-<div class="panel" id="panel-art10">
-  <div class="coming-soon">
-    <div class="cs-icon">📋</div>
-    <div class="cs-title">CPL Art. 10 — Jurisdiction</div>
-    <div class="cs-body">Paste your CPL Art. 10 notes and quiz questions and this tab will be filled in.</div>
-    <div class="cs-note">Come back to Claude and say "add CPL Art. 10 to my notes quiz page"</div>
-  </div>
-</div>
 
-<!-- PL ART 10 PLACEHOLDER -->
-<div class="panel" id="panel-pl10">
-  <div class="coming-soon">
-    <div class="cs-icon">⚖️</div>
-    <div class="cs-title">Penal Law Art. 10 — Definitions &amp; Mental States</div>
-    <div class="cs-body">Paste your PL Art. 10 notes and quiz questions and this tab will be filled in.</div>
-    <div class="cs-note">Come back to Claude and say "add PL Art. 10 to my notes quiz page"</div>
+<!-- ══════════════════════════════════════════════ -->
+<!-- CPL ART 10 PANEL -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="panel" id="panel-art10">
+
+  <!-- SCORE BAR -->
+  <div class="score-bar">
+    <div>
+      <div class="score-main" id="sd10">0 / 8 correct</div>
+      <div class="score-sub" id="ss10">Select an answer to begin</div>
+    </div>
+    <div class="score-track"><div class="score-fill" id="sf10" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetQuiz10()">Reset quiz</button>
+      <button class="btn-action gold" onclick="revealAll10()">Reveal all answers</button>
+    </div>
   </div>
-</div>
+
+  <!-- NOTES -->
+  <div class="sec-head">
+    <span class="sec-icon">📋</span>
+    <span class="sec-title">Study Notes — CPL Art. 10 · Criminal Courts: Enumeration, Definitions &amp; Jurisdiction (2026)</span>
+    <button class="toggle-btn" onclick="toggleEl('notes-art10',this)">Hide notes</button>
+  </div>
+  <div id="notes-art10">
+  <div class="notes-wrap">
+  <div class="notes-body">
+
+    <div class="nb">
+      <div class="ns">§10.10 — The Two Tiers of Criminal Courts</div>
+      <div class="ni"><strong>Superior Courts:</strong> Supreme Court OR County Court — ONLY these two</div>
+      <div class="ni"><strong>Local Criminal Courts:</strong> District Court · NYC Criminal Court · City Court · Town Court · Village Court · Supreme Court Justice sitting as LCC · County Judge sitting as LCC</div>
+      <div class="ni key">⚡ NYC Criminal Court ≠ City Court. NYC Criminal Court is its own LCC category. City Court = any city court OTHER than NYC, having trial jurisdiction of offenses less than felony grade only</div>
+      <div class="ni"><strong>Town Court</strong> = all the town justices of a town. <strong>Village Court</strong> = village justice(s) — if all absent, an authorized Associate Justice may act</div>
+      <div class="ni"><strong>Dual-jurisdiction courts</strong> — when exercising civil jurisdiction only, NOT acting as a criminal court. Orders made in civil capacity are NOT orders of a criminal court</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§10.20 — Superior Courts: Jurisdiction</div>
+      <div class="ni"><strong>Trial jurisdiction — Felonies: EXCLUSIVE</strong> — only Superior Courts try felonies</div>
+      <div class="ni"><strong>Trial jurisdiction — Misdemeanors: CONCURRENT</strong> — shared with Local Criminal Courts</div>
+      <div class="ni"><strong>Trial jurisdiction — Petty Offenses:</strong> ONLY when charged in an indictment that ALSO charges a crime</div>
+      <div class="ni key">⚡ Superior Court preliminary jurisdiction = Grand Jury ONLY. Superior Courts exercise preliminary jurisdiction only through their Grand Juries — not directly</div>
+      <div class="ni"><strong>Superior Court judge sitting as LCC:</strong> Limited to (1) conducting arraignments, (2) issuing warrants of arrest, (3) issuing search warrants — PRELIMINARY JURISDICTION ONLY, no trial jurisdiction</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§10.30 — Local Criminal Courts: Jurisdiction</div>
+      <div class="ni"><strong>Felonies:</strong> Preliminary jurisdiction ONLY — subject to divestiture. NO trial jurisdiction</div>
+      <div class="ni"><strong>Misdemeanors:</strong> CONCURRENT trial jurisdiction — subject to divestiture by Superior Court in any particular case</div>
+      <div class="ni"><strong>Petty Offenses: EXCLUSIVE</strong> trial jurisdiction — except when petty offense charged alongside a crime in a Superior Court indictment</div>
+      <div class="ni"><strong>Preliminary jurisdiction:</strong> All offenses — subject to divestiture by superior courts and their grand juries</div>
+      <div class="ni key">⚡ Divestiture: Superior Court can divest an LCC of misdemeanor jurisdiction in a particular case. LCC preliminary jurisdiction is always subject to divestiture</div>
+      <div class="ni"><strong>Superior Court judge sitting as LCC:</strong> NO trial jurisdiction of ANY offense — preliminary jurisdiction ONLY regardless of what offense is charged</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§10.40 — Chief Administrator: Forms and E-Filing</div>
+      <div class="ni"><strong>Forms:</strong> Chief Administrator may adopt/amend/rescind forms. Failure to use authorized forms is NOT grounds alone to deny or grant any motion</div>
+      <div class="ni"><strong>E-filing:</strong> Chief Administrator may promulgate e-filing rules with approval of Administrative Board of Courts — for both commencing actions and pending proceedings</div>
+      <div class="ni"><strong>Voluntary program:</strong> No consent of other party needed to file. No party may be compelled to participate</div>
+      <div class="ni"><strong>Mandatory program:</strong> Chief Administrator must first obtain agreement of DA AND Criminal Defense Bar of the county. Reasonable notice and comment opportunity required. Comments posted publicly on OCA website</div>
+      <div class="ni key">⚡ Unrepresented parties (pro se): ALWAYS exempt from e-filing — whether voluntary or mandatory. Cannot be compelled to participate under any circumstances</div>
+      <div class="ni key">⚡ Criminal e-filed documents are NEVER publicly available online. No paper filed electronically in a criminal proceeding is available for public inspection online. Chief Administrator may post unsealed docs on a separate public UCS website only when in the public interest</div>
+      <div class="ni"><strong>Attorney opt-out (mandatory programs):</strong> May opt out by certifying lack of computer hardware/internet/conversion device OR lack of requisite knowledge. Court may also exempt for good cause. Knowledge of attorney's employees is imputed to the attorney</div>
+      <div class="ni"><strong>Consent of Criminal Defense Bar:</strong> Written consent from all provider offices/organizations in the county that represented 25% or more of persons represented by public defense providers (per County Law §722 annual reports)</div>
+    </div>
+
+  </div>
+  </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="sec-head" style="margin-top:16px">
+    <span class="sec-icon">❓</span>
+    <span class="sec-title">Quiz — CPL Art. 10 (8 questions)</span>
+    <button class="toggle-btn" onclick="toggleEl('quiz-art10',this)">Hide quiz</button>
+  </div>
+  <div id="quiz-art10">
+  <div class="quiz-grid" id="quiz-container-10"></div>
+  </div>
+
+</div><!-- /panel-art10 -->
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CPL ART 30 PANEL (tab labelled pl10) -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="panel" id="panel-pl10">
+
+  <!-- SCORE BAR -->
+  <div class="score-bar">
+    <div>
+      <div class="score-main" id="sd30">0 / 5 correct</div>
+      <div class="score-sub" id="ss30">Select an answer to begin</div>
+    </div>
+    <div class="score-track"><div class="score-fill" id="sf30" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetQuiz30()">Reset quiz</button>
+      <button class="btn-action gold" onclick="revealAll30()">Reveal all answers</button>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="sec-head">
+    <span class="sec-icon">📋</span>
+    <span class="sec-title">Study Notes — CPL Art. 30 · Timeliness of Prosecutions &amp; Speedy Trial (2026)</span>
+    <button class="toggle-btn" onclick="toggleEl('notes-art30',this)">Hide notes</button>
+  </div>
+  <div id="notes-art30">
+  <div class="notes-wrap">
+  <div class="notes-body">
+
+    <div class="nb">
+      <div class="ns">§30.10 — Standard Limitation Periods</div>
+      <div class="ni key">⚡ Class A Felony = NO LIMIT. Rape 1° · Criminal Sexual Act 1° · Aggravated Sexual Abuse 1° · Course of Sexual Conduct Against Child 1° · Incest 1° = all NO LIMIT</div>
+      <div class="ni upd">🆕 NEW 2026 — Rape 2°/CSA 2° (subd. 2) + Incest 2° where underlying act is Rape 2° or CSA 2°: 20 years from commission OR 10 years from first report to law enforcement — whichever is EARLIER</div>
+      <div class="ni upd">🆕 NEW 2026 — Rape 3°/CSA 3° (subds. 1 or 3): 10 years from commission</div>
+      <div class="ni"><strong>Any other Felony:</strong> 5 years · <strong>Misdemeanor:</strong> 2 years · <strong>Petty Offense:</strong> 1 year</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§30.10(3) — Extended Limitation Periods</div>
+      <div class="ni"><strong>(a) Larceny by Fiduciary:</strong> 1 year from discovery (or when discoverable by reasonable diligence)</div>
+      <div class="ni"><strong>(b) Public Officer Misconduct:</strong> Any time during service OR up to 5 years after termination — but NOT more than 5 years beyond the normal limitation period</div>
+      <div class="ni key">⚡ Public officer: double cap — 5 years after leaving office AND never more than 5 years beyond standard period</div>
+      <div class="ni"><strong>(e) Course of Sexual Conduct Against Child 2°:</strong> 5 years from most recent act</div>
+      <div class="ni upd">🆕 NEW 2026 — §30.10(3)(f): Child sex offenses — tolling period runs until child turns AGE 23 (previously 18), OR offense is reported to law enforcement/SCR — whichever comes FIRST</div>
+      <div class="ni"><strong>(g) Terrorism Felonies (PL Art. 490):</strong> 8 years. If death or foreseeable risk of death/serious physical injury: NO LIMIT</div>
+      <div class="ni upd">🆕 NEW 2026 — §30.10(3)(h): Deed Theft / Fraud in real property transaction (Felony): 5 years from commission OR 2 years from discovery — whichever is LATER (note: LATER, not earlier)</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§30.10(4) — Tolling Provisions</div>
+      <div class="ni"><strong>(a)</strong> Defendant continuously outside NYS, OR whereabouts continuously unknown and unascertainable by reasonable diligence — tolling cannot extend the period by more than 5 additional years</div>
+      <div class="ni"><strong>(b)</strong> Period from commencement of prior prosecution on related charges to dismissal (where dismissal permits re-filing)</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§30.30 — Speedy Trial Readiness Deadlines</div>
+      <div class="ni key">⚡ READINESS CLOCK §30.30(1): Felony = 6 months · Misdemeanor &gt;3 months imprisonment = 90 days · Misdemeanor ≤3 months imprisonment = 60 days · Violation only = 30 days</div>
+      <div class="ni key">⚡ CUSTODY CLOCK §30.30(2): Felony = 90 days · Misd. &gt;3 months = 30 days · Misd. ≤3 months = 15 days · Violation = 5 days</div>
+      <div class="ni"><strong>Homicide exemption:</strong> PL §§125.10–125.27 homicide offenses are EXEMPT from BOTH §30.30(1) and §30.30(2)</div>
+      <div class="ni"><strong>Custody exceptions — need not release even after deadline if:</strong> defendant serving term for another offense · defendant held on another charge whose period has not elapsed · defendant re-detained for new crime or violation of release conditions</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§30.30(4) — Key Excluded Periods (Don't Count Against People)</div>
+      <div class="ni"><strong>(a)</strong> Delays from other proceedings — competency, pre-trial motions, appeals, bill of particulars, demand to produce, trial of other charges</div>
+      <div class="ni"><strong>(b)</strong> Continuance at defendant's request or with consent — pro se defendant must be advised of speedy trial rights ON THE RECORD in open court</div>
+      <div class="ni"><strong>(c)(i)</strong> Absence/unavailability of defendant — absent = location unknown AND avoiding apprehension or unlocatable by due diligence</div>
+      <div class="ni"><strong>(c)(ii)</strong> Escape from custody / failure to appear — from bench warrant issuance to reappearance. Defendant must NOT be in custody on another matter</div>
+      <div class="ni"><strong>(e)</strong> Detention in another jurisdiction — DA must be aware AND have exercised diligence to obtain defendant's presence</div>
+      <div class="ni"><strong>(g)</strong> Exceptional circumstances — unavailable material evidence (DA exercised due diligence) OR additional prep time justified by exceptional circumstances</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§30.30(5) — Certificate of Compliance (NEW 2026)</div>
+      <div class="ni upd">🆕 NEW 2026: Court must inquire on the record as to actual readiness when People state readiness. If not actually ready, statement of readiness is INVALID</div>
+      <div class="ni">Certificate of compliance is INVALID when court finds People did not exercise due diligence — assessed by totality of prosecution's efforts including: volume of discovery provided, complexity of case, whether prosecutor knew of missing material, response when apprised of missing discovery, whether omission was corrected, and whether delayed disclosure was prejudicial to defense</div>
+      <div class="ni upd">🆕 NEW 2026 — §30.30(5-a): On a local criminal court accusatory instrument, statement of readiness not valid unless prosecuting attorney certifies all counts meet CPL §§100.15 and 100.40 requirements</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§30.30(7) — Instrument Conversion Clock Rules</div>
+      <div class="ni"><strong>Felony complaint converted to Information/Misdemeanor Complaint (non-custody):</strong> Clock resets to new instrument date UNLESS aggregate would exceed 6 months → original felony complaint date controls</div>
+      <div class="ni"><strong>Felony complaint converted (custody §30.30(2)):</strong> Clock resets UNLESS aggregate would exceed 90 days → original date controls</div>
+      <div class="ni"><strong>§30.30(8) — People bear the burden at hearing:</strong> If time period disputed at oral argument, court must hold prompt hearing where People must PROVE the period is excludable</div>
+    </div>
+
+  </div>
+  </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="sec-head" style="margin-top:16px">
+    <span class="sec-icon">❓</span>
+    <span class="sec-title">Quiz — CPL Art. 30 (5 questions)</span>
+    <button class="toggle-btn" onclick="toggleEl('quiz-art30',this)">Hide quiz</button>
+  </div>
+  <div id="quiz-art30">
+  <div class="quiz-grid" id="quiz-container-30"></div>
+  </div>
+
+</div><!-- /panel-pl10 -->
+
 
 <script>
 // ══════════════════════════════════════════════════════════════
@@ -763,6 +930,192 @@ document.addEventListener('DOMContentLoaded', ()=>{
   buildQuiz();
 });
 </script>
+
+<script>
+// ════════════════════════════════════════════════════════
+// CPL ART 10 — 8 QUESTIONS (from quiz mode document)
+// ════════════════════════════════════════════════════════
+const Q10 = [
+  {n:1, q:"Smith commits a crime in New York City. His criminal case can be tried, according to the CPL:",
+   opts:["a. only in a local criminal court","b. only in a local criminal court or superior court","c. only in the New York City Criminal Court","d. only in a superior court or County Court","e. only by a superior court justice sitting as a local criminal court"],
+   correct:"b",
+   exp:"Since the crime is not specified, the appropriate court cannot be specified. For a felony the case could be tried only in Supreme Court in NYC (there is no County Court within NYC). The correct answer is: <strong>only in a local criminal court or superior court.</strong>",
+   ans:"only in a local criminal court or superior court"},
+  {n:2, q:"A superior court of criminal jurisdiction refers to:",
+   opts:["a. New York City Criminal Court and Supreme Court","b. Supreme Court, Appellate Division and Court of Appeals","c. District Court, New York City Criminal Court and Supreme Court","d. Supreme Court and County Court"],
+   correct:"d",
+   exp:"NYC Criminal Court is a local criminal court. The Appellate Division and Court of Appeals are appellate courts. The District Court is a local criminal court. <strong>Correct: Supreme Court and County Court.</strong>",
+   ans:"Supreme Court and County Court"},
+  {n:3, q:"Superior courts have: 1. unlimited trial jurisdiction over all petty offenses 2. exclusive trial jurisdiction of felonies 3. no trial jurisdiction over misdemeanors 4. no trial jurisdiction over petty offenses 5. preliminary jurisdiction over all offenses only through their grand juries",
+   opts:["a. All of the above are true","b. None of the above are true","c. 2 and 5 are true, the others are not","d. 1 and 2 are true, the others are not"],
+   correct:"c",
+   exp:"Statement 1 incorrect — trial jurisdiction over petty offenses limited to those in an indictment that also charges a crime. Statement 3 incorrect — superior courts have concurrent trial jurisdiction of misdemeanors. Statement 4 incorrect — petty offense jurisdiction exists when included in an indictment charging a crime. <strong>Correct: 2 and 5 are true.</strong>",
+   ans:"2 and 5 are true, the others are not"},
+  {n:4, q:"Superior courts have trial jurisdiction over:",
+   opts:["a. only felonies","b. only felonies and misdemeanors","c. petty offenses, only if there is also a felony charge","d. petty offenses, only if there is also a crime charged"],
+   correct:"d",
+   exp:"A crime includes both misdemeanors AND felonies — not just felonies. So the correct answer is the broader statement: <strong>petty offenses, only if there is also a crime charged.</strong>",
+   ans:"petty offenses, only if there is also a crime charged"},
+  {n:5, q:"Creep has been indicted on a petty offense. The indictment also charges Creep with a crime. Creep's case may be heard only in a:",
+   opts:["a. district court","b. local criminal court","c. superior court","d. city court"],
+   correct:"c",
+   exp:"The significant part of the question is that Creep has been <em>indicted</em>. An indictment may be tried only in a superior court. <strong>Correct: superior court.</strong>",
+   ans:"superior court"},
+  {n:6, q:"Superior court judges, when sitting as local criminal courts, may: 1. conduct arraignments 2. issue warrants of arrest 3. issue search warrants",
+   opts:["a. 1 only","b. 1 and 2 only","c. 2 only","d. 2 and 3 only","e. 1, 2 and 3"],
+   correct:"e",
+   exp:"CPL §10.20(3) lists all three functions. When sitting as a local criminal court, a superior court judge may conduct arraignments, issue warrants of arrest, and issue search warrants. <strong>Correct: 1, 2 and 3.</strong>",
+   ans:"1, 2 and 3"},
+  {n:7, q:"Donny Defendant has decided to represent himself in his criminal case. The county court requires electronic filing. In representing himself, Donny:",
+   opts:["a. Must be assigned a paralegal by the Court to assist with e-filing","b. Must figure out electronic filing himself and comply","c. Is exempt from the electronic filing requirement as a pro se defendant","d. Must apply to the presiding judge for permission to be excused"],
+   correct:"c",
+   exp:"CPL §10.40(2)(b) provides a specific exemption for pro se litigants from the electronic filing requirement. Unrepresented parties can never be compelled to e-file. <strong>Correct: exempt as a pro se defendant.</strong>",
+   ans:"Is exempt from the electronic filing requirement as a pro se defendant"},
+  {n:8, q:"Reporter Nora Nosey wants to view papers filed electronically in a pending county court criminal case online. Nora:",
+   opts:["a. Must obtain the permission of the presiding judge to view online","b. Cannot view the papers online under any circumstances","c. Must file a Freedom of Information Law request to view online","d. Can view the papers if she first registers with OCA for online access"],
+   correct:"b",
+   exp:"CPL §10.40(2)(e)(ii) prohibits viewing of electronically filed papers in criminal proceedings online. FOIL does not apply to courts — only executive agencies. <strong>Correct: cannot view online under any circumstances.</strong>",
+   ans:"Cannot view the papers online under any circumstances"},
+];
+
+// ════════════════════════════════════════════════════════
+// CPL ART 30 — 5 QUESTIONS
+// ════════════════════════════════════════════════════════
+const Q30 = [
+  {n:1, q:"For a felony charge, the People must be ready for trial within:",
+   opts:["a. 90 days","b. 120 days","c. 6 months (approximately 180 days)","d. 1 year"],
+   correct:"c",
+   exp:"CPL §30.30(1) — the People must be ready for trial within <strong>6 months</strong> for a felony. Note: separately, a defendant held in custody on a felony must be released if not ready within 90 days (§30.30(2)).",
+   ans:"6 months (approximately 180 days)"},
+  {n:2, q:"Under CPL §30.30, which offenses are EXEMPT from the speedy trial time limits?",
+   opts:["a. Class A felonies","b. All sex offenses","c. Homicide offenses (PL §§125.10–125.27)","d. Terrorism felonies under PL Art. 490"],
+   correct:"c",
+   exp:"CPL §30.30 expressly exempts <strong>homicide offenses (PL §§125.10–125.27)</strong> from both the readiness deadline and the custody release rule. Class A felonies, sex offenses, and terrorism felonies are all subject to §30.30.",
+   ans:"Homicide offenses (PL §§125.10–125.27)"},
+  {n:3, q:"Under the 2026 law, the statute of limitations period for child sex offenses (against a child under 18) is tolled until:",
+   opts:["a. The victim turns 18","b. The victim turns 21","c. The victim turns 23, or the offense is reported to law enforcement or SCR — whichever is earlier","d. There is no limitation period for any child sex offense"],
+   correct:"c",
+   exp:"NEW 2026: CPL §30.10(3)(f) was updated — the tolling period now runs until the child turns <strong>23</strong> (previously 18), OR the offense is reported to law enforcement or the SCR — whichever comes FIRST.",
+   ans:"The victim turns 23, or the offense is reported to law enforcement or SCR — whichever is earlier"},
+  {n:4, q:"Under §30.10(3)(h) (NEW 2026), the statute of limitations for deed theft / felony fraud in a real property transaction is:",
+   opts:["a. 5 years from commission, period","b. 2 years from discovery, period","c. 5 years from commission OR 2 years from discovery — whichever is EARLIER","d. 5 years from commission OR 2 years from discovery — whichever is LATER"],
+   correct:"d",
+   exp:"NEW 2026: §30.10(3)(h) — deed theft is <strong>5 years from commission OR 2 years from discovery — whichever is LATER</strong>. Note this carefully: 'later' not 'earlier.' This gives the prosecution the longer of the two periods.",
+   ans:"5 years from commission OR 2 years from discovery — whichever is LATER"},
+  {n:5, q:"When a felony complaint is converted to a misdemeanor complaint (non-custody case), the speedy trial clock:",
+   opts:["a. Always resets to the new instrument filing date","b. Resets to the new instrument filing date, UNLESS the aggregate of elapsed time plus the new allowable period would exceed 6 months — then the original felony complaint date controls","c. Always runs from the original felony complaint filing date","d. Resets only if the defendant consents to the conversion"],
+   correct:"b",
+   exp:"CPL §30.30(7) — the clock resets to the new instrument date <strong>UNLESS</strong> the aggregate of elapsed time plus the new allowable period would exceed 6 months (non-custody). If it would exceed 6 months, the original felony complaint date controls.",
+   ans:"Resets to the new instrument filing date, UNLESS the aggregate would exceed 6 months — then the original felony complaint date controls"},
+];
+
+// ════════════════════════════════════════════════════════
+// SHARED QUIZ ENGINE FOR ART 10 + ART 30
+// ════════════════════════════════════════════════════════
+const state10 = {};
+const state30 = {};
+const STORE10 = 'nys_w1_nq_art10';
+const STORE30 = 'nys_w1_nq_art30';
+
+function loadQ10(){ try{ Object.assign(state10, JSON.parse(localStorage.getItem(STORE10)||'{}')); }catch(e){} }
+function saveQ10(){ try{ localStorage.setItem(STORE10, JSON.stringify(state10)); }catch(e){} }
+function loadQ30(){ try{ Object.assign(state30, JSON.parse(localStorage.getItem(STORE30)||'{}')); }catch(e){} }
+function saveQ30(){ try{ localStorage.setItem(STORE30, JSON.stringify(state30)); }catch(e){} }
+
+function buildQuizN(questions, containerId, prefix, state){
+  const c = document.getElementById(containerId);
+  if(!c) return;
+  c.innerHTML = '';
+  questions.forEach(q => {
+    const answered = state[q.n];
+    const letters = ['a','b','c','d','e'];
+    let optsHtml = '';
+    q.opts.forEach((opt,i) => {
+      const l = letters[i];
+      const text = opt.substring(3);
+      let cls = 'opt';
+      let badge = '';
+      if(answered){
+        cls += ' locked';
+        if(l === q.correct){ cls += ' reveal-correct'; badge = '<span class="opt-badge badge-correct">✓ Correct</span>'; }
+        else if(l === answered && answered !== q.correct){ cls += ' selected-wrong'; badge = '<span class="opt-badge badge-wrong">✗ Incorrect</span>'; }
+      }
+      optsHtml += `<div class="${cls}" id="opt-${prefix}-${q.n}-${l}" onclick="pickAnswer('${prefix}',${q.n},'${l}')">
+        <div class="opt-letter">${l.toUpperCase()}</div>
+        <div class="opt-text">${text}</div>${badge}</div>`;
+    });
+    const expShow = answered ? 'show' : '';
+    const card = document.createElement('div');
+    card.className = 'qcard' + (answered ? (state[q.n] === q.correct ? ' answered-correct' : ' answered-wrong') : '');
+    card.id = `qcard-${prefix}-${q.n}`;
+    card.innerHTML = `
+      <div class="qcard-head">
+        <div class="qcard-num">Question ${q.n}</div>
+        <div class="qcard-q">${q.q}</div>
+      </div>
+      <div class="qcard-options">${optsHtml}</div>
+      <div class="qcard-explanation ${expShow}" id="exp-${prefix}-${q.n}">
+        <div class="exp-text">${q.exp}</div>
+        <div class="exp-answer">✓ Correct answer: ${q.ans}</div>
+      </div>`;
+    c.appendChild(card);
+  });
+}
+
+function pickAnswer(prefix, qn, letter){
+  const questions = prefix === 'a10' ? Q10 : Q30;
+  const state = prefix === 'a10' ? state10 : state30;
+  if(state[qn]) return;
+  const q = questions.find(x=>x.n===qn);
+  if(!q) return;
+  state[qn] = letter;
+  prefix === 'a10' ? saveQ10() : saveQ30();
+  const isCorrect = letter === q.correct;
+  const card = document.getElementById(`qcard-${prefix}-${qn}`);
+  if(card){ card.classList.add(isCorrect?'answered-correct':'answered-wrong'); }
+  const letters = ['a','b','c','d','e'];
+  q.opts.forEach((_,i)=>{
+    const l = letters[i];
+    const el = document.getElementById(`opt-${prefix}-${qn}-${l}`);
+    if(!el) return;
+    el.classList.add('locked');
+    if(l===q.correct){ el.classList.add('reveal-correct'); if(!el.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-correct'; b.textContent='✓ Correct'; el.appendChild(b); } }
+    else if(l===letter && !isCorrect){ el.classList.add('selected-wrong'); if(!el.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-wrong'; b.textContent='✗ Incorrect'; el.appendChild(b); } }
+  });
+  const exp = document.getElementById(`exp-${prefix}-${qn}`);
+  if(exp) exp.classList.add('show');
+  updateScoreN(prefix);
+}
+
+function updateScoreN(prefix){
+  const questions = prefix==='a10'?Q10:Q30;
+  const state = prefix==='a10'?state10:state30;
+  const suffix = prefix==='a10'?'10':'30';
+  const correct = Object.entries(state).filter(([n,l])=>{ const q=questions.find(x=>x.n===parseInt(n)); return q&&l===q.correct; }).length;
+  const answered = Object.keys(state).length;
+  const pct = answered>0?Math.round(correct/questions.length*100):0;
+  const sd=document.getElementById('sd'+suffix); const ss=document.getElementById('ss'+suffix); const sf=document.getElementById('sf'+suffix);
+  if(sd) sd.textContent=correct+' / '+questions.length+' correct';
+  if(ss) ss.textContent=answered+' answered · '+pct+'% score';
+  if(sf) sf.style.width=pct+'%';
+}
+
+function resetQuiz10(){ if(!confirm('Reset Art. 10 quiz?')) return; Object.keys(state10).forEach(k=>delete state10[k]); saveQ10(); buildQuizN(Q10,'quiz-container-10','a10',state10); updateScoreN('a10'); }
+function resetQuiz30(){ if(!confirm('Reset Art. 30 quiz?')) return; Object.keys(state30).forEach(k=>delete state30[k]); saveQ30(); buildQuizN(Q30,'quiz-container-30','a30',state30); updateScoreN('a30'); }
+
+function revealAll10(){ Q10.forEach(q=>{ if(!state10[q.n]) pickAnswer('a10',q.n,'__reveal__'); const e=document.getElementById('exp-a10-'+q.n); if(e) e.classList.add('show'); const c=document.getElementById('opt-a10-'+q.n+'-'+q.correct); if(c&&!c.classList.contains('reveal-correct')){ c.classList.add('reveal-correct','locked'); if(!c.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-correct'; b.textContent='✓ Correct'; c.appendChild(b); } } ['a','b','c','d','e'].forEach(l=>{ const o=document.getElementById('opt-a10-'+q.n+'-'+l); if(o) o.classList.add('locked'); }); }); }
+function revealAll30(){ Q30.forEach(q=>{ if(!state30[q.n]) pickAnswer('a30',q.n,'__reveal__'); const e=document.getElementById('exp-a30-'+q.n); if(e) e.classList.add('show'); const c=document.getElementById('opt-a30-'+q.n+'-'+q.correct); if(c&&!c.classList.contains('reveal-correct')){ c.classList.add('reveal-correct','locked'); if(!c.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-correct'; b.textContent='✓ Correct'; c.appendChild(b); } } ['a','b','c','d','e'].forEach(l=>{ const o=document.getElementById('opt-a30-'+q.n+'-'+l); if(o) o.classList.add('locked'); }); }); }
+
+// Init all quizzes on DOMContentLoaded
+const _origInit = document.addEventListener;
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadQ10(); loadQ30();
+  buildQuizN(Q10,'quiz-container-10','a10',state10);
+  buildQuizN(Q30,'quiz-container-30','a30',state30);
+  updateScoreN('a10'); updateScoreN('a30');
+});
+</script>
+
 <!-- BACK TO DASHBOARD -->
 <div style="padding:0 36px 40px">
   <a href="index.html" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:13px;font-weight:600;color:var(--navy);text-decoration:none">

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+<title>Study Dashboard — NYS Clerk Exam</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#1a1f3c; --navy-mid:#2d3561; --navy-light:#3d4875;
+  --gold:#c9952a; --gold-light:#f5e6c8; --gold-dim:#7a5010;
+  --cream:#faf7f2; --white:#fff;
+  --sage:#4a7c6f; --sage-light:#e4edeb; --sage-dark:#2d5248;
+  --coral:#c4503a; --coral-light:#fdf0ee;
+  --violet:#6b4fa0; --violet-light:#ede8f7;
+  --teal:#2a7f8c; --teal-light:#e1f2f4;
+  --slate:#5a6279; --slate-light:#eaecf2;
+  --text:#1a1f3c; --muted:#6b7194; --border:#e2ddd6;
+  --cpl:#2563eb; --pl:#dc2626;
+  --fs-base:18px; --fs-sm:16px; --fs-xs:14px; --fs-xxs:12px;
+  --fs-h1:36px; --fs-h2:24px; --fs-h3:18px;
+  --pad:32px;
+}
+@media(max-width:768px){
+  :root{ --pad:16px; --fs-h1:26px; --fs-h2:20px; --fs-h3:16px; --fs-base:16px; }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--white);font-family:'DM Sans',sans-serif;font-size:var(--fs-base);line-height:1.65;min-height:100vh}
+
+/* ── HEADER ── */
+.header{padding:32px var(--pad) 24px;border-bottom:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;border:50px solid rgba(201,149,42,.06);pointer-events:none}
+.header::after{content:'';position:absolute;bottom:-40px;left:20%;width:180px;height:180px;border-radius:50%;border:30px solid rgba(107,79,160,.08);pointer-events:none}
+.header-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto}
+.eyebrow{font-size:var(--fs-xxs);font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.header h1{font-family:'DM Serif Display',serif;font-size:var(--fs-h1);color:var(--white);line-height:1.1;margin-bottom:8px}
+.header-sub{font-size:var(--fs-xs);color:rgba(255,255,255,.45);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#6b7194;flex-shrink:0;transition:background .3s}
+.status-dot.online{background:#4caf50;box-shadow:0 0 8px rgba(76,175,80,.5)}
+.status-dot.loading{background:var(--gold);animation:pulse 1s infinite}
+.header-actions{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:var(--fs-xs);font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .15s}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-gold:hover{background:#e0a82f}
+.btn-outline{background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15)}
+.btn-outline:hover{background:rgba(255,255,255,.14)}
+.back-link{color:rgba(255,255,255,.45);font-size:var(--fs-xs);text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.back-link:hover{color:var(--gold)}
+
+/* ── LOADING ── */
+.loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px}
+.spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .4s ease forwards}
+
+/* ── MAIN GRID ── */
+.main{max-width:1100px;margin:0 auto;padding:28px var(--pad) 60px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.full{grid-column:1/-1}
+@media(max-width:768px){.main{grid-template-columns:1fr}}
+
+/* ── CARDS ── */
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;transition:border-color .2s}
+.card:hover{border-color:rgba(255,255,255,.14)}
+.card-head{padding:16px 18px 12px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.card-title{font-size:var(--fs-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:7px}
+.card-title span{font-size:14px}
+.card-body{padding:16px 18px}
+.card-meta{font-size:var(--fs-xxs);color:rgba(255,255,255,.3)}
+
+/* ── TODAY STRIP ── */
+.today-strip{background:linear-gradient(135deg,rgba(201,149,42,.15),rgba(201,149,42,.05));border:1px solid rgba(201,149,42,.25);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.today-icon{font-size:28px;flex-shrink:0}
+.today-text .today-label{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:4px}
+.today-text .today-main{font-family:'DM Serif Display',serif;font-size:var(--fs-h3);color:var(--white);line-height:1.2}
+.today-text .today-sub{font-size:var(--fs-xs);color:rgba(255,255,255,.5);margin-top:3px}
+.today-badges{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.today-badge{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:4px 12px;font-size:var(--fs-xxs);font-weight:600;color:rgba(255,255,255,.7)}
+.today-badge.due{background:rgba(196,80,58,.2);border-color:rgba(196,80,58,.3);color:#f4a090}
+
+/* ── PROGRESS SECTION ── */
+.week-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.week-row:last-child{border-bottom:none}
+.week-label{font-size:var(--fs-xs);font-weight:600;color:rgba(255,255,255,.7);min-width:70px;flex-shrink:0}
+.week-bar{flex:1;height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
+.week-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--sage),#6ee7b7);transition:width .6s ease}
+.week-pct{font-size:var(--fs-xxs);font-weight:700;color:var(--sage);min-width:36px;text-align:right;font-family:'DM Mono',monospace}
+.week-count{font-size:var(--fs-xxs);color:rgba(255,255,255,.3);min-width:50px;text-align:right;font-family:'DM Mono',monospace}
+
+/* ── QUIZ SCORES ── */
+.quiz-article{margin-bottom:14px}
+.quiz-article:last-child{margin-bottom:0}
+.qa-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.qa-name{font-size:var(--fs-xs);font-weight:600;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:6px}
+.qa-badge{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.qa-score{font-size:var(--fs-xxs);font-weight:700;font-family:'DM Mono',monospace}
+.qa-bar{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.qa-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.score-good{background:linear-gradient(90deg,#4caf50,#81c784)}
+.score-mid{background:linear-gradient(90deg,var(--gold),#fbbf24)}
+.score-low{background:linear-gradient(90deg,var(--coral),#f87171)}
+
+/* ── SPACED REP ── */
+.sr-table{width:100%;border-collapse:collapse}
+.sr-table th{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.3);padding:0 0 10px;text-align:left}
+.sr-table td{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:var(--fs-xs);vertical-align:top}
+.sr-table tr:last-child td{border-bottom:none}
+.sr-article{color:rgba(255,255,255,.85);font-weight:500}
+.sr-date{color:rgba(255,255,255,.4);font-family:'DM Mono',monospace;font-size:var(--fs-xxs)}
+.sr-badge{display:inline-flex;padding:2px 8px;border-radius:10px;font-size:var(--fs-xxs);font-weight:600}
+.sr-due{background:rgba(196,80,58,.2);color:#f4a090;border:1px solid rgba(196,80,58,.3)}
+.sr-upcoming{background:rgba(201,149,42,.15);color:#fbbf24;border:1px solid rgba(201,149,42,.2)}
+.sr-done{background:rgba(74,124,111,.2);color:#6ee7b7;border:1px solid rgba(74,124,111,.3)}
+
+/* ── WRONG ANSWERS ── */
+.wrong-item{background:rgba(196,80,58,.08);border:1px solid rgba(196,80,58,.15);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.wrong-item:last-child{margin-bottom:0}
+.wrong-article{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coral);margin-bottom:4px}
+.wrong-q{font-size:var(--fs-xs);color:rgba(255,255,255,.75);line-height:1.5;margin-bottom:6px}
+.wrong-answers-row{display:flex;gap:10px;flex-wrap:wrap}
+.wrong-yours{font-size:var(--fs-xxs);color:rgba(255,255,255,.4)}
+.wrong-yours strong{color:#f87171}
+.wrong-correct{font-size:var(--fs-xxs);color:rgba(255,255,255,.4)}
+.wrong-correct strong{color:#81c784}
+.wrong-date{font-size:var(--fs-xxs);color:rgba(255,255,255,.25);font-family:'DM Mono',monospace;margin-left:auto}
+
+/* ── TEST SCORES ── */
+.score-timeline{display:flex;flex-direction:column;gap:10px}
+.score-entry{display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.07)}
+.score-week{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);min-width:60px}
+.score-val{font-family:'DM Serif Display',serif;font-size:var(--fs-h3);color:var(--white);flex:1}
+.score-notes{font-size:var(--fs-xxs);color:rgba(255,255,255,.35);flex:2;line-height:1.4}
+.score-trend{font-size:18px;flex-shrink:0}
+
+/* ── MNEMONICS ── */
+.mnemonic-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:600px){.mnemonic-grid{grid-template-columns:1fr}}
+.mnemonic-card{background:rgba(107,79,160,.12);border:1px solid rgba(107,79,160,.2);border-radius:8px;padding:10px 12px}
+.mn-article{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--violet);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.mn-text{font-size:var(--fs-xs);color:rgba(255,255,255,.8);line-height:1.5;font-style:italic}
+.mn-empty{font-size:var(--fs-xs);color:rgba(255,255,255,.25);font-style:italic}
+
+/* ── STREAK ── */
+.streak-display{display:flex;align-items:center;gap:20px;padding:16px 0}
+.streak-num{font-family:'DM Serif Display',serif;font-size:64px;color:var(--gold);line-height:1}
+.streak-info .streak-label{font-size:var(--fs-sm);font-weight:600;color:rgba(255,255,255,.8)}
+.streak-info .streak-sub{font-size:var(--fs-xs);color:rgba(255,255,255,.35);margin-top:3px}
+.streak-fire{font-size:32px;margin-left:auto}
+
+/* ── EMPTY STATE ── */
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px;gap:10px;text-align:center}
+.empty-icon{font-size:32px;opacity:.4}
+.empty-text{font-size:var(--fs-xs);color:rgba(255,255,255,.3)}
+
+/* ── REFRESH BTN ── */
+.refresh-btn{background:none;border:1px solid rgba(255,255,255,.1);border-radius:6px;color:rgba(255,255,255,.4);padding:4px 10px;font-size:var(--fs-xxs);cursor:pointer;font-family:inherit;transition:all .15s}
+.refresh-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── SYNC STATUS BAR ── */
+.sync-bar{background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.05);padding:8px var(--pad);display:flex;align-items:center;gap:10px;font-size:var(--fs-xxs);color:rgba(255,255,255,.35)}
+.sync-bar-inner{max-width:1100px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
+
+/* ── ADD WRONG ANSWER FORM ── */
+.wa-form{display:flex;flex-direction:column;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06)}
+.wa-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:8px 12px;color:var(--white);font-size:var(--fs-xs);font-family:inherit;outline:none;transition:border-color .15s}
+.wa-input:focus{border-color:var(--coral)}
+.wa-input::placeholder{color:rgba(255,255,255,.25)}
+.wa-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+</style>
+</head>
+<body>
+
+<!-- SYNC STATUS BAR -->
+<div class="sync-bar">
+  <div class="sync-bar-inner">
+    <div class="status-dot loading" id="status-dot"></div>
+    <span id="sync-status-text">Connecting to Supabase...</span>
+    <span style="margin-left:auto;font-family:'DM Mono',monospace" id="last-sync-time"></span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <a href="index.html" class="back-link">← Dashboard</a>
+    <div style="height:12px"></div>
+    <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859</div>
+    <h1>Study Dashboard</h1>
+    <div class="header-sub">
+      <span>Progress · Scores · Spaced Rep · Wrong Answers · Mnemonics</span>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-gold" onclick="loadAllData()">↻ Refresh all data</button>
+      <button class="btn btn-outline" onclick="exportData()">↓ Export data</button>
+      <a href="index.html" class="btn btn-outline">← Back to weeks</a>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="main-content">
+
+  <!-- Loading state -->
+  <div class="full loading-screen" id="loading-screen">
+    <div class="spinner"></div>
+    <div style="font-size:var(--fs-xs);color:rgba(255,255,255,.4)">Loading your study data...</div>
+  </div>
+
+</div>
+
+<script src="clerk_sync.js"></script>
+<script>
+const SB_URL = 'https://khddivyhzdlptkoznytl.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoZGRpdnloemRscHRrb3pueXRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNDk3OTksImV4cCI6MjA5NTgyNTc5OX0.jnTbiHdFPYK1K282polY59j3OG2TcrQesrly1UZojB8';
+const USER = 'ncolton_main';
+const HDRS = {
+  'apikey': SB_KEY,
+  'Authorization': `Bearer ${SB_KEY}`,
+  'Content-Type': 'application/json'
+};
+
+// Week definitions
+const WEEKS = [
+  { id:'week1', label:'Week 1', dates:'May 26–Jun 1', articles:'CPL 1·10·30 · PL 10·55·80', total:36 },
+  { id:'week2', label:'Week 2', dates:'Jun 2–8',      articles:'CPL 100·110·120·160 · PL 55', total:28 },
+];
+
+const SPACED_REP_SCHEDULE = [
+  { article:'CPL Art. 1',  learned:'May 26', reviews:['May 27','May 29','Jun 10','Jun 26','Jul 28','Oct 1'] },
+  { article:'CPL Art. 10', learned:'May 27', reviews:['May 28','May 30','Jun 11','Jun 27','Jul 29'] },
+  { article:'CPL Art. 30', learned:'May 28', reviews:['May 29','Jun 1','Jun 13','Jun 29','Jul 31'] },
+  { article:'PL Art. 10',  learned:'May 29', reviews:['May 30','Jun 1','Jun 13','Jun 30','Aug 1'] },
+  { article:'PL Art. 55',  learned:'May 31', reviews:['Jun 1','Jun 3','Jun 15','Jul 1','Aug 2'] },
+  { article:'CPL Art. 100',learned:'Jun 2',  reviews:['Jun 3','Jun 5','Jun 17','Jul 3'] },
+  { article:'CPL Art. 110',learned:'Jun 3',  reviews:['Jun 4','Jun 6','Jun 18','Jul 4'] },
+  { article:'CPL Art. 120',learned:'Jun 4',  reviews:['Jun 5','Jun 7','Jun 19','Jul 5'] },
+  { article:'CPL Art. 160',learned:'Jun 5',  reviews:['Jun 6','Jun 8','Jun 20','Jul 6'] },
+];
+
+// ── FETCH HELPER ──────────────────────────────────────────
+async function sb(table, query = '') {
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/${table}${query}`, {
+      headers: HDRS
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch(e) {
+    return [];
+  }
+}
+
+// ── SAVE WRONG ANSWER ─────────────────────────────────────
+async function saveWrongAnswer() {
+  const article  = document.getElementById('wa-article').value.trim();
+  const question = document.getElementById('wa-question').value.trim();
+  const yours    = document.getElementById('wa-yours').value.trim();
+  const correct  = document.getElementById('wa-correct').value.trim();
+  if (!article || !question) return;
+  try {
+    await fetch(`${SB_URL}/rest/v1/wrong_answers`, {
+      method: 'POST',
+      headers: { ...HDRS, 'Prefer': 'resolution=merge-duplicates' },
+      body: JSON.stringify({
+        user_id: USER, article, question,
+        your_answer: yours, correct_answer: correct,
+        date_logged: new Date().toLocaleDateString()
+      })
+    });
+    ['wa-article','wa-question','wa-yours','wa-correct'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    await loadAllData();
+  } catch(e) { console.warn(e); }
+}
+
+// ── DATE HELPERS ──────────────────────────────────────────
+function parseDate(str) {
+  if (!str) return null;
+  const months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+  const [mon, day] = str.split(' ');
+  if (!months.hasOwnProperty(mon)) return null;
+  return new Date(2026, months[mon], parseInt(day));
+}
+
+function getReviewStatus(reviews) {
+  const today = new Date(2026, 4, 31); // May 31 2026
+  for (const r of reviews) {
+    const d = parseDate(r);
+    if (!d) continue;
+    const diff = Math.floor((d - today) / 86400000);
+    if (diff < 0) return { label: 'Overdue', cls: 'sr-due', date: r };
+    if (diff === 0) return { label: 'Due today', cls: 'sr-due', date: r };
+    if (diff <= 3) return { label: `Due ${r}`, cls: 'sr-upcoming', date: r };
+    return { label: `Next: ${r}`, cls: 'sr-done', date: r };
+  }
+  return { label: 'All done', cls: 'sr-done', date: '' };
+}
+
+// ── GET SCORE COLOR ───────────────────────────────────────
+function scoreColor(pct) {
+  if (pct >= 80) return 'score-good';
+  if (pct >= 60) return 'score-mid';
+  return 'score-low';
+}
+
+function scoreTrend(scores) {
+  if (scores.length < 2) return '';
+  const last = parseFloat(scores[scores.length-1].score);
+  const prev = parseFloat(scores[scores.length-2].score);
+  if (isNaN(last) || isNaN(prev)) return '';
+  return last > prev ? '📈' : last < prev ? '📉' : '➡️';
+}
+
+// ── BUILD DASHBOARD HTML ──────────────────────────────────
+async function loadAllData() {
+  const dot  = document.getElementById('status-dot');
+  const stat = document.getElementById('sync-status-text');
+  dot.className = 'status-dot loading';
+  stat.textContent = 'Loading data...';
+
+  // Fetch all tables in parallel
+  const [progress, quizScores, testScores, mnemonics, wrongAnswers] = await Promise.all([
+    sb('progress', `?user_id=eq.${USER}`),
+    sb('quiz_scores', `?user_id=eq.${USER}`),
+    sb('test_scores', `?user_id=eq.${USER}&order=created_at.asc`),
+    sb('mnemonics', `?user_id=eq.${USER}&order=updated_at.desc`),
+    sb('wrong_answers', `?user_id=eq.${USER}&order=created_at.desc&limit=20`),
+  ]);
+
+  dot.className = 'status-dot online';
+  stat.textContent = 'Connected to Supabase';
+  document.getElementById('last-sync-time').textContent =
+    'Last synced: ' + new Date().toLocaleTimeString();
+
+  // ── BUILD PROGRESS DATA ────────────────────────────────
+  const progressByWeek = {};
+  progress.forEach(row => {
+    if (!progressByWeek[row.week]) progressByWeek[row.week] = { done: 0 };
+    if (row.checked) progressByWeek[row.week].done++;
+  });
+
+  // ── BUILD QUIZ DATA ───────────────────────────────────
+  const quizByArticle = {};
+  quizScores.forEach(row => {
+    if (!quizByArticle[row.article]) quizByArticle[row.article] = { correct:0, total:0 };
+    quizByArticle[row.article].total++;
+    if (row.correct) quizByArticle[row.article].correct++;
+  });
+
+  // ── BUILD MNEMONIC DATA ───────────────────────────────
+  const mnemonicList = mnemonics.slice(0, 8);
+
+  // ── TODAY'S REVIEWS ───────────────────────────────────
+  const dueToday = SPACED_REP_SCHEDULE.filter(entry => {
+    return entry.reviews.some(r => {
+      const d = parseDate(r);
+      if (!d) return false;
+      const today = new Date(2026, 4, 31);
+      return d.toDateString() === today.toDateString();
+    });
+  });
+
+  // ── OVERALL PROGRESS ─────────────────────────────────
+  const totalBlocks = WEEKS.reduce((a, w) => a + w.total, 0);
+  const totalDone   = Object.values(progressByWeek).reduce((a, v) => a + v.done, 0);
+  const overallPct  = totalBlocks > 0 ? Math.round(totalDone / totalBlocks * 100) : 0;
+
+  // ── RENDER ────────────────────────────────────────────
+  const main = document.getElementById('main-content');
+  main.innerHTML = '';
+
+  // Today strip
+  const todayDiv = document.createElement('div');
+  todayDiv.className = 'full fade-up';
+  todayDiv.innerHTML = `
+    <div class="today-strip">
+      <span class="today-icon">📅</span>
+      <div class="today-text">
+        <div class="today-label">Sunday, May 31, 2026</div>
+        <div class="today-main">Week 1 → Week 2 transition</div>
+        <div class="today-sub">Exam in 132 days · ${overallPct}% of scheduled blocks complete</div>
+      </div>
+      <div class="today-badges">
+        ${dueToday.length > 0
+          ? dueToday.map(e => `<div class="today-badge due">Review: ${e.article}</div>`).join('')
+          : '<div class="today-badge">No reviews due today</div>'}
+      </div>
+    </div>`;
+  main.appendChild(todayDiv);
+
+  // ── PROGRESS CARD ─────────────────────────────────────
+  const progressCard = document.createElement('div');
+  progressCard.className = 'card fade-up';
+  progressCard.innerHTML = `
+    <div class="card-head">
+      <div class="card-title"><span>✅</span> Weekly Progress</div>
+      <button class="refresh-btn" onclick="loadAllData()">↻</button>
+    </div>
+    <div class="card-body">
+      ${WEEKS.map(w => {
+        const done = progressByWeek[w.id]?.done || 0;
+        const pct  = w.total > 0 ? Math.round(done / w.total * 100) : 0;
+        return `
+          <div class="week-row">
+            <div class="week-label">${w.label}</div>
+            <div class="week-bar"><div class="week-fill" style="width:${pct}%"></div></div>
+            <div class="week-pct">${pct}%</div>
+            <div class="week-count">${done}/${w.total}</div>
+          </div>`;
+      }).join('')}
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:var(--fs-xs);color:rgba(255,255,255,.4)">Overall completion</span>
+        <span style="font-family:'DM Serif Display',serif;font-size:var(--fs-h2);color:var(--sage)">${overallPct}%</span>
+      </div>
+    </div>`;
+  main.appendChild(progressCard);
+
+  // ── QUIZ SCORES CARD ──────────────────────────────────
+  const quizCard = document.createElement('div');
+  quizCard.className = 'card fade-up';
+  const articles = Object.keys(quizByArticle);
+  quizCard.innerHTML = `
+    <div class="card-head">
+      <div class="card-title"><span>❓</span> Quiz Scores by Article</div>
+      <span class="card-meta">${articles.length} articles attempted</span>
+    </div>
+    <div class="card-body">
+      ${articles.length === 0
+        ? `<div class="empty"><span class="empty-icon">📝</span><span class="empty-text">No quiz scores yet — complete a quiz to see scores here</span></div>`
+        : articles.map(art => {
+            const d   = quizByArticle[art];
+            const pct = d.total > 0 ? Math.round(d.correct / d.total * 100) : 0;
+            const isCPL = art.toLowerCase().includes('cpl');
+            return `
+              <div class="quiz-article">
+                <div class="qa-header">
+                  <div class="qa-name">
+                    <div class="qa-badge" style="background:${isCPL ? 'var(--cpl)' : 'var(--pl)'}"></div>
+                    ${art}
+                  </div>
+                  <span class="qa-score" style="color:${pct>=80?'#81c784':pct>=60?'#fbbf24':'#f87171'}">${d.correct}/${d.total} · ${pct}%</span>
+                </div>
+                <div class="qa-bar"><div class="qa-fill ${scoreColor(pct)}" style="width:${pct}%"></div></div>
+              </div>`;
+          }).join('')
+      }
+    </div>`;
+  main.appendChild(quizCard);
+
+  // ── SPACED REP CARD ───────────────────────────────────
+  const srCard = document.createElement('div');
+  srCard.className = 'card fade-up';
+  srCard.innerHTML = `
+    <div class="card-head">
+      <div class="card-title"><span>🔁</span> Spaced Rep Diary</div>
+      <span class="card-meta">Expanding gap schedule</span>
+    </div>
+    <div class="card-body" style="padding:12px 18px">
+      <table class="sr-table">
+        <thead>
+          <tr>
+            <th>Article</th>
+            <th>Learned</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${SPACED_REP_SCHEDULE.map(entry => {
+            const status = getReviewStatus(entry.reviews);
+            return `
+              <tr>
+                <td class="sr-article">${entry.article}</td>
+                <td class="sr-date">${entry.learned}</td>
+                <td><span class="sr-badge ${status.cls}">${status.label}</span></td>
+              </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>`;
+  main.appendChild(srCard);
+
+  // ── WRONG ANSWERS CARD ────────────────────────────────
+  const wrongCard = document.createElement('div');
+  wrongCard.className = 'card fade-up';
+  wrongCard.innerHTML = `
+    <div class="card-head">
+      <div class="card-title"><span>❌</span> Wrong Answers Tracker</div>
+      <span class="card-meta">${wrongAnswers.length} logged</span>
+    </div>
+    <div class="card-body">
+      ${wrongAnswers.length === 0
+        ? `<div class="empty"><span class="empty-icon">🎯</span><span class="empty-text">No wrong answers logged yet</span></div>`
+        : wrongAnswers.map(w => `
+            <div class="wrong-item">
+              <div class="wrong-article">${w.article || 'Unknown article'}</div>
+              <div class="wrong-q">${w.question || ''}</div>
+              <div class="wrong-answers-row">
+                ${w.your_answer ? `<span class="wrong-yours">You answered: <strong>${w.your_answer}</strong></span>` : ''}
+                ${w.correct_answer ? `<span class="wrong-correct">Correct: <strong>${w.correct_answer}</strong></span>` : ''}
+                <span class="wrong-date">${w.date_logged || ''}</span>
+              </div>
+            </div>`).join('')
+      }
+      <!-- Add wrong answer form -->
+      <div class="wa-form">
+        <div style="font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.3);margin-bottom:6px">Log a wrong answer</div>
+        <div class="wa-row">
+          <input class="wa-input" id="wa-article" placeholder="Article (e.g. CPL Art. 30)">
+          <input class="wa-input" id="wa-yours" placeholder="Your answer">
+        </div>
+        <input class="wa-input" id="wa-question" placeholder="Question or concept you missed">
+        <input class="wa-input" id="wa-correct" placeholder="Correct answer">
+        <button class="btn btn-outline" onclick="saveWrongAnswer()" style="margin-top:4px;font-size:var(--fs-xxs)">+ Log wrong answer</button>
+      </div>
+    </div>`;
+  main.appendChild(wrongCard);
+
+  // ── TEST SCORES CARD ──────────────────────────────────
+  const testCard = document.createElement('div');
+  testCard.className = 'card fade-up';
+  testCard.innerHTML = `
+    <div class="card-head">
+      <div class="card-title"><span>🎯</span> Sunday Test Scores</div>
+      <span class="card-meta">${testScores.length} tests taken</span>
+    </div>
+    <div class="card-body">
+      ${testScores.length === 0
+        ? `<div class="empty"><span class="empty-icon">📊</span><span class="empty-text">No test scores yet — first Sunday test is this week</span></div>`
+        : `<div class="score-timeline">
+            ${testScores.map((s, i) => `
+              <div class="score-entry">
+                <span class="score-week">${s.week || 'Week ?'}</span>
+                <span class="score-val">${s.score || '—'}</span>
+                <span class="score-notes">${s.notes || ''}</span>
+                <span class="score-trend">${i > 0 ? scoreTrend(testScores.slice(0, i+1)) : ''}</span>
+              </div>`).join('')}
+          </div>`
+      }
+    </div>`;
+  main.appendChild(testCard);
+
+  // ── MNEMONICS CARD ────────────────────────────────────
+  const mnCard = document.createElement('div');
+  mnCard.className = 'card full fade-up';
+  mnCard.innerHTML = `
+    <div class="card-head">
+      <div class="card-title"><span>🧠</span> Mnemonic Master List</div>
+      <span class="card-meta">${mnemonicList.length} saved</span>
+    </div>
+    <div class="card-body">
+      ${mnemonicList.length === 0
+        ? `<div class="empty"><span class="empty-icon">💡</span><span class="empty-text">No mnemonics saved yet — create them in your daily wind-down blocks and they'll appear here</span></div>`
+        : `<div class="mnemonic-grid">
+            ${mnemonicList.map(m => `
+              <div class="mnemonic-card">
+                <div class="mn-article">🧠 ${m.day || ''} · ${m.article || ''}</div>
+                <div class="mn-text">${m.mnemonic_text || ''}</div>
+              </div>`).join('')}
+          </div>`
+      }
+    </div>`;
+  main.appendChild(mnCard);
+
+  // Also check localStorage mnemonics
+  try {
+    const localMn = JSON.parse(localStorage.getItem('nys_w1_mnemonics') || '{}');
+    const localMn2 = JSON.parse(localStorage.getItem('nys_w2_mnemonics') || '{}');
+    const allLocal = { ...localMn, ...localMn2 };
+    const localKeys = Object.keys(allLocal).filter(k => allLocal[k]?.text);
+    if (localKeys.length > 0 && mnemonicList.length === 0) {
+      const grid = mnCard.querySelector('.card-body');
+      grid.innerHTML = `<div class="mnemonic-grid">
+        ${localKeys.map(k => `
+          <div class="mnemonic-card">
+            <div class="mn-article">🧠 ${k.replace(/_/g,' ')}</div>
+            <div class="mn-text">${allLocal[k].text}</div>
+          </div>`).join('')}
+      </div>`;
+    }
+  } catch(e) {}
+}
+
+// ── EXPORT DATA ───────────────────────────────────────────
+async function exportData() {
+  const data = {
+    exported: new Date().toISOString(),
+    user: USER,
+    progress: await sb('progress', `?user_id=eq.${USER}`),
+    quiz_scores: await sb('quiz_scores', `?user_id=eq.${USER}`),
+    test_scores: await sb('test_scores', `?user_id=eq.${USER}`),
+    mnemonics: await sb('mnemonics', `?user_id=eq.${USER}`),
+    wrong_answers: await sb('wrong_answers', `?user_id=eq.${USER}`),
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `clerk-exam-data-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+}
+
+// ── INIT ──────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadAllData();
+});
+</script>
+</body>
+</html>

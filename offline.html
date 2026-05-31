@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offline — NYS Clerk Exam Prep</title>
+<style>
+:root{--navy:#1a1f3c;--gold:#c9952a;--cream:#faf7f2;--muted:#6b7194}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:white;font-family:'DM Sans',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+.wrap{max-width:340px}
+.icon{font-size:56px;margin-bottom:20px;opacity:.8}
+h1{font-size:24px;font-weight:600;margin-bottom:10px;color:white}
+p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:24px}
+.pages{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.page-link{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 16px;text-decoration:none;color:white;font-size:13px;font-weight:500;transition:background .15s;display:flex;align-items:center;gap:10px}
+.page-link:hover{background:rgba(255,255,255,.14)}
+.page-link .pl-icon{font-size:18px;flex-shrink:0}
+.retry{background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:12px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.tip{font-size:12px;color:rgba(255,255,255,.35);margin-top:20px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="icon">📚</div>
+  <h1>You're offline</h1>
+  <p>No internet connection right now. The pages below were cached the last time you were online and are available to use.</p>
+
+  <div class="pages">
+    <a class="page-link" href="/index.html">
+      <span class="pl-icon">🏠</span>
+      <span>Master Dashboard</span>
+    </a>
+    <a class="page-link" href="/week1_schedule_final.html">
+      <span class="pl-icon">📅</span>
+      <span>Week 1 Study Schedule</span>
+    </a>
+    <a class="page-link" href="/week1_notes_quiz.html">
+      <span class="pl-icon">❓</span>
+      <span>Notes & Quiz — CPL Art. 1</span>
+    </a>
+    <a class="page-link" href="/discipline_motivation.html">
+      <span class="pl-icon">💪</span>
+      <span>Discipline & Motivation</span>
+    </a>
+  </div>
+
+  <button class="retry" onclick="window.location.reload()">Try again</button>
+  <div class="tip">Your checkboxes and quiz progress are saved locally and will sync when you're back online.</div>
+</div>
+</body>
+</html>

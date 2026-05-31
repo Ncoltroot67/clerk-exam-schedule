@@ -17,6 +17,23 @@
   --text:#1a1f3c;--text-muted:#6b7194;
   --border:#e2ddd6;--white:#fff;
 
+/* ── VISUAL ISTJ COLOR SYSTEM ── */
+--color-cpl:#2563eb;      /* CPL = blue */
+--color-cpl-light:#eff6ff;
+--color-pl:#dc2626;       /* Penal Law = red */
+--color-pl-light:#fef2f2;
+--color-cplr:#16a34a;     /* CPLR = green */
+--color-cplr-light:#f0fdf4;
+--color-fca:#9333ea;      /* FCA = purple */
+--color-fca-light:#faf5ff;
+--color-vtl:#ea580c;      /* VTL/misc = orange */
+--color-vtl-light:#fff7ed;
+/* highlight system */
+--hl-rule:#fef08a;        /* yellow = key rule */
+--hl-exception:#fed7aa;   /* orange = exception */
+--hl-number:#fecaca;      /* pink = number/deadline */
+
+
   /* ── RESPONSIVE SCALE TOKENS ── */
   --fs-base:16px;       /* body text */
   --fs-sm:14px;         /* secondary text */
@@ -276,6 +293,50 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .dp-label{font-size:var(--fs-xxs);color:var(--text-muted);text-align:right}
 .dp-label strong{display:block;font-size:var(--fs-xs);color:var(--navy)}
 
+
+/* ── VISUAL COMPONENTS ── */
+.color-legend{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;background:var(--white);border-bottom:1px solid var(--border)}
+.cl-item{display:flex;align-items:center;gap:6px;font-size:var(--fs-xxs);font-weight:600;color:var(--navy)}
+.cl-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+.cl-cpl{background:#2563eb}.cl-pl{background:#dc2626}.cl-cplr{background:#16a34a}
+.cl-fca{background:#9333ea}.cl-vtl{background:#ea580c}
+
+.hl-box{display:inline-flex;align-items:center;gap:5px;padding:2px 7px;border-radius:4px;font-size:var(--fs-xxs);font-weight:600}
+.hl-rule{background:var(--hl-rule);color:#713f12}
+.hl-exception{background:var(--hl-exception);color:#7c2d12}
+.hl-number{background:var(--hl-number);color:#7f1d1d}
+
+.visual-diagram{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:10px 0}
+.vd-title{font-size:var(--fs-xs);font-weight:600;color:var(--navy);padding:8px 12px;background:var(--slate-light);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
+.vd-body{padding:12px}
+
+/* Flowchart */
+.flow{display:flex;flex-direction:column;gap:0;align-items:flex-start}
+.flow-row{display:flex;align-items:center;gap:0;width:100%}
+.flow-box{border-radius:6px;padding:7px 12px;font-size:var(--fs-xxs);font-weight:500;color:white;flex-shrink:0;line-height:1.35;text-align:center}
+.flow-arrow{color:var(--muted);font-size:14px;padding:0 6px;flex-shrink:0}
+.flow-down{color:var(--muted);font-size:16px;padding:2px 0 2px 20px;display:block}
+.flow-branch{display:flex;gap:8px;flex-wrap:wrap;padding-left:20px;margin-top:4px}
+.flow-branch-item{display:flex;flex-direction:column;align-items:center;gap:2px}
+.flow-label{font-size:var(--fs-xxs);color:var(--muted);text-align:center;max-width:120px;line-height:1.3}
+
+/* Comparison grid */
+.comp-grid{display:grid;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;font-size:var(--fs-xxs)}
+.comp-header{background:var(--navy);color:white;font-weight:600;padding:6px 10px;text-align:center}
+.comp-row{display:contents}
+.comp-cell{padding:7px 10px;border-bottom:1px solid var(--border);line-height:1.45;vertical-align:top}
+.comp-cell:not(:last-child){border-right:1px solid var(--border)}
+.comp-row-label{background:var(--slate-light);font-weight:600;color:var(--navy)}
+
+/* Pyramid */
+.pyramid{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0}
+.pyr-tier{border-radius:4px;color:white;font-weight:600;font-size:var(--fs-xxs);display:flex;align-items:center;justify-content:center;padding:5px 10px;text-align:center;line-height:1.2}
+
+/* Article color bands */
+.article-band{height:4px;width:100%;margin-bottom:0}
+.band-cpl{background:#2563eb}.band-pl{background:#dc2626}
+.band-wed{background:#2563eb}.band-thu{background:#dc2626}
+
 /* ── QUIZ PANEL ── */
 .quiz-panel{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:10px 0 0}
 .qp-head{display:flex;align-items:center;gap:8px;padding:9px 13px;cursor:pointer;background:var(--cream);border-bottom:0.5px solid var(--border);user-select:none}
@@ -369,6 +430,7 @@ html.desktop-view .main{padding-left:36px!important;padding-right:36px!important
 html.desktop-view .cl-days{grid-template-columns:1fr 1fr!important}
 html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 </style>
+  <script src="clerk_sync.js"></script>
 </head>
 <body>
 
@@ -383,6 +445,14 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
     <div class="meta-pill">📓 <strong>Sat AM:</strong> Notes &amp; material creation only</div>
     <div class="meta-pill">🎥 <strong>YouTube:</strong> Notes session + commute audio</div>
     <a class="back-btn" href="index.html">← Dashboard</a>
+  </div>
+  <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+    <a href="study_dashboard.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);border-radius:8px;padding:9px 18px;font-size:var(--fs-xxs);font-weight:700;text-decoration:none">
+      📊 Study Dashboard
+    </a>
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;border-radius:8px;padding:9px 18px;font-size:var(--fs-xxs);font-weight:600;text-decoration:none">
+      ← All Weeks
+    </a>
   </div>
 </div>
 
@@ -469,7 +539,7 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 <!-- MONDAY -->
 <div class="day-card">
   <div class="day-head">
-    <div><div class="day-name">Monday</div><div class="day-sub">May 26</div><div class="day-badge b-cpl">CPL Art. 1 · Intro day</div></div>
+    <div><div class="article-band band-cpl"></div><div class="day-name">Monday</div><div class="day-sub">May 26</div><div class="day-badge b-cpl">CPL Art. 1 · Intro day</div></div>
     <div class="day-progress">
       <svg class="dp-ring" viewBox="0 0 36 36">
         <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
@@ -478,7 +548,7 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
       </svg>
       <div class="dp-label"><strong id="dppct-monday">0%</strong>done</div>
     </div>
-    <div class="day-total"><strong>~80 min</strong><span>total study</span></div>
+    <div class="day-total"><strong>~90 min</strong><span>total study</span></div>
   </div>
 
   <div class="block">
@@ -496,17 +566,29 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 
   <div class="block">
     <div class="block-cb">
+      <div class="block-cb-box" id="bcb-monday_at_work" onclick="toggleBlockCB(this,'monday_at_work')"></div>
+      <div><div class="bwindow">At work</div><div class="bdur">Downtime</div></div>
+    </div>
+    <div>
+      <div class="btitle"><span>Read CPL Art. 1 statute text</span><span class="tool t-co">ClerkOne / Book</span></div>
+      <div class="bbody">Any downtime during the workday — read the actual CPL Art. 1 statute text. Not notes, not summaries — the raw law. You don't need to memorize it now, just absorb the language and structure. Even 5–10 minutes at lunch or a break counts.
+        <div class="callout callout-slate">📖 Statute reading is passive — no writing, no quizzing. Just reading. If you have highlighters: <span class="hl-box hl-rule">yellow = key rule</span> <span class="hl-box hl-exception">orange = exception</span> <span class="hl-box hl-number">pink = number/deadline</span>. Consistent colors across every article — your visual memory will start associating color with content type.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-cb">
       <div class="block-cb-box" id="bcb-monday_lunch" onclick="toggleBlockCB(this,'monday_lunch')"></div>
       <div><div class="bwindow">Lunch</div><div class="bdur">30 min</div></div>
     </div>
     <div>
-      <div class="btitle"><span>Feynman → Blurt → Diary</span><span class="reddit">Feynman</span><span class="reddit">Free recall</span><span class="reddit">Spaced rep</span></div>
+      <div class="btitle"><span>Blurt → Anki → Diary</span><span class="reddit">Free recall</span><span class="reddit">Spaced rep</span></div>
       <div class="bbody">
-        <span class="step"><em>5 min — Feynman:</em> Before you open any notes — explain CPL Art. 1 out loud as if teaching a friend. No jargon. "A criminal action starts when the first accusatory instrument is filed..." Where you get stuck = your gap. This is more valuable than any quiz.</span>
         <span class="step"><em>10 min — Blurt:</em> Blank paper, write everything you remember from the morning ride. No notes open. Then gap-fill in a different color pen.</span>
-        <span class="step"><em>10 min — Anki:</em> Create your first 5 cards. Phrase as questions in your own words. Never copy the statute verbatim.</span>
+        <span class="step"><em>15 min — Anki:</em> Create your first 5 cards. Phrase as questions in your own words. Never copy the statute verbatim.</span>
         <span class="step"><em>5 min — Diary:</em> Write in your planner: "CPL Art. 1 — May 26. Review: May 27 · May 29 · June 10 · June 26 · July 28 · Oct 1."</span>
-        <div class="callout callout-violet">🧪 <strong>Feynman Technique:</strong> Explain what you just studied out loud as if teaching someone who has never heard it. No jargon. Plain English. Where you stumble = exactly what to review next. 2 minutes of this beats 20 minutes of re-reading.</div>
+        <div class="callout callout-violet">📓 <strong>Spaced rep diary (start today):</strong> These are your fixed review dates regardless of Anki. The diary makes the gap schedule visible and gives you a record of what you've covered.</div>
       </div>
     </div>
   </div>
@@ -525,6 +607,43 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
         <span class="step"><em>4.</em> What is a petty offense — what does it include and exclude?</span>
         <span class="step"><em>5.</em> Who can issue a summons? Who issues an appearance ticket?</span>
         <div class="callout callout-teal">🗣 Say the answers out loud quietly or mouth them silently. No phone needed — this works with zero signal and builds stronger recall than any app.</div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-monday_cornell" onclick="toggleBlockCB(this,'monday_cornell')"></div>
+      <div><div class="bwindow">Evening</div><div class="bdur">20 min</div><div class="noscreen">Paper</div></div>
+    </div>
+    <div>
+      <div class="btitle"><span>Cornell Notes — CPL Art. 1</span><span class="tool t-paper">Paper</span><span class="reddit">Cornell method</span><span style="background:#eff6ff;color:#2563eb;font-size:var(--fs-xxs);font-weight:600;padding:2px 7px;border-radius:4px;border:1px solid #bfdbfe">🔵 Blue ink/pen</span></div>
+      <div class="bbody">Draw your Cornell page: narrow left column (questions/keywords) · wide right column (notes) · 2-line summary box at the bottom.
+        <span class="step"><em>Right column — notes:</em> Write the key rules, definitions, and numbers from what you read at work today. Focus on the 7 accusatory instruments, the warrant distinctions, and when a criminal action commences. Use your own words — not copying the statute verbatim.</span>
+        <span class="step"><em>Left column — questions:</em> After writing your notes, cover the right column and write one question per concept in the left margin. e.g. "What instrument commences but cannot be basis for prosecution?" · "Who issues a bench warrant vs warrant of arrest?" · "What is a petty offense?"</span>
+        <span class="step"><em>Bottom summary:</em> 2 sentences max. What is the single most important rule in CPL Art. 1 and why does it matter on the exam?</span>
+        <div class="callout callout-teal">📝 <strong>Cornell self-test:</strong> Fold the right column over. Read only your left-column questions and try to answer each one from memory. Anything you can't answer = red circle. Those are tomorrow's lunch blurt targets and new Anki cards tonight.</div>
+        <div class="visual-diagram">
+          <div class="vd-title">📊 Visual reference — Accusatory Instruments by court (CPL 1.20)</div>
+          <div class="vd-body">
+            <div class="comp-grid" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr">
+              <div class="comp-header" style="background:#2563eb">Instrument</div>
+              <div class="comp-header" style="background:#2563eb">Filed by</div>
+              <div class="comp-header" style="background:#2563eb">Court</div>
+              <div class="comp-header" style="background:#2563eb">Commences?</div>
+              <div class="comp-header" style="background:#2563eb">Basis for prosecution?</div>
+              <div class="comp-cell comp-row-label">Indictment</div><div class="comp-cell">Grand Jury</div><div class="comp-cell">Superior</div><div class="comp-cell" style="background:#dcfce7">✓ Yes</div><div class="comp-cell" style="background:#dcfce7">✓ Yes</div>
+              <div class="comp-cell comp-row-label">Superior Court Info</div><div class="comp-cell">DA</div><div class="comp-cell">Superior</div><div class="comp-cell" style="background:#dcfce7">✓ Yes</div><div class="comp-cell" style="background:#dcfce7">✓ Yes</div>
+              <div class="comp-cell comp-row-label">Information</div><div class="comp-cell">Person (verified)</div><div class="comp-cell">Local</div><div class="comp-cell" style="background:#dcfce7">✓ Yes</div><div class="comp-cell" style="background:#dcfce7">✓ Yes</div>
+              <div class="comp-cell comp-row-label">Simplified Info</div><div class="comp-cell">PO/Public servant</div><div class="comp-cell">Local</div><div class="comp-cell" style="background:#dcfce7">✓ Yes</div><div class="comp-cell" style="background:#dcfce7">✓ Yes</div>
+              <div class="comp-cell comp-row-label">Prosecutor's Info</div><div class="comp-cell">DA</div><div class="comp-cell">Local</div><div class="comp-cell" style="background:#fef9c3">N/A</div><div class="comp-cell" style="background:#dcfce7">✓ Yes</div>
+              <div class="comp-cell comp-row-label">Misdemeanor Complaint</div><div class="comp-cell">Person (verified)</div><div class="comp-cell">Local</div><div class="comp-cell" style="background:#dcfce7">✓ Yes</div><div class="comp-cell" style="background:#fef9c3">✓ With consent</div>
+              <div class="comp-cell comp-row-label">Felony Complaint</div><div class="comp-cell">Person (verified)</div><div class="comp-cell">Local</div><div class="comp-cell" style="background:#dcfce7">✓ Yes</div><div class="comp-cell" style="background:#fee2e2">✗ NO</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -661,7 +780,7 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 <!-- TUESDAY -->
 <div class="day-card">
   <div class="day-head">
-    <div><div class="day-name">Tuesday</div><div class="day-sub">May 27</div><div class="day-badge b-cpl">CPL Art. 10 · Jurisdiction</div></div>
+    <div><div class="article-band band-cpl"></div><div class="day-name">Tuesday</div><div class="day-sub">May 27</div><div class="day-badge b-cpl">CPL Art. 10 · Jurisdiction</div></div>
     <div class="day-progress">
       <svg class="dp-ring" viewBox="0 0 36 36">
         <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
@@ -670,7 +789,7 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
       </svg>
       <div class="dp-label"><strong id="dppct-tuesday">0%</strong>done</div>
     </div>
-    <div class="day-total"><strong>~80 min</strong><span>total study</span></div>
+    <div class="day-total"><strong>~90 min</strong><span>total study</span></div>
   </div>
 
   <div class="block">
@@ -682,6 +801,19 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
       <div class="btitle"><span>ClerkOne — CPL Art. 10 Notes</span><span class="tool t-co">ClerkOne</span></div>
       <div class="bbody">Read first half of CPL Art. 10 notes. Because you previewed the index last night, the structure will feel familiar — your brain already has a frame for the content.
         <div class="callout callout-teal">🗣 <strong>Active recall micro-practice:</strong> At any idle moment today (waiting for coffee, elevator, bathroom) — mentally recite what you remember from yesterday's CPL Art. 1. No phone. Just recall. This is the Reddit method: reciting during daily activities is training your retrieval pathway, not just reviewing facts.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-tuesday_at_work" onclick="toggleBlockCB(this,'tuesday_at_work')"></div>
+      <div><div class="bwindow">At work</div><div class="bdur">Downtime</div></div>
+    </div>
+    <div>
+      <div class="btitle"><span>Read CPL Art. 10 statute text</span><span class="tool t-co">ClerkOne / Book</span></div>
+      <div class="bbody">Any downtime — read the actual CPL Art. 10 statute text. Focus on §10.10 (court definitions), §10.20 (superior court jurisdiction), and §10.30 (local criminal court jurisdiction). No writing needed.
+        <div class="callout callout-slate">📖 Passive statute reading. Highlighters if available: <span class="hl-box hl-rule">yellow = key rule</span> <span class="hl-box hl-exception">orange = exception</span> <span class="hl-box hl-number">pink = number/deadline</span>. Same color system every day.</div>
       </div>
     </div>
   </div>
@@ -716,6 +848,39 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
         <span class="step"><em>Art. 10:</em> Which courts have trial jurisdiction over felonies?</span>
         <span class="step"><em>Art. 10:</em> What is the difference between preliminary jurisdiction and trial jurisdiction?</span>
         <div class="callout callout-teal">🗣 Each question you can't answer = the most important Anki card to add tomorrow.</div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-tuesday_cornell" onclick="toggleBlockCB(this,'tuesday_cornell')"></div>
+      <div><div class="bwindow">Evening</div><div class="bdur">20 min</div><div class="noscreen">Paper</div></div>
+    </div>
+    <div>
+      <div class="btitle"><span>Cornell Notes — CPL Art. 10</span><span class="tool t-paper">Paper</span><span class="reddit">Cornell method</span><span style="background:#eff6ff;color:#2563eb;font-size:var(--fs-xxs);font-weight:600;padding:2px 7px;border-radius:4px;border:1px solid #bfdbfe">🔵 Blue ink/pen</span></div>
+      <div class="bbody">Draw your Cornell page: narrow left column (questions/keywords) · wide right column (notes) · 2-line summary box at the bottom.
+        <span class="step"><em>Right column — notes:</em> Write the key rules, definitions, and numbers from what you read at work today. Focus on the two court tiers, which courts try which offenses, and what a superior court judge can do when sitting as a local criminal court. Use your own words — not copying the statute verbatim.</span>
+        <span class="step"><em>Left column — questions:</em> After writing your notes, cover the right column and write one question per concept in the left margin. e.g. "Which courts have exclusive trial jurisdiction over felonies?" · "What is divestiture?" · "What is the NYC Criminal Court?"</span>
+        <span class="step"><em>Bottom summary:</em> 2 sentences max. What is the key distinction between superior courts and local criminal courts that matters most on the exam?</span>
+        <div class="callout callout-teal">📝 <strong>Cornell self-test:</strong> Fold the right column over. Read only your left-column questions and try to answer each one from memory. Anything you can't answer = red circle. Those are tomorrow's lunch blurt targets and new Anki cards tonight.</div>
+        <div class="visual-diagram">
+          <div class="vd-title">📊 Visual reference — Court Jurisdiction (CPL Art. 10)</div>
+          <div class="vd-body">
+            <div class="comp-grid" style="grid-template-columns:1.4fr 1fr 1fr 1fr">
+              <div class="comp-header" style="background:#2563eb">Court</div>
+              <div class="comp-header" style="background:#dc2626">Felony</div>
+              <div class="comp-header" style="background:#ea580c">Misdemeanor</div>
+              <div class="comp-header" style="background:#16a34a">Petty Offense</div>
+              <div class="comp-cell comp-row-label">Supreme Court (Superior)</div><div class="comp-cell" style="background:#dcfce7;font-weight:600">EXCLUSIVE trial</div><div class="comp-cell" style="background:#fef9c3">Concurrent trial</div><div class="comp-cell" style="background:#fef9c3">Only if indictment also charges a crime</div>
+              <div class="comp-cell comp-row-label">County Court (Superior)</div><div class="comp-cell" style="background:#dcfce7;font-weight:600">EXCLUSIVE trial</div><div class="comp-cell" style="background:#fef9c3">Concurrent trial</div><div class="comp-cell" style="background:#fef9c3">Only if indictment also charges a crime</div>
+              <div class="comp-cell comp-row-label">Local Criminal Courts</div><div class="comp-cell" style="background:#fee2e2">Preliminary ONLY</div><div class="comp-cell" style="background:#fef9c3">Concurrent (divestible)</div><div class="comp-cell" style="background:#dcfce7;font-weight:600">EXCLUSIVE trial</div>
+              <div class="comp-cell comp-row-label">Superior Judge as LCC</div><div class="comp-cell" style="background:#fee2e2">Preliminary ONLY</div><div class="comp-cell" style="background:#fee2e2">Preliminary ONLY</div><div class="comp-cell" style="background:#fee2e2">Preliminary ONLY</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -835,7 +1000,7 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 <!-- WEDNESDAY -->
 <div class="day-card">
   <div class="day-head">
-    <div><div class="day-name">Wednesday</div><div class="day-sub">May 28</div><div class="day-badge b-cpl">CPL Art. 30 · Speedy Trial</div></div>
+    <div><div class="article-band band-cpl"></div><div class="day-name">Wednesday</div><div class="day-sub">May 28</div><div class="day-badge b-cpl">CPL Art. 30 · Speedy Trial</div></div>
     <div class="day-progress">
       <svg class="dp-ring" viewBox="0 0 36 36">
         <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
@@ -844,7 +1009,7 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
       </svg>
       <div class="dp-label"><strong id="dppct-wednesday">0%</strong>done</div>
     </div>
-    <div class="day-total"><strong>~80 min</strong><span>total study</span></div>
+    <div class="day-total"><strong>~90 min</strong><span>total study</span></div>
   </div>
 
   <div class="block">
@@ -856,6 +1021,19 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
       <div class="btitle"><span>ClerkOne — CPL Art. 30 Notes</span><span class="tool t-co">ClerkOne</span></div>
       <div class="bbody">Read CPL Art. 30. <em>Lock in the time frames</em> — 30, 90, 180-day speedy trial deadlines are high-frequency exam questions. These numbers go into your Roman Room Saturday.
         <div class="callout callout-teal">🗣 <strong>Active recall all day today:</strong> In the shower this morning, recite CPL Art. 1 and 10 key points. At lunch before you study, recite Art. 30 time frames. This is the exact practice the Reddit poster describes — reciting during meals, walking, showering trains your brain to treat the information as permanent.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-wednesday_at_work" onclick="toggleBlockCB(this,'wednesday_at_work')"></div>
+      <div><div class="bwindow">At work</div><div class="bdur">Downtime</div></div>
+    </div>
+    <div>
+      <div class="btitle"><span>Read CPL Art. 30 statute text</span><span class="tool t-co">ClerkOne / Book</span></div>
+      <div class="bbody">Any downtime — read the actual CPL Art. 30 statute text. §30.10 (limitation periods) and §30.30 (speedy trial). Pay attention to the exact numbers — 30, 60, 90, 180 days. Notice the structure of excluded periods in §30.30(4).
+        <div class="callout callout-slate">📖 Passive statute reading. The numbers will start to feel familiar before your Cornell Notes session tonight.</div>
       </div>
     </div>
   </div>
@@ -890,6 +1068,39 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
         <span class="step"><em>Art. 10:</em> Name a court with only preliminary jurisdiction over felonies.</span>
         <span class="step"><em>All three:</em> What connects Art. 1, Art. 10 and Art. 30 conceptually?</span>
         <div class="callout callout-teal">🗣 The last question forces your brain to link articles together — exactly the kind of thinking exam questions test.</div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-wednesday_cornell" onclick="toggleBlockCB(this,'wednesday_cornell')"></div>
+      <div><div class="bwindow">Evening</div><div class="bdur">20 min</div><div class="noscreen">Paper</div></div>
+    </div>
+    <div>
+      <div class="btitle"><span>Cornell Notes — CPL Art. 30</span><span class="tool t-paper">Paper</span><span class="reddit">Cornell method</span><span style="background:#eff6ff;color:#2563eb;font-size:var(--fs-xxs);font-weight:600;padding:2px 7px;border-radius:4px;border:1px solid #bfdbfe">🔵 Blue ink/pen</span></div>
+      <div class="bbody">Draw your Cornell page: narrow left column (questions/keywords) · wide right column (notes) · 2-line summary box at the bottom.
+        <span class="step"><em>Right column — notes:</em> Write the key rules, definitions, and numbers from what you read at work today. Focus on §30.30 — the 4 readiness deadlines, the 4 custody deadlines, the homicide exemption, and the excluded periods in subdivision 4. Use your own words — not copying the statute verbatim.</span>
+        <span class="step"><em>Left column — questions:</em> After writing your notes, cover the right column and write one question per concept in the left margin. e.g. "What is the readiness deadline for a felony?" · "When is a defendant deemed absent under §30.30(4)(c)?" · "What is the homicide exemption?"</span>
+        <span class="step"><em>Bottom summary:</em> 2 sentences max. What is the single most tested rule in CPL Art. 30 and what is the most common exam trap?</span>
+        <div class="callout callout-teal">📝 <strong>Cornell self-test:</strong> Fold the right column over. Read only your left-column questions and try to answer each one from memory. Anything you can't answer = red circle. Those are tomorrow's lunch blurt targets and new Anki cards tonight.</div>
+        <div class="visual-diagram">
+          <div class="vd-title">📊 Visual reference — CPL Art. 30 Speedy Trial Grid</div>
+          <div class="vd-body">
+            <div class="comp-grid" style="grid-template-columns:1.5fr 1fr 1fr">
+              <div class="comp-header" style="background:#2563eb">Charge level</div>
+              <div class="comp-header" style="background:#2563eb">§30.30(1) Readiness</div>
+              <div class="comp-header" style="background:#2563eb">§30.30(2) Custody release</div>
+              <div class="comp-cell comp-row-label">At least one Felony</div><div class="comp-cell" style="background:#fee2e2;font-weight:700;font-size:var(--fs-sm)">6 months</div><div class="comp-cell" style="background:#fef9c3;font-weight:700">90 days</div>
+              <div class="comp-cell comp-row-label">Misd. &gt;3 months (no felony)</div><div class="comp-cell" style="background:#fef9c3;font-weight:700">90 days</div><div class="comp-cell" style="background:#dcfce7;font-weight:700">30 days</div>
+              <div class="comp-cell comp-row-label">Misd. ≤3 months (no crime &gt;3mo)</div><div class="comp-cell" style="background:#dcfce7;font-weight:700">60 days</div><div class="comp-cell" style="background:#dcfce7;font-weight:700">15 days</div>
+              <div class="comp-cell comp-row-label">Violation only (no crime)</div><div class="comp-cell" style="background:#dcfce7;font-weight:700">30 days</div><div class="comp-cell" style="background:#dcfce7;font-weight:700">5 days</div>
+              <div class="comp-cell comp-row-label" style="color:var(--coral)">⚠ Homicide §§125.10–125.27</div><div class="comp-cell" style="background:#f3f4f6;color:var(--muted);font-style:italic">EXEMPT</div><div class="comp-cell" style="background:#f3f4f6;color:var(--muted);font-style:italic">EXEMPT</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1026,7 +1237,7 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
 <!-- THURSDAY -->
 <div class="day-card">
   <div class="day-head">
-    <div><div class="day-name">Thursday</div><div class="day-sub">May 29</div><div class="day-badge b-penal">Penal Law Arts. 10 &amp; 55</div></div>
+    <div><div class="article-band band-pl"></div><div class="day-name">Thursday</div><div class="day-sub">May 29</div><div class="day-badge b-penal">Penal Law Arts. 10 &amp; 55</div></div>
     <div class="day-progress">
       <svg class="dp-ring" viewBox="0 0 36 36">
         <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
@@ -1035,7 +1246,7 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
       </svg>
       <div class="dp-label"><strong id="dppct-thursday">0%</strong>done</div>
     </div>
-    <div class="day-total"><strong>~80 min</strong><span>total study</span></div>
+    <div class="day-total"><strong>~90 min</strong><span>total study</span></div>
   </div>
 
   <div class="block">
@@ -1047,6 +1258,19 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
       <div class="btitle"><span>ClerkOne — PL Art. 10 Notes</span><span class="tool t-co">ClerkOne</span></div>
       <div class="bbody">PL Art. 10 is definition-heavy. Focus on the <em>four mental states: intentionally, knowingly, recklessly, criminal negligence.</em> Don't memorize everything — absorb the structure and the distinctions between each state.
         <div class="callout callout-slate">🚌 30 min, then rest. These definitions consolidate better after sleep than after forcing another hour of reading.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-thursday_at_work" onclick="toggleBlockCB(this,'thursday_at_work')"></div>
+      <div><div class="bwindow">At work</div><div class="bdur">Downtime</div></div>
+    </div>
+    <div>
+      <div class="btitle"><span>Read PL Arts. 10 &amp; 55 statute text</span><span class="tool t-co">ClerkOne / Book</span></div>
+      <div class="bbody">Any downtime — read PL §15.05 (the 4 mental states) and PL Art. 55 (offense classifications). Read the exact statutory definitions of each mental state — the exam may test the precise language. Note where the A/B/C/D/E felony and misdemeanor tiers appear in Art. 55.
+        <div class="callout callout-slate">📖 Passive reading. Highlighters: <span class="hl-box hl-rule">yellow = each mental state definition</span> <span class="hl-box hl-exception">orange = the distinction between recklessly and criminal negligence</span>. That distinction is the most-tested PL Art. 10 concept.</div>
       </div>
     </div>
   </div>
@@ -1086,6 +1310,55 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
     </div>
   </div>
 
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-thursday_cornell" onclick="toggleBlockCB(this,'thursday_cornell')"></div>
+      <div><div class="bwindow">Evening</div><div class="bdur">20 min</div><div class="noscreen">Paper</div></div>
+    </div>
+    <div>
+      <div class="btitle"><span>Cornell Notes — PL Arts. 10 &amp; 55</span><span class="tool t-paper">Paper</span><span class="reddit">Cornell method</span><span style="background:#fef2f2;color:#dc2626;font-size:var(--fs-xxs);font-weight:600;padding:2px 7px;border-radius:4px;border:1px solid #fecaca">🔴 Red ink/pen</span></div>
+      <div class="bbody">Draw your Cornell page: narrow left column (questions/keywords) · wide right column (notes) · 2-line summary box at the bottom.
+        <span class="step"><em>Right column — notes:</em> Write the exact statutory definitions of all 4 mental states and the complete classification ladder. Focus on the precise language — the exam may test exact definitions. Include fine ranges from Art. 80.</span>
+        <span class="step"><em>Left column — questions:</em> After writing notes, cover the right column and write questions. e.g. "What is the exact distinction between recklessly and criminal negligence?" · "What is the classification of an attempt to commit a Class B felony?" · "Is a violation a crime?"</span>
+        <span class="step"><em>Bottom summary:</em> What is the key distinction between the mental states that the exam is most likely to test, and which two are easiest to confuse?</span>
+        <div class="callout callout-teal">📝 <strong>Cornell self-test:</strong> Fold the right column over. Read only your left-column questions and try to answer each one from memory. Anything you can't answer = red circle = new Anki card tonight.</div>
+        <div class="visual-diagram">
+          <div class="vd-title">📊 Visual reference — Mental States Spectrum (most → least culpable)</div>
+          <div class="vd-body" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <div style="font-size:var(--fs-xxs);font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Mental States — PL §15.05</div>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <div style="background:#7f1d1d;color:white;border-radius:6px;padding:7px 10px;font-size:var(--fs-xxs);font-weight:600">INTENTIONALLY — Conscious objective to cause the result</div>
+                <div style="text-align:center;font-size:10px;color:var(--muted)">▼ less culpable</div>
+                <div style="background:#991b1b;color:white;border-radius:6px;padding:7px 10px;font-size:var(--fs-xxs);font-weight:600">KNOWINGLY — Aware conduct is of that nature or circumstances exist</div>
+                <div style="text-align:center;font-size:10px;color:var(--muted)">▼ less culpable</div>
+                <div style="background:#b91c1c;color:white;border-radius:6px;padding:7px 10px;font-size:var(--fs-xxs);font-weight:600">RECKLESSLY — Consciously DISREGARDS a substantial unjustifiable risk</div>
+                <div style="text-align:center;font-size:10px;color:var(--muted)">▼ least culpable</div>
+                <div style="background:#dc2626;color:white;border-radius:6px;padding:7px 10px;font-size:var(--fs-xxs);font-weight:600">CRIMINAL NEGLIGENCE — FAILS TO PERCEIVE a substantial unjustifiable risk</div>
+              </div>
+              <div style="margin-top:8px;background:#fee2e2;border-radius:6px;padding:7px 10px;font-size:var(--fs-xxs);color:#7f1d1d"><strong>Key distinction:</strong> Reckless = aware + ignores. Criminal negligence = never noticed. Awareness is the dividing line.</div>
+            </div>
+            <div>
+              <div style="font-size:var(--fs-xxs);font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Classification Pyramid — PL Art. 55</div>
+              <div class="pyramid">
+                <div class="pyr-tier" style="background:#7f1d1d;width:40%">Class A Felony</div>
+                <div class="pyr-tier" style="background:#991b1b;width:50%">Class B Felony</div>
+                <div class="pyr-tier" style="background:#b91c1c;width:60%">Class C Felony</div>
+                <div class="pyr-tier" style="background:#dc2626;width:70%">Class D Felony</div>
+                <div class="pyr-tier" style="background:#ef4444;width:78%">Class E Felony</div>
+                <div class="pyr-tier" style="background:#f97316;width:86%">Class A Misdemeanor</div>
+                <div class="pyr-tier" style="background:#fb923c;width:93%">Class B Misdemeanor</div>
+                <div class="pyr-tier" style="background:#d1d5db;color:#374151;width:100%">Violation (NOT a crime)</div>
+              </div>
+              <div style="margin-top:6px;background:#fef2f2;border-radius:6px;padding:6px 10px;font-size:var(--fs-xxs);color:#7f1d1d"><strong>Mnemonic:</strong> "Always Bring Cold Drinks Every Afternoon Before Visiting"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="block">
     <div class="block-cb">
       <div class="block-cb-box" id="bcb-thursday_wind_down" onclick="toggleBlockCB(this,'thursday_wind_down')"></div>
@@ -1110,7 +1383,7 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
       </svg>
       <div class="dp-label"><strong id="dppct-friday">0%</strong>done</div>
     </div>
-    <div class="day-total"><strong>~50 min</strong><span>total study</span></div>
+    <div class="day-total"><strong>~60 min</strong><span>total study</span></div>
   </div>
 
   <div class="block">
@@ -1152,12 +1425,27 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
       </div>
     </div>
   </div>
+
+  <div class="block">
+    <div class="block-cb">
+      <div class="block-cb-box" id="bcb-friday_feynman" onclick="toggleBlockCB(this,'friday_feynman')"></div>
+      <div><div class="bwindow">At home</div><div class="bdur">10 min</div></div>
+    </div>
+    <div>
+      <div class="btitle"><span>Feynman recording — end of week check</span><span class="tool t-paper">Voice memo</span><span class="reddit">Feynman</span></div>
+      <div class="bbody">End-of-week Feynman. Open your voice memo app. Press record. Pick the article with the most red circles in your Cornell Notes this week — the one with the most unanswered left-column questions. Teach it from scratch — plain English, no notes, no looking anything up. Play it back and listen for stumbles.
+        <span class="step"><em>Tonight's target:</em> The article with the most gaps across your Mon–Thu Cornell Notes left columns. Teach it as if someone is hearing it for the very first time.</span>
+        <span class="step"><em>After playback:</em> Every stumble = one new Anki card. Every section you skipped = add to Saturday Phase 1 index card priority list.</span>
+        <div class="callout callout-violet">🧪 <strong>This is your week-end diagnostic:</strong> Your Cornell Notes left columns told you what you don't know. Your Feynman recording confirms it. Everything that stumbles tonight goes on Saturday's priority creation list.</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- SATURDAY — NOTES DAY -->
 <div class="day-card notes-day full">
   <div class="day-head">
-    <div><div class="day-name">Saturday</div><div class="day-sub">May 31 · Notes &amp; material creation AM · Full rest PM onward</div><div class="day-badge b-notes">Notes session · ~2.5 hrs · then 🛑 full rest</div></div>
+    <div><div class="day-name">Saturday</div><div class="day-sub">May 31 · Study material creation AM · Full rest PM onward</div><div class="day-badge b-notes">Creation session · ~2.5 hrs · index cards · audio · flashcards · test prep · then 🛑 full rest</div></div>
     <div class="day-progress">
       <svg class="dp-ring" viewBox="0 0 36 36">
         <circle class="dp-bg" cx="18" cy="18" r="15.9"/>
@@ -1169,45 +1457,56 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
     <div class="day-total"><strong>~2.5 hrs</strong><span>AM only, then rest</span></div>
   </div>
 
-  <div class="notes-section-head">📓 Saturday Notes &amp; Material Creation Session — what this time is for</div>
+  <div class="notes-section-head">📓 Saturday Study Material Creation Session — what this time is for</div>
 
   <div style="padding:14px 16px;border-bottom:1px solid var(--border);background:var(--violet-light)">
     <div style="font-size:var(--fs-xs);color:var(--violet);line-height:1.7">
-      This session is not studying. It is not quizzing. It is <strong style="color:var(--navy)">building the materials you will use for the next 20 weeks.</strong> Your summary sheets, memory palace map, mnemonics sheet, Anki deck, and spaced rep diary are all assets — this is when you build and maintain them. Every piece you create here gets tested on Sunday at the library.
+      Saturday is <strong style="color:var(--navy)">creation day — not studying.</strong> Every output you make today becomes an input you use for the next 20 weeks. Flashcards, index cards, audio recordings, text files, and test questions. You are building the arsenal you will draw from every commute, every lunch, and every Sunday library session. Full rest starts when the session ends.
     </div>
   </div>
 
   <div class="block">
     <div class="block-cb">
       <div class="block-cb-box" id="bcb-sat_phase1" onclick="toggleBlockCB(this,'sat_phase1')"></div>
-      <div><div class="bwindow">Phase 1</div><div class="bdur">30 min</div></div>
+      <div><div class="bwindow">Phase 1</div><div class="bdur">30 min</div><div class="noscreen">Paper</div></div>
     </div>
     <div>
       <div class="notes-phase">
-        <div class="ph-title"><span class="tool t-yt">YouTube</span> Phase 1 — Encoding with video (30 min)</div>
-        <div class="ph-time">Watch, pause, write — not passive viewing</div>
+        <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 1 — Physical index cards (30 min)</div>
+        <div class="ph-time">One concept per card · question on front · full answer on back · drill-ready</div>
         <div class="ph-body">
-          Open <em>Zain Asif on YouTube</em> — search "Zain Asif study techniques." Watch one video on memory or retention. <em>Pause every 2–3 minutes and write the key idea in your own words</em> before continuing. Rotate weekly: Week 1 = Zain Asif, Week 2 = Benjamin Keep, Week 3 = Dr Justin Sung.<br><br>
-          <strong>Goal: 2–3 concrete techniques written in your diary in your own words.</strong>
+          Write physical index cards for every high-frequency exam topic from this week. One concept per card — never combine two unrelated ideas on one card. Use this format:<br><br>
+          <strong>Front:</strong> One specific question exactly how the exam might ask it.<br>
+          <strong>Back:</strong> The complete answer in your own words + the CPL or PL section number.<br><br>
+          <em>Week 1 priority cards to make today:</em><br>
+          • The 7 accusatory instruments — write one card per instrument with: filed by, which court, what it charges, commences action?, basis for prosecution?<br>
+          • Felony complaint vs Information — what each can and cannot do<br>
+          • Warrant of arrest vs bench warrant vs superior court warrant — who issues, who executes, for what purpose<br>
+          • 4 mental states — one card each with full statutory definition<br>
+          • Speedy trial readiness deadlines — all 4 tiers with numbers<br>
+          • Speedy trial custody deadlines — all 4 tiers with numbers<br>
+          • Offense classification ladder — A felony through violation<br><br>
+          <strong>Rubber-band the stack when done. This is your commute drill deck from Monday onward.</strong>
         </div>
       </div>
-
     </div>
   </div>
 
   <div class="block">
     <div class="block-cb">
       <div class="block-cb-box" id="bcb-sat_phase2" onclick="toggleBlockCB(this,'sat_phase2')"></div>
-      <div><div class="bwindow">Phase 2</div><div class="bdur">35 min</div><div class="noscreen">NO SCREEN</div></div>
+      <div><div class="bwindow">Phase 2</div><div class="bdur">30 min</div><div class="noscreen">NO SCREEN</div></div>
     </div>
     <div>
       <div class="notes-phase">
-        <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 2 — Master summary sheets (35 min)</div>
-        <div class="ph-time">One page per law group, your own words, no copying</div>
+        <div class="ph-title"><span class="tool t-paper">Paper + Text file</span> Phase 2 — Master summary sheets + digital text files (30 min)</div>
+        <div class="ph-time">Paper first · then type into a text file for phone access · your own words throughout</div>
         <div class="ph-body">
-          <em>CPL Arts. 1, 10, 30 — one sheet:</em> Key definitions from Art. 1. Jurisdiction rules from Art. 10. Time frames from Art. 30 — circle the numbers (30, 90, 180 days). Write it as if explaining to a coworker.<br><br>
-          <em>PL Arts. 10, 55, 80 — one sheet:</em> Four mental states table (draw four boxes, one per state, definition + example in each). Offense classification ladder drawn top to bottom: Class A felony → B → C → D → E → A misdemeanor → B misdemeanor → violation. Fine ranges from Art. 80.<br><br>
-          <strong>Label, date, file both sheets. You will reference these every week for 20 weeks.</strong>
+          <strong>First 20 min — paper summary sheets:</strong><br>
+          <em>CPL Arts. 1, 10, 30 — one sheet:</em> Key definitions, jurisdiction rules, speedy trial time frames. Circle every number. Write it as if explaining to a coworker.<br>
+          <em>PL Arts. 10, 55, 80 — one sheet:</em> Four mental states table (draw four boxes, one per state, definition + example in each). Classification ladder drawn top to bottom. Fine ranges from Art. 80. Label, date, and file both sheets.<br><br>
+          <strong>Last 10 min — create a text file on your phone:</strong><br>
+          Open Notes app (iPhone) or any plain text app. Create a note titled <em>"Week 1 Quick Reference."</em> Type the most critical facts in bullet form — the 7 accusatory instruments, the 4 speedy trial deadlines, the 4 mental states with definitions, the classification ladder. This is your searchable digital reference for the commute when you don't have the physical cards with you.
         </div>
       </div>
     </div>
@@ -1220,64 +1519,47 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
     </div>
     <div>
       <div class="notes-phase" style="border-left-color:var(--coral);background:var(--coral-light)">
-        <div class="ph-title" style="color:var(--coral)">🧠 Phase 3 — Mnemonic creation session (30 min)</div>
-        <div class="ph-time" style="color:var(--coral)">Build one mnemonic per hard-to-remember list · mix all three types based on content · write every one in your diary</div>
+        <div class="ph-title" style="color:var(--coral)">🧠 Phase 3 — Mnemonics + Anki digital flashcards (30 min)</div>
+        <div class="ph-time" style="color:var(--coral)">Mnemonics first on paper · then build Anki cards for every mnemonic and hard fact</div>
         <div class="ph-body">
-          This is dedicated time to turn the content from your summary sheets into memory devices. You are not reviewing — you are engineering shortcuts your brain can retrieve fast under exam pressure. Use all three types depending on what the content is:<br><br>
-
-          <strong>Type 1 — Acronyms</strong> (best for ordered lists and classifications)<br>
-          Take the first letter of each item and form a word or phrase. The stranger and more vivid the better — your brain holds weird things better than neutral ones.<br><br>
-          <em>Week 1 example — PL Art. 55 offense classifications (top to bottom):</em><br>
-          <strong>A B C D E · A B V</strong> → <em>"Always Bring Cold Drinks Every Afternoon Before Visiting"</em><br>
-          (Class A Felony, B Felony, C Felony, D Felony, E Felony, A Misdemeanor, B Misdemeanor, Violation)<br>
-          Write this phrase on your summary sheet next to the classification ladder. Add an Anki card: front = "What's the mnemonic for the offense classification order?" Back = the phrase + the full list.<br><br>
-
-          <em>Week 1 example — PL Art. 10 mental states (in order of culpability, most to least):</em><br>
-          <strong>I K R N</strong> → <em>"I Know Real Negligence"</em><br>
-          (Intentionally, Knowingly, Recklessly, criminal Negligence)<br><br>
-
-          <strong>Type 2 — Story / link method</strong> (best for sequences, procedures, and relationships)<br>
-          Create a short vivid story where each element represents the next piece of information in order. The more absurd and visual the story, the better it sticks.<br><br>
-          <em>Week 1 example — CPL Art. 30 speedy trial time frames:</em><br>
-          Picture a <em>clock (30 days)</em> running a race. It trips after 30 steps and grabs a <em>calendar showing 90</em> to steady itself. It finishes the race at a finish line marked <em>180</em> — exactly six months after it started.<br>
-          Every time you think "speedy trial," run that story. 30 → 90 → 180 in sequence, visualized.<br><br>
-
-          <strong>Type 3 — Rhymes and phrases</strong> (best for numbers, deadlines, and single facts)<br>
-          Short, rhythmic phrases are surprisingly durable in memory — your brain processes rhythm differently from plain text.<br><br>
-          <em>Week 1 examples:</em><br>
-          <em>"Thirty days, then ninety more — one eighty's when they close the door."</em> (CPL Art. 30 speedy trial ladder)<br>
-          <em>"Intentional means you meant it, knowing means you knew — reckless is the gamble, negligence slipped through."</em> (PL Art. 10 mental states in plain English)<br><br>
-
-          <strong>How to build your mnemonic each Saturday:</strong><br>
-          1. Look at your new summary sheets. Circle every list, every ordered sequence, every number cluster.<br>
-          2. For each circle: decide which type fits — acronym for lists, story for sequences, rhyme for numbers.<br>
-          3. Write the mnemonic next to the circled content on your summary sheet.<br>
-          4. Write it again in a dedicated <em>Mnemonic Master List</em> page in your diary (one running page you add to each week).<br>
-          5. Add one Anki card per mnemonic: front = the question, back = the mnemonic + what it stands for.<br>
-          6. Test it immediately: close the summary sheet and try to recite the list using only the mnemonic. If you can't, the mnemonic isn't vivid enough — revise it until it works.
+          <strong>First 15 min — mnemonic creation:</strong><br>
+          Look at your summary sheets. Circle every list, ordered sequence, and number cluster. For each circle, create one mnemonic:<br><br>
+          <em>Acronym — PL Art. 55 classifications:</em> <strong>"Always Bring Cold Drinks Every Afternoon Before Visiting"</strong> → A Felony · B · C · D · E · A Misdemeanor · B Misdemeanor · Violation<br>
+          <em>Acronym — PL Art. 10 mental states:</em> <strong>"I Know Real Negligence"</strong> → Intentionally · Knowingly · Recklessly · Criminal Negligence<br>
+          <em>Rhyme — CPL Art. 30 speedy trial:</em> <strong>"Thirty days, then ninety more — one eighty's when they close the door."</strong><br><br>
+          Write every mnemonic on your summary sheet next to what it represents. Add to your Mnemonic Master List in your diary.<br><br>
+          <strong>Last 15 min — Anki digital flashcard build:</strong><br>
+          Open Anki and add 10–15 new cards from your summary sheets. Every mnemonic gets its own card — front = the question, back = the mnemonic + what it stands for. Include all mental states, Art. 30 time limits, classification tiers. These are your spaced repetition engine — the more precise the card, the more useful it is on the commute.
         </div>
       </div>
-
     </div>
   </div>
 
   <div class="block">
     <div class="block-cb">
       <div class="block-cb-box" id="bcb-sat_phase4" onclick="toggleBlockCB(this,'sat_phase4')"></div>
-      <div><div class="bwindow">Phase 4</div><div class="bdur">20 min</div><div class="noscreen">NO SCREEN</div></div>
+      <div><div class="bwindow">Phase 4</div><div class="bdur">25 min</div></div>
     </div>
     <div>
       <div class="notes-phase">
-        <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 4 — Extend your Memory Palace map (20 min)</div>
-        <div class="ph-time">Sketch the map, add new locations · mnemonics and palace work together</div>
+        <div class="ph-title"><span class="tool t-paper">Voice memo</span> Phase 4 — Audio recording creation (25 min)</div>
+        <div class="ph-time">Record article summaries in your own voice · for commute playback · Feynman on audio</div>
         <div class="ph-body">
-          Pull out your diary bedroom map from Thursday. Add your kitchen for PL Art. 55 offense classifications.<br><br>
-          <em>Kitchen:</em> Refrigerator = Class A felony. Stove = Class B. Counter = C. Sink = D. Microwave = E. Trash can = A misdemeanor. Window = B misdemeanor. Door mat = violation.<br><br>
-          <strong>Combine with your mnemonic:</strong> At each kitchen location, picture the character from your acronym phrase doing something dramatic — <em>"Always Bring Cold Drinks Every Afternoon Before Visiting"</em> — visualize someone bringing cold drinks to the refrigerator, then carrying them to the stove, then the counter, etc. The mnemonic and the palace reinforce each other.<br><br>
-          Walk both rooms 3× in your mind. Add palace review dates to diary: June 1, June 4, June 16, July 2, Aug 3.
+          Open your phone's voice memo app. Record one audio summary per article — 3 to 5 minutes each. Speak from your summary sheet but in your own words, not reading word for word. Your own voice is more memorable than any text-to-speech audio because your brain already knows the cadence.<br><br>
+          <strong>Structure for each recording:</strong><br>
+          1. Say the article name and what it covers.<br>
+          2. Hit the 3–4 most exam-critical rules, definitions, or numbers.<br>
+          3. End with your mnemonic for that article out loud.<br>
+          4. Say "Exam trap:" and state the most common wrong answer.<br><br>
+          <em>Week 1 recordings to make:</em><br>
+          • CPL Art. 1 — accusatory instruments, warrants, petty offenses (~4 min)<br>
+          • CPL Art. 10 — two court tiers, jurisdiction rules (~3 min)<br>
+          • CPL Art. 30 — speedy trial deadlines, custody deadlines, excluded periods (~4 min)<br>
+          • PL Art. 10 — 4 mental states with full definitions and distinctions (~3 min)<br>
+          • PL Art. 55 — classification ladder with your mnemonic (~2 min)<br><br>
+          Save each as "Week 1 CPL Art 1", "Week 1 PL Art 10" etc. Play them on the morning commute when you want passive reinforcement instead of active reading.
         </div>
       </div>
-
     </div>
   </div>
 
@@ -1288,16 +1570,20 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
     </div>
     <div>
       <div class="notes-phase">
-        <div class="ph-title"><span class="tool t-anki">Anki</span> Phase 5 — Build cards from summary sheets + mnemonics (20 min)</div>
-        <div class="ph-time">One card per mnemonic minimum — cards from your own words only</div>
+        <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 5 — Write your own practice test questions (20 min)</div>
+        <div class="ph-time">Write questions the way the exam writes them · 3–4 choices · one clearly correct</div>
         <div class="ph-body">
-          Add 10–15 new Anki cards from your summary sheets. Then add one card per mnemonic you created in Phase 3:<br><br>
-          <em>Card front:</em> "What mnemonic helps you remember the offense classification order?"<br>
-          <em>Card back:</em> "Always Bring Cold Drinks Every Afternoon Before Visiting → A Felony, B Felony, C Felony, D Felony, E Felony, A Misd., B Misd., Violation"<br><br>
-          Include all mental states, Art. 30 time limits, classification tiers, and fine caps. Every mnemonic gets its own card.
+          Writing exam questions forces deeper understanding than answering them. You have to know the material well enough to construct good distractors — wrong answers that are plausible but clearly incorrect once you know the rule.<br><br>
+          <strong>Write 8–10 multiple choice questions:</strong> 2 per article, 4 choices each. Base them on the areas from your index cards and summary sheets. Structure like the Bluemedia quizzer — one stem question, four lettered choices, one correct.<br><br>
+          <em>Example format:</em><br>
+          <em>Q: A felony complaint may serve as:</em><br>
+          A. Both the basis to commence and the basis for prosecution<br>
+          B. The basis to commence a criminal action only<br>
+          C. The basis for prosecution only<br>
+          D. Neither — it must be replaced immediately by an information<br><br>
+          <strong>Swap your question set with a study partner, or use them to quiz yourself Sunday morning before the library session starts.</strong> Add any questions you get wrong to your Anki deck.
         </div>
       </div>
-
     </div>
   </div>
 
@@ -1308,10 +1594,18 @@ html.desktop-view .art-grid{grid-template-columns:1fr 1fr!important}
     </div>
     <div>
       <div class="notes-phase">
-        <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 6 — Spaced rep diary check + update (15 min)</div>
-        <div class="ph-time">5 minutes of diary work catches everything Anki misses</div>
+        <div class="ph-title"><span class="tool t-paper">Paper</span> Phase 6 — Materials check + diary update (15 min)</div>
+        <div class="ph-time">Verify everything was created · set review dates · write Sunday plan</div>
         <div class="ph-body">
-          Verify all article entries are written (Arts. 1, 10, 30, PL 10, PL 55). Check next week's review dates are visible. Add palace review dates. Add mnemonic review dates to your Master List page (same gap schedule: +1, +3, +15, +31 days). Write Sunday's library plan: which articles, which Anki cards are due, which mnemonics to test on arrival.
+          Run through this checklist before you close everything:<br><br>
+          ☐ <strong>Index cards</strong> — rubber-banded stack ready for commute drill<br>
+          ☐ <strong>Summary sheets</strong> — two pages dated and filed<br>
+          ☐ <strong>Text file</strong> — "Week 1 Quick Reference" saved on phone<br>
+          ☐ <strong>Audio recordings</strong> — 5 recordings saved in voice memo app<br>
+          ☐ <strong>Anki cards</strong> — 10–15 new cards added including all mnemonics<br>
+          ☐ <strong>Practice questions</strong> — 8–10 written, ready to use Sunday<br>
+          ☐ <strong>Mnemonic Master List</strong> — all mnemonics written in diary<br><br>
+          Then update your diary: verify all 5 article entries are written with review dates. Write Sunday's plan — which articles, which Anki cards are due, which practice questions to attempt on arrival. Add audio recording review dates (same +1, +3, +15, +31 gap as articles).
         </div>
       </div>
 
@@ -1661,6 +1955,10 @@ function toggleBlockCB(el, key){
   applyChecked(key, !isChecked, true);
   updateAllRings();
   if(typeof PWA !== 'undefined') PWA.updateBadge && PWA.updateBadge();
+  // Sync to Supabase
+  if(typeof CLERK_SYNC !== 'undefined') {
+    CLERK_SYNC.scheduleCheckboxSync('week1', key, !isChecked);
+  }
 }
 
 function applyChecked(key, checked, animate){
@@ -1695,7 +1993,7 @@ function updateAllRings(){
   });
 }
 
-document.addEventListener('DOMContentLoaded', loadCBState);
+document.addEventListener('DOMContentLoaded', () => { loadCBState(); if(typeof CLERK_SYNC !== 'undefined') CLERK_SYNC.init('week1'); });
 </script>
 
 <script>

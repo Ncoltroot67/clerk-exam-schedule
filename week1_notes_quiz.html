@@ -143,6 +143,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 html.mobile-view .main{padding-left:16px!important;padding-right:16px!important;grid-template-columns:1fr!important}
 html.desktop-view .main{padding-left:40px!important;padding-right:40px!important;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))!important}
 </style>
+  <script src="clerk_sync.js"></script>
 </head>
 <body>
 
@@ -877,6 +878,18 @@ function selectAnswer(qNum, letter){
   if(exp) exp.classList.add('show');
 
   updateScore();
+
+  // ── Save wrong answer to Supabase ──
+  if (!isCorrect && typeof CLERK_SYNC !== 'undefined') {
+    const chosenText = q.opts.find(o => o.startsWith(letter+'.') || o.startsWith(letter+' ')) || letter;
+    const correctText = q.opts.find(o => o.startsWith(q.correct+'.') || o.startsWith(q.correct+' ')) || q.correct;
+    CLERK_SYNC.saveWrongAnswer(
+      'CPL Art. 1',
+      q.q || q.stem || 'Question ' + qNum,
+      chosenText.substring(0, 80),
+      correctText.substring(0, 80)
+    );
+  }
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1122,6 +1135,20 @@ function pickAnswer(prefix, qn, letter){
   const exp = document.getElementById(`exp-${prefix}-${qn}`);
   if(exp) exp.classList.add('show');
   updateScoreN(prefix);
+
+  // ── Save wrong answer to Supabase ──
+  if (!isCorrect && typeof CLERK_SYNC !== 'undefined') {
+    const articleMap = { 'a10': 'CPL Art. 10', 'a30': 'CPL Art. 30', 'a20': 'CPL Art. 20' };
+    const articleName = articleMap[prefix] || prefix;
+    const chosenOpt = q.opts.find(o => o.startsWith(letter+'.') || o.startsWith(letter+' ')) || letter;
+    const correctOpt = q.opts.find(o => o.startsWith(q.correct+'.') || o.startsWith(q.correct+' ')) || q.correct;
+    CLERK_SYNC.saveWrongAnswer(
+      articleName,
+      q.q || 'Question ' + qn,
+      chosenOpt.substring(0, 80),
+      correctOpt.substring(0, 80)
+    );
+  }
 }
 
 function updateScoreN(prefix){

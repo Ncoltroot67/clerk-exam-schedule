@@ -2131,6 +2131,23 @@ function renderDQ(day, qn, q, chosen){
   });
   const exp = document.getElementById('dqexp-'+day+'-'+qn);
   if(exp) exp.classList.add('show');
+
+  // ── Save wrong answer to Supabase ──
+  if (!isCorrect && typeof CLERK_SYNC !== 'undefined') {
+    const articleMap = {
+      mon:'CPL Art. 100', tue:'CPL Art. 110',
+      wed:'CPL Art. 120', thu:'CPL Art. 160 / PL 55',
+      monday:'CPL Art. 1', tuesday:'CPL Art. 10',
+      wednesday:'CPL Art. 30', thursday:'PL Arts. 10 & 55'
+    };
+    const article = articleMap[day] || day;
+    CLERK_SYNC.saveWrongAnswer(
+      article,
+      q.q ? q.q.substring(0, 100) : 'Day quiz Q'+qn,
+      chosen,
+      q.correct
+    );
+  }
 }
 
 function updateDQScore(day){

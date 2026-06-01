@@ -17,21 +17,21 @@ const PWA = (() => {
       id: 'morning', hour: 8, minute: 15,
       title: '📚 Morning commute — time to study',
       body: 'Open ClerkOne. 30 min. You know what to do.',
-      url: '/week1_schedule_final.html',
+      url: 'week1_schedule_final.html',
       tag: 'morning-study', days: [1,2,3,4,5]
     },
     {
       id: 'lunch', hour: 13, minute: 15,
       title: '✍️ Lunch blurt — blank paper',
       body: 'Write everything you remember. No notes. Go.',
-      url: '/week1_schedule_final.html',
+      url: 'week1_schedule_final.html',
       tag: 'lunch-study', days: [1,2,3,4,5]
     },
     {
       id: 'winddown', hour: 20, minute: 0,
       title: '📖 Wind-down — NO SCREEN after this',
       body: 'Pick up the book. Open it. 15 minutes.',
-      url: '/week1_schedule_final.html',
+      url: 'week1_schedule_final.html',
       tag: 'winddown-study', days: [1,2,3,4,5,6,0]
     }
   ];
@@ -43,7 +43,7 @@ const PWA = (() => {
   async function registerSW() {
     if (!('serviceWorker' in navigator)) return;
     try {
-      const reg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+      const reg = await navigator.serviceWorker.register('sw.js', { scope: './' });
       setInterval(() => reg.update(), 60000);
       return reg;
     } catch(e) { console.warn('SW failed:', e); }
@@ -205,7 +205,7 @@ const PWA = (() => {
           setTimeout(() => fireNotification({
             title: '✅ Study reminders are on!',
             body: 'You\'ll get reminded at 8:15am, 1:15pm, and 8:00pm.',
-            tag: 'test', url: '/index.html'
+            tag: 'test', url: 'index.html'
           }), 3000);
         } else {
           showToast('To enable: Settings → Safari → Notifications → ClerkPrep → Allow', 5000);
@@ -239,17 +239,17 @@ const PWA = (() => {
   function fireNotification(r) {
     if (!('serviceWorker' in navigator)) {
       new Notification(r.title, {
-        body: r.body, icon: '/icons/icon-192.png',
+        body: r.body, icon: 'icons/icon-192.png',
         tag: r.tag, vibrate: [100,50,100]
       });
       return;
     }
     navigator.serviceWorker.ready.then(reg => {
       reg.showNotification(r.title, {
-        body: r.body, icon: '/icons/icon-192.png',
-        badge: '/icons/badge-72.png', tag: r.tag,
+        body: r.body, icon: 'icons/icon-192.png',
+        badge: 'icons/badge-72.png', tag: r.tag,
         renotify: true, vibrate: [100,50,100],
-        data: { url: r.url || '/index.html' },
+        data: { url: r.url || 'index.html' },
         actions: [
           { action: 'open',    title: '📖 Open now' },
           { action: 'snooze',  title: '⏰ 10 min'   },

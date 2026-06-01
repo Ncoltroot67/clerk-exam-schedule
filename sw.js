@@ -3,25 +3,25 @@
 // Bump version number any time files change to force cache update
 
 const CACHE_VERSION = 'clerk-exam-v4';
-const OFFLINE_URL   = '/offline.html';
+const OFFLINE_URL   = 'offline.html';
 
 // ── ALL FILES TO PRECACHE ON INSTALL ─────────────────────
 // Every file the app needs to work fully offline
 const PRECACHE = [
-  '/index.html',
-  '/week1_schedule_final.html',
-  '/week2_schedule.html',
-  '/week1_notes_quiz.html',
-  '/week1_quiz.html',
-  '/study_dashboard.html',
-  '/discipline_motivation.html',
-  '/offline.html',
-  '/clerk_sync.js',
-  '/pwa-features.js',
-  '/manifest.json',
-  '/accusatory_instruments.jpg',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
+  'index.html',
+  'week1_schedule_final.html',
+  'week2_schedule.html',
+  'week1_notes_quiz.html',
+  'week1_quiz.html',
+  'study_dashboard.html',
+  'discipline_motivation.html',
+  'offline.html',
+  'clerk_sync.js',
+  'pwa-features.js',
+  'manifest.json',
+  'accusatory_instruments.jpg',
+  'icons/icon-192.png',
+  'icons/icon-512.png',
 ];
 
 // ── INSTALL — cache everything immediately ────────────────
@@ -132,12 +132,12 @@ self.addEventListener('push', event => {
   event.waitUntil(
     self.registration.showNotification(data.title || 'NYS Clerk Exam Study', {
       body: data.body || 'Time to study!',
-      icon: '/icons/icon-192.png',
-      badge: '/icons/badge-72.png',
+      icon: 'icons/icon-192.png',
+      badge: 'icons/badge-72.png',
       vibrate: [100, 50, 100],
       tag: data.tag || 'study-reminder',
       renotify: true,
-      data: { url: data.url || '/index.html' },
+      data: { url: data.url || 'index.html' },
       actions: [
         { action: 'open',    title: '📖 Open now' },
         { action: 'snooze',  title: '⏰ 10 min'   },
@@ -158,7 +158,7 @@ self.addEventListener('notificationclick', event => {
         setTimeout(() => {
           self.registration.showNotification(event.notification.title, {
             body: event.notification.body,
-            icon: '/icons/icon-192.png',
+            icon: 'icons/icon-192.png',
             tag: event.notification.tag + '-snoozed',
             data: event.notification.data
           });
@@ -169,7 +169,7 @@ self.addEventListener('notificationclick', event => {
     return;
   }
 
-  const url = event.notification.data?.url || '/index.html';
+  const url = event.notification.data?.url || 'index.html';
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true })
       .then(clientList => {

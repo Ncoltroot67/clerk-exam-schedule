@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <!-- PWA Manifest & iOS -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+<title>NYS Senior Court Clerk — 20-Week Study Schedule</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1a1f3c">
 <meta name="mobile-web-app-capable" content="yes">
@@ -843,14 +846,14 @@ updateCountdown();
 
 // Per-week progress from localStorage
 const WEEK_KEYS = {
-  1: { key:'nys_week1_checklist', total:62 },
+  1: { key:'nys_w1_blocks', total:62 },
   // additional weeks will store their own keys
 };
 
 function loadWeekProgress(){
   // Week 1 — read from its checklist store
   try {
-    const s = JSON.parse(localStorage.getItem('nys_week1_checklist')||'{}');
+    const s = JSON.parse(localStorage.getItem('nys_w1_blocks')||'{}');
     const done = Object.values(s).filter(Boolean).length;
     const total = 62; // approximate total items
     const pct = total ? Math.min(100, Math.round(done/total*100)) : 0;
@@ -874,6 +877,7 @@ loadWeekProgress();
 </script>
 
 
+<script src="clerk_sync.js"></script>
 <script src="pwa-features.js"></script>
 </body>
 </html>

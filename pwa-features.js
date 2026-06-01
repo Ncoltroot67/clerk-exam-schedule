@@ -43,7 +43,8 @@ const PWA = (() => {
   async function registerSW() {
     if (!('serviceWorker' in navigator)) return;
     try {
-      const reg = await navigator.serviceWorker.register('sw.js', { scope: './' });
+      const reg = await navigator.serviceWorker.register('./sw.js', { scope: './' });
+      console.log('SW registered:', reg.scope);
       setInterval(() => reg.update(), 60000);
       return reg;
     } catch(e) { console.warn('SW failed:', e); }

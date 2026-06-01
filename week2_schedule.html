@@ -255,6 +255,123 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   .back-btn{margin-left:0;margin-top:8px}
   .header-meta{flex-direction:column;align-items:flex-start}
 }
+
+/* ══════════════════════════════════════
+   MOBILE RESPONSIVE — all screen fixes
+   ══════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Base font */
+  body { font-size: 18px !important; }
+
+  /* Padding */
+  .header, .bar, .legend, .main, .color-legend,
+  .structure-banner, .sync-bar-inner,
+  [style*="padding:18px 36px"], [style*="padding:28px 36px"],
+  [style*="padding: 18px 36px"], [style*="margin:0 36px"] {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  /* All multi-column grids → single column */
+  .main, .hub-grid, .obs-grid, .method-grid,
+  .art-grid, .two, .cl-days, .sb-grid,
+  .mnemonic-grid, .quiz-article-grid,
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:repeat(auto-fill"],
+  [style*="grid-template-columns:repeat(auto-fit"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Day cards full width */
+  .day-card, .day-card.full, .full { grid-column: 1 !important; }
+
+  /* Block layout — time column narrower */
+  .block { grid-template-columns: 76px 1fr !important; padding: 12px 12px !important; }
+  .bwindow { font-size: 12px !important; }
+  .bdur { font-size: 14px !important; }
+
+  /* Headers */
+  .header h1, h1 { font-size: 26px !important; }
+  .day-name { font-size: 22px !important; }
+  .header-meta { flex-direction: column; align-items: flex-start; }
+  .back-btn { margin-left: 0 !important; margin-top: 6px; }
+  .header-actions { flex-direction: column; align-items: flex-start; }
+
+  /* Tab bars */
+  .tab-bar, .nq-tabs { padding-left: 14px !important; padding-right: 14px !important; overflow-x: auto; }
+  .tab { padding: 12px 14px !important; font-size: 14px !important; }
+
+  /* Cards */
+  .card-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .week-row { gap: 8px; }
+  .week-count { display: none; }
+
+  /* Score bars */
+  .score-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .score-actions { flex-wrap: wrap; }
+  .score-track { width: 100% !important; }
+
+  /* Quiz options */
+  .opt, .dq-opt, .qq-opt { padding: 10px 12px !important; }
+  .opt-text, .dq-opt div, .qq-opt div { font-size: 15px !important; }
+
+  /* Buttons */
+  .btn, .hbtn, .btn-action { font-size: 14px !important; }
+
+  /* Mnemonic */
+  .mnemo-save-row { flex-direction: column; }
+  .mnemo-btn { width: 100%; text-align: center; padding: 12px; }
+  .mnemo-input { font-size: 16px !important; }
+
+  /* Test panel */
+  .tp-grid { grid-template-columns: 1fr !important; }
+
+  /* Tech panel */
+  .tech-panel .tech-item { flex-direction: column; }
+
+  /* Week cards on dashboard */
+  .wk-cards { grid-template-columns: 1fr !important; }
+  .wk { min-width: unset !important; }
+
+  /* Countdown boxes */
+  .cd-box { min-width: 56px !important; padding: 8px !important; }
+  .cd-num { font-size: 24px !important; }
+
+  /* Bottom banners */
+  .notes-banner { flex-direction: column; align-items: flex-start; }
+  .nb-btn { width: 100%; text-align: center; }
+
+  /* Study dashboard */
+  .today-strip { flex-direction: column; align-items: flex-start; }
+  .today-badges { margin-left: 0 !important; }
+  .score-timeline .score-entry { flex-wrap: wrap; }
+  .score-notes { width: 100%; }
+
+  /* Progress rings */
+  .day-progress { gap: 6px; }
+  .dp-ring { width: 30px; height: 30px; }
+
+  /* Visual diagrams — scroll horizontally */
+  .visual-diagram .vd-body { overflow-x: auto; }
+  .comp-grid { min-width: 500px; }
+
+  /* Notes page */
+  .panel { padding: 16px 14px 40px !important; }
+  .notes-wrap { padding: 0 !important; }
+  .nb { padding: 12px 14px !important; }
+
+  /* Inline buttons */
+  [style*="display:flex;gap:10px;flex-wrap:wrap"] { flex-direction: column !important; }
+  .header-actions a, .header-actions button { width: 100%; justify-content: center; }
+}
+
+/* Slightly wider phones — 2 columns ok for week cards */
+@media (min-width: 480px) and (max-width: 768px) {
+  .wk-cards { grid-template-columns: 1fr 1fr !important; }
+}
+
 </style>
   <script src="clerk_sync.js"></script>
 </head>

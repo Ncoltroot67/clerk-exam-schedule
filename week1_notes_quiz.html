@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-<title>Week 1 — Notes & Quiz · CPL Arts. 1, 10, 30</title>
+<title>Week 1 — Study Notes · CPL Arts. 1, 10, 30</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -43,7 +43,6 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .panel.active{display:block}
 
 /* SCORE BAR */
-.score-bar{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .score-main{font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy)}
 .score-sub{font-size:14px;color:var(--text-muted)}
 .score-track{flex:1;min-width:120px;height:8px;background:var(--slate-light);border-radius:4px;overflow:hidden}
@@ -77,7 +76,6 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .nln{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--navy);color:white;font-size:10px;font-weight:600;flex-shrink:0;margin-top:2px}
 
 /* QUIZ QUESTIONS — Bluemedia style */
-.quiz-wrap{display:flex;flex-direction:column;gap:16px}
 
 .qcard{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .qcard.answered-correct{border-color:#4caf50}
@@ -136,14 +134,12 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   .cd-num{font-size:22px}
   .header h1{font-size:26px!important}
   .wk{font-size:14px}
-  .score-bar{flex-direction:column;align-items:flex-start}
   .qi-actions,.dq-opts{flex-direction:column}
-  .notes-body,.quiz-wrap{padding:0}
 }
 html.mobile-view .main{padding-left:16px!important;padding-right:16px!important;grid-template-columns:1fr!important}
 html.desktop-view .main{padding-left:40px!important;padding-right:40px!important;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))!important}
 </style>
-  <script src="clerk_sync.js"></script>
+  
 </head>
 <body>
 
@@ -159,29 +155,15 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 </div>
 
 <div class="tab-bar">
-  <button class="tab active" onclick="switchTab('art1',this)">CPL Art. 1 <span class="tab-count">43 Qs</span></button>
-  <button class="tab" onclick="switchTab('art10',this)">CPL Art. 10 <span class="tab-count">8 Qs</span></button>
-  <button class="tab" onclick="switchTab('pl10',this)">CPL Art. 30 <span class="tab-count">5 Qs</span></button>
+  <button class="tab active" onclick="switchTab('art1',this)">CPL Art. 1</button>
+  <button class="tab" onclick="switchTab('art10',this)">CPL Art. 10</button>
+  <button class="tab" onclick="switchTab('pl10',this)">CPL Art. 30</button>
 </div>
 
 <!-- ══════════════════════════════════════════════ -->
 <!-- CPL ART 1 PANEL -->
 <!-- ══════════════════════════════════════════════ -->
 <div class="panel active" id="panel-art1">
-
-  <!-- SCORE BAR -->
-  <div class="score-bar">
-    <div>
-      <div class="score-main" id="sd">0 / 43 correct</div>
-      <div class="score-sub" id="ss">Select an answer to begin</div>
-    </div>
-    <div class="score-track"><div class="score-fill" id="sf" style="width:0%"></div></div>
-    <div class="score-actions">
-      <button class="btn-action" onclick="resetAll()">Reset quiz</button>
-      <button class="btn-action gold" onclick="revealAllAnswers()">Reveal all answers</button>
-    </div>
-  </div>
-
   <!-- NOTES -->
   <div class="sec-head">
     <span class="sec-icon">📋</span>
@@ -265,36 +247,16 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
   </div>
   </div>
 
-  <!-- QUIZ -->
-  <div class="sec-head" style="margin-top:16px">
-    <span class="sec-icon">❓</span>
-    <span class="sec-title">Multiple Choice Quiz — CPL Art. 1 (43 questions · select one answer per question)</span>
-    <button class="toggle-btn" onclick="toggleEl('quiz-art1',this)">Hide quiz</button>
-  </div>
-  <div id="quiz-art1">
-  <div class="quiz-wrap" id="quiz-container"></div>
+  <div style="margin:16px 0">
+    <a href="week1_quiz.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:white;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;text-decoration:none">❓ CPL Art. 1 Practice Quiz →</a>
   </div>
 
 </div><!-- /panel-art1 -->
-
 
 <!-- ══════════════════════════════════════════════ -->
 <!-- CPL ART 10 PANEL -->
 <!-- ══════════════════════════════════════════════ -->
 <div class="panel" id="panel-art10">
-
-  <!-- SCORE BAR -->
-  <div class="score-bar">
-    <div>
-      <div class="score-main" id="sd10">0 / 8 correct</div>
-      <div class="score-sub" id="ss10">Select an answer to begin</div>
-    </div>
-    <div class="score-track"><div class="score-fill" id="sf10" style="width:0%"></div></div>
-    <div class="score-actions">
-      <button class="btn-action" onclick="resetQuiz10()">Reset quiz</button>
-      <button class="btn-action gold" onclick="revealAll10()">Reveal all answers</button>
-    </div>
-  </div>
 
   <!-- NOTES -->
   <div class="sec-head">
@@ -350,14 +312,10 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
   </div>
   </div>
 
-  <!-- QUIZ -->
-  <div class="sec-head" style="margin-top:16px">
-    <span class="sec-icon">❓</span>
-    <span class="sec-title">Quiz — CPL Art. 10 (8 questions)</span>
-    <button class="toggle-btn" onclick="toggleEl('quiz-art10',this)">Hide quiz</button>
-  </div>
-  <div id="quiz-art10">
-  <div class="quiz-grid" id="quiz-container-10"></div>
+  <div style="margin:16px 0 0">
+    <a href="study_dashboard.html#quizzes" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:white;border-radius:8px;padding:10px 18px;font-size:var(--fs-xs);font-weight:600;text-decoration:none">
+      ❓ Take CPL Art. 10 Quiz →
+    </a>
   </div>
 
 </div><!-- /panel-art10 -->
@@ -366,19 +324,6 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <!-- CPL ART 30 PANEL (tab labelled pl10) -->
 <!-- ══════════════════════════════════════════════ -->
 <div class="panel" id="panel-pl10">
-
-  <!-- SCORE BAR -->
-  <div class="score-bar">
-    <div>
-      <div class="score-main" id="sd30">0 / 5 correct</div>
-      <div class="score-sub" id="ss30">Select an answer to begin</div>
-    </div>
-    <div class="score-track"><div class="score-fill" id="sf30" style="width:0%"></div></div>
-    <div class="score-actions">
-      <button class="btn-action" onclick="resetQuiz30()">Reset quiz</button>
-      <button class="btn-action gold" onclick="revealAll30()">Reveal all answers</button>
-    </div>
-  </div>
 
   <!-- NOTES -->
   <div class="sec-head">
@@ -488,697 +433,13 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
   </div>
   </div>
 
-  <!-- QUIZ -->
-  <div class="sec-head" style="margin-top:16px">
-    <span class="sec-icon">❓</span>
-    <span class="sec-title">Quiz — CPL Art. 30 (5 questions)</span>
-    <button class="toggle-btn" onclick="toggleEl('quiz-art30',this)">Hide quiz</button>
-  </div>
-  <div id="quiz-art30">
-  <div class="quiz-grid" id="quiz-container-30"></div>
+  <div style="margin:16px 0 0">
+    <a href="study_dashboard.html#quizzes" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:white;border-radius:8px;padding:10px 18px;font-size:var(--fs-xs);font-weight:600;text-decoration:none">
+      ❓ Take CPL Art. 30 Quiz →
+    </a>
   </div>
 
 </div><!-- /panel-pl10 -->
-
-
-<script>
-// ══════════════════════════════════════════════════════════════
-// QUESTION DATA — all 43 questions with choices + explanations
-// ══════════════════════════════════════════════════════════════
-const QUESTIONS = [
-{n:1, q:"CPL applies to:",
- opts:["a. all criminal actions and proceedings","b. only those criminal actions and proceedings commenced before but still pending on the effective date of CPL","c. all criminal actions and proceedings commenced before but still pending on the effective date of CPL, provided that application of the provisions would not work injustice","d. only appeals and other post-judgment proceedings commenced on or after the effective date of CPL"],
- correct:"c",
- exp:"The effective date of CPL is September 1, 1971. The correct answer covers both pending matters and the injustice safeguard. Choice (a) is overbroad. Choices (b) and (d) are each incomplete.",
- ans:"all criminal actions and proceedings commenced before but still pending on the effective date of CPL, provided that application of the provisions would not work injustice"},
-
-{n:2, q:'A "superior court information" is similar in legal effect to an indictment except that a "superior court information" is filed by:',
- opts:["a. a grand jury","b. a district attorney","c. a superior court","d. an arresting officer"],
- correct:"b",
- exp:"An indictment is the product of a grand jury; a superior court information has the same force and effect as an indictment, and is filed with a superior court by a district attorney.",
- ans:"a district attorney"},
-
-{n:3, q:"An information in a local criminal court is:",
- opts:["a. an unverified written accusation by a person","b. a verified written accusation by a person","c. a verified oral accusation by a person","d. a verified written accusation which can be made only by a district attorney"],
- correct:"b",
- exp:'Verification of an information is covered by CPL 100.30. Basically it means "sworn to."',
- ans:"a verified written accusation by a person"},
-
-{n:4, q:"An information may serve:",
- opts:["a. both to commence a criminal action and as a basis for prosecution","b. both to commence a criminal action and to charge one or more defendants with a felony","c. only to commence a criminal action","d. only to serve as a basis for prosecution"],
- correct:"a",
- exp:"An information may serve both purposes. The commencement of a criminal action is defined in CPL 1.20-17. The significance of the date of commencement is given in CPL 30.10, which deals with timeliness of prosecution.",
- ans:"both to commence a criminal action and as a basis for prosecution"},
-
-{n:5, q:'A "prosecutor\'s information" can charge a defendant with a:',
- opts:["a. class A misdemeanor and class B felony","b. traffic infraction and class A felony","c. traffic infraction","d. class C felony"],
- correct:"c",
- exp:"A prosecutor's information cannot be used for a felony, thus eliminating choices (a), (b) and (d).",
- ans:"traffic infraction"},
-
-{n:6, q:"A misdemeanor complaint can charge one or more defendants with:",
- opts:["a. only misdemeanors","b. any offense, with at least one being a crime","c. a felony","d. any offense, with at least one being a crime, but none being a felony"],
- correct:"d",
- exp:"A misdemeanor complaint can charge one or more offenses, provided that at least one is a misdemeanor and none is a felony.",
- ans:"any offense, with at least one being a crime, but none being a felony"},
-
-{n:7, q:"A felony complaint…",
- opts:["a. is filed with any criminal court","b. serves to commence a criminal action, but may not, except upon the defendant's consent, serve as a basis for prosecution","c. is a written accusation by a person, filed with a local criminal court, that charges a defendant with a felony but does not serve to commence a criminal action","d. can serve to commence a criminal action but may not serve as a basis for the prosecution of that action"],
- correct:"d",
- exp:"Choice (d) is correct (CPL 1.20-8). Choice (a) is incorrect because a felony complaint is filed only with a local criminal court. Choice (b) is incorrect because a felony complaint cannot serve as the basis for prosecuting a felony. Choice (c) is incorrect because a felony complaint does serve to commence a criminal action.",
- ans:"can serve to commence a criminal action but may not serve as a basis for the prosecution of that action"},
-
-{n:8, q:"Arraignment refers to a defendant's appearance in:",
- opts:["a. the court which will conduct a trial, only","b. the court in which the criminal action is pending","c. only the first court in which the defendant is produced","d. any court which will decide, without a jury, defendant's guilt or innocence, only"],
- correct:"b",
- exp:"Choice (b) is correct (CPL 1.20-9). An arraignment is held for the court to acquire and exercise control over defendant's person and to set the course of further proceedings — bail status, lawyer, and scheduling. Choice (a) is incorrect because arraignment for a felony is usually in a local criminal court, which lacks trial jurisdiction as to felonies. Choice (c) is incorrect because it may not be the only court. Choice (d) has no legal support.",
- ans:"the court in which the criminal action is pending"},
-
-{n:9, q:"Jury trial commences:",
- opts:["a. when first witness is sworn","b. when first opening address is made","c. when the judge announces that the case is on trial","d. with selection of the jury"],
- correct:"d",
- exp:"The time when a jury trial commences may be a significant factor in relation to double jeopardy issues (CPL 40.30-1(b)).",
- ans:"with selection of the jury"},
-
-{n:10, q:"Defendant is arrested and charged with a felony. He demands a jury trial. Which of the following is a part of the jury trial?",
- opts:["a. Opening statements","b. Sentence","c. Selection of jurors","d. Witnesses being sworn at trial"],
- correct:"c",
- exp:'"A jury trial commences with the selection of the jury and includes all further proceedings through the rendition of a verdict." Sentence follows upon a verdict of conviction and is therefore not part of a jury trial.',
- ans:"Selection of jurors"},
-
-{n:11, q:"Which one of the following constitutes a conviction?",
- opts:["a. The imposition of sentence upon a verdict of guilty","b. A verdict of guilty rendered by a jury","c. The entry of a plea of guilty upon an indictment","d. A plea of guilty upon a felony complaint"],
- correct:"c",
- exp:"The imposition of sentence is based on a conviction but is subsequent in time. A plea of guilty upon a felony complaint is expressly negated by CPL 1.20-13.",
- ans:"The entry of a plea of guilty upon an indictment"},
-
-{n:12, q:"Accusatory instruments are used on behalf of the State as plaintiff to charge:",
- opts:["a. only crimes","b. only felonies","c. all offenses","d. only misdemeanors and felonies"],
- correct:"c",
- exp:'An "offense" under Penal Law 10.00-1 means any conduct for which a sentence of imprisonment or fine is provided; accusatory instruments are used for all offenses.',
- ans:"all offenses"},
-
-{n:13, q:"According to CPL, a criminal action commences when:",
- opts:["a. a defendant is arrested","b. the first accusatory instrument is filed against the defendant","c. an indictment is voted by a grand jury","d. the crime was committed"],
- correct:"b",
- exp:"Not at arrest, not at the crime date, not at indictment — filing of the first accusatory instrument is the trigger per CPL 1.20-1, 8, 16, 17.",
- ans:"the first accusatory instrument is filed against the defendant"},
-
-{n:14, q:'What does "trial jurisdiction" mean?',
- opts:["a. The authority of a court to issue an arrest warrant","b. The authority of a court to make a final disposition of a case on its merits","c. The authority of a court to commence a preliminary hearing","d. The authority of a court to arraign a defendant"],
- correct:"b",
- exp:"A court can have both preliminary and trial jurisdiction; an indictment may originate in a grand jury without a prior lower-court hearing.",
- ans:"The authority of a court to make a final disposition of a case on its merits"},
-
-{n:15, q:"Regarding an appearance ticket, which statement is correct? (1) It must be in writing (2) It may be issued only by a police officer (3) It may require defendant to appear in any criminal court (4) It cannot be used for a felony",
- opts:["a. Only statement 1 is correct","b. Statements 1 and 2 are correct","c. Statements 1 and 4 are correct","d. All four statements are correct"],
- correct:"a",
- exp:"Statement 2 is wrong — other public servants may issue appearance tickets per CPL 150.10. Statement 3 is wrong — it directs appearance in a designated local criminal court. Statement 4 is wrong — it may be used for certain class E felonies per CPL 150.20-2.",
- ans:"Only statement 1 is correct"},
-
-{n:16, q:'A "summons" in a criminal action is served upon:',
- opts:["a. an alleged offender requiring him to appear for trial","b. a defendant who has not yet been charged with any offense","c. a defendant against whom a criminal action has commenced","d. a witness whose attendance is required at a trial"],
- correct:"c",
- exp:"Choice (a) is incorrect because a summons requires a defendant to appear for arraignment. Choice (b) is incorrect because a summons is based upon a filed accusatory instrument. Choice (d) is incorrect because a summons is not used for a witness — the attendance of witnesses is obtained by subpoena.",
- ans:"a defendant against whom a criminal action has commenced"},
-
-{n:17, q:"A process of a local criminal court requiring a defendant to appear before it for arraignment upon a filed accusatory instrument by which a criminal action was commenced is known as:",
- opts:["a. a subpoena","b. an appearance ticket","c. a summons","d. a bench warrant"],
- correct:"c",
- exp:"Choice (a) is incorrect because a subpoena is used to require a witness to appear. Choice (b) is incorrect because an appearance ticket is issued by a police officer or other public servant, and is not a process of a local criminal court. Choice (d) is incorrect because a bench warrant is used to produce a defendant for some purpose other than initial arraignment (CPL 1.20-30).",
- ans:"a summons"},
-
-{n:18, q:"A summons may be issued by:",
- opts:["a. a local criminal court, only","b. a superior court, only","c. a local or superior court","d. a police officer"],
- correct:"c",
- exp:"The amended section, effective 11/1/93, authorizes a superior court to issue a summons, as well as a local criminal court. Choices (a) and (b) are necessarily incorrect. Choice (d) is incorrect — a police officer may issue an appearance ticket (CPL 1.20-26).",
- ans:"a local or superior court"},
-
-{n:19, q:"Police have probable cause to believe Joe has committed a crime. They apply to a local criminal court for a court order which directs a police officer to arrest Joe, and bring him in for arraignment upon a filed accusatory instrument. This order is called a:",
- opts:["a. bench warrant","b. prosecutor's warrant","c. warrant of arrest","d. search warrant"],
- correct:"c",
- exp:"Choice (a) is incorrect because a bench warrant is used to produce a defendant for some purpose other than initial arraignment. Choice (b) is meaningless, because a warrant is a court process. Choice (d) is incorrect because a search warrant is directed to tangible physical evidence rather than a defendant.",
- ans:"warrant of arrest"},
-
-{n:20, q:"A warrant of arrest is addressed to and can be executed by:",
- opts:["a. a police officer","b. any peace officer","c. a court officer","d. a county's clerk's officer"],
- correct:"a",
- exp:"Choice (b) is incorrect. Although not explicitly stated in CPL 1.20-28, there is provision in CPL 120.10-1 for a warrant of arrest to direct 'a peace officer appointed by the state university to arrest a defendant...' This authority is not given to all peace officers. Choice (c) is incorrect because the title does not exist.",
- ans:"a police officer"},
-
-{n:21, q:"An indictment has been filed against a defendant to commence the criminal action against him. In order for an officer to bring the defendant before the court for the purpose of arraignment upon the indictment he must obtain:",
- opts:["a. a summons","b. a warrant of arrest","c. a superior court warrant of arrest","d. a bench warrant"],
- correct:"c",
- exp:"Choice (b) is incorrect because a warrant of arrest is a process of a local criminal court directing a police officer to produce the defendant for purpose of arraignment on an accusatory instrument. Choice (a) has no application to an indictment (CPL 1.20-27, 130.10). Choice (d) may be used by a criminal court when a defendant in a pending case has previously been arraigned and his further appearance is required.",
- ans:"a superior court warrant of arrest"},
-
-{n:22, q:'A "superior court warrant of arrest" directs __________ to arrest a defendant for arraignment in a superior court.',
- opts:["a. a police officer","b. any peace officer","c. a county marshal","d. a court officer of a superior court","e. the Office of Arrest Warrants"],
- correct:"a",
- exp:"Choices (b), (c) and (d) are incorrect because they are not included in the applicable definition. Choice (e) is meaningless — no such office is known to exist. In New York City, the Police Department has a warrant squad composed of police officers, and prosecutor's offices may have police officers assigned. In addition, note CPL 1.20-34(g) which includes in the category of police officers 'An investigator employed in the office of a district attorney.'",
- ans:"a police officer"},
-
-{n:23, q:"A process of a criminal court which directs a police officer to take into custody a defendant who has previously been arraigned upon an accusatory instrument by which an action was commenced is:",
- opts:["a. a superior court warrant of arrest","b. a bench warrant","c. an indictment","d. a criminal court warrant"],
- correct:"b",
- exp:"Since the defendant has previously been arraigned, a bench warrant is appropriate to achieve defendant's further court appearance.",
- ans:"a bench warrant"},
-
-{n:24, q:"Accusatory instruments include:",
- opts:["a. indictments and warrants of arrest","b. felony complaints and a prosecutor's information","c. grand jury statements and superior court orders","d. misdemeanor complaints and indictments"],
- correct:"d",
- exp:"Choice (a) is incorrect because a warrant of arrest is not an accusatory instrument. When issued, warrant of arrest is based on an accusatory instrument (CPL 120.10-1). Choice (c) uses terms which are neither defined in CPL nor relevant to accusatory instruments.",
- ans:"misdemeanor complaints and indictments"},
-
-{n:25, q:"The purpose of a bench warrant is to:",
- opts:["a. return a defendant to a jail from which he or she has escaped","b. bring a defendant into court for initial arraignment","c. have a defendant appear before a grand jury to testify","d. produce a defendant in court on a pending criminal action for some purpose other than initial arraignment"],
- correct:"d",
- exp:"A bench warrant produces a defendant in court on a pending criminal action for some purpose other than initial arraignment.",
- ans:"produce a defendant in court on a pending criminal action for some purpose other than initial arraignment"},
-
-{n:26, q:'The term "prosecutor" includes:',
- opts:["a. a district attorney","b. the attorney-general","c. a special prosecutor","d. the New York City Corporation Counsel"],
- correct:"a",
- exp:"Choices (b) and (c) may represent the people in certain criminal actions, instead of the district attorney. Choice (d) is incorrect, for it refers to the person who as head of New York City's legal department is concerned with civil legal matters. Criminal actions would have to be referred to an appropriate prosecutor.",
- ans:"a district attorney"},
-
-{n:27, q:"Which of the following are police officers, under CPL?",
- opts:["a. All sheriffs, under-sheriffs and deputy sheriffs","b. A deputy fire marshal in the bureau of fire investigation of the New York City Fire Department","c. An investigator employed in the office of a district attorney","d. Long Island Railroad police","e. A sworn officer of the police force of the Port Authority of New York and New Jersey (a public authority created by an interstate compact between New York and New Jersey)"],
- correct:"c",
- exp:"Choice (a) is incorrect because these officials have police officer status only when employed by counties outside New York City. In New York City, the sheriff, under-sheriff and deputy sheriffs exercise only civil jurisdiction.",
- ans:"An investigator employed in the office of a district attorney"},
-
-{n:28, q:"The State University of New York operates state-wide. For security functions it appoints persons who are designated in CPL as:",
- opts:["a. peace officers","b. police officers","c. constables","d. security officers"],
- correct:"b",
- exp:"The correct answer is: police officers.",
- ans:"police officers"},
-
-{n:29, q:"Select the correct statement as to the geographical area of employment of police officers:",
- opts:["a. A twenty-year veteran New York State police officer has spent all his police service assigned to the Dover Plains Station in Dutchess County. His geographical area of employment is the entire state","b. A New York City police officer lives and works in Kings County, one of the five counties of New York City. The officer's geographical area of employment is solely Kings County","c. A deputy sheriff of Nassau County has always been assigned to the County Jail in Mineola. The sheriff's geographical area of employment is limited to Mineola","d. A police officer of the town of Chatham, in Columbia County, is assigned to road patrol for traffic violators. The officer's geographical area of employment does not include state or county roads which pass through the town"],
- correct:"a",
- exp:"Since the officer's employer is the state, his geographical area of employment is the entire state. Choice (b) is incorrect, for the geographical area of employment of a New York City police officer is the entire city. Choice (c) is incorrect — Nassau County determines his geographical area of employment as being all of the county. Choice (d) is incorrect — the entire town is included in the officer's geographical area of employment. Note that subdivision 34-a relative to the NYS geographical area of employment is repealed eff. 9/1/25, per Ch.55, L.2023.",
- ans:"A twenty-year veteran New York State police officer has spent all his police service assigned to the Dover Plains Station in Dutchess County. His geographical area of employment is the entire state"},
-
-{n:30, q:"Select the correct statement as to the geographical area of employment of a police officer appointed by the state university:",
- opts:["a. The officer's geographical area of employment is the entire state, because the state university functions throughout the state","b. The officer's geographical area of employment is limited to the campus properties of the state university","c. The officer's geographical area of employment is fixed and defined by his employer, the state university, according to his duty assignment","d. The officer's geographical area of employment includes university campuses and other university property, including any portion of a public highway which may cross or abut university property"],
- correct:"d",
- exp:"Choices (a), (b) and (c) are incorrect because CPL 1.20-34a(d) limits the geographical area of employment of police officers appointed by the state university to campuses and other property of the state university, including any portion of a public highway which crosses or abuts such property. Generally, CPL 1.20-34a provides that other police officers of an agency have a geographical area of employment throughout the state when the agency functions throughout the state.",
- ans:"The officer's geographical area of employment includes university campuses and other university property, including any portion of a public highway which may cross or abut university property"},
-
-{n:31, q:"Select all correct statements as to a lesser included offense:",
- opts:["a. Intentional assault is a lesser included offense of intentional murder","b. Petit larceny (stealing property, a misdemeanor) is a lesser included offense of grand larceny first degree (stealing over one million dollars in property, a class B felony)","c. Sexual abuse first degree (sexual contact by forcible compulsion, a class D felony) is a lesser included offense of rape first degree (sexual intercourse by forcible compulsion, a class B felony)","d. Trespass (entering premises unlawfully, a violation) is a lesser included offense of burglary first degree (entering a dwelling unlawfully while armed, a class B felony)"],
- correct:"a",
- exp:"In each situation it would be impossible to commit the greater offense without at the same time and by the same conduct committing the lesser. Choice (b) is incorrect — it is possible to steal over $1M without committing petit larceny. Choice (c) is incorrect — it is possible to commit rape 1st without committing sexual abuse 1st. Choice (d) is incorrect — it is possible to commit burglary 1st without committing trespass.",
- ans:"Intentional assault is a lesser included offense of intentional murder"},
-
-{n:32, q:"An attempt to commit an intentional assault may be successful or unsuccessful. Assume a successful attempt in which the defendant is charged only with the completed assault. It has, however, been agreed that the defendant will voluntarily plead guilty to attempted assault in full satisfaction of the charge. This guilty plea:",
- opts:["a. cannot be accepted, since defendant was charged only with the completed crime","b. can be accepted, although not included in the indictment","c. should be entered only if the indictment is amended to add a new charge of attempted assault","d. is illegal and improper in any case, since a grand jury saw fit to charge the completed crime"],
- correct:"b",
- exp:"In the case of a lesser included offense, it is not necessary that the lesser offense be charged. Defendant may be permitted to plead guilty to a lesser included offense (CPL 220.10), and in the case of a court's charge to a jury, CPL 300.30 and 300.50 provides for the court to submit lesser included offenses for the jury's consideration.",
- ans:"can be accepted, although not included in the indictment"},
-
-{n:33, q:"According to CPL, an affirmation is most nearly equal to:",
- opts:["a. an acknowledgment","b. an oath","c. an allegation","d. a truth"],
- correct:"b",
- exp:'Adherents of some religions, and others, may have personal reasons for refusing to take an oath. For such persons, an affirmation may be used, as well as any "other mode authorized by law of attesting to the truth of that which is stated." In this regard, an interested person may find case law helpful.',
- ans:"an oath"},
-
-{n:34, q:"Petty offenses include:",
- opts:["a. violations, only","b. violations and misdemeanors","c. traffic infractions and violations","d. all offenses"],
- correct:"c",
- exp:"Petty offenses is a defined term, and its use must accord with the definition.",
- ans:"traffic infractions and violations"},
-
-{n:35, q:"Which of the following constitutes a juvenile offender?",
- opts:["a. A thirteen-year-old male who commits acts constituting the crime of rape first degree","b. A twelve-year-old who commits acts constituting the crime of intentional murder second degree","c. A fourteen-year-old who commits acts constituting the crime of burglary first degree","d. A fifteen-year-old who commits acts constituting the crime of robbery third degree"],
- correct:"c",
- exp:"Choice (a) is incorrect because rape in any degree is not a crime for which a thirteen-year-old is criminally responsible as a juvenile offender. Choice (b) is incorrect because a twelve-year-old is not criminally responsible as a juvenile offender for any crime. Choice (d) is incorrect because a fifteen-year-old is not criminally responsible as a juvenile offender for robbery third degree. Also note: certain conduct involving sexually motivated felonies are included. See Penal Law §130.91.",
- ans:"A fourteen-year-old who commits acts constituting the crime of burglary first degree"},
-
-{n:36, q:"As to possession of a loaded firearm by a person fourteen years of age, select the correct statement:",
- opts:["a. If the possession is in the person's home there is no criminal responsibility","b. There is criminal responsibility for any such possession","c. There is criminal responsibility only if such possession is on school grounds","d. There is criminal responsibility only if such possession is on school grounds of a public school"],
- correct:"c",
- exp:'The legislature extended criminal responsibility in this situation to conduct by a fourteen-year old as described in PL 265.02-4 or PL 265.03, only where the conduct occurred on school grounds, as that term is defined in PL 220.00-14. Choices (b) and (d) are incorrect. Choice (b) is incorrect because it is only such possession on school grounds that entails criminal responsibility. Choice (d) is incorrect because the term "school grounds" is defined by PL 220.00-14 to include a public or private school.',
- ans:"There is criminal responsibility only if such possession is on school grounds"},
-
-{n:37, q:"The State is designated as the plaintiff in every accusatory instrument:",
- opts:["a. unless the defendant is a corporation","b. unless the action is prosecuted by the attorney general rather than by a district attorney","c. unless the accusatory instrument is a misdemeanor complaint","d. without exception"],
- correct:"d",
- exp:'There are no exceptions. The victim of a crime may be a plaintiff in a civil action arising from the crime, but in a criminal action the State as plaintiff seeks to enforce the criminal law on behalf of "the people" of the State.',
- ans:"without exception"},
-
-{n:38, q:"An appearance ticket or a parking infraction must contain which of the following: I. time and place of infraction  II. license plate  III. make and model of vehicle  IV. body type of vehicle",
- opts:["a. I. and II. only","b. II and III. only","c. I., II. and III. only","d. I., II., III. and IV."],
- correct:"d",
- exp:"CPL1.20(1)(b) requires all four elements.",
- ans:"I., II., III. and IV."},
-
-{n:39, q:'"Local criminal court accusatory instruments" include:',
- opts:["a. indictments","b. felony complaints","c. superior court informations","d. misdemeanor complaints"],
- correct:"b",
- exp:"Choices (a) and (c) are incorrect because they are specifically excluded by CPL 1.20-2. Both of these accusatory instruments are used only in superior courts.",
- ans:"felony complaints"},
-
-{n:40, q:"An indictment is an accusation by:",
- opts:["a. a prosecutor","b. a grand jury","c. a judge","d. a police officer"],
- correct:"b",
- exp:"Neither a prosecutor, judge or police officer has power to indict. An indictment results only from the vote of a grand jury.",
- ans:"a grand jury"},
-
-{n:41, q:"Which of the following relate to an indictment? 1. It is a written accusation  2. It is an accusation by a district attorney  3. It is filed with a superior court  4. It only concerns felonies",
- opts:["a. 1 and 2 only","b. 1 and 3 only","c. 2 and 4 only","d. 1, 2, 3 and 4"],
- correct:"b",
- exp:"Statement 2 is wrong — an indictment is by a grand jury, not a district attorney. Statement 4 is wrong — an indictment must include at least one crime, which may be a misdemeanor; there is no legal exclusion as to misdemeanors.",
- ans:"1 and 3 only"},
-
-{n:42, q:"An indictment is filed with a superior court in order to:",
- opts:["a. alert the grand jury that it must consider evidence against a defendant","b. charge one or more defendants with a crime","c. commence a criminal action in all cases","d. serve as a basis for prosecution in all cases"],
- correct:"b",
- exp:"An indictment is the product of grand jury consideration — it does not alert the grand jury. It does not commence a criminal action 'in all cases' — most indictments follow a felony complaint that already commenced the action. It may or may not serve as the basis for prosecution depending on how the action was commenced.",
- ans:"charge one or more defendants with a crime"},
-
-{n:43, q:"A superior court information is classified in CPL as:",
- opts:["a. a written accusation by a grand jury, filed with a superior court, which charges a defendant with the commission of one or more offenses at least one of which is a crime","b. a written accusation by a district attorney, filed with a superior court, which charges a defendant with the commission of one or more offenses at least one of which is a crime","c. a written accusation by a district attorney, filed with a local criminal court, which charges a defendant with one or more misdemeanors","d. a written accusation by a police officer, filed with a superior court, which charges a defendant with one or more felonies"],
- correct:"b",
- exp:"Under CPL Article 195, with defendant's consent, a DA may file a superior court information as an alternative to grand jury action; it has the same force and effect as an indictment.",
- ans:"a written accusation by a district attorney, filed with a superior court, which charges a defendant with the commission of one or more offenses at least one of which is a crime"}
-];
-
-// ══════════════════════════════════════════════════════════════
-// STATE & STORAGE
-// ══════════════════════════════════════════════════════════════
-const state = {}; // {qNum: 'a'|'b'|'c'|'d'|'e'}
-const STORE = 'nys_w1_mc';
-
-function save(){ try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){} }
-function load(){ try{ const s=JSON.parse(localStorage.getItem(STORE)||'{}'); Object.assign(state,s); }catch(e){} }
-
-// ══════════════════════════════════════════════════════════════
-// BUILD QUIZ
-// ══════════════════════════════════════════════════════════════
-function buildQuiz(){
-  const container = document.getElementById('quiz-container');
-  container.innerHTML = '';
-  QUESTIONS.forEach(q => {
-    const card = document.createElement('div');
-    card.className = 'qcard';
-    card.id = 'qcard-'+q.n;
-
-    const answered = state[q.n];
-    const isCorrect = answered === q.correct;
-    if(answered) card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
-
-    const letters = ['a','b','c','d','e'];
-    let optsHtml = '';
-    q.opts.forEach((opt, i) => {
-      const letter = letters[i];
-      const text = opt.substring(3); // remove "a. " prefix
-      let cls = 'opt';
-      let badge = '';
-      let letterCls = 'opt-letter';
-      if(answered){
-        cls += ' locked';
-        if(letter === q.correct){
-          cls += ' reveal-correct';
-          badge = '<span class="opt-badge badge-correct">✓ Correct</span>';
-        } else if(letter === answered && answered !== q.correct){
-          cls += ' selected-wrong';
-          badge = '<span class="opt-badge badge-wrong">✗ Incorrect</span>';
-        }
-      }
-      optsHtml += `<div class="${cls}" onclick="selectAnswer(${q.n},'${letter}')" id="opt-${q.n}-${letter}">
-        <div class="opt-letter" id="ol-${q.n}-${letter}">${letter.toUpperCase()}</div>
-        <div class="opt-text">${text}</div>
-        ${badge}
-      </div>`;
-    });
-
-    const expDisplay = answered ? 'show' : '';
-    card.innerHTML = `
-      <div class="qcard-head">
-        <div class="qcard-num">Question ${q.n}</div>
-        <div class="qcard-q">${q.q}</div>
-      </div>
-      <div class="qcard-options">${optsHtml}</div>
-      <div class="qcard-explanation ${expDisplay}" id="exp-${q.n}">
-        <div class="exp-text">${q.exp}</div>
-        <div class="exp-answer">✓ The correct answer is: ${q.ans}</div>
-      </div>`;
-    container.appendChild(card);
-  });
-  updateScore();
-}
-
-// ══════════════════════════════════════════════════════════════
-// SELECT ANSWER
-// ══════════════════════════════════════════════════════════════
-function selectAnswer(qNum, letter){
-  if(state[qNum]) return; // already answered
-  const q = QUESTIONS.find(x=>x.n===qNum);
-  if(!q) return;
-
-  state[qNum] = letter;
-  save();
-
-  const card = document.getElementById('qcard-'+qNum);
-  const isCorrect = letter === q.correct;
-  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
-
-  // Update option styles
-  const letters = ['a','b','c','d','e'];
-  q.opts.forEach((opt, i) => {
-    const l = letters[i];
-    const optEl = document.getElementById('opt-'+qNum+'-'+l);
-    const olEl = document.getElementById('ol-'+qNum+'-'+l);
-    if(!optEl) return;
-    optEl.classList.add('locked');
-    if(l === q.correct){
-      optEl.classList.add('reveal-correct');
-      // add correct badge
-      if(!optEl.querySelector('.opt-badge')){
-        const badge = document.createElement('span');
-        badge.className = 'opt-badge badge-correct';
-        badge.textContent = '✓ Correct';
-        optEl.appendChild(badge);
-      }
-    } else if(l === letter && !isCorrect){
-      optEl.classList.add('selected-wrong');
-      if(!optEl.querySelector('.opt-badge')){
-        const badge = document.createElement('span');
-        badge.className = 'opt-badge badge-wrong';
-        badge.textContent = '✗ Incorrect';
-        optEl.appendChild(badge);
-      }
-    }
-  });
-
-  // Show explanation
-  const exp = document.getElementById('exp-'+qNum);
-  if(exp) exp.classList.add('show');
-
-  updateScore();
-
-  // ── Save wrong answer to Supabase ──
-  if (!isCorrect && typeof CLERK_SYNC !== 'undefined') {
-    const chosenText = q.opts.find(o => o.startsWith(letter+'.') || o.startsWith(letter+' ')) || letter;
-    const correctText = q.opts.find(o => o.startsWith(q.correct+'.') || o.startsWith(q.correct+' ')) || q.correct;
-    CLERK_SYNC.saveWrongAnswer(
-      'CPL Art. 1',
-      q.q || q.stem || 'Question ' + qNum,
-      chosenText.substring(0, 80),
-      correctText.substring(0, 80)
-    );
-  }
-}
-
-// ══════════════════════════════════════════════════════════════
-// SCORE
-// ══════════════════════════════════════════════════════════════
-function updateScore(){
-  const answered = Object.keys(state).length;
-  const correct = Object.entries(state).filter(([n,l])=>{
-    const q=QUESTIONS.find(x=>x.n===parseInt(n));
-    return q && l===q.correct;
-  }).length;
-  const pct = answered>0 ? Math.round(correct/QUESTIONS.length*100) : 0;
-  const sd = document.getElementById('sd');
-  const ss = document.getElementById('ss');
-  const sf = document.getElementById('sf');
-  if(sd) sd.textContent = correct+' / '+QUESTIONS.length+' correct';
-  if(ss) ss.textContent = answered+' answered · '+pct+'% score';
-  if(sf) sf.style.width = pct+'%';
-}
-
-// ══════════════════════════════════════════════════════════════
-// RESET
-// ══════════════════════════════════════════════════════════════
-function resetAll(){
-  if(!confirm('Reset all answers? This cannot be undone.')) return;
-  Object.keys(state).forEach(k=>delete state[k]);
-  save();
-  buildQuiz();
-}
-
-// ══════════════════════════════════════════════════════════════
-// REVEAL ALL
-// ══════════════════════════════════════════════════════════════
-function revealAllAnswers(){
-  QUESTIONS.forEach(q=>{
-    if(!state[q.n]){
-      state[q.n] = '__revealed__'; // mark as revealed but not scored
-    }
-    const exp = document.getElementById('exp-'+q.n);
-    if(exp) exp.classList.add('show');
-    // highlight correct option
-    const correctOpt = document.getElementById('opt-'+q.n+'-'+q.correct);
-    if(correctOpt && !correctOpt.classList.contains('reveal-correct')){
-      correctOpt.classList.add('reveal-correct','locked');
-      if(!correctOpt.querySelector('.opt-badge')){
-        const badge = document.createElement('span');
-        badge.className = 'opt-badge badge-correct';
-        badge.textContent = '✓ Correct';
-        correctOpt.appendChild(badge);
-      }
-    }
-    // lock all options
-    const letters=['a','b','c','d','e'];
-    letters.forEach(l=>{
-      const o = document.getElementById('opt-'+q.n+'-'+l);
-      if(o) o.classList.add('locked');
-    });
-  });
-}
-
-// ══════════════════════════════════════════════════════════════
-// TAB SWITCH
-// ══════════════════════════════════════════════════════════════
-function switchTab(id, btn){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('panel-'+id).classList.add('active');
-}
-
-// ══════════════════════════════════════════════════════════════
-// TOGGLE SECTION
-// ══════════════════════════════════════════════════════════════
-function toggleEl(id, btn){
-  const el = document.getElementById(id);
-  if(!el) return;
-  const isHidden = el.style.display==='none';
-  el.style.display = isHidden ? 'block' : 'none';
-  const label = id.includes('notes') ? 'notes' : 'quiz';
-  btn.textContent = isHidden ? 'Hide '+label : 'Show '+label;
-}
-
-// ══════════════════════════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', ()=>{
-  load();
-  buildQuiz();
-});
-</script>
-
-<script>
-// ════════════════════════════════════════════════════════
-// CPL ART 10 — 8 QUESTIONS (from quiz mode document)
-// ════════════════════════════════════════════════════════
-const Q10 = [
-  {n:1, q:"Smith commits a crime in New York City. His criminal case can be tried, according to the CPL:",
-   opts:["a. only in a local criminal court","b. only in a local criminal court or superior court","c. only in the New York City Criminal Court","d. only in a superior court or County Court","e. only by a superior court justice sitting as a local criminal court"],
-   correct:"b",
-   exp:"Since the crime is not specified, the appropriate court cannot be specified. For a felony the case could be tried only in Supreme Court in NYC (there is no County Court within NYC). The correct answer is: <strong>only in a local criminal court or superior court.</strong>",
-   ans:"only in a local criminal court or superior court"},
-  {n:2, q:"A superior court of criminal jurisdiction refers to:",
-   opts:["a. New York City Criminal Court and Supreme Court","b. Supreme Court, Appellate Division and Court of Appeals","c. District Court, New York City Criminal Court and Supreme Court","d. Supreme Court and County Court"],
-   correct:"d",
-   exp:"NYC Criminal Court is a local criminal court. The Appellate Division and Court of Appeals are appellate courts. The District Court is a local criminal court. <strong>Correct: Supreme Court and County Court.</strong>",
-   ans:"Supreme Court and County Court"},
-  {n:3, q:"Superior courts have: 1. unlimited trial jurisdiction over all petty offenses 2. exclusive trial jurisdiction of felonies 3. no trial jurisdiction over misdemeanors 4. no trial jurisdiction over petty offenses 5. preliminary jurisdiction over all offenses only through their grand juries",
-   opts:["a. All of the above are true","b. None of the above are true","c. 2 and 5 are true, the others are not","d. 1 and 2 are true, the others are not"],
-   correct:"c",
-   exp:"Statement 1 incorrect — trial jurisdiction over petty offenses limited to those in an indictment that also charges a crime. Statement 3 incorrect — superior courts have concurrent trial jurisdiction of misdemeanors. Statement 4 incorrect — petty offense jurisdiction exists when included in an indictment charging a crime. <strong>Correct: 2 and 5 are true.</strong>",
-   ans:"2 and 5 are true, the others are not"},
-  {n:4, q:"Superior courts have trial jurisdiction over:",
-   opts:["a. only felonies","b. only felonies and misdemeanors","c. petty offenses, only if there is also a felony charge","d. petty offenses, only if there is also a crime charged"],
-   correct:"d",
-   exp:"A crime includes both misdemeanors AND felonies — not just felonies. So the correct answer is the broader statement: <strong>petty offenses, only if there is also a crime charged.</strong>",
-   ans:"petty offenses, only if there is also a crime charged"},
-  {n:5, q:"Creep has been indicted on a petty offense. The indictment also charges Creep with a crime. Creep's case may be heard only in a:",
-   opts:["a. district court","b. local criminal court","c. superior court","d. city court"],
-   correct:"c",
-   exp:"The significant part of the question is that Creep has been <em>indicted</em>. An indictment may be tried only in a superior court. <strong>Correct: superior court.</strong>",
-   ans:"superior court"},
-  {n:6, q:"Superior court judges, when sitting as local criminal courts, may: 1. conduct arraignments 2. issue warrants of arrest 3. issue search warrants",
-   opts:["a. 1 only","b. 1 and 2 only","c. 2 only","d. 2 and 3 only","e. 1, 2 and 3"],
-   correct:"e",
-   exp:"CPL §10.20(3) lists all three functions. When sitting as a local criminal court, a superior court judge may conduct arraignments, issue warrants of arrest, and issue search warrants. <strong>Correct: 1, 2 and 3.</strong>",
-   ans:"1, 2 and 3"},
-  {n:7, q:"Donny Defendant has decided to represent himself in his criminal case. The county court requires electronic filing. In representing himself, Donny:",
-   opts:["a. Must be assigned a paralegal by the Court to assist with e-filing","b. Must figure out electronic filing himself and comply","c. Is exempt from the electronic filing requirement as a pro se defendant","d. Must apply to the presiding judge for permission to be excused"],
-   correct:"c",
-   exp:"CPL §10.40(2)(b) provides a specific exemption for pro se litigants from the electronic filing requirement. Unrepresented parties can never be compelled to e-file. <strong>Correct: exempt as a pro se defendant.</strong>",
-   ans:"Is exempt from the electronic filing requirement as a pro se defendant"},
-  {n:8, q:"Reporter Nora Nosey wants to view papers filed electronically in a pending county court criminal case online. Nora:",
-   opts:["a. Must obtain the permission of the presiding judge to view online","b. Cannot view the papers online under any circumstances","c. Must file a Freedom of Information Law request to view online","d. Can view the papers if she first registers with OCA for online access"],
-   correct:"b",
-   exp:"CPL §10.40(2)(e)(ii) prohibits viewing of electronically filed papers in criminal proceedings online. FOIL does not apply to courts — only executive agencies. <strong>Correct: cannot view online under any circumstances.</strong>",
-   ans:"Cannot view the papers online under any circumstances"},
-];
-
-// ════════════════════════════════════════════════════════
-// CPL ART 30 — 5 QUESTIONS
-// ════════════════════════════════════════════════════════
-const Q30 = [
-  {n:1, q:"For a felony charge, the People must be ready for trial within:",
-   opts:["a. 90 days","b. 120 days","c. 6 months (approximately 180 days)","d. 1 year"],
-   correct:"c",
-   exp:"CPL §30.30(1) — the People must be ready for trial within <strong>6 months</strong> for a felony. Note: separately, a defendant held in custody on a felony must be released if not ready within 90 days (§30.30(2)).",
-   ans:"6 months (approximately 180 days)"},
-  {n:2, q:"Under CPL §30.30, which offenses are EXEMPT from the speedy trial time limits?",
-   opts:["a. Class A felonies","b. All sex offenses","c. Homicide offenses (PL §§125.10–125.27)","d. Terrorism felonies under PL Art. 490"],
-   correct:"c",
-   exp:"CPL §30.30 expressly exempts <strong>homicide offenses (PL §§125.10–125.27)</strong> from both the readiness deadline and the custody release rule. Class A felonies, sex offenses, and terrorism felonies are all subject to §30.30.",
-   ans:"Homicide offenses (PL §§125.10–125.27)"},
-  {n:3, q:"Under the 2026 law, the statute of limitations period for child sex offenses (against a child under 18) is tolled until:",
-   opts:["a. The victim turns 18","b. The victim turns 21","c. The victim turns 23, or the offense is reported to law enforcement or SCR — whichever is earlier","d. There is no limitation period for any child sex offense"],
-   correct:"c",
-   exp:"NEW 2026: CPL §30.10(3)(f) was updated — the tolling period now runs until the child turns <strong>23</strong> (previously 18), OR the offense is reported to law enforcement or the SCR — whichever comes FIRST.",
-   ans:"The victim turns 23, or the offense is reported to law enforcement or SCR — whichever is earlier"},
-  {n:4, q:"Under §30.10(3)(h) (NEW 2026), the statute of limitations for deed theft / felony fraud in a real property transaction is:",
-   opts:["a. 5 years from commission, period","b. 2 years from discovery, period","c. 5 years from commission OR 2 years from discovery — whichever is EARLIER","d. 5 years from commission OR 2 years from discovery — whichever is LATER"],
-   correct:"d",
-   exp:"NEW 2026: §30.10(3)(h) — deed theft is <strong>5 years from commission OR 2 years from discovery — whichever is LATER</strong>. Note this carefully: 'later' not 'earlier.' This gives the prosecution the longer of the two periods.",
-   ans:"5 years from commission OR 2 years from discovery — whichever is LATER"},
-  {n:5, q:"When a felony complaint is converted to a misdemeanor complaint (non-custody case), the speedy trial clock:",
-   opts:["a. Always resets to the new instrument filing date","b. Resets to the new instrument filing date, UNLESS the aggregate of elapsed time plus the new allowable period would exceed 6 months — then the original felony complaint date controls","c. Always runs from the original felony complaint filing date","d. Resets only if the defendant consents to the conversion"],
-   correct:"b",
-   exp:"CPL §30.30(7) — the clock resets to the new instrument date <strong>UNLESS</strong> the aggregate of elapsed time plus the new allowable period would exceed 6 months (non-custody). If it would exceed 6 months, the original felony complaint date controls.",
-   ans:"Resets to the new instrument filing date, UNLESS the aggregate would exceed 6 months — then the original felony complaint date controls"},
-];
-
-// ════════════════════════════════════════════════════════
-// SHARED QUIZ ENGINE FOR ART 10 + ART 30
-// ════════════════════════════════════════════════════════
-const state10 = {};
-const state30 = {};
-const STORE10 = 'nys_w1_nq_art10';
-const STORE30 = 'nys_w1_nq_art30';
-
-function loadQ10(){ try{ Object.assign(state10, JSON.parse(localStorage.getItem(STORE10)||'{}')); }catch(e){} }
-function saveQ10(){ try{ localStorage.setItem(STORE10, JSON.stringify(state10)); }catch(e){} }
-function loadQ30(){ try{ Object.assign(state30, JSON.parse(localStorage.getItem(STORE30)||'{}')); }catch(e){} }
-function saveQ30(){ try{ localStorage.setItem(STORE30, JSON.stringify(state30)); }catch(e){} }
-
-function buildQuizN(questions, containerId, prefix, state){
-  const c = document.getElementById(containerId);
-  if(!c) return;
-  c.innerHTML = '';
-  questions.forEach(q => {
-    const answered = state[q.n];
-    const letters = ['a','b','c','d','e'];
-    let optsHtml = '';
-    q.opts.forEach((opt,i) => {
-      const l = letters[i];
-      const text = opt.substring(3);
-      let cls = 'opt';
-      let badge = '';
-      if(answered){
-        cls += ' locked';
-        if(l === q.correct){ cls += ' reveal-correct'; badge = '<span class="opt-badge badge-correct">✓ Correct</span>'; }
-        else if(l === answered && answered !== q.correct){ cls += ' selected-wrong'; badge = '<span class="opt-badge badge-wrong">✗ Incorrect</span>'; }
-      }
-      optsHtml += `<div class="${cls}" id="opt-${prefix}-${q.n}-${l}" onclick="pickAnswer('${prefix}',${q.n},'${l}')">
-        <div class="opt-letter">${l.toUpperCase()}</div>
-        <div class="opt-text">${text}</div>${badge}</div>`;
-    });
-    const expShow = answered ? 'show' : '';
-    const card = document.createElement('div');
-    card.className = 'qcard' + (answered ? (state[q.n] === q.correct ? ' answered-correct' : ' answered-wrong') : '');
-    card.id = `qcard-${prefix}-${q.n}`;
-    card.innerHTML = `
-      <div class="qcard-head">
-        <div class="qcard-num">Question ${q.n}</div>
-        <div class="qcard-q">${q.q}</div>
-      </div>
-      <div class="qcard-options">${optsHtml}</div>
-      <div class="qcard-explanation ${expShow}" id="exp-${prefix}-${q.n}">
-        <div class="exp-text">${q.exp}</div>
-        <div class="exp-answer">✓ Correct answer: ${q.ans}</div>
-      </div>`;
-    c.appendChild(card);
-  });
-}
-
-function pickAnswer(prefix, qn, letter){
-  const questions = prefix === 'a10' ? Q10 : Q30;
-  const state = prefix === 'a10' ? state10 : state30;
-  if(state[qn]) return;
-  const q = questions.find(x=>x.n===qn);
-  if(!q) return;
-  state[qn] = letter;
-  prefix === 'a10' ? saveQ10() : saveQ30();
-  const isCorrect = letter === q.correct;
-  const card = document.getElementById(`qcard-${prefix}-${qn}`);
-  if(card){ card.classList.add(isCorrect?'answered-correct':'answered-wrong'); }
-  const letters = ['a','b','c','d','e'];
-  q.opts.forEach((_,i)=>{
-    const l = letters[i];
-    const el = document.getElementById(`opt-${prefix}-${qn}-${l}`);
-    if(!el) return;
-    el.classList.add('locked');
-    if(l===q.correct){ el.classList.add('reveal-correct'); if(!el.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-correct'; b.textContent='✓ Correct'; el.appendChild(b); } }
-    else if(l===letter && !isCorrect){ el.classList.add('selected-wrong'); if(!el.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-wrong'; b.textContent='✗ Incorrect'; el.appendChild(b); } }
-  });
-  const exp = document.getElementById(`exp-${prefix}-${qn}`);
-  if(exp) exp.classList.add('show');
-  updateScoreN(prefix);
-
-  // ── Save wrong answer to Supabase ──
-  if (!isCorrect && typeof CLERK_SYNC !== 'undefined') {
-    const articleMap = { 'a10': 'CPL Art. 10', 'a30': 'CPL Art. 30', 'a20': 'CPL Art. 20' };
-    const articleName = articleMap[prefix] || prefix;
-    const chosenOpt = q.opts.find(o => o.startsWith(letter+'.') || o.startsWith(letter+' ')) || letter;
-    const correctOpt = q.opts.find(o => o.startsWith(q.correct+'.') || o.startsWith(q.correct+' ')) || q.correct;
-    CLERK_SYNC.saveWrongAnswer(
-      articleName,
-      q.q || 'Question ' + qn,
-      chosenOpt.substring(0, 80),
-      correctOpt.substring(0, 80)
-    );
-  }
-}
-
-function updateScoreN(prefix){
-  const questions = prefix==='a10'?Q10:Q30;
-  const state = prefix==='a10'?state10:state30;
-  const suffix = prefix==='a10'?'10':'30';
-  const correct = Object.entries(state).filter(([n,l])=>{ const q=questions.find(x=>x.n===parseInt(n)); return q&&l===q.correct; }).length;
-  const answered = Object.keys(state).length;
-  const pct = answered>0?Math.round(correct/questions.length*100):0;
-  const sd=document.getElementById('sd'+suffix); const ss=document.getElementById('ss'+suffix); const sf=document.getElementById('sf'+suffix);
-  if(sd) sd.textContent=correct+' / '+questions.length+' correct';
-  if(ss) ss.textContent=answered+' answered · '+pct+'% score';
-  if(sf) sf.style.width=pct+'%';
-}
-
-function resetQuiz10(){ if(!confirm('Reset Art. 10 quiz?')) return; Object.keys(state10).forEach(k=>delete state10[k]); saveQ10(); buildQuizN(Q10,'quiz-container-10','a10',state10); updateScoreN('a10'); }
-function resetQuiz30(){ if(!confirm('Reset Art. 30 quiz?')) return; Object.keys(state30).forEach(k=>delete state30[k]); saveQ30(); buildQuizN(Q30,'quiz-container-30','a30',state30); updateScoreN('a30'); }
-
-function revealAll10(){ Q10.forEach(q=>{ if(!state10[q.n]) pickAnswer('a10',q.n,'__reveal__'); const e=document.getElementById('exp-a10-'+q.n); if(e) e.classList.add('show'); const c=document.getElementById('opt-a10-'+q.n+'-'+q.correct); if(c&&!c.classList.contains('reveal-correct')){ c.classList.add('reveal-correct','locked'); if(!c.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-correct'; b.textContent='✓ Correct'; c.appendChild(b); } } ['a','b','c','d','e'].forEach(l=>{ const o=document.getElementById('opt-a10-'+q.n+'-'+l); if(o) o.classList.add('locked'); }); }); }
-function revealAll30(){ Q30.forEach(q=>{ if(!state30[q.n]) pickAnswer('a30',q.n,'__reveal__'); const e=document.getElementById('exp-a30-'+q.n); if(e) e.classList.add('show'); const c=document.getElementById('opt-a30-'+q.n+'-'+q.correct); if(c&&!c.classList.contains('reveal-correct')){ c.classList.add('reveal-correct','locked'); if(!c.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-correct'; b.textContent='✓ Correct'; c.appendChild(b); } } ['a','b','c','d','e'].forEach(l=>{ const o=document.getElementById('opt-a30-'+q.n+'-'+l); if(o) o.classList.add('locked'); }); }); }
-
-// Init all quizzes on DOMContentLoaded
-const _origInit = document.addEventListener;
-document.addEventListener('DOMContentLoaded', ()=>{
-  loadQ10(); loadQ30();
-  buildQuizN(Q10,'quiz-container-10','a10',state10);
-  buildQuizN(Q30,'quiz-container-30','a30',state30);
-  updateScoreN('a10'); updateScoreN('a30');
-});
-</script>
 
 <!-- BACK TO DASHBOARD -->
 <div style="padding:0 36px 40px">
@@ -1187,5 +448,23 @@ document.addEventListener('DOMContentLoaded', ()=>{
   </a>
 </div>
 
+<script>
+// ── TAB SWITCH ────────────────────────────────────────────
+function switchTab(id, btn){
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+}
+
+// ── TOGGLE SECTION ────────────────────────────────────────
+function toggleEl(id, btn){
+  const el = document.getElementById(id);
+  if (!el) return;
+  const isHidden = el.style.display === 'none';
+  el.style.display = isHidden ? 'block' : 'none';
+  btn.textContent = isHidden ? 'Hide notes' : 'Show notes';
+}
+</script>
 </body>
 </html>

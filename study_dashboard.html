@@ -167,6 +167,37 @@ body{background:var(--navy);color:var(--white);font-family:'DM Sans',sans-serif;
 .wa-input:focus{border-color:var(--coral)}
 .wa-input::placeholder{color:rgba(255,255,255,.25)}
 .wa-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+/* ── QUIZ SECTION ── */
+.quiz-week-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 18px;color:rgba(255,255,255,.6);font-size:var(--fs-xs);font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.quiz-week-btn.active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.quiz-article-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden}
+.qac-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;gap:10px}
+.qac-title{font-size:var(--fs-xs);font-weight:600;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:8px}
+.qac-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.qac-score{font-size:var(--fs-xxs);font-weight:700;font-family:'DM Mono',monospace;color:var(--sage)}
+.qac-bar{height:4px;background:rgba(255,255,255,.07);margin:0 16px 12px}
+.qac-fill{height:100%;background:linear-gradient(90deg,var(--sage),#6ee7b7);transition:width .5s ease}
+.qac-questions{padding:0 12px 14px;display:flex;flex-direction:column;gap:8px}
+.qac-empty{font-size:var(--fs-xxs);color:rgba(255,255,255,.25);font-style:italic;padding:10px 4px}
+/* Quiz question card */
+.qq{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px 14px}
+.qq.qq-correct{border-color:rgba(74,124,111,.4);background:rgba(74,124,111,.08)}
+.qq.qq-wrong{border-color:rgba(196,80,58,.4);background:rgba(196,80,58,.08)}
+.qq-num{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.3);margin-bottom:6px}
+.qq-stem{font-size:var(--fs-xs);color:rgba(255,255,255,.85);line-height:1.5;margin-bottom:10px;font-weight:500}
+.qq-opts{display:flex;flex-direction:column;gap:5px}
+.qq-opt{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;cursor:pointer;font-size:var(--fs-xxs);color:rgba(255,255,255,.7);transition:all .15s;background:rgba(255,255,255,.03)}
+.qq-opt:hover:not(.locked){background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
+.qq-opt.opt-correct{background:rgba(74,124,111,.15);border-color:rgba(74,124,111,.4);cursor:default}
+.qq-opt.opt-wrong{background:rgba(196,80,58,.15);border-color:rgba(196,80,58,.4);cursor:default}
+.qq-opt.locked{cursor:default;opacity:.65}
+.qq-letter{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);flex-shrink:0;margin-top:1px}
+.qq-opt.opt-correct .qq-letter{background:var(--sage);border-color:var(--sage);color:white}
+.qq-opt.opt-wrong .qq-letter{background:var(--coral);border-color:var(--coral);color:white}
+.qq-exp{font-size:var(--fs-xxs);color:rgba(255,255,255,.5);line-height:1.6;background:rgba(255,255,255,.04);border-left:2px solid var(--gold);padding:7px 10px;border-radius:0 5px 5px 0;margin-top:8px;display:none}
+.qq-exp.show{display:block}
+
 </style>
 </head>
 <body>
@@ -192,6 +223,8 @@ body{background:var(--navy);color:var(--white);font-family:'DM Sans',sans-serif;
     </div>
     <div class="header-actions">
       <button class="btn btn-gold" onclick="loadAllData()">↻ Refresh all data</button>
+      <button class="btn btn-outline" onclick="scrollToSection('quizzes')">❓ Quizzes</button>
+      <button class="btn btn-outline" onclick="scrollToSection('wrong-answers')">❌ Wrong Answers</button>
       <button class="btn btn-outline" onclick="exportData()">↓ Export data</button>
       <a href="index.html" class="btn btn-outline">← Back to weeks</a>
     </div>
@@ -604,6 +637,359 @@ async function exportData() {
 document.addEventListener('DOMContentLoaded', () => {
   loadAllData();
 });
+
+// ── QUIZ ENGINE ──────────────────────────────────────────
+const QUIZ_STORE = 'nys_dashboard_quiz';
+const quizState = {};
+
+function loadQuizState(){
+  try{ Object.assign(quizState, JSON.parse(localStorage.getItem(QUIZ_STORE)||'{}')); }catch(e){}
+}
+function saveQuizState(){
+  try{ localStorage.setItem(QUIZ_STORE, JSON.stringify(quizState)); }catch(e){}
+}
+
+// Article quiz data — add questions here on Friday tech days
+const QUIZ_DATA = {
+  art1: {
+    article: 'CPL Art. 1',
+    questions: []  // Add questions here: {n:1, q:"stem", opts:["a. ..","b. .."], correct:"a", exp:"..."}
+  },
+  art10: {
+    article: 'CPL Art. 10',
+    questions: []
+  },
+  art30: {
+    article: 'CPL Art. 30',
+    questions: []
+  },
+  pl10: {
+    article: 'PL Art. 10',
+    questions: []
+  },
+  pl55: {
+    article: 'PL Art. 55',
+    questions: []
+  }
+};
+
+function buildQuizCard(articleKey) {
+  const data = QUIZ_DATA[articleKey];
+  if (!data || data.questions.length === 0) return;
+  const container = document.getElementById('qac-questions-' + articleKey);
+  if (!container) return;
+
+  container.innerHTML = '';
+  data.questions.forEach(q => {
+    const answered = quizState[articleKey + '_' + q.n];
+    const card = document.createElement('div');
+    card.className = 'qq' + (answered ? (answered === q.correct ? ' qq-correct' : ' qq-wrong') : '');
+    card.id = 'qq-' + articleKey + '-' + q.n;
+
+    const letters = ['a','b','c','d','e'];
+    const optsHtml = q.opts.map((opt, i) => {
+      const l = letters[i];
+      const text = opt.length > 2 ? opt.substring(3) : opt;
+      let cls = 'qq-opt';
+      if (answered) {
+        cls += ' locked';
+        if (l === q.correct) cls += ' opt-correct';
+        else if (l === answered && answered !== q.correct) cls += ' opt-wrong';
+      }
+      return `<div class="${cls}" id="qqopt-${articleKey}-${q.n}-${l}" onclick="answerQuiz('${articleKey}',${q.n},'${l}')">
+        <div class="qq-letter">${l.toUpperCase()}</div>
+        <div style="font-size:var(--fs-xxs);line-height:1.45;flex:1">${text}</div>
+      </div>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="qq-num">Q${q.n}</div>
+      <div class="qq-stem">${q.q}</div>
+      <div class="qq-opts">${optsHtml}</div>
+      <div class="qq-exp ${answered ? 'show' : ''}" id="qqexp-${articleKey}-${q.n}">${q.exp || ''}</div>`;
+    container.appendChild(card);
+  });
+
+  updateQuizScore(articleKey);
+}
+
+function answerQuiz(articleKey, qn, letter) {
+  const key = articleKey + '_' + qn;
+  if (quizState[key]) return;
+  const q = QUIZ_DATA[articleKey]?.questions.find(x => x.n === qn);
+  if (!q) return;
+
+  quizState[key] = letter;
+  saveQuizState();
+
+  const isCorrect = letter === q.correct;
+  const card = document.getElementById('qq-' + articleKey + '-' + qn);
+  if (card) card.classList.add(isCorrect ? 'qq-correct' : 'qq-wrong');
+
+  const letters = ['a','b','c','d','e'];
+  letters.forEach(l => {
+    const el = document.getElementById('qqopt-' + articleKey + '-' + qn + '-' + l);
+    if (!el) return;
+    el.classList.add('locked');
+    if (l === q.correct) el.classList.add('opt-correct');
+    else if (l === letter && !isCorrect) el.classList.add('opt-wrong');
+  });
+
+  const exp = document.getElementById('qqexp-' + articleKey + '-' + qn);
+  if (exp) exp.classList.add('show');
+
+  updateQuizScore(articleKey);
+
+  // Save wrong answer to Supabase
+  if (!isCorrect && typeof CLERK_SYNC !== 'undefined') {
+    const chosen = q.opts.find(o => o.startsWith(letter)) || letter;
+    const correct = q.opts.find(o => o.startsWith(q.correct)) || q.correct;
+    CLERK_SYNC.saveWrongAnswer(
+      QUIZ_DATA[articleKey].article,
+      q.q.substring(0, 120),
+      chosen.substring(0, 80),
+      correct.substring(0, 80)
+    ).then(() => loadWrongAnswersFeed()); // refresh feed immediately
+  }
+}
+
+function updateQuizScore(articleKey) {
+  const qs = QUIZ_DATA[articleKey]?.questions || [];
+  if (!qs.length) return;
+  const correct = qs.filter(q => quizState[articleKey+'_'+q.n] === q.correct).length;
+  const answered = qs.filter(q => quizState[articleKey+'_'+q.n]).length;
+  const pct = answered ? Math.round(correct / qs.length * 100) : 0;
+  const scoreEl = document.getElementById('qac-score-' + articleKey);
+  const fillEl  = document.getElementById('qac-fill-' + articleKey);
+  if (scoreEl) scoreEl.textContent = correct + ' / ' + qs.length + ' · ' + pct + '%';
+  if (fillEl)  fillEl.style.width  = pct + '%';
+}
+
+function resetAllQuizzes() {
+  if (!confirm('Reset all quiz scores?')) return;
+  Object.keys(quizState).forEach(k => delete quizState[k]);
+  saveQuizState();
+  Object.keys(QUIZ_DATA).forEach(k => buildQuizCard(k));
+}
+
+function switchQuizWeek(week, btn) {
+  document.querySelectorAll('.quiz-week-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.quiz-week-panel').forEach(p => p.style.display = 'none');
+  btn.classList.add('active');
+  const panel = document.getElementById('quiz-week-' + week);
+  if (panel) panel.style.display = 'block';
+}
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── WRONG ANSWERS FEED ────────────────────────────────────
+async function loadWrongAnswersFeed() {
+  const feed = document.getElementById('wrong-answers-feed');
+  if (!feed) return;
+  const data = await sb('wrong_answers', `?user_id=eq.${USER}&order=created_at.desc&limit=50`);
+
+  if (!data || data.length === 0) {
+    feed.innerHTML = `<div class="empty" style="padding:40px">
+      <span class="empty-icon">🎯</span>
+      <span class="empty-text">No wrong answers yet — take a quiz to populate this feed</span>
+    </div>`;
+    return;
+  }
+
+  feed.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <span style="font-size:var(--fs-xxs);color:rgba(255,255,255,.35)">${data.length} wrong answers logged</span>
+      <button class="btn btn-outline" onclick="clearWrongAnswers()" style="font-size:var(--fs-xxs);padding:4px 12px">Clear all</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      ${data.map(w => `
+        <div style="background:rgba(196,80,58,.08);border:1px solid rgba(196,80,58,.18);border-radius:10px;padding:12px 14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <span style="font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coral)">${w.article || 'Unknown'}</span>
+            <span style="font-size:var(--fs-xxs);color:rgba(255,255,255,.25);font-family:'DM Mono',monospace">${w.date_logged || ''}</span>
+          </div>
+          <div style="font-size:var(--fs-xs);color:rgba(255,255,255,.75);line-height:1.5;margin-bottom:8px">${w.question || ''}</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap">
+            ${w.your_answer ? `<div style="font-size:var(--fs-xxs);color:rgba(255,255,255,.4)">You: <strong style="color:#f87171">${w.your_answer}</strong></div>` : ''}
+            ${w.correct_answer ? `<div style="font-size:var(--fs-xxs);color:rgba(255,255,255,.4)">Correct: <strong style="color:#86efac">${w.correct_answer}</strong></div>` : ''}
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+async function clearWrongAnswers() {
+  if (!confirm('Clear all wrong answers? This cannot be undone.')) return;
+  try {
+    await fetch(`${SB_URL}/rest/v1/wrong_answers?user_id=eq.${USER}`, {
+      method: 'DELETE',
+      headers: HDRS
+    });
+    loadWrongAnswersFeed();
+  } catch(e) { console.warn(e); }
+}
+
+// ── INIT QUIZZES ON PAGE LOAD ─────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadQuizState();
+  Object.keys(QUIZ_DATA).forEach(k => buildQuizCard(k));
+  // Load wrong answers feed after main data loads
+  setTimeout(loadWrongAnswersFeed, 1500);
+
+  // Scroll to hash if present
+  if (window.location.hash === '#quizzes') {
+    setTimeout(() => scrollToSection('quizzes'), 500);
+  }
+  if (window.location.hash === '#wrong-answers') {
+    setTimeout(() => scrollToSection('wrong-answers'), 500);
+  }
+});
+
 </script>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- QUIZ SECTION -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="quizzes" style="max-width:1100px;margin:0 auto;padding:0 var(--pad) 60px">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+    <div>
+      <div style="font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:6px">Practice Quizzes</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:var(--fs-h2);color:var(--white)">Quiz Bank</div>
+      <div style="font-size:var(--fs-xs);color:rgba(255,255,255,.4);margin-top:4px">Wrong answers automatically appear in the feed below</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-outline" onclick="resetAllQuizzes()">Reset all scores</button>
+    </div>
+  </div>
+
+  <!-- WEEK TABS -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px" id="quiz-week-tabs">
+    <button class="quiz-week-btn active" onclick="switchQuizWeek('w1',this)">Week 1</button>
+    <button class="quiz-week-btn" onclick="switchQuizWeek('w2',this)">Week 2</button>
+  </div>
+
+  <!-- WEEK 1 QUIZZES -->
+  <div id="quiz-week-w1" class="quiz-week-panel">
+    <div style="display:grid;grid-template-columns:var(--grid-cols);gap:14px">
+
+      <!-- CPL Art. 1 -->
+      <div class="quiz-article-card" id="qac-art1">
+        <div class="qac-head">
+          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 1 — Definitions</div>
+          <div class="qac-score" id="qac-score-art1">0 / 0</div>
+        </div>
+        <div class="qac-bar"><div class="qac-fill" id="qac-fill-art1" style="width:0%"></div></div>
+        <div class="qac-questions" id="qac-questions-art1">
+          <div class="qac-empty">Quiz questions coming soon — add them on Friday tech day</div>
+        </div>
+      </div>
+
+      <!-- CPL Art. 10 -->
+      <div class="quiz-article-card" id="qac-art10">
+        <div class="qac-head">
+          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 10 — Criminal Courts</div>
+          <div class="qac-score" id="qac-score-art10">0 / 0</div>
+        </div>
+        <div class="qac-bar"><div class="qac-fill" id="qac-fill-art10" style="width:0%"></div></div>
+        <div class="qac-questions" id="qac-questions-art10">
+          <div class="qac-empty">Quiz questions coming soon</div>
+        </div>
+      </div>
+
+      <!-- CPL Art. 30 -->
+      <div class="quiz-article-card" id="qac-art30">
+        <div class="qac-head">
+          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 30 — Speedy Trial</div>
+          <div class="qac-score" id="qac-score-art30">0 / 0</div>
+        </div>
+        <div class="qac-bar"><div class="qac-fill" id="qac-fill-art30" style="width:0%"></div></div>
+        <div class="qac-questions" id="qac-questions-art30">
+          <div class="qac-empty">Quiz questions coming soon</div>
+        </div>
+      </div>
+
+      <!-- PL Art. 10 -->
+      <div class="quiz-article-card" id="qac-pl10">
+        <div class="qac-head">
+          <div class="qac-title"><span class="qac-dot" style="background:var(--pl)"></span>PL Art. 10 — Mental States</div>
+          <div class="qac-score" id="qac-score-pl10">0 / 0</div>
+        </div>
+        <div class="qac-bar"><div class="qac-fill" id="qac-fill-pl10" style="width:0%"></div></div>
+        <div class="qac-questions" id="qac-questions-pl10">
+          <div class="qac-empty">Quiz questions coming soon</div>
+        </div>
+      </div>
+
+      <!-- PL Art. 55 -->
+      <div class="quiz-article-card" id="qac-pl55">
+        <div class="qac-head">
+          <div class="qac-title"><span class="qac-dot" style="background:var(--pl)"></span>PL Art. 55 — Classifications</div>
+          <div class="qac-score" id="qac-score-pl55">0 / 0</div>
+        </div>
+        <div class="qac-bar"><div class="qac-fill" id="qac-fill-pl55" style="width:0%"></div></div>
+        <div class="qac-questions" id="qac-questions-pl55">
+          <div class="qac-empty">Quiz questions coming soon</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WEEK 2 QUIZZES -->
+  <div id="quiz-week-w2" class="quiz-week-panel" style="display:none">
+    <div style="display:grid;grid-template-columns:var(--grid-cols);gap:14px">
+
+      <div class="quiz-article-card">
+        <div class="qac-head">
+          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 100 — Accusatory Instruments</div>
+          <div class="qac-score">Coming soon</div>
+        </div>
+        <div class="qac-questions"><div class="qac-empty">Add questions on Friday tech day</div></div>
+      </div>
+
+      <div class="quiz-article-card">
+        <div class="qac-head">
+          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 110 — Arraignment</div>
+          <div class="qac-score">Coming soon</div>
+        </div>
+        <div class="qac-questions"><div class="qac-empty">Add questions on Friday tech day</div></div>
+      </div>
+
+      <div class="quiz-article-card">
+        <div class="qac-head">
+          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 120 — Warrant of Arrest</div>
+          <div class="qac-score">Coming soon</div>
+        </div>
+        <div class="qac-questions"><div class="qac-empty">Add questions on Friday tech day</div></div>
+      </div>
+
+      <div class="quiz-article-card">
+        <div class="qac-head">
+          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 160 — Fingerprinting</div>
+          <div class="qac-score">Coming soon</div>
+        </div>
+        <div class="qac-questions"><div class="qac-empty">Add questions on Friday tech day</div></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- WRONG ANSWERS SECTION (anchored) -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="wrong-answers" style="max-width:1100px;margin:0 auto;padding:0 var(--pad) 80px">
+  <div style="font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--coral);margin-bottom:6px">Live Feed</div>
+  <div style="font-family:'DM Serif Display',serif;font-size:var(--fs-h2);color:var(--white);margin-bottom:4px">Wrong Answers</div>
+  <div style="font-size:var(--fs-xs);color:rgba(255,255,255,.4);margin-bottom:20px">Every wrong answer from any quiz across your study system</div>
+  <div id="wrong-answers-feed">
+    <div class="loading-screen" style="padding:40px"><div class="spinner"></div></div>
+  </div>
+</div>
+
 </body>
 </html>

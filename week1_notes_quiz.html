@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-<title>Week 1 — Study Notes · CPL Arts. 1, 10, 30</title>
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Week 1 — Study Notes</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -241,7 +244,8 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
   .comp-grid { min-width: 500px; }
 
   /* Notes page */
-  .panel { padding: 16px 14px 40px !important; }
+  .panel { display: none; padding: 16px 14px 40px !important; }
+  .panel.active { display: block; }
   .notes-wrap { padding: 0 !important; }
   .nb { padding: 12px 14px !important; }
 
@@ -255,6 +259,204 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
   .wk-cards { grid-template-columns: 1fr 1fr !important; }
 }
 
+
+/* ── BOTTOM NAV (shared) ── */
+.bottom-nav-bar{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0f1120;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:999;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.bnb-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 12px;border-radius:10px;text-decoration:none;color:rgba(255,255,255,.4);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-family:'DM Sans',system-ui,sans-serif;min-width:56px;transition:color .15s;background:none;border:none;cursor:pointer}
+.bnb-btn:hover,.bnb-btn.active{color:#e8a020}
+.bnb-icon{font-size:20px;line-height:1}
+body{padding-bottom:68px}
+/* Light page override */
+.light-page .bottom-nav-bar{background:#fff;border-top:1px solid #e2ddd6}
+.light-page .bnb-btn{color:#9ca3af}
+.light-page .bnb-btn:hover,.light-page .bnb-btn.active{color:#c9952a}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;color:white;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-family:'DM Sans',system-ui,sans-serif}
+.toast.show{opacity:1}
+.toast-success{background:#16a34a}
+.toast-error{background:#ef4444}
+.toast-info{background:#1a1f3c}
+
+/* ── QUICK ACTION BUTTON ── */
+.qab{position:fixed;bottom:76px;right:16px;width:48px;height:48px;border-radius:50%;background:#c9952a;color:#0f1120;border:none;font-size:22px;cursor:pointer;z-index:998;box-shadow:0 4px 16px rgba(201,149,42,.4);display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit}
+.qab:hover{transform:scale(1.08);box-shadow:0 6px 20px rgba(201,149,42,.5)}
+.qab:active{transform:scale(.95)}
+.qab-menu{position:fixed;bottom:134px;right:16px;background:#1c1f35;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:8px;z-index:998;display:none;flex-direction:column;gap:4px;min-width:200px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.qab-menu.open{display:flex}
+.qab-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:none;border:none;color:rgba(255,255,255,.8);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;transition:background .15s;white-space:nowrap}
+.qab-item:hover{background:rgba(255,255,255,.08)}
+.qab-item-icon{font-size:16px;width:20px;text-align:center}
+/* Light page */
+.light-page .qab-menu{background:#fff;border-color:#e2ddd6;box-shadow:0 8px 32px rgba(0,0,0,.15)}
+.light-page .qab-item{color:#1a1f3c}
+.light-page .qab-item:hover{background:#f5f5f5}
+
+
+/* ══════════════════════════════════════
+   iPHONE OPTIMIZATIONS
+   ══════════════════════════════════════ */
+
+/* 1 — Safe areas for notch + home bar */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+}
+body {
+  padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 2 — Bottom nav respects home indicator */
+.bottom-nav-bar {
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  height: auto !important;
+  padding-top: 10px !important;
+}
+
+/* 3 — Quick action button clears home indicator */
+.qab { bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; }
+.qab-menu { bottom: calc(134px + env(safe-area-inset-bottom, 0px)) !important; }
+
+/* 4 — All tap targets min 44px (Apple HIG) */
+button, .btn, .hbtn, .wk-link, .bnb-btn,
+.tab, .opt, .sd-opt, .r-btn, .next-btn,
+.mode-card, .mn-card, .diary-entry,
+a[href], input[type="button"], input[type="submit"] {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* 5 — Inputs — font 16px prevents iOS auto-zoom */
+input, textarea, select,
+.log-input, .diary-select, .diary-textarea,
+.wa-input {
+  font-size: 16px !important;
+  border-radius: 8px;
+}
+
+/* 6 — Quiz options — larger tap area */
+.opt {
+  padding: 14px 16px !important;
+  margin-bottom: 8px;
+}
+.opt-text { font-size: 16px !important; line-height: 1.5 !important; }
+
+/* 7 — Score bar wraps cleanly */
+.score-bar {
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+.score-track { width: 100% !important; order: 3 !important; }
+
+/* 8 — Tab bar scrolls horizontally, no wrapping */
+.tab-bar, .nq-tabs {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  flex-wrap: nowrap !important;
+  padding-bottom: 4px;
+}
+.tab {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+}
+
+/* 9 — Game options full width on small screens */
+@media (max-width: 480px) {
+  .showdown-options {
+    grid-template-columns: 1fr !important;
+  }
+  .sd-opt { min-height: 80px !important; }
+  .q-stem { font-size: 17px !important; }
+  .result-score { font-size: 60px !important; }
+  .home-title { font-size: 40px !important; }
+}
+
+/* 10 — Week cards — single column on iPhone */
+@media (max-width: 600px) {
+  .main {
+    grid-template-columns: 1fr !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .stats-row {
+    grid-template-columns: 1fr 1fr !important;
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+  }
+  .header, .countdown, .overall-bar, .phase-bar, .milestones {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  .header h1 { font-size: 24px !important; }
+  .cd-num { font-size: 22px !important; }
+  .cd-box { min-width: 60px !important; padding: 8px 10px !important; }
+}
+
+/* 11 — Dashboard form inputs full width */
+@media (max-width: 600px) {
+  .log-row { grid-template-columns: 1fr !important; }
+  .diary-textarea { min-height: 140px !important; }
+  .section-head { flex-direction: column !important; align-items: flex-start !important; }
+}
+
+/* 12 — Notes page panels */
+@media (max-width: 600px) {
+  .panel { padding: 16px 12px 80px !important; }
+  .nb { padding: 14px 12px !important; }
+}
+
+
+/* ── BASE FONT SIZE 20px (user preference) ── */
+@media (max-width: 768px) {
+  html { font-size: 20px; }
+  body { font-size: 20px !important; }
+
+  /* Scale up all text elements */
+  p, li, span, div, td, th, label { font-size: 20px; }
+  .fs-xs, .score-sub, .wk-dates, .wk-note, .art,
+  .hud-label, .q-num, .diary-date, .diary-form-title,
+  .section-sub, .section-label, .eyebrow, .ms-pill,
+  .sr-date, .wa-article, .wa-yours, .wa-correct,
+  .mn-front, .mn-hint, .status-bar, .tab-count,
+  .wk-prog-label, .ob-label, .phase-label, .phase-tag,
+  .cd-label, .score-chip-mode { font-size: 16px !important; }
+
+  /* Questions and options */
+  .q-stem { font-size: 20px !important; }
+  .opt-text { font-size: 20px !important; }
+  .sd-text { font-size: 20px !important; }
+
+  /* Nav tabs */
+  .tab { font-size: 16px !important; }
+  .bnb-btn { font-size: 12px !important; }
+
+  /* Buttons */
+  .hbtn, .btn, .r-btn, .next-btn, .mode-badge { font-size: 18px !important; }
+
+  /* Inputs */
+  input, textarea, select,
+  .log-input, .diary-select, .diary-textarea, .wa-input {
+    font-size: 20px !important;
+  }
+
+  /* Diary text */
+  .diary-text { font-size: 20px !important; }
+  .wa-question { font-size: 20px !important; }
+
+  /* Score numbers */
+  .score-main, .hud-score { font-size: 22px !important; }
+
+  /* Mode cards */
+  .mode-name { font-size: 20px !important; }
+  .mode-desc { font-size: 16px !important; }
+}
+
 </style>
   
 </head>
@@ -262,11 +464,12 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 
 <div class="header">
   <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859 · Week 1</div>
-  <h1>Notes &amp; Quiz</h1>
+  <h1>Study Notes</h1>
   <div class="header-meta">
-    <div class="meta-pill">📋 <strong>CPL Art. 1</strong> — 43 questions</div>
-    <div class="meta-pill">📋 <strong>CPL Art. 10</strong> — 8 questions</div>
-    <div class="meta-pill">📋 <strong>CPL Art. 30</strong> — 5 questions</div>
+    <div class="meta-pill">🔵 <strong>CPL Art. 1</strong> — Definitions</div>
+    <div class="meta-pill">🔵 <strong>CPL Art. 10</strong> — Criminal Courts</div>
+    <div class="meta-pill">🔵 <strong>CPL Art. 30</strong> — Speedy Trial</div>
+    <a class="back-btn" href="week1_quiz.html" style="background:var(--gold);color:var(--navy);border-color:var(--gold)">❓ Quizzes</a>
     <a class="back-btn" href="index.html">← Dashboard</a>
   </div>
 </div>
@@ -582,6 +785,83 @@ function toggleEl(id, btn){
   el.style.display = isHidden ? 'block' : 'none';
   btn.textContent = isHidden ? 'Hide notes' : 'Show notes';
 }
+</script>
+<div class="toast" id="page-toast"></div>
+<script>
+function showToast(msg, type){
+  var t=document.getElementById('page-toast');
+  if(!t) return;
+  t.textContent=msg;
+  t.className='toast toast-'+(type||'info')+' show';
+  clearTimeout(t._t);
+  t._t=setTimeout(function(){t.className='toast';},2200);
+}
+// Override form saves to show toast
+document.addEventListener('DOMContentLoaded', function(){
+  var forms = document.querySelectorAll('button[onclick*="save"], button[onclick*="log"], button[onclick*="Save"], button[onclick*="Log"]');
+  forms.forEach(function(btn){
+    var orig = btn.getAttribute('onclick');
+    if(orig && !orig.includes('showToast')){
+      btn.addEventListener('click', function(){
+        setTimeout(function(){ showToast('✓ Saved', 'success'); }, 800);
+      });
+    }
+  });
+});
+</script>
+<!-- QUICK ACTION BUTTON -->
+<button class="qab" id="qab-btn" onclick="toggleQAB()" title="Quick actions">＋</button>
+<div class="qab-menu" id="qab-menu">
+  <a href="study_dashboard.html#diary-form" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">📔</span>Write diary entry</a>
+  <a href="study_dashboard.html#wa-article" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">❌</span>Log wrong answer</a>
+  <a href="game.html" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">🎮</span>Play a game</a>
+  <a href="week1_quiz.html" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">❓</span>Take a quiz</a>
+</div>
+<script>
+function toggleQAB(){
+  var m=document.getElementById('qab-menu');
+  var b=document.getElementById('qab-btn');
+  m.classList.toggle('open');
+  b.textContent = m.classList.contains('open') ? '✕' : '＋';
+}
+function closeQAB(){
+  var m=document.getElementById('qab-menu');
+  var b=document.getElementById('qab-btn');
+  if(m){m.classList.remove('open');}
+  if(b){b.textContent='＋';}
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#qab-btn')&&!e.target.closest('#qab-menu')) closeQAB();
+});
+</script>
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav-bar" id="bottom-nav">
+  <a href="index.html" class="bnb-btn" id="bnb-home"><span class="bnb-icon">🏠</span>Home</a>
+  <a href="game.html" class="bnb-btn" id="bnb-game"><span class="bnb-icon">🎮</span>Game</a>
+  <a href="week1_quiz.html" class="bnb-btn" id="bnb-quiz"><span class="bnb-icon">❓</span>Quiz</a>
+  <a href="week1_notes_quiz.html" class="bnb-btn" id="bnb-notes"><span class="bnb-icon">📋</span>Notes</a>
+  <a href="study_dashboard.html" class="bnb-btn" id="bnb-dash"><span class="bnb-icon">📊</span>Dashboard</a>
+</nav>
+<script>
+(function(){
+  var path = window.location.pathname;
+  var map = {
+    'index.html':'bnb-home','game.html':'bnb-game',
+    'week1_quiz.html':'bnb-quiz','week1_notes_quiz.html':'bnb-notes',
+    'study_dashboard.html':'bnb-dash'
+  };
+  Object.keys(map).forEach(function(k){
+    if(path.includes(k)){
+      var el = document.getElementById(map[k]);
+      if(el) el.classList.add('active');
+    }
+  });
+  // Week schedules highlight Home
+  if(path.includes('week') && !path.includes('quiz') && !path.includes('notes')){
+    var el = document.getElementById('bnb-home');
+    if(el) el.classList.add('active');
+  }
+})();
 </script>
 </body>
 </html>

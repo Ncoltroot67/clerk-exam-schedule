@@ -2,1111 +2,950 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Study Dashboard — NYS Clerk Exam</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --navy:#1a1f3c; --navy-mid:#2d3561; --navy-light:#3d4875;
-  --gold:#c9952a; --gold-light:#f5e6c8; --gold-dim:#7a5010;
-  --cream:#faf7f2; --white:#fff;
-  --sage:#4a7c6f; --sage-light:#e4edeb; --sage-dark:#2d5248;
-  --coral:#c4503a; --coral-light:#fdf0ee;
-  --violet:#6b4fa0; --violet-light:#ede8f7;
-  --teal:#2a7f8c; --teal-light:#e1f2f4;
-  --slate:#5a6279; --slate-light:#eaecf2;
-  --text:#1a1f3c; --muted:#6b7194; --border:#e2ddd6;
-  --cpl:#2563eb; --pl:#dc2626;
-  --fs-base:18px; --fs-sm:16px; --fs-xs:14px; --fs-xxs:12px;
-  --fs-h1:36px; --fs-h2:24px; --fs-h3:18px;
+:root{
+  --navy:#1a1f3c;--navy-mid:#2d3561;
+  --gold:#c9952a;--gold-light:#f5e6c8;
+  --cream:#faf7f2;--white:#fff;
+  --sage:#4a7c6f;--sage-light:#e4edeb;
+  --coral:#c4503a;--coral-light:#fdf0ee;
+  --violet:#6b4fa0;--violet-light:#ede8f7;
+  --slate:#5a6279;--slate-light:#eaecf2;
+  --border:#e2ddd6;--muted:#6b7194;
+  --cpl:#2563eb;--pl:#dc2626;
+  --fs-h1:32px;--fs-h2:22px;--fs-h3:18px;
+  --fs-base:18px;--fs-sm:16px;--fs-xs:14px;--fs-xxs:12px;
   --pad:32px;
 }
-@media(max-width:768px){
-  :root{ --pad:16px; --fs-h1:26px; --fs-h2:20px; --fs-h3:16px; --fs-base:16px; }
-}
+@media(max-width:768px){:root{--pad:16px;--fs-h1:26px;--fs-h2:18px;}}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--navy);color:var(--white);font-family:'DM Sans',sans-serif;font-size:var(--fs-base);line-height:1.65;min-height:100vh}
+body{background:var(--navy);color:white;font-family:'DM Sans',sans-serif;font-size:var(--fs-base);line-height:1.65;min-height:100vh}
 
 /* ── HEADER ── */
-.header{padding:32px var(--pad) 24px;border-bottom:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden}
-.header::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;border:50px solid rgba(201,149,42,.06);pointer-events:none}
-.header::after{content:'';position:absolute;bottom:-40px;left:20%;width:180px;height:180px;border-radius:50%;border:30px solid rgba(107,79,160,.08);pointer-events:none}
-.header-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto}
+.header{padding:28px var(--pad) 24px;border-bottom:1px solid rgba(255,255,255,.07)}
 .eyebrow{font-size:var(--fs-xxs);font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-.header h1{font-family:'DM Serif Display',serif;font-size:var(--fs-h1);color:var(--white);line-height:1.1;margin-bottom:8px}
-.header-sub{font-size:var(--fs-xs);color:rgba(255,255,255,.45);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.status-dot{width:8px;height:8px;border-radius:50%;background:#6b7194;flex-shrink:0;transition:background .3s}
-.status-dot.online{background:#4caf50;box-shadow:0 0 8px rgba(76,175,80,.5)}
+.header h1{font-family:'DM Serif Display',serif;font-size:var(--fs-h1);color:white;margin-bottom:14px}
+.header-btns{display:flex;gap:10px;flex-wrap:wrap}
+.hbtn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:var(--fs-xs);font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:white;transition:background .15s;cursor:pointer;font-family:inherit}
+.hbtn:hover{background:rgba(255,255,255,.14)}
+.hbtn.gold{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+
+/* ── STATUS BAR ── */
+.status-bar{padding:8px var(--pad);background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.05);font-size:var(--fs-xxs);color:rgba(255,255,255,.4);display:flex;align-items:center;gap:8px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0}
+.status-dot.online{background:#4caf50;box-shadow:0 0 6px rgba(76,175,80,.5)}
 .status-dot.loading{background:var(--gold);animation:pulse 1s infinite}
-.header-actions{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:var(--fs-xs);font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .15s}
-.btn-gold{background:var(--gold);color:var(--navy)}
-.btn-gold:hover{background:#e0a82f}
-.btn-outline{background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15)}
-.btn-outline:hover{background:rgba(255,255,255,.14)}
-.back-link{color:rgba(255,255,255,.45);font-size:var(--fs-xs);text-decoration:none;display:inline-flex;align-items:center;gap:5px}
-.back-link:hover{color:var(--gold)}
-
-/* ── LOADING ── */
-.loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px}
-.spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.fade-up{animation:fadeUp .4s ease forwards}
 
-/* ── MAIN GRID ── */
-.main{max-width:1100px;margin:0 auto;padding:28px var(--pad) 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
-.full{grid-column:1/-1}
-@media(max-width:768px){.main{grid-template-columns:1fr}}
+/* ── SECTIONS ── */
+.sections{max-width:1000px;margin:0 auto;padding:32px var(--pad) 80px;display:flex;flex-direction:column;gap:40px}
 
-/* ── CARDS ── */
-.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;transition:border-color .2s}
-.card:hover{border-color:rgba(255,255,255,.14)}
-.card-head{padding:16px 18px 12px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;gap:10px}
-.card-title{font-size:var(--fs-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:7px}
-.card-title span{font-size:14px}
-.card-body{padding:16px 18px}
-.card-meta{font-size:var(--fs-xxs);color:rgba(255,255,255,.3)}
+/* ── SECTION HEADER ── */
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.section-label{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px}
+.section-title{font-family:'DM Serif Display',serif;font-size:var(--fs-h2);color:white}
+.section-sub{font-size:var(--fs-xs);color:rgba(255,255,255,.4);margin-top:3px}
+.section-count{font-size:var(--fs-xxs);font-family:'DM Mono',monospace;color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);border-radius:20px;padding:3px 10px}
 
-/* ── TODAY STRIP ── */
-.today-strip{background:linear-gradient(135deg,rgba(201,149,42,.15),rgba(201,149,42,.05));border:1px solid rgba(201,149,42,.25);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.today-icon{font-size:28px;flex-shrink:0}
-.today-text .today-label{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:4px}
-.today-text .today-main{font-family:'DM Serif Display',serif;font-size:var(--fs-h3);color:var(--white);line-height:1.2}
-.today-text .today-sub{font-size:var(--fs-xs);color:rgba(255,255,255,.5);margin-top:3px}
-.today-badges{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
-.today-badge{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:4px 12px;font-size:var(--fs-xxs);font-weight:600;color:rgba(255,255,255,.7)}
-.today-badge.due{background:rgba(196,80,58,.2);border-color:rgba(196,80,58,.3);color:#f4a090}
+/* ── DIVIDER ── */
+.divider{height:1px;background:rgba(255,255,255,.07);margin:0}
 
-/* ── PROGRESS SECTION ── */
-.week-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
-.week-row:last-child{border-bottom:none}
-.week-label{font-size:var(--fs-xs);font-weight:600;color:rgba(255,255,255,.7);min-width:70px;flex-shrink:0}
-.week-bar{flex:1;height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
-.week-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--sage),#6ee7b7);transition:width .6s ease}
-.week-pct{font-size:var(--fs-xxs);font-weight:700;color:var(--sage);min-width:36px;text-align:right;font-family:'DM Mono',monospace}
-.week-count{font-size:var(--fs-xxs);color:rgba(255,255,255,.3);min-width:50px;text-align:right;font-family:'DM Mono',monospace}
+/* ── SPINNER ── */
+.spinner{width:32px;height:32px;border:2px solid rgba(255,255,255,.1);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:40px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* ── QUIZ SCORES ── */
-.quiz-article{margin-bottom:14px}
-.quiz-article:last-child{margin-bottom:0}
-.qa-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.qa-name{font-size:var(--fs-xs);font-weight:600;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:6px}
-.qa-badge{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.qa-score{font-size:var(--fs-xxs);font-weight:700;font-family:'DM Mono',monospace}
-.qa-bar{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
-.qa-fill{height:100%;border-radius:3px;transition:width .6s ease}
-.score-good{background:linear-gradient(90deg,#4caf50,#81c784)}
-.score-mid{background:linear-gradient(90deg,var(--gold),#fbbf24)}
-.score-low{background:linear-gradient(90deg,var(--coral),#f87171)}
+/* ── EMPTY ── */
+.empty{text-align:center;padding:40px 20px;color:rgba(255,255,255,.3);font-size:var(--fs-xs)}
+.empty-icon{font-size:32px;display:block;margin-bottom:10px;opacity:.4}
+
+/* ── WRONG ANSWERS ── */
+.wa-item{background:rgba(196,80,58,.07);border:1px solid rgba(196,80,58,.2);border-radius:10px;padding:14px 16px;margin-bottom:8px}
+.wa-article{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coral);margin-bottom:5px}
+.wa-question{font-size:var(--fs-sm);color:rgba(255,255,255,.8);line-height:1.5;margin-bottom:8px}
+.wa-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.wa-yours{font-size:var(--fs-xs);color:rgba(255,255,255,.4)}
+.wa-yours strong{color:#f87171}
+.wa-correct{font-size:var(--fs-xs);color:rgba(255,255,255,.4)}
+.wa-correct strong{color:#86efac}
+.wa-date{font-size:var(--fs-xxs);color:rgba(255,255,255,.25);font-family:'DM Mono',monospace;margin-left:auto}
+
+/* LOG FORM */
+.log-form{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;margin-bottom:20px}
+.log-form-title{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:12px}
+.log-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.log-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:9px 12px;color:white;font-size:var(--fs-xs);font-family:inherit;outline:none;width:100%;transition:border-color .15s}
+.log-input:focus{border-color:var(--coral)}
+.log-input::placeholder{color:rgba(255,255,255,.25)}
+@media(max-width:600px){.log-row{grid-template-columns:1fr}}
+
+/* ── MNEMONICS ── */
+.mn-group{margin-bottom:24px}
+.mn-group-label{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.mn-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.mn-card{background:rgba(107,79,160,.1);border:1px solid rgba(107,79,160,.2);border-radius:8px;padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:background .15s}
+.mn-card:hover{background:rgba(107,79,160,.18)}
+.mn-front{font-size:var(--fs-xs);color:rgba(255,255,255,.6);margin-bottom:4px}
+.mn-back{font-size:var(--fs-sm);color:rgba(255,255,255,.9);font-style:italic;display:none;border-top:1px solid rgba(107,79,160,.3);padding-top:10px;margin-top:8px;line-height:1.6}
+.mn-back.show{display:block}
+.mn-hint{font-size:var(--fs-xxs);color:rgba(107,79,160,.7);margin-top:6px}
+.export-btn{font-size:var(--fs-xxs);font-weight:600;padding:5px 14px;border-radius:6px;background:rgba(107,79,160,.2);border:1px solid rgba(107,79,160,.35);color:rgba(255,255,255,.7);cursor:pointer;font-family:inherit;transition:all .15s}
+.export-btn:hover{background:rgba(107,79,160,.35)}
 
 /* ── SPACED REP ── */
 .sr-table{width:100%;border-collapse:collapse}
 .sr-table th{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.3);padding:0 0 10px;text-align:left}
-.sr-table td{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:var(--fs-xs);vertical-align:top}
+.sr-table td{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:var(--fs-xs)}
 .sr-table tr:last-child td{border-bottom:none}
-.sr-article{color:rgba(255,255,255,.85);font-weight:500}
-.sr-date{color:rgba(255,255,255,.4);font-family:'DM Mono',monospace;font-size:var(--fs-xxs)}
-.sr-badge{display:inline-flex;padding:2px 8px;border-radius:10px;font-size:var(--fs-xxs);font-weight:600}
-.sr-due{background:rgba(196,80,58,.2);color:#f4a090;border:1px solid rgba(196,80,58,.3)}
-.sr-upcoming{background:rgba(201,149,42,.15);color:#fbbf24;border:1px solid rgba(201,149,42,.2)}
-.sr-done{background:rgba(74,124,111,.2);color:#6ee7b7;border:1px solid rgba(74,124,111,.3)}
+.sr-art{color:rgba(255,255,255,.85);font-weight:500}
+.sr-date{color:rgba(255,255,255,.35);font-family:'DM Mono',monospace;font-size:var(--fs-xxs)}
+.sr-badge{display:inline-flex;padding:3px 10px;border-radius:10px;font-size:var(--fs-xxs);font-weight:600}
+.sr-overdue{background:rgba(196,80,58,.2);color:#f4a090;border:1px solid rgba(196,80,58,.3)}
+.sr-today{background:rgba(201,149,42,.2);color:#fbbf24;border:1px solid rgba(201,149,42,.3)}
+.sr-upcoming{background:rgba(74,124,111,.15);color:#6ee7b7;border:1px solid rgba(74,124,111,.25)}
+.sr-done{background:rgba(255,255,255,.06);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.08)}
 
-/* ── WRONG ANSWERS ── */
-.wrong-item{background:rgba(196,80,58,.08);border:1px solid rgba(196,80,58,.15);border-radius:8px;padding:10px 12px;margin-bottom:8px}
-.wrong-item:last-child{margin-bottom:0}
-.wrong-article{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coral);margin-bottom:4px}
-.wrong-q{font-size:var(--fs-xs);color:rgba(255,255,255,.75);line-height:1.5;margin-bottom:6px}
-.wrong-answers-row{display:flex;gap:10px;flex-wrap:wrap}
-.wrong-yours{font-size:var(--fs-xxs);color:rgba(255,255,255,.4)}
-.wrong-yours strong{color:#f87171}
-.wrong-correct{font-size:var(--fs-xxs);color:rgba(255,255,255,.4)}
-.wrong-correct strong{color:#81c784}
-.wrong-date{font-size:var(--fs-xxs);color:rgba(255,255,255,.25);font-family:'DM Mono',monospace;margin-left:auto}
+/* ── BACK BTN ── */
+.back-row{padding:16px var(--pad) 0;max-width:1000px;margin:0 auto}
 
-/* ── TEST SCORES ── */
-.score-timeline{display:flex;flex-direction:column;gap:10px}
-.score-entry{display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.07)}
-.score-week{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);min-width:60px}
-.score-val{font-family:'DM Serif Display',serif;font-size:var(--fs-h3);color:var(--white);flex:1}
-.score-notes{font-size:var(--fs-xxs);color:rgba(255,255,255,.35);flex:2;line-height:1.4}
-.score-trend{font-size:18px;flex-shrink:0}
+/* ── DIARY ── */
+.diary-entry{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;margin-bottom:10px}
+.diary-entry-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px}
+.diary-article{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;display:flex;align-items:center;gap:6px}
+.diary-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.diary-date{font-size:var(--fs-xxs);color:rgba(255,255,255,.25);font-family:'DM Mono',monospace}
+.diary-text{font-size:var(--fs-sm);color:rgba(255,255,255,.75);line-height:1.65}
+.diary-form{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;margin-bottom:20px}
+.diary-form-title{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:12px}
+.diary-select{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:9px 12px;color:white;font-size:var(--fs-xs);font-family:inherit;outline:none;width:100%;margin-bottom:8px;-webkit-appearance:none}
+.diary-select option{background:var(--navy)}
+.diary-textarea{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:12px;color:white;font-size:var(--fs-sm);font-family:inherit;outline:none;width:100%;resize:none;min-height:120px;line-height:1.65;transition:border-color .15s;margin-bottom:8px}
+.diary-textarea:focus{border-color:var(--sage)}
+.diary-textarea::placeholder{color:rgba(255,255,255,.2)}
+.diary-hint{font-size:var(--fs-xxs);color:rgba(255,255,255,.2);margin-bottom:10px;line-height:1.5}
 
-/* ── MNEMONICS ── */
-.mnemonic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:8px}
-@media(max-width:600px){.mnemonic-grid{grid-template-columns:1fr}}
-.mnemonic-card{background:rgba(107,79,160,.12);border:1px solid rgba(107,79,160,.2);border-radius:8px;padding:10px 12px}
-.mn-article{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--violet);margin-bottom:5px;display:flex;align-items:center;gap:5px}
-.mn-text{font-size:var(--fs-xs);color:rgba(255,255,255,.8);line-height:1.5;font-style:italic}
-.mn-empty{font-size:var(--fs-xs);color:rgba(255,255,255,.25);font-style:italic}
 
-/* ── STREAK ── */
-.streak-display{display:flex;align-items:center;gap:20px;padding:16px 0}
-.streak-num{font-family:'DM Serif Display',serif;font-size:64px;color:var(--gold);line-height:1}
-.streak-info .streak-label{font-size:var(--fs-sm);font-weight:600;color:rgba(255,255,255,.8)}
-.streak-info .streak-sub{font-size:var(--fs-xs);color:rgba(255,255,255,.35);margin-top:3px}
-.streak-fire{font-size:32px;margin-left:auto}
+/* ── BOTTOM NAV (shared) ── */
+.bottom-nav-bar{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0f1120;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:999;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.bnb-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 12px;border-radius:10px;text-decoration:none;color:rgba(255,255,255,.4);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-family:'DM Sans',system-ui,sans-serif;min-width:56px;transition:color .15s;background:none;border:none;cursor:pointer}
+.bnb-btn:hover,.bnb-btn.active{color:#e8a020}
+.bnb-icon{font-size:20px;line-height:1}
+body{padding-bottom:68px}
+/* Light page override */
+.light-page .bottom-nav-bar{background:#fff;border-top:1px solid #e2ddd6}
+.light-page .bnb-btn{color:#9ca3af}
+.light-page .bnb-btn:hover,.light-page .bnb-btn.active{color:#c9952a}
 
-/* ── EMPTY STATE ── */
-.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px;gap:10px;text-align:center}
-.empty-icon{font-size:32px;opacity:.4}
-.empty-text{font-size:var(--fs-xs);color:rgba(255,255,255,.3)}
+/* ── TOAST ── */
+.toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;color:white;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-family:'DM Sans',system-ui,sans-serif}
+.toast.show{opacity:1}
+.toast-success{background:#16a34a}
+.toast-error{background:#ef4444}
+.toast-info{background:#1a1f3c}
 
-/* ── REFRESH BTN ── */
-.refresh-btn{background:none;border:1px solid rgba(255,255,255,.1);border-radius:6px;color:rgba(255,255,255,.4);padding:4px 10px;font-size:var(--fs-xxs);cursor:pointer;font-family:inherit;transition:all .15s}
-.refresh-btn:hover{border-color:var(--gold);color:var(--gold)}
+/* ── QUICK ACTION BUTTON ── */
+.qab{position:fixed;bottom:76px;right:16px;width:48px;height:48px;border-radius:50%;background:#c9952a;color:#0f1120;border:none;font-size:22px;cursor:pointer;z-index:998;box-shadow:0 4px 16px rgba(201,149,42,.4);display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit}
+.qab:hover{transform:scale(1.08);box-shadow:0 6px 20px rgba(201,149,42,.5)}
+.qab:active{transform:scale(.95)}
+.qab-menu{position:fixed;bottom:134px;right:16px;background:#1c1f35;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:8px;z-index:998;display:none;flex-direction:column;gap:4px;min-width:200px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.qab-menu.open{display:flex}
+.qab-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:none;border:none;color:rgba(255,255,255,.8);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;transition:background .15s;white-space:nowrap}
+.qab-item:hover{background:rgba(255,255,255,.08)}
+.qab-item-icon{font-size:16px;width:20px;text-align:center}
+/* Light page */
+.light-page .qab-menu{background:#fff;border-color:#e2ddd6;box-shadow:0 8px 32px rgba(0,0,0,.15)}
+.light-page .qab-item{color:#1a1f3c}
+.light-page .qab-item:hover{background:#f5f5f5}
 
-/* ── SYNC STATUS BAR ── */
-.sync-bar{background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.05);padding:8px var(--pad);display:flex;align-items:center;gap:10px;font-size:var(--fs-xxs);color:rgba(255,255,255,.35)}
-.sync-bar-inner{max-width:1100px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
 
-/* ── ADD WRONG ANSWER FORM ── */
-.wa-form{display:flex;flex-direction:column;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06)}
-.wa-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:8px 12px;color:var(--white);font-size:var(--fs-xs);font-family:inherit;outline:none;transition:border-color .15s}
-.wa-input:focus{border-color:var(--coral)}
-.wa-input::placeholder{color:rgba(255,255,255,.25)}
-.wa-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:8px}
-
-/* ── QUIZ SECTION ── */
-.quiz-week-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 18px;color:rgba(255,255,255,.6);font-size:var(--fs-xs);font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
-.quiz-week-btn.active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-.quiz-article-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden}
-.qac-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;gap:10px}
-.qac-title{font-size:var(--fs-xs);font-weight:600;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:8px}
-.qac-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.qac-score{font-size:var(--fs-xxs);font-weight:700;font-family:'DM Mono',monospace;color:var(--sage)}
-.qac-bar{height:4px;background:rgba(255,255,255,.07);margin:0 16px 12px}
-.qac-fill{height:100%;background:linear-gradient(90deg,var(--sage),#6ee7b7);transition:width .5s ease}
-.qac-questions{padding:0 12px 14px;display:flex;flex-direction:column;gap:8px}
-.qac-empty{font-size:var(--fs-xxs);color:rgba(255,255,255,.25);font-style:italic;padding:10px 4px}
-/* Quiz question card */
-.qq{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px 14px}
-.qq.qq-correct{border-color:rgba(74,124,111,.4);background:rgba(74,124,111,.08)}
-.qq.qq-wrong{border-color:rgba(196,80,58,.4);background:rgba(196,80,58,.08)}
-.qq-num{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.3);margin-bottom:6px}
-.qq-stem{font-size:var(--fs-xs);color:rgba(255,255,255,.85);line-height:1.5;margin-bottom:10px;font-weight:500}
-.qq-opts{display:flex;flex-direction:column;gap:5px}
-.qq-opt{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;cursor:pointer;font-size:var(--fs-xxs);color:rgba(255,255,255,.7);transition:all .15s;background:rgba(255,255,255,.03)}
-.qq-opt:hover:not(.locked){background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
-.qq-opt.opt-correct{background:rgba(74,124,111,.15);border-color:rgba(74,124,111,.4);cursor:default}
-.qq-opt.opt-wrong{background:rgba(196,80,58,.15);border-color:rgba(196,80,58,.4);cursor:default}
-.qq-opt.locked{cursor:default;opacity:.65}
-.qq-letter{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);flex-shrink:0;margin-top:1px}
-.qq-opt.opt-correct .qq-letter{background:var(--sage);border-color:var(--sage);color:white}
-.qq-opt.opt-wrong .qq-letter{background:var(--coral);border-color:var(--coral);color:white}
-.qq-exp{font-size:var(--fs-xxs);color:rgba(255,255,255,.5);line-height:1.6;background:rgba(255,255,255,.04);border-left:2px solid var(--gold);padding:7px 10px;border-radius:0 5px 5px 0;margin-top:8px;display:none}
-.qq-exp.show{display:block}
+/* ── SKELETONS ── */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,.06) 25%,rgba(255,255,255,.1) 50%,rgba(255,255,255,.06) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:6px}
+.skel-line{height:14px;margin-bottom:8px}
+.skel-line.short{width:40%}
+.skel-line.medium{width:65%}
+.skel-line.full{width:100%}
+.skel-card{height:80px;border-radius:10px;margin-bottom:8px}
 
 
 /* ══════════════════════════════════════
-   MOBILE RESPONSIVE — all screen fixes
+   iPHONE OPTIMIZATIONS
    ══════════════════════════════════════ */
-@media (max-width: 768px) {
 
-  /* Base font */
-  body { font-size: 18px !important; }
+/* 1 — Safe areas for notch + home bar */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+}
+body {
+  padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+}
 
-  /* Padding */
-  .header, .bar, .legend, .main, .color-legend,
-  .structure-banner, .sync-bar-inner,
-  [style*="padding:18px 36px"], [style*="padding:28px 36px"],
-  [style*="padding: 18px 36px"], [style*="margin:0 36px"] {
+/* 2 — Bottom nav respects home indicator */
+.bottom-nav-bar {
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  height: auto !important;
+  padding-top: 10px !important;
+}
+
+/* 3 — Quick action button clears home indicator */
+.qab { bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; }
+.qab-menu { bottom: calc(134px + env(safe-area-inset-bottom, 0px)) !important; }
+
+/* 4 — All tap targets min 44px (Apple HIG) */
+button, .btn, .hbtn, .wk-link, .bnb-btn,
+.tab, .opt, .sd-opt, .r-btn, .next-btn,
+.mode-card, .mn-card, .diary-entry,
+a[href], input[type="button"], input[type="submit"] {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* 5 — Inputs — font 16px prevents iOS auto-zoom */
+input, textarea, select,
+.log-input, .diary-select, .diary-textarea,
+.wa-input {
+  font-size: 16px !important;
+  border-radius: 8px;
+}
+
+/* 6 — Quiz options — larger tap area */
+.opt {
+  padding: 14px 16px !important;
+  margin-bottom: 8px;
+}
+.opt-text { font-size: 16px !important; line-height: 1.5 !important; }
+
+/* 7 — Score bar wraps cleanly */
+.score-bar {
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+.score-track { width: 100% !important; order: 3 !important; }
+
+/* 8 — Tab bar scrolls horizontally, no wrapping */
+.tab-bar, .nq-tabs {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  flex-wrap: nowrap !important;
+  padding-bottom: 4px;
+}
+.tab {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+}
+
+/* 9 — Game options full width on small screens */
+@media (max-width: 480px) {
+  .showdown-options {
+    grid-template-columns: 1fr !important;
+  }
+  .sd-opt { min-height: 80px !important; }
+  .q-stem { font-size: 17px !important; }
+  .result-score { font-size: 60px !important; }
+  .home-title { font-size: 40px !important; }
+}
+
+/* 10 — Week cards — single column on iPhone */
+@media (max-width: 600px) {
+  .main {
+    grid-template-columns: 1fr !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .stats-row {
+    grid-template-columns: 1fr 1fr !important;
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+  }
+  .header, .countdown, .overall-bar, .phase-bar, .milestones {
     padding-left: 14px !important;
     padding-right: 14px !important;
   }
-
-  /* All multi-column grids → single column */
-  .main, .hub-grid, .obs-grid, .method-grid,
-  .art-grid, .two, .cl-days, .sb-grid,
-  .mnemonic-grid, .quiz-article-grid,
-  [style*="grid-template-columns:1fr 1fr"],
-  [style*="grid-template-columns: 1fr 1fr"],
-  [style*="grid-template-columns:repeat(auto-fill"],
-  [style*="grid-template-columns:repeat(auto-fit"] {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Day cards full width */
-  .day-card, .day-card.full, .full { grid-column: 1 !important; }
-
-  /* Block layout — time column narrower */
-  .block { grid-template-columns: 76px 1fr !important; padding: 12px 12px !important; }
-  .bwindow { font-size: 12px !important; }
-  .bdur { font-size: 14px !important; }
-
-  /* Headers */
-  .header h1, h1 { font-size: 26px !important; }
-  .day-name { font-size: 22px !important; }
-  .header-meta { flex-direction: column; align-items: flex-start; }
-  .back-btn { margin-left: 0 !important; margin-top: 6px; }
-  .header-actions { flex-direction: column; align-items: flex-start; }
-
-  /* Tab bars */
-  .tab-bar, .nq-tabs { padding-left: 14px !important; padding-right: 14px !important; overflow-x: auto; }
-  .tab { padding: 12px 14px !important; font-size: 14px !important; }
-
-  /* Cards */
-  .card-head { flex-direction: column; align-items: flex-start; gap: 6px; }
-  .week-row { gap: 8px; }
-  .week-count { display: none; }
-
-  /* Score bars */
-  .score-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .score-actions { flex-wrap: wrap; }
-  .score-track { width: 100% !important; }
-
-  /* Quiz options */
-  .opt, .dq-opt, .qq-opt { padding: 10px 12px !important; }
-  .opt-text, .dq-opt div, .qq-opt div { font-size: 15px !important; }
-
-  /* Buttons */
-  .btn, .hbtn, .btn-action { font-size: 14px !important; }
-
-  /* Mnemonic */
-  .mnemo-save-row { flex-direction: column; }
-  .mnemo-btn { width: 100%; text-align: center; padding: 12px; }
-  .mnemo-input { font-size: 16px !important; }
-
-  /* Test panel */
-  .tp-grid { grid-template-columns: 1fr !important; }
-
-  /* Tech panel */
-  .tech-panel .tech-item { flex-direction: column; }
-
-  /* Week cards on dashboard */
-  .wk-cards { grid-template-columns: 1fr !important; }
-  .wk { min-width: unset !important; }
-
-  /* Countdown boxes */
-  .cd-box { min-width: 56px !important; padding: 8px !important; }
-  .cd-num { font-size: 24px !important; }
-
-  /* Bottom banners */
-  .notes-banner { flex-direction: column; align-items: flex-start; }
-  .nb-btn { width: 100%; text-align: center; }
-
-  /* Study dashboard */
-  .today-strip { flex-direction: column; align-items: flex-start; }
-  .today-badges { margin-left: 0 !important; }
-  .score-timeline .score-entry { flex-wrap: wrap; }
-  .score-notes { width: 100%; }
-
-  /* Progress rings */
-  .day-progress { gap: 6px; }
-  .dp-ring { width: 30px; height: 30px; }
-
-  /* Visual diagrams — scroll horizontally */
-  .visual-diagram .vd-body { overflow-x: auto; }
-  .comp-grid { min-width: 500px; }
-
-  /* Notes page */
-  .panel { padding: 16px 14px 40px !important; }
-  .notes-wrap { padding: 0 !important; }
-  .nb { padding: 12px 14px !important; }
-
-  /* Inline buttons */
-  [style*="display:flex;gap:10px;flex-wrap:wrap"] { flex-direction: column !important; }
-  .header-actions a, .header-actions button { width: 100%; justify-content: center; }
+  .header h1 { font-size: 24px !important; }
+  .cd-num { font-size: 22px !important; }
+  .cd-box { min-width: 60px !important; padding: 8px 10px !important; }
 }
 
-/* Slightly wider phones — 2 columns ok for week cards */
-@media (min-width: 480px) and (max-width: 768px) {
-  .wk-cards { grid-template-columns: 1fr 1fr !important; }
+/* 11 — Dashboard form inputs full width */
+@media (max-width: 600px) {
+  .log-row { grid-template-columns: 1fr !important; }
+  .diary-textarea { min-height: 140px !important; }
+  .section-head { flex-direction: column !important; align-items: flex-start !important; }
+}
+
+/* 12 — Notes page panels */
+@media (max-width: 600px) {
+  .panel { padding: 16px 12px 80px !important; }
+  .nb { padding: 14px 12px !important; }
+}
+
+
+/* ── BASE FONT SIZE 20px (user preference) ── */
+@media (max-width: 768px) {
+  html { font-size: 20px; }
+  body { font-size: 20px !important; }
+
+  /* Scale up all text elements */
+  p, li, span, div, td, th, label { font-size: 20px; }
+  .fs-xs, .score-sub, .wk-dates, .wk-note, .art,
+  .hud-label, .q-num, .diary-date, .diary-form-title,
+  .section-sub, .section-label, .eyebrow, .ms-pill,
+  .sr-date, .wa-article, .wa-yours, .wa-correct,
+  .mn-front, .mn-hint, .status-bar, .tab-count,
+  .wk-prog-label, .ob-label, .phase-label, .phase-tag,
+  .cd-label, .score-chip-mode { font-size: 16px !important; }
+
+  /* Questions and options */
+  .q-stem { font-size: 20px !important; }
+  .opt-text { font-size: 20px !important; }
+  .sd-text { font-size: 20px !important; }
+
+  /* Nav tabs */
+  .tab { font-size: 16px !important; }
+  .bnb-btn { font-size: 12px !important; }
+
+  /* Buttons */
+  .hbtn, .btn, .r-btn, .next-btn, .mode-badge { font-size: 18px !important; }
+
+  /* Inputs */
+  input, textarea, select,
+  .log-input, .diary-select, .diary-textarea, .wa-input {
+    font-size: 20px !important;
+  }
+
+  /* Diary text */
+  .diary-text { font-size: 20px !important; }
+  .wa-question { font-size: 20px !important; }
+
+  /* Score numbers */
+  .score-main, .hud-score { font-size: 22px !important; }
+
+  /* Mode cards */
+  .mode-name { font-size: 20px !important; }
+  .mode-desc { font-size: 16px !important; }
 }
 
 </style>
 </head>
 <body>
 
-<!-- SYNC STATUS BAR -->
-<div class="sync-bar">
-  <div class="sync-bar-inner">
-    <div class="status-dot loading" id="status-dot"></div>
-    <span id="sync-status-text">Connecting to Supabase...</span>
-    <span style="margin-left:auto;font-family:'DM Mono',monospace" id="last-sync-time"></span>
-  </div>
+<!-- STATUS -->
+<div class="status-bar">
+  <div class="status-dot loading" id="status-dot"></div>
+  <span id="status-text">Connecting to Supabase...</span>
+  <span style="margin-left:auto;font-family:'DM Mono',monospace;font-size:11px" id="last-sync"></span>
 </div>
 
 <!-- HEADER -->
 <div class="header">
-  <div class="header-inner">
-    <a href="index.html" class="back-link">← Dashboard</a>
-    <div style="height:12px"></div>
-    <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859</div>
-    <h1>Study Dashboard</h1>
-    <div class="header-sub">
-      <span>Progress · Scores · Spaced Rep · Wrong Answers · Mnemonics</span>
-    </div>
-    <div class="header-actions">
-      <button class="btn btn-gold" onclick="loadAllData()">↻ Refresh all data</button>
-      <button class="btn btn-outline" onclick="scrollToSection('quizzes')">❓ Quizzes</button>
-      <button class="btn btn-outline" onclick="scrollToSection('wrong-answers')">❌ Wrong Answers</button>
-      <button class="btn btn-outline" onclick="exportData()">↓ Export data</button>
-      <a href="index.html" class="btn btn-outline">← Back to weeks</a>
-    </div>
+  <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859</div>
+  <h1>Study Dashboard</h1>
+  <div class="header-btns">
+    <a href="index.html" class="hbtn">← All Weeks</a>
+    <a href="week1_quiz.html" class="hbtn">❓ Quizzes</a>
+    <a href="week1_notes_quiz.html" class="hbtn">📋 Notes</a>
+    <button class="hbtn" onclick="loadAll()">↻ Refresh</button>
+    <button class="hbtn" onclick="document.getElementById('diary-article').focus();document.querySelector('.diary-form').scrollIntoView({behavior:'smooth'})">📔 New entry</button>
   </div>
 </div>
 
 <!-- MAIN -->
-<div class="main" id="main-content">
+<div class="sections">
 
-  <!-- Loading state -->
-  <div class="full loading-screen" id="loading-screen">
-    <div class="spinner"></div>
-    <div style="font-size:var(--fs-xs);color:rgba(255,255,255,.4)">Loading your study data...</div>
+
+  <!-- ══ 0. ARTICLE DIARY ══ -->
+  <div>
+    <div class="section-head">
+      <div>
+        <div class="section-label" style="color:var(--sage)">After every article</div>
+        <div class="section-title">Article Diary</div>
+        <div class="section-sub">Write what you understand in your own words — 3–5 sentences max</div>
+      </div>
+      <span class="section-count" id="diary-count">Loading...</span>
+    </div>
+
+    <!-- Write entry form -->
+    <div class="diary-form">
+      <div class="diary-form-title">+ New entry — write after finishing an article</div>
+      <select class="diary-select" id="diary-article">
+        <option value="">Select article...</option>
+        <optgroup label="Week 1">
+          <option>CPL Art. 1 — Definitions</option>
+          <option>CPL Art. 10 — Criminal Courts</option>
+          <option>CPL Art. 30 — Speedy Trial</option>
+          <option>PL Art. 10 — Mental States</option>
+          <option>PL Art. 55 — Classifications</option>
+          <option>PL Art. 80 — Sentences</option>
+        </optgroup>
+        <optgroup label="Week 2">
+          <option>CPL Art. 100 — Accusatory Instruments</option>
+          <option>CPL Art. 110 — Arraignment</option>
+          <option>CPL Art. 120 — Warrant of Arrest</option>
+          <option>CPL Art. 160 — Fingerprinting</option>
+        </optgroup>
+      </select>
+      <div class="diary-hint">
+        Answer these three: What is this article about? What is the most important rule? What confused me?
+      </div>
+      <textarea class="diary-textarea" id="diary-text" placeholder="In my own words..."></textarea>
+      <button class="hbtn" onclick="saveDiaryEntry()" style="background:var(--sage);color:white;border-color:var(--sage)">Save entry</button>
+    </div>
+
+    <div id="diary-feed"><div style="display:flex;flex-direction:column;gap:8px">
+    <div class="skel-line short skeleton"></div>
+    <div class="skel-card skeleton"></div>
+    <div class="skel-card skeleton"></div>
+    <div class="skel-line medium skeleton"></div>
+    <div class="skel-card skeleton"></div>
+  </div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ 1. WRONG ANSWERS ══ -->
+  <div>
+    <div class="section-head">
+      <div>
+        <div class="section-label" style="color:var(--coral)">Collected from quizzes</div>
+        <div class="section-title">Wrong Answers</div>
+        <div class="section-sub">Auto-saved every time you get a quiz question wrong</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <span class="section-count" id="wa-count">Loading...</span>
+        <button class="hbtn" onclick="clearWrongAnswers()" style="font-size:11px;border-color:rgba(196,80,58,.3);color:#f87171">Clear all</button>
+      </div>
+    </div>
+
+    <!-- Manual log form -->
+    <div class="log-form">
+      <div class="log-form-title">+ Log a wrong answer manually (from ClerkOne or Bluemedia)</div>
+      <div class="log-row">
+        <input class="log-input" id="wa-article" placeholder="Article — e.g. CPL Art. 30">
+        <input class="log-input" id="wa-yours" placeholder="Your answer">
+      </div>
+      <input class="log-input" id="wa-question" placeholder="Question or concept you missed" style="margin-bottom:8px">
+      <input class="log-input" id="wa-correct" placeholder="Correct answer" style="margin-bottom:10px">
+      <button class="hbtn" onclick="logWrongAnswer()">+ Log</button>
+    </div>
+
+    <div id="wa-feed"><div style="display:flex;flex-direction:column;gap:8px">
+    <div class="skel-line short skeleton"></div>
+    <div class="skel-card skeleton"></div>
+    <div class="skel-card skeleton"></div>
+    <div class="skel-line medium skeleton"></div>
+    <div class="skel-card skeleton"></div>
+  </div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ 2. MNEMONICS ══ -->
+  <div>
+    <div class="section-head">
+      <div>
+        <div class="section-label" style="color:var(--violet)">Collected from wind-down blocks</div>
+        <div class="section-title">Mnemonics</div>
+        <div class="section-sub">Tap a card to reveal your mnemonic · grouped by article</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="section-count" id="mn-count">Loading...</span>
+        <button class="export-btn" onclick="exportAnki()">↓ Export to Anki</button>
+      </div>
+    </div>
+    <div id="mn-feed"><div style="display:flex;flex-direction:column;gap:8px">
+    <div class="skel-line short skeleton"></div>
+    <div class="skel-card skeleton"></div>
+    <div class="skel-card skeleton"></div>
+    <div class="skel-line medium skeleton"></div>
+    <div class="skel-card skeleton"></div>
+  </div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ 3. SPACED REP DIARY ══ -->
+  <div>
+    <div class="section-head">
+      <div>
+        <div class="section-label" style="color:var(--sage)">Expanding gap schedule</div>
+        <div class="section-title">Spaced Rep Diary</div>
+        <div class="section-sub">What to review today based on when you learned each article</div>
+      </div>
+      <span class="section-count" id="sr-due-count">Loading...</span>
+    </div>
+    <div id="sr-feed"><div style="display:flex;flex-direction:column;gap:8px">
+    <div class="skel-line short skeleton"></div>
+    <div class="skel-card skeleton"></div>
+    <div class="skel-card skeleton"></div>
+    <div class="skel-line medium skeleton"></div>
+    <div class="skel-card skeleton"></div>
+  </div></div>
   </div>
 
 </div>
 
-<script src="clerk_sync.js"></script>
+<!-- BACK -->
+<div class="back-row">
+  <a href="index.html" style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px;font-size:var(--fs-xs);font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:40px">
+    ← Back to All Weeks
+  </a>
+</div>
+
 <script>
 const SB_URL = 'https://khddivyhzdlptkoznytl.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoZGRpdnloemRscHRrb3pueXRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNDk3OTksImV4cCI6MjA5NTgyNTc5OX0.jnTbiHdFPYK1K282polY59j3OG2TcrQesrly1UZojB8';
 const USER = 'ncolton_main';
-const HDRS = {
-  'apikey': SB_KEY,
-  'Authorization': `Bearer ${SB_KEY}`,
-  'Content-Type': 'application/json'
-};
+const HDRS = { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'resolution=merge-duplicates' };
 
-// Week definitions
-const WEEKS = [
-  { id:'week1', label:'Week 1', dates:'May 26–Jun 1', articles:'CPL 1·10·30 · PL 10·55·80', total:36 },
-  { id:'week2', label:'Week 2', dates:'Jun 2–8',      articles:'CPL 100·110·120·160 · PL 55', total:28 },
-];
-
-const SPACED_REP_SCHEDULE = [
-  { article:'CPL Art. 1',  learned:'May 26', reviews:['May 27','May 29','Jun 10','Jun 26','Jul 28','Oct 1'] },
-  { article:'CPL Art. 10', learned:'May 27', reviews:['May 28','May 30','Jun 11','Jun 27','Jul 29'] },
-  { article:'CPL Art. 30', learned:'May 28', reviews:['May 29','Jun 1','Jun 13','Jun 29','Jul 31'] },
-  { article:'PL Art. 10',  learned:'May 29', reviews:['May 30','Jun 1','Jun 13','Jun 30','Aug 1'] },
-  { article:'PL Art. 55',  learned:'May 31', reviews:['Jun 1','Jun 3','Jun 15','Jul 1','Aug 2'] },
-  { article:'CPL Art. 100',learned:'Jun 2',  reviews:['Jun 3','Jun 5','Jun 17','Jul 3'] },
-  { article:'CPL Art. 110',learned:'Jun 3',  reviews:['Jun 4','Jun 6','Jun 18','Jul 4'] },
-  { article:'CPL Art. 120',learned:'Jun 4',  reviews:['Jun 5','Jun 7','Jun 19','Jul 5'] },
-  { article:'CPL Art. 160',learned:'Jun 5',  reviews:['Jun 6','Jun 8','Jun 20','Jul 6'] },
-];
-
-// ── FETCH HELPER ──────────────────────────────────────────
-async function sb(table, query = '') {
-  try {
+async function sb(table, query='', method='GET', body=null){
+  try{
     const res = await fetch(`${SB_URL}/rest/v1/${table}${query}`, {
-      headers: HDRS
+      method, headers: HDRS, body: body ? JSON.stringify(body) : null
     });
-    if (!res.ok) return [];
-    return res.json();
-  } catch(e) {
-    return [];
-  }
+    if(!res.ok) return [];
+    return method === 'GET' ? res.json() : true;
+  } catch(e){ return []; }
 }
 
-// ── SAVE WRONG ANSWER ─────────────────────────────────────
-async function saveWrongAnswer() {
-  const article  = document.getElementById('wa-article').value.trim();
-  const question = document.getElementById('wa-question').value.trim();
-  const yours    = document.getElementById('wa-yours').value.trim();
-  const correct  = document.getElementById('wa-correct').value.trim();
-  if (!article || !question) return;
-  try {
-    await fetch(`${SB_URL}/rest/v1/wrong_answers`, {
-      method: 'POST',
-      headers: { ...HDRS, 'Prefer': 'resolution=merge-duplicates' },
-      body: JSON.stringify({
-        user_id: USER, article, question,
-        your_answer: yours, correct_answer: correct,
-        date_logged: new Date().toLocaleDateString()
-      })
-    });
-    ['wa-article','wa-question','wa-yours','wa-correct'].forEach(id => {
-      document.getElementById(id).value = '';
-    });
-    await loadAllData();
-  } catch(e) { console.warn(e); }
-}
+// ── SPACED REP SCHEDULE ───────────────────────────────────
+const SR_SCHEDULE = [
+  { article:'CPL Art. 1',   color:'#2563eb', learned:'Jun 21', reviews:['Jun 9','Jun 24','Jun 23','Jul 9','Aug 10','Oct 1'] },
+  { article:'CPL Art. 10',  color:'#2563eb', learned:'Jun 9', reviews:['Jun 23','Jun 12','Jun 24','Jul 10','Aug 11'] },
+  { article:'CPL Art. 30',  color:'#2563eb', learned:'Jun 23', reviews:['Jun 24','Jun 14','Jul 9','Jul 12','Aug 13'] },
+  { article:'PL Art. 10',   color:'#dc2626', learned:'Jun 24', reviews:['Jun 12','Jun 14','Jul 9','Jul 13','Aug 14'] },
+  { article:'PL Art. 55',   color:'#dc2626', learned:'Jul 9', reviews:['Jun 14','Jun 16','Jun 28','Jul 14','Aug 15'] },
+  { article:'CPL Art. 100', color:'#2563eb', learned:'Jun 28',  reviews:['Jun 16','Jul 14','Jul 13','Jul 16'] },
+  { article:'CPL Art. 110', color:'#2563eb', learned:'Jun 16',  reviews:['Jun 4','Jul 2','Jul 14','Jul 17'] },
+  { article:'CPL Art. 120', color:'#2563eb', learned:'Jul 13',  reviews:['Jul 14','Jul 16','Jul 2','Jul 18'] },
+  { article:'CPL Art. 160', color:'#2563eb', learned:'Jul 14',  reviews:['Jul 2','Jun 21','Jul 16','Jul 19'] },
+];
 
-// ── DATE HELPERS ──────────────────────────────────────────
-function parseDate(str) {
-  if (!str) return null;
-  const months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+const MONTHS = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+
+function parseDate(str){
   const [mon, day] = str.split(' ');
-  if (!months.hasOwnProperty(mon)) return null;
-  return new Date(2026, months[mon], parseInt(day));
+  if(!MONTHS.hasOwnProperty(mon)) return null;
+  return new Date(2026, MONTHS[mon], parseInt(day));
 }
 
-function getReviewStatus(reviews) {
-  const today = new Date(2026, 4, 31); // May 31 2026
-  for (const r of reviews) {
+function reviewStatus(reviews){
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  for(const r of reviews){
     const d = parseDate(r);
-    if (!d) continue;
-    const diff = Math.floor((d - today) / 86400000);
-    if (diff < 0) return { label: 'Overdue', cls: 'sr-due', date: r };
-    if (diff === 0) return { label: 'Due today', cls: 'sr-due', date: r };
-    if (diff <= 3) return { label: `Due ${r}`, cls: 'sr-upcoming', date: r };
-    return { label: `Next: ${r}`, cls: 'sr-done', date: r };
+    if(!d) continue;
+    const diff = Math.round((d - today) / 86400000);
+    if(diff < 0)  return { label:`Overdue (${r})`, cls:'sr-overdue' };
+    if(diff === 0) return { label:'Due today', cls:'sr-today' };
+    if(diff <= 4) return { label:`Due ${r}`, cls:'sr-upcoming' };
+    return { label:`Next: ${r}`, cls:'sr-done' };
   }
-  return { label: 'All done', cls: 'sr-done', date: '' };
+  return { label:'All reviews done', cls:'sr-done' };
 }
 
-// ── GET SCORE COLOR ───────────────────────────────────────
-function scoreColor(pct) {
-  if (pct >= 80) return 'score-good';
-  if (pct >= 60) return 'score-mid';
-  return 'score-low';
-}
 
-function scoreTrend(scores) {
-  if (scores.length < 2) return '';
-  const last = parseFloat(scores[scores.length-1].score);
-  const prev = parseFloat(scores[scores.length-2].score);
-  if (isNaN(last) || isNaN(prev)) return '';
-  return last > prev ? '📈' : last < prev ? '📉' : '➡️';
-}
-
-// ── BUILD DASHBOARD HTML ──────────────────────────────────
-async function loadAllData() {
-  const dot  = document.getElementById('status-dot');
-  const stat = document.getElementById('sync-status-text');
-  dot.className = 'status-dot loading';
-  stat.textContent = 'Loading data...';
-
-  // Fetch all tables in parallel
-  const [progress, quizScores, testScores, mnemonics, wrongAnswers] = await Promise.all([
-    sb('progress', `?user_id=eq.${USER}`),
-    sb('quiz_scores', `?user_id=eq.${USER}`),
-    sb('test_scores', `?user_id=eq.${USER}&order=created_at.asc`),
-    sb('mnemonics', `?user_id=eq.${USER}&order=updated_at.desc`),
-    sb('wrong_answers', `?user_id=eq.${USER}&order=created_at.desc&limit=20`),
-  ]);
-
-  dot.className = 'status-dot online';
-  stat.textContent = 'Connected to Supabase';
-  document.getElementById('last-sync-time').textContent =
-    'Last synced: ' + new Date().toLocaleTimeString();
-
-  // ── BUILD PROGRESS DATA ────────────────────────────────
-  const progressByWeek = {};
-  progress.forEach(row => {
-    if (!progressByWeek[row.week]) progressByWeek[row.week] = { done: 0 };
-    if (row.checked) progressByWeek[row.week].done++;
-  });
-
-  // ── BUILD QUIZ DATA ───────────────────────────────────
-  const quizByArticle = {};
-  quizScores.forEach(row => {
-    if (!quizByArticle[row.article]) quizByArticle[row.article] = { correct:0, total:0 };
-    quizByArticle[row.article].total++;
-    if (row.correct) quizByArticle[row.article].correct++;
-  });
-
-  // ── BUILD MNEMONIC DATA ───────────────────────────────
-  const mnemonicList = mnemonics.slice(0, 8);
-
-  // ── TODAY'S REVIEWS ───────────────────────────────────
-  const dueToday = SPACED_REP_SCHEDULE.filter(entry => {
-    return entry.reviews.some(r => {
-      const d = parseDate(r);
-      if (!d) return false;
-      const today = new Date(2026, 4, 31);
-      return d.toDateString() === today.toDateString();
-    });
-  });
-
-  // ── OVERALL PROGRESS ─────────────────────────────────
-  const totalBlocks = WEEKS.reduce((a, w) => a + w.total, 0);
-  const totalDone   = Object.values(progressByWeek).reduce((a, v) => a + v.done, 0);
-  const overallPct  = totalBlocks > 0 ? Math.round(totalDone / totalBlocks * 100) : 0;
-
-  // ── RENDER ────────────────────────────────────────────
-  const main = document.getElementById('main-content');
-  main.innerHTML = '';
-
-  // Today strip
-  const todayDiv = document.createElement('div');
-  todayDiv.className = 'full fade-up';
-  todayDiv.innerHTML = `
-    <div class="today-strip">
-      <span class="today-icon">📅</span>
-      <div class="today-text">
-        <div class="today-label">Sunday, May 31, 2026</div>
-        <div class="today-main">Week 1 → Week 2 transition</div>
-        <div class="today-sub">Exam in 132 days · ${overallPct}% of scheduled blocks complete</div>
-      </div>
-      <div class="today-badges">
-        ${dueToday.length > 0
-          ? dueToday.map(e => `<div class="today-badge due">Review: ${e.article}</div>`).join('')
-          : '<div class="today-badge">No reviews due today</div>'}
-      </div>
-    </div>`;
-  main.appendChild(todayDiv);
-
-  // ── PROGRESS CARD ─────────────────────────────────────
-  const progressCard = document.createElement('div');
-  progressCard.className = 'card fade-up';
-  progressCard.innerHTML = `
-    <div class="card-head">
-      <div class="card-title"><span>✅</span> Weekly Progress</div>
-      <button class="refresh-btn" onclick="loadAllData()">↻</button>
-    </div>
-    <div class="card-body">
-      ${WEEKS.map(w => {
-        const done = progressByWeek[w.id]?.done || 0;
-        const pct  = w.total > 0 ? Math.round(done / w.total * 100) : 0;
-        return `
-          <div class="week-row">
-            <div class="week-label">${w.label}</div>
-            <div class="week-bar"><div class="week-fill" style="width:${pct}%"></div></div>
-            <div class="week-pct">${pct}%</div>
-            <div class="week-count">${done}/${w.total}</div>
-          </div>`;
-      }).join('')}
-      <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between">
-        <span style="font-size:var(--fs-xs);color:rgba(255,255,255,.4)">Overall completion</span>
-        <span style="font-family:'DM Serif Display',serif;font-size:var(--fs-h2);color:var(--sage)">${overallPct}%</span>
-      </div>
-    </div>`;
-  main.appendChild(progressCard);
-
-  // ── QUIZ SCORES CARD ──────────────────────────────────
-  const quizCard = document.createElement('div');
-  quizCard.className = 'card fade-up';
-  const articles = Object.keys(quizByArticle);
-  quizCard.innerHTML = `
-    <div class="card-head">
-      <div class="card-title"><span>❓</span> Quiz Scores by Article</div>
-      <span class="card-meta">${articles.length} articles attempted</span>
-    </div>
-    <div class="card-body">
-      ${articles.length === 0
-        ? `<div class="empty"><span class="empty-icon">📝</span><span class="empty-text">No quiz scores yet — complete a quiz to see scores here</span></div>`
-        : articles.map(art => {
-            const d   = quizByArticle[art];
-            const pct = d.total > 0 ? Math.round(d.correct / d.total * 100) : 0;
-            const isCPL = art.toLowerCase().includes('cpl');
-            return `
-              <div class="quiz-article">
-                <div class="qa-header">
-                  <div class="qa-name">
-                    <div class="qa-badge" style="background:${isCPL ? 'var(--cpl)' : 'var(--pl)'}"></div>
-                    ${art}
-                  </div>
-                  <span class="qa-score" style="color:${pct>=80?'#81c784':pct>=60?'#fbbf24':'#f87171'}">${d.correct}/${d.total} · ${pct}%</span>
-                </div>
-                <div class="qa-bar"><div class="qa-fill ${scoreColor(pct)}" style="width:${pct}%"></div></div>
-              </div>`;
-          }).join('')
-      }
-    </div>`;
-  main.appendChild(quizCard);
-
-  // ── SPACED REP CARD ───────────────────────────────────
-  const srCard = document.createElement('div');
-  srCard.className = 'card fade-up';
-  srCard.innerHTML = `
-    <div class="card-head">
-      <div class="card-title"><span>🔁</span> Spaced Rep Diary</div>
-      <span class="card-meta">Expanding gap schedule</span>
-    </div>
-    <div class="card-body" style="padding:12px 18px">
-      <table class="sr-table">
-        <thead>
-          <tr>
-            <th>Article</th>
-            <th>Learned</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${SPACED_REP_SCHEDULE.map(entry => {
-            const status = getReviewStatus(entry.reviews);
-            return `
-              <tr>
-                <td class="sr-article">${entry.article}</td>
-                <td class="sr-date">${entry.learned}</td>
-                <td><span class="sr-badge ${status.cls}">${status.label}</span></td>
-              </tr>`;
-          }).join('')}
-        </tbody>
-      </table>
-    </div>`;
-  main.appendChild(srCard);
-
-  // ── WRONG ANSWERS CARD ────────────────────────────────
-  const wrongCard = document.createElement('div');
-  wrongCard.className = 'card fade-up';
-  wrongCard.innerHTML = `
-    <div class="card-head">
-      <div class="card-title"><span>❌</span> Wrong Answers Tracker</div>
-      <span class="card-meta">${wrongAnswers.length} logged</span>
-    </div>
-    <div class="card-body">
-      ${wrongAnswers.length === 0
-        ? `<div class="empty"><span class="empty-icon">🎯</span><span class="empty-text">No wrong answers logged yet</span></div>`
-        : wrongAnswers.map(w => `
-            <div class="wrong-item">
-              <div class="wrong-article">${w.article || 'Unknown article'}</div>
-              <div class="wrong-q">${w.question || ''}</div>
-              <div class="wrong-answers-row">
-                ${w.your_answer ? `<span class="wrong-yours">You answered: <strong>${w.your_answer}</strong></span>` : ''}
-                ${w.correct_answer ? `<span class="wrong-correct">Correct: <strong>${w.correct_answer}</strong></span>` : ''}
-                <span class="wrong-date">${w.date_logged || ''}</span>
-              </div>
-            </div>`).join('')
-      }
-      <!-- Add wrong answer form -->
-      <div class="wa-form">
-        <div style="font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.3);margin-bottom:6px">Log a wrong answer</div>
-        <div class="wa-row">
-          <input class="wa-input" id="wa-article" placeholder="Article (e.g. CPL Art. 30)">
-          <input class="wa-input" id="wa-yours" placeholder="Your answer">
-        </div>
-        <input class="wa-input" id="wa-question" placeholder="Question or concept you missed">
-        <input class="wa-input" id="wa-correct" placeholder="Correct answer">
-        <button class="btn btn-outline" onclick="saveWrongAnswer()" style="margin-top:4px;font-size:var(--fs-xxs)">+ Log wrong answer</button>
-      </div>
-    </div>`;
-  main.appendChild(wrongCard);
-
-  // ── TEST SCORES CARD ──────────────────────────────────
-  const testCard = document.createElement('div');
-  testCard.className = 'card fade-up';
-  testCard.innerHTML = `
-    <div class="card-head">
-      <div class="card-title"><span>🎯</span> Sunday Test Scores</div>
-      <span class="card-meta">${testScores.length} tests taken</span>
-    </div>
-    <div class="card-body">
-      ${testScores.length === 0
-        ? `<div class="empty"><span class="empty-icon">📊</span><span class="empty-text">No test scores yet — first Sunday test is this week</span></div>`
-        : `<div class="score-timeline">
-            ${testScores.map((s, i) => `
-              <div class="score-entry">
-                <span class="score-week">${s.week || 'Week ?'}</span>
-                <span class="score-val">${s.score || '—'}</span>
-                <span class="score-notes">${s.notes || ''}</span>
-                <span class="score-trend">${i > 0 ? scoreTrend(testScores.slice(0, i+1)) : ''}</span>
-              </div>`).join('')}
-          </div>`
-      }
-    </div>`;
-  main.appendChild(testCard);
-
-  // ── MNEMONICS CARD ────────────────────────────────────
-  const mnCard = document.createElement('div');
-  mnCard.className = 'card full fade-up';
-  mnCard.innerHTML = `
-    <div class="card-head">
-      <div class="card-title"><span>🧠</span> Mnemonic Master List</div>
-      <span class="card-meta">${mnemonicList.length} saved</span>
-    </div>
-    <div class="card-body">
-      ${mnemonicList.length === 0
-        ? `<div class="empty"><span class="empty-icon">💡</span><span class="empty-text">No mnemonics saved yet — create them in your daily wind-down blocks and they'll appear here</span></div>`
-        : `<div class="mnemonic-grid">
-            ${mnemonicList.map(m => `
-              <div class="mnemonic-card">
-                <div class="mn-article">🧠 ${m.day || ''} · ${m.article || ''}</div>
-                <div class="mn-text">${m.mnemonic_text || ''}</div>
-              </div>`).join('')}
-          </div>`
-      }
-    </div>`;
-  main.appendChild(mnCard);
-
-  // Also check localStorage mnemonics
-  try {
-    const localMn = JSON.parse(localStorage.getItem('nys_w1_mnemonics') || '{}');
-    const localMn2 = JSON.parse(localStorage.getItem('nys_w2_mnemonics') || '{}');
-    const allLocal = { ...localMn, ...localMn2 };
-    const localKeys = Object.keys(allLocal).filter(k => allLocal[k]?.text);
-    if (localKeys.length > 0 && mnemonicList.length === 0) {
-      const grid = mnCard.querySelector('.card-body');
-      grid.innerHTML = `<div class="mnemonic-grid">
-        ${localKeys.map(k => `
-          <div class="mnemonic-card">
-            <div class="mn-article">🧠 ${k.replace(/_/g,' ')}</div>
-            <div class="mn-text">${allLocal[k].text}</div>
-          </div>`).join('')}
-      </div>`;
-    }
-  } catch(e) {}
-}
-
-// ── EXPORT DATA ───────────────────────────────────────────
-async function exportData() {
-  const data = {
-    exported: new Date().toISOString(),
-    user: USER,
-    progress: await sb('progress', `?user_id=eq.${USER}`),
-    quiz_scores: await sb('quiz_scores', `?user_id=eq.${USER}`),
-    test_scores: await sb('test_scores', `?user_id=eq.${USER}`),
-    mnemonics: await sb('mnemonics', `?user_id=eq.${USER}`),
-    wrong_answers: await sb('wrong_answers', `?user_id=eq.${USER}`),
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `clerk-exam-data-${new Date().toISOString().split('T')[0]}.json`;
-  a.click();
-}
-
-// ── INIT ──────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  loadAllData();
-});
-
-// ── QUIZ ENGINE ──────────────────────────────────────────
-const QUIZ_STORE = 'nys_dashboard_quiz';
-const quizState = {};
-
-function loadQuizState(){
-  try{ Object.assign(quizState, JSON.parse(localStorage.getItem(QUIZ_STORE)||'{}')); }catch(e){}
-}
-function saveQuizState(){
-  try{ localStorage.setItem(QUIZ_STORE, JSON.stringify(quizState)); }catch(e){}
-}
-
-// Article quiz data — add questions here on Friday tech days
-const QUIZ_DATA = {
-  art1: {
-    article: 'CPL Art. 1',
-    questions: []  // Add questions here: {n:1, q:"stem", opts:["a. ..","b. .."], correct:"a", exp:"..."}
-  },
-  art10: {
-    article: 'CPL Art. 10',
-    questions: []
-  },
-  art30: {
-    article: 'CPL Art. 30',
-    questions: []
-  },
-  pl10: {
-    article: 'PL Art. 10',
-    questions: []
-  },
-  pl55: {
-    article: 'PL Art. 55',
-    questions: []
-  }
+// ── ARTICLE DIARY ─────────────────────────────────────────
+const ARTICLE_COLORS = {
+  'CPL': '#2563eb',
+  'PL': '#dc2626',
 };
 
-function buildQuizCard(articleKey) {
-  const data = QUIZ_DATA[articleKey];
-  if (!data || data.questions.length === 0) return;
-  const container = document.getElementById('qac-questions-' + articleKey);
-  if (!container) return;
+function getArticleColor(article) {
+  if (article.startsWith('CPL')) return '#2563eb';
+  if (article.startsWith('PL')) return '#dc2626';
+  return '#6b7280';
+}
 
-  container.innerHTML = '';
-  data.questions.forEach(q => {
-    const answered = quizState[articleKey + '_' + q.n];
-    const card = document.createElement('div');
-    card.className = 'qq' + (answered ? (answered === q.correct ? ' qq-correct' : ' qq-wrong') : '');
-    card.id = 'qq-' + articleKey + '-' + q.n;
+async function saveDiaryEntry() {
+  const article = document.getElementById('diary-article').value;
+  const text    = document.getElementById('diary-text').value.trim();
+  if (!article || !text) return;
 
-    const letters = ['a','b','c','d','e'];
-    const optsHtml = q.opts.map((opt, i) => {
-      const l = letters[i];
-      const text = opt.length > 2 ? opt.substring(3) : opt;
-      let cls = 'qq-opt';
-      if (answered) {
-        cls += ' locked';
-        if (l === q.correct) cls += ' opt-correct';
-        else if (l === answered && answered !== q.correct) cls += ' opt-wrong';
-      }
-      return `<div class="${cls}" id="qqopt-${articleKey}-${q.n}-${l}" onclick="answerQuiz('${articleKey}',${q.n},'${l}')">
-        <div class="qq-letter">${l.toUpperCase()}</div>
-        <div style="font-size:var(--fs-xxs);line-height:1.45;flex:1">${text}</div>
-      </div>`;
-    }).join('');
-
-    card.innerHTML = `
-      <div class="qq-num">Q${q.n}</div>
-      <div class="qq-stem">${q.q}</div>
-      <div class="qq-opts">${optsHtml}</div>
-      <div class="qq-exp ${answered ? 'show' : ''}" id="qqexp-${articleKey}-${q.n}">${q.exp || ''}</div>`;
-    container.appendChild(card);
+  await sb('spaced_rep', '', 'POST', {
+    user_id: USER,
+    article,
+    learned_date: new Date().toLocaleDateString(),
+    review_dates: '',
+    last_reviewed: new Date().toISOString(),
+    confidence: 1,
+    updated_at: new Date().toISOString()
   });
 
-  updateQuizScore(articleKey);
-}
-
-function answerQuiz(articleKey, qn, letter) {
-  const key = articleKey + '_' + qn;
-  if (quizState[key]) return;
-  const q = QUIZ_DATA[articleKey]?.questions.find(x => x.n === qn);
-  if (!q) return;
-
-  quizState[key] = letter;
-  saveQuizState();
-
-  const isCorrect = letter === q.correct;
-  const card = document.getElementById('qq-' + articleKey + '-' + qn);
-  if (card) card.classList.add(isCorrect ? 'qq-correct' : 'qq-wrong');
-
-  const letters = ['a','b','c','d','e'];
-  letters.forEach(l => {
-    const el = document.getElementById('qqopt-' + articleKey + '-' + qn + '-' + l);
-    if (!el) return;
-    el.classList.add('locked');
-    if (l === q.correct) el.classList.add('opt-correct');
-    else if (l === letter && !isCorrect) el.classList.add('opt-wrong');
+  // Save diary as a wrong answer entry with special marker
+  await sb('wrong_answers', '', 'POST', {
+    user_id: USER,
+    article,
+    question: '__DIARY__',
+    your_answer: text,
+    correct_answer: '',
+    date_logged: new Date().toLocaleDateString()
   });
 
-  const exp = document.getElementById('qqexp-' + articleKey + '-' + qn);
-  if (exp) exp.classList.add('show');
-
-  updateQuizScore(articleKey);
-
-  // Save wrong answer to Supabase
-  if (!isCorrect && typeof CLERK_SYNC !== 'undefined') {
-    const chosen = q.opts.find(o => o.startsWith(letter)) || letter;
-    const correct = q.opts.find(o => o.startsWith(q.correct)) || q.correct;
-    CLERK_SYNC.saveWrongAnswer(
-      QUIZ_DATA[articleKey].article,
-      q.q.substring(0, 120),
-      chosen.substring(0, 80),
-      correct.substring(0, 80)
-    ).then(() => loadWrongAnswersFeed()); // refresh feed immediately
-  }
+  document.getElementById('diary-article').value = '';
+  document.getElementById('diary-text').value = '';
+  loadDiaryEntries();
 }
 
-function updateQuizScore(articleKey) {
-  const qs = QUIZ_DATA[articleKey]?.questions || [];
-  if (!qs.length) return;
-  const correct = qs.filter(q => quizState[articleKey+'_'+q.n] === q.correct).length;
-  const answered = qs.filter(q => quizState[articleKey+'_'+q.n]).length;
-  const pct = answered ? Math.round(correct / qs.length * 100) : 0;
-  const scoreEl = document.getElementById('qac-score-' + articleKey);
-  const fillEl  = document.getElementById('qac-fill-' + articleKey);
-  if (scoreEl) scoreEl.textContent = correct + ' / ' + qs.length + ' · ' + pct + '%';
-  if (fillEl)  fillEl.style.width  = pct + '%';
-}
-
-function resetAllQuizzes() {
-  if (!confirm('Reset all quiz scores?')) return;
-  Object.keys(quizState).forEach(k => delete quizState[k]);
-  saveQuizState();
-  Object.keys(QUIZ_DATA).forEach(k => buildQuizCard(k));
-}
-
-function switchQuizWeek(week, btn) {
-  document.querySelectorAll('.quiz-week-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.quiz-week-panel').forEach(p => p.style.display = 'none');
-  btn.classList.add('active');
-  const panel = document.getElementById('quiz-week-' + week);
-  if (panel) panel.style.display = 'block';
-}
-
-function scrollToSection(id) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// ── WRONG ANSWERS FEED ────────────────────────────────────
-async function loadWrongAnswersFeed() {
-  const feed = document.getElementById('wrong-answers-feed');
+async function loadDiaryEntries() {
+  const feed  = document.getElementById('diary-feed');
+  const count = document.getElementById('diary-count');
   if (!feed) return;
-  const data = await sb('wrong_answers', `?user_id=eq.${USER}&order=created_at.desc&limit=50`);
 
-  if (!data || data.length === 0) {
-    feed.innerHTML = `<div class="empty" style="padding:40px">
-      <span class="empty-icon">🎯</span>
-      <span class="empty-text">No wrong answers yet — take a quiz to populate this feed</span>
+  const data = await sb('wrong_answers',
+    `?user_id=eq.${USER}&question=eq.__DIARY__&order=created_at.desc&limit=30`
+  );
+
+  count.textContent = `${data.length} entries`;
+
+  if (!data.length) {
+    feed.innerHTML = `<div class="empty">
+      <span class="empty-icon">📔</span>
+      Write your first diary entry after reading an article today
     </div>`;
     return;
   }
 
+  feed.innerHTML = data.map(d => `
+    <div class="diary-entry">
+      <div class="diary-entry-header">
+        <div class="diary-article">
+          <div class="diary-dot" style="background:${getArticleColor(d.article)}"></div>
+          ${d.article}
+        </div>
+        <div class="diary-date">${d.date_logged || ''}</div>
+      </div>
+      <div class="diary-text">${d.your_answer}</div>
+    </div>`).join('');
+}
+
+// ── WRONG ANSWERS ─────────────────────────────────────────
+async function loadWrongAnswers(){
+  const feed = document.getElementById('wa-feed');
+  const count = document.getElementById('wa-count');
+  const data = await sb('wrong_answers', `?user_id=eq.${USER}&order=created_at.desc&limit=50`);
+
+  count.textContent = `${data.length} logged`;
+
+  if(!data.length){
+    feed.innerHTML = '<div class="empty"><span class="empty-icon">🎯</span>No wrong answers yet — take a quiz to populate this feed</div>';
+    return;
+  }
+
+  feed.innerHTML = data.map(w => `
+    <div class="wa-item">
+      <div class="wa-article">${w.article || 'Unknown article'}</div>
+      <div class="wa-question">${w.question || ''}</div>
+      <div class="wa-row">
+        ${w.your_answer ? `<div class="wa-yours">You: <strong>${w.your_answer}</strong></div>` : ''}
+        ${w.correct_answer ? `<div class="wa-correct">Correct: <strong>${w.correct_answer}</strong></div>` : ''}
+        <div class="wa-date">${w.date_logged || ''}</div>
+      </div>
+    </div>`).join('');
+}
+
+async function logWrongAnswer(){
+  const article  = document.getElementById('wa-article').value.trim();
+  const question = document.getElementById('wa-question').value.trim();
+  const yours    = document.getElementById('wa-yours').value.trim();
+  const correct  = document.getElementById('wa-correct').value.trim();
+  if(!article || !question) return;
+  await sb('wrong_answers', '', 'POST', {
+    user_id: USER, article, question,
+    your_answer: yours, correct_answer: correct,
+    date_logged: new Date().toLocaleDateString()
+  });
+  ['wa-article','wa-question','wa-yours','wa-correct'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  loadWrongAnswers();
+}
+
+async function clearWrongAnswers(){
+  if(!confirm('Clear all wrong answers?')) return;
+  await fetch(`${SB_URL}/rest/v1/wrong_answers?user_id=eq.${USER}`, { method:'DELETE', headers: HDRS });
+  loadWrongAnswers();
+}
+
+// ── MNEMONICS ─────────────────────────────────────────────
+const MN_QUESTIONS = {
+  'CPL Art. 1':  'What are the 7 accusatory instruments? When does a criminal action commence?',
+  'CPL Art. 10': 'What are the two tiers of courts? What is superior court trial jurisdiction?',
+  'CPL Art. 30': 'What is the speedy trial deadline for a felony? What offenses are exempt?',
+  'PL Art. 10':  'What are the 4 mental states from most to least culpable?',
+  'PL Art. 55':  'What is the classification ladder from Class A felony to violation?',
+  'CPL Art. 100':'What must an information contain to be legally sufficient?',
+  'CPL Art. 110':'What must happen at every arraignment?',
+  'CPL Art. 120':'What must a warrant of arrest contain? Who executes it?',
+  'CPL Art. 160':'Which offenses require fingerprinting?',
+};
+
+const MN_COLORS = {
+  'CPL Art. 1':'#2563eb','CPL Art. 10':'#2563eb','CPL Art. 30':'#2563eb',
+  'PL Art. 10':'#dc2626','PL Art. 55':'#dc2626',
+  'CPL Art. 100':'#2563eb','CPL Art. 110':'#2563eb',
+  'CPL Art. 120':'#2563eb','CPL Art. 160':'#2563eb',
+};
+
+async function loadMnemonics(){
+  const feed  = document.getElementById('mn-feed');
+  const count = document.getElementById('mn-count');
+
+  const remote = await sb('mnemonics', `?user_id=eq.${USER}&order=updated_at.desc`);
+
+  // Merge with localStorage
+  const local1 = JSON.parse(localStorage.getItem('nys_w1_mnemonics')||'{}');
+  const local2 = JSON.parse(localStorage.getItem('nys_w2_mnemonics')||'{}');
+  const keyMap = {
+    mon_art100:'CPL Art. 100', tue_art110:'CPL Art. 110',
+    wed_art120:'CPL Art. 120', thu_art160:'CPL Art. 160',
+    mon_art1:'CPL Art. 1', tue_art10:'CPL Art. 10',
+    wed_art30:'CPL Art. 30', thu_pl10:'PL Art. 10', thu_pl55:'PL Art. 55'
+  };
+
+  const byArticle = {};
+
+  // From Supabase
+  remote.forEach(r => {
+    if(!r.mnemonic_text) return;
+    if(!byArticle[r.article]) byArticle[r.article] = [];
+    byArticle[r.article].push(r.mnemonic_text);
+  });
+
+  // From localStorage
+  const allLocal = {...local1, ...local2};
+  Object.keys(allLocal).forEach(k => {
+    const text = allLocal[k]?.text || (typeof allLocal[k]==='string' ? allLocal[k] : '');
+    if(!text || text.length < 3) return;
+    const article = keyMap[k] || k.replace(/_/g,' ');
+    if(!byArticle[article]) byArticle[article] = [];
+    if(!byArticle[article].includes(text)) byArticle[article].push(text);
+  });
+
+  const articles = Object.keys(byArticle);
+  const total = articles.reduce((a,k) => a + byArticle[k].length, 0);
+  count.textContent = `${total} saved`;
+
+  if(!total){
+    feed.innerHTML = '<div class="empty"><span class="empty-icon">🧠</span>No mnemonics saved yet — create them in your daily wind-down blocks</div>';
+    return;
+  }
+
+  feed.innerHTML = articles.map(art => {
+    const color = MN_COLORS[art] || '#6b7280';
+    const cards = byArticle[art];
+    return `
+      <div class="mn-group">
+        <div class="mn-group-label">
+          <div class="mn-dot" style="background:${color}"></div>
+          ${art}
+          <span style="color:rgba(255,255,255,.2);font-weight:400">${cards.length} card${cards.length>1?'s':''}</span>
+        </div>
+        ${cards.map((text, i) => {
+          const id = `mn-${art.replace(/\s/g,'-')}-${i}`;
+          const q = MN_QUESTIONS[art] || `Key rules for ${art}`;
+          return `
+            <div class="mn-card" onclick="flipMn('${id}')">
+              <div class="mn-front" style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:6px">QUESTION</div>
+              <div style="font-size:14px;color:rgba(255,255,255,.8);line-height:1.5">${q}</div>
+              <div class="mn-back" id="${id}">
+                <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(107,79,160,.8);margin-bottom:6px">YOUR MNEMONIC</div>
+                <div style="font-size:15px;color:white">${text}</div>
+              </div>
+              <div class="mn-hint" id="${id}-hint">▼ tap to reveal</div>
+            </div>`;
+        }).join('')}
+      </div>`;
+  }).join('');
+}
+
+function flipMn(id){
+  const back  = document.getElementById(id);
+  const hint  = document.getElementById(id+'-hint');
+  if(!back) return;
+  const showing = back.classList.contains('show');
+  back.classList.toggle('show', !showing);
+  if(hint) hint.textContent = showing ? '▼ tap to reveal' : '▲ tap to hide';
+}
+
+async function exportAnki(){
+  const remote = await sb('mnemonics', `?user_id=eq.${USER}&order=updated_at.desc`);
+  const lines  = ['#separator:tab','#html:false','#tags column:3',''];
+  remote.forEach(r => {
+    if(!r.mnemonic_text) return;
+    const q = MN_QUESTIONS[r.article] || `Key rules for ${r.article}`;
+    const tag = `nys_clerk::mnemonics::${r.article.replace(/\s/g,'_').toLowerCase()}`;
+    lines.push(`${q}\t${r.mnemonic_text}\t${tag}`);
+  });
+  const blob = new Blob([lines.join('\n')], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'nys_clerk_mnemonics.txt';
+  a.click();
+}
+
+// ── SPACED REP ────────────────────────────────────────────
+function loadSpacedRep(){
+  const feed  = document.getElementById('sr-feed');
+  const count = document.getElementById('sr-due-count');
+
+  const today = new Date(); today.setHours(0,0,0,0);
+  const dueToday = SR_SCHEDULE.filter(e => e.reviews.some(r => {
+    const d = parseDate(r);
+    return d && d.getTime() === today.getTime();
+  }));
+
+  count.textContent = `${dueToday.length} due today`;
+
   feed.innerHTML = `
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-      <span style="font-size:var(--fs-xxs);color:rgba(255,255,255,.35)">${data.length} wrong answers logged</span>
-      <button class="btn btn-outline" onclick="clearWrongAnswers()" style="font-size:var(--fs-xxs);padding:4px 12px">Clear all</button>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:8px">
-      ${data.map(w => `
-        <div style="background:rgba(196,80,58,.08);border:1px solid rgba(196,80,58,.18);border-radius:10px;padding:12px 14px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-            <span style="font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coral)">${w.article || 'Unknown'}</span>
-            <span style="font-size:var(--fs-xxs);color:rgba(255,255,255,.25);font-family:'DM Mono',monospace">${w.date_logged || ''}</span>
-          </div>
-          <div style="font-size:var(--fs-xs);color:rgba(255,255,255,.75);line-height:1.5;margin-bottom:8px">${w.question || ''}</div>
-          <div style="display:flex;gap:16px;flex-wrap:wrap">
-            ${w.your_answer ? `<div style="font-size:var(--fs-xxs);color:rgba(255,255,255,.4)">You: <strong style="color:#f87171">${w.your_answer}</strong></div>` : ''}
-            ${w.correct_answer ? `<div style="font-size:var(--fs-xxs);color:rgba(255,255,255,.4)">Correct: <strong style="color:#86efac">${w.correct_answer}</strong></div>` : ''}
-          </div>
-        </div>`).join('')}
-    </div>`;
+    <table class="sr-table">
+      <thead>
+        <tr>
+          <th>Article</th>
+          <th>Learned</th>
+          <th>Review dates</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${SR_SCHEDULE.map(e => {
+          const status = reviewStatus(e.reviews);
+          return `
+            <tr>
+              <td class="sr-art" style="display:flex;align-items:center;gap:7px">
+                <div style="width:7px;height:7px;border-radius:50%;background:${e.color};flex-shrink:0"></div>
+                ${e.article}
+              </td>
+              <td class="sr-date">${e.learned}</td>
+              <td class="sr-date">${e.reviews.join(' · ')}</td>
+              <td><span class="sr-badge ${status.cls}">${status.label}</span></td>
+            </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
 }
 
-async function clearWrongAnswers() {
-  if (!confirm('Clear all wrong answers? This cannot be undone.')) return;
-  try {
-    await fetch(`${SB_URL}/rest/v1/wrong_answers?user_id=eq.${USER}`, {
-      method: 'DELETE',
-      headers: HDRS
-    });
-    loadWrongAnswersFeed();
-  } catch(e) { console.warn(e); }
+// ── LOAD ALL ──────────────────────────────────────────────
+async function loadAll(){
+  const dot  = document.getElementById('status-dot');
+  const stat = document.getElementById('status-text');
+  dot.className = 'status-dot loading';
+  stat.textContent = 'Loading...';
+
+  await Promise.all([loadDiaryEntries(), loadWrongAnswers(), loadMnemonics()]);
+  loadSpacedRep();
+
+  dot.className = 'status-dot online';
+  stat.textContent = 'Connected to Supabase';
+  document.getElementById('last-sync').textContent = 'Synced ' + new Date().toLocaleTimeString();
 }
 
-// ── INIT QUIZZES ON PAGE LOAD ─────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  loadQuizState();
-  Object.keys(QUIZ_DATA).forEach(k => buildQuizCard(k));
-  // Load wrong answers feed after main data loads
-  setTimeout(loadWrongAnswersFeed, 1500);
 
-  // Scroll to hash if present
-  if (window.location.hash === '#quizzes') {
-    setTimeout(() => scrollToSection('quizzes'), 500);
+// ── PULL TO REFRESH ───────────────────────────────────────
+let ptStart = 0;
+document.addEventListener('touchstart', function(e){
+  if(window.scrollY === 0) ptStart = e.touches[0].clientY;
+}, {passive:true});
+document.addEventListener('touchend', function(e){
+  if(ptStart > 0){
+    var dist = e.changedTouches[0].clientY - ptStart;
+    if(dist > 80){
+      showToast('↻ Refreshing...', 'info');
+      setTimeout(loadAll, 300);
+    }
+    ptStart = 0;
   }
-  if (window.location.hash === '#wrong-answers') {
-    setTimeout(() => scrollToSection('wrong-answers'), 500);
-  }
-});
+}, {passive:true});
 
+document.addEventListener('DOMContentLoaded', loadAll);
 </script>
-
-<!-- ══════════════════════════════════════════════════════ -->
-<!-- QUIZ SECTION -->
-<!-- ══════════════════════════════════════════════════════ -->
-<div id="quizzes" style="max-width:1100px;margin:0 auto;padding:0 var(--pad) 60px">
-
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
-    <div>
-      <div style="font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:6px">Practice Quizzes</div>
-      <div style="font-family:'DM Serif Display',serif;font-size:var(--fs-h2);color:var(--white)">Quiz Bank</div>
-      <div style="font-size:var(--fs-xs);color:rgba(255,255,255,.4);margin-top:4px">Wrong answers automatically appear in the feed below</div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-outline" onclick="resetAllQuizzes()">Reset all scores</button>
-    </div>
-  </div>
-
-  <!-- WEEK TABS -->
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px" id="quiz-week-tabs">
-    <button class="quiz-week-btn active" onclick="switchQuizWeek('w1',this)">Week 1</button>
-    <button class="quiz-week-btn" onclick="switchQuizWeek('w2',this)">Week 2</button>
-  </div>
-
-  <!-- WEEK 1 QUIZZES -->
-  <div id="quiz-week-w1" class="quiz-week-panel">
-    <div style="display:grid;grid-template-columns:var(--grid-cols);gap:14px">
-
-      <!-- CPL Art. 1 -->
-      <div class="quiz-article-card" id="qac-art1">
-        <div class="qac-head">
-          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 1 — Definitions</div>
-          <div class="qac-score" id="qac-score-art1">0 / 0</div>
-        </div>
-        <div class="qac-bar"><div class="qac-fill" id="qac-fill-art1" style="width:0%"></div></div>
-        <div class="qac-questions" id="qac-questions-art1">
-          <div class="qac-empty">Quiz questions coming soon — add them on Friday tech day</div>
-        </div>
-      </div>
-
-      <!-- CPL Art. 10 -->
-      <div class="quiz-article-card" id="qac-art10">
-        <div class="qac-head">
-          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 10 — Criminal Courts</div>
-          <div class="qac-score" id="qac-score-art10">0 / 0</div>
-        </div>
-        <div class="qac-bar"><div class="qac-fill" id="qac-fill-art10" style="width:0%"></div></div>
-        <div class="qac-questions" id="qac-questions-art10">
-          <div class="qac-empty">Quiz questions coming soon</div>
-        </div>
-      </div>
-
-      <!-- CPL Art. 30 -->
-      <div class="quiz-article-card" id="qac-art30">
-        <div class="qac-head">
-          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 30 — Speedy Trial</div>
-          <div class="qac-score" id="qac-score-art30">0 / 0</div>
-        </div>
-        <div class="qac-bar"><div class="qac-fill" id="qac-fill-art30" style="width:0%"></div></div>
-        <div class="qac-questions" id="qac-questions-art30">
-          <div class="qac-empty">Quiz questions coming soon</div>
-        </div>
-      </div>
-
-      <!-- PL Art. 10 -->
-      <div class="quiz-article-card" id="qac-pl10">
-        <div class="qac-head">
-          <div class="qac-title"><span class="qac-dot" style="background:var(--pl)"></span>PL Art. 10 — Mental States</div>
-          <div class="qac-score" id="qac-score-pl10">0 / 0</div>
-        </div>
-        <div class="qac-bar"><div class="qac-fill" id="qac-fill-pl10" style="width:0%"></div></div>
-        <div class="qac-questions" id="qac-questions-pl10">
-          <div class="qac-empty">Quiz questions coming soon</div>
-        </div>
-      </div>
-
-      <!-- PL Art. 55 -->
-      <div class="quiz-article-card" id="qac-pl55">
-        <div class="qac-head">
-          <div class="qac-title"><span class="qac-dot" style="background:var(--pl)"></span>PL Art. 55 — Classifications</div>
-          <div class="qac-score" id="qac-score-pl55">0 / 0</div>
-        </div>
-        <div class="qac-bar"><div class="qac-fill" id="qac-fill-pl55" style="width:0%"></div></div>
-        <div class="qac-questions" id="qac-questions-pl55">
-          <div class="qac-empty">Quiz questions coming soon</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- WEEK 2 QUIZZES -->
-  <div id="quiz-week-w2" class="quiz-week-panel" style="display:none">
-    <div style="display:grid;grid-template-columns:var(--grid-cols);gap:14px">
-
-      <div class="quiz-article-card">
-        <div class="qac-head">
-          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 100 — Accusatory Instruments</div>
-          <div class="qac-score">Coming soon</div>
-        </div>
-        <div class="qac-questions"><div class="qac-empty">Add questions on Friday tech day</div></div>
-      </div>
-
-      <div class="quiz-article-card">
-        <div class="qac-head">
-          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 110 — Arraignment</div>
-          <div class="qac-score">Coming soon</div>
-        </div>
-        <div class="qac-questions"><div class="qac-empty">Add questions on Friday tech day</div></div>
-      </div>
-
-      <div class="quiz-article-card">
-        <div class="qac-head">
-          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 120 — Warrant of Arrest</div>
-          <div class="qac-score">Coming soon</div>
-        </div>
-        <div class="qac-questions"><div class="qac-empty">Add questions on Friday tech day</div></div>
-      </div>
-
-      <div class="quiz-article-card">
-        <div class="qac-head">
-          <div class="qac-title"><span class="qac-dot" style="background:var(--cpl)"></span>CPL Art. 160 — Fingerprinting</div>
-          <div class="qac-score">Coming soon</div>
-        </div>
-        <div class="qac-questions"><div class="qac-empty">Add questions on Friday tech day</div></div>
-      </div>
-
-    </div>
-  </div>
-
+<div class="toast" id="page-toast"></div>
+<script>
+function showToast(msg, type){
+  var t=document.getElementById('page-toast');
+  if(!t) return;
+  t.textContent=msg;
+  t.className='toast toast-'+(type||'info')+' show';
+  clearTimeout(t._t);
+  t._t=setTimeout(function(){t.className='toast';},2200);
+}
+// Override form saves to show toast
+document.addEventListener('DOMContentLoaded', function(){
+  var forms = document.querySelectorAll('button[onclick*="save"], button[onclick*="log"], button[onclick*="Save"], button[onclick*="Log"]');
+  forms.forEach(function(btn){
+    var orig = btn.getAttribute('onclick');
+    if(orig && !orig.includes('showToast')){
+      btn.addEventListener('click', function(){
+        setTimeout(function(){ showToast('✓ Saved', 'success'); }, 800);
+      });
+    }
+  });
+});
+</script>
+<!-- QUICK ACTION BUTTON -->
+<button class="qab" id="qab-btn" onclick="toggleQAB()" title="Quick actions">＋</button>
+<div class="qab-menu" id="qab-menu">
+  <a href="study_dashboard.html#diary-form" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">📔</span>Write diary entry</a>
+  <a href="study_dashboard.html#wa-article" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">❌</span>Log wrong answer</a>
+  <a href="game.html" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">🎮</span>Play a game</a>
+  <a href="week1_quiz.html" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">❓</span>Take a quiz</a>
 </div>
-
-<!-- ══════════════════════════════════════════════════════ -->
-<!-- WRONG ANSWERS SECTION (anchored) -->
-<!-- ══════════════════════════════════════════════════════ -->
-<div id="wrong-answers" style="max-width:1100px;margin:0 auto;padding:0 var(--pad) 80px">
-  <div style="font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--coral);margin-bottom:6px">Live Feed</div>
-  <div style="font-family:'DM Serif Display',serif;font-size:var(--fs-h2);color:var(--white);margin-bottom:4px">Wrong Answers</div>
-  <div style="font-size:var(--fs-xs);color:rgba(255,255,255,.4);margin-bottom:20px">Every wrong answer from any quiz across your study system</div>
-  <div id="wrong-answers-feed">
-    <div class="loading-screen" style="padding:40px"><div class="spinner"></div></div>
-  </div>
-</div>
-
+<script>
+function toggleQAB(){
+  var m=document.getElementById('qab-menu');
+  var b=document.getElementById('qab-btn');
+  m.classList.toggle('open');
+  b.textContent = m.classList.contains('open') ? '✕' : '＋';
+}
+function closeQAB(){
+  var m=document.getElementById('qab-menu');
+  var b=document.getElementById('qab-btn');
+  if(m){m.classList.remove('open');}
+  if(b){b.textContent='＋';}
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#qab-btn')&&!e.target.closest('#qab-menu')) closeQAB();
+});
+</script>
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav-bar" id="bottom-nav">
+  <a href="index.html" class="bnb-btn" id="bnb-home"><span class="bnb-icon">🏠</span>Home</a>
+  <a href="game.html" class="bnb-btn" id="bnb-game"><span class="bnb-icon">🎮</span>Game</a>
+  <a href="week1_quiz.html" class="bnb-btn" id="bnb-quiz"><span class="bnb-icon">❓</span>Quiz</a>
+  <a href="week1_notes_quiz.html" class="bnb-btn" id="bnb-notes"><span class="bnb-icon">📋</span>Notes</a>
+  <a href="study_dashboard.html" class="bnb-btn" id="bnb-dash"><span class="bnb-icon">📊</span>Dashboard</a>
+</nav>
+<script>
+(function(){
+  var path = window.location.pathname;
+  var map = {
+    'index.html':'bnb-home','game.html':'bnb-game',
+    'week1_quiz.html':'bnb-quiz','week1_notes_quiz.html':'bnb-notes',
+    'study_dashboard.html':'bnb-dash'
+  };
+  Object.keys(map).forEach(function(k){
+    if(path.includes(k)){
+      var el = document.getElementById(map[k]);
+      if(el) el.classList.add('active');
+    }
+  });
+  // Week schedules highlight Home
+  if(path.includes('week') && !path.includes('quiz') && !path.includes('notes')){
+    var el = document.getElementById('bnb-home');
+    if(el) el.classList.add('active');
+  }
+})();
+</script>
 </body>
 </html>

@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-<title>Week 1 — Practice Quizzes · CPL Arts. 1, 10, 30</title>
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Week 1 — Quizzes</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <script src="clerk_sync.js"></script>
 <style>
@@ -44,8 +47,8 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .tab-count{font-size:var(--fs-xxs);font-weight:600;background:var(--gold-light);color:#7a5010;padding:2px 8px;border-radius:10px;margin-left:6px}
 
 /* ── PANEL ── */
-.panel{display:none;padding:24px var(--pad-h) 60px}
-.panel.active{display:block}
+.panel{display:none !important;padding:24px var(--pad-h) 60px}
+.panel.active{display:block !important}
 
 /* ── SCORE BAR ── */
 .score-bar{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
@@ -193,7 +196,8 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   .comp-grid { min-width: 500px; }
 
   /* Notes page */
-  .panel { padding: 16px 14px 40px !important; }
+  .panel { display: none !important; padding: 16px 14px 40px !important; }
+  .panel.active { display: block !important; }
   .notes-wrap { padding: 0 !important; }
   .nb { padding: 12px 14px !important; }
 
@@ -207,6 +211,204 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   .wk-cards { grid-template-columns: 1fr 1fr !important; }
 }
 
+
+/* ── BOTTOM NAV (shared) ── */
+.bottom-nav-bar{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0f1120;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:999;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.bnb-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 12px;border-radius:10px;text-decoration:none;color:rgba(255,255,255,.4);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-family:'DM Sans',system-ui,sans-serif;min-width:56px;transition:color .15s;background:none;border:none;cursor:pointer}
+.bnb-btn:hover,.bnb-btn.active{color:#e8a020}
+.bnb-icon{font-size:20px;line-height:1}
+body{padding-bottom:68px}
+/* Light page override */
+.light-page .bottom-nav-bar{background:#fff;border-top:1px solid #e2ddd6}
+.light-page .bnb-btn{color:#9ca3af}
+.light-page .bnb-btn:hover,.light-page .bnb-btn.active{color:#c9952a}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;color:white;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-family:'DM Sans',system-ui,sans-serif}
+.toast.show{opacity:1}
+.toast-success{background:#16a34a}
+.toast-error{background:#ef4444}
+.toast-info{background:#1a1f3c}
+
+/* ── QUICK ACTION BUTTON ── */
+.qab{position:fixed;bottom:76px;right:16px;width:48px;height:48px;border-radius:50%;background:#c9952a;color:#0f1120;border:none;font-size:22px;cursor:pointer;z-index:998;box-shadow:0 4px 16px rgba(201,149,42,.4);display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit}
+.qab:hover{transform:scale(1.08);box-shadow:0 6px 20px rgba(201,149,42,.5)}
+.qab:active{transform:scale(.95)}
+.qab-menu{position:fixed;bottom:134px;right:16px;background:#1c1f35;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:8px;z-index:998;display:none;flex-direction:column;gap:4px;min-width:200px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.qab-menu.open{display:flex}
+.qab-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:none;border:none;color:rgba(255,255,255,.8);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;transition:background .15s;white-space:nowrap}
+.qab-item:hover{background:rgba(255,255,255,.08)}
+.qab-item-icon{font-size:16px;width:20px;text-align:center}
+/* Light page */
+.light-page .qab-menu{background:#fff;border-color:#e2ddd6;box-shadow:0 8px 32px rgba(0,0,0,.15)}
+.light-page .qab-item{color:#1a1f3c}
+.light-page .qab-item:hover{background:#f5f5f5}
+
+
+/* ══════════════════════════════════════
+   iPHONE OPTIMIZATIONS
+   ══════════════════════════════════════ */
+
+/* 1 — Safe areas for notch + home bar */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+}
+body {
+  padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 2 — Bottom nav respects home indicator */
+.bottom-nav-bar {
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  height: auto !important;
+  padding-top: 10px !important;
+}
+
+/* 3 — Quick action button clears home indicator */
+.qab { bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; }
+.qab-menu { bottom: calc(134px + env(safe-area-inset-bottom, 0px)) !important; }
+
+/* 4 — All tap targets min 44px (Apple HIG) */
+button, .btn, .hbtn, .wk-link, .bnb-btn,
+.tab, .opt, .sd-opt, .r-btn, .next-btn,
+.mode-card, .mn-card, .diary-entry,
+a[href], input[type="button"], input[type="submit"] {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* 5 — Inputs — font 16px prevents iOS auto-zoom */
+input, textarea, select,
+.log-input, .diary-select, .diary-textarea,
+.wa-input {
+  font-size: 16px !important;
+  border-radius: 8px;
+}
+
+/* 6 — Quiz options — larger tap area */
+.opt {
+  padding: 14px 16px !important;
+  margin-bottom: 8px;
+}
+.opt-text { font-size: 16px !important; line-height: 1.5 !important; }
+
+/* 7 — Score bar wraps cleanly */
+.score-bar {
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+.score-track { width: 100% !important; order: 3 !important; }
+
+/* 8 — Tab bar scrolls horizontally, no wrapping */
+.tab-bar, .nq-tabs {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  flex-wrap: nowrap !important;
+  padding-bottom: 4px;
+}
+.tab {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+}
+
+/* 9 — Game options full width on small screens */
+@media (max-width: 480px) {
+  .showdown-options {
+    grid-template-columns: 1fr !important;
+  }
+  .sd-opt { min-height: 80px !important; }
+  .q-stem { font-size: 17px !important; }
+  .result-score { font-size: 60px !important; }
+  .home-title { font-size: 40px !important; }
+}
+
+/* 10 — Week cards — single column on iPhone */
+@media (max-width: 600px) {
+  .main {
+    grid-template-columns: 1fr !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .stats-row {
+    grid-template-columns: 1fr 1fr !important;
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+  }
+  .header, .countdown, .overall-bar, .phase-bar, .milestones {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  .header h1 { font-size: 24px !important; }
+  .cd-num { font-size: 22px !important; }
+  .cd-box { min-width: 60px !important; padding: 8px 10px !important; }
+}
+
+/* 11 — Dashboard form inputs full width */
+@media (max-width: 600px) {
+  .log-row { grid-template-columns: 1fr !important; }
+  .diary-textarea { min-height: 140px !important; }
+  .section-head { flex-direction: column !important; align-items: flex-start !important; }
+}
+
+/* 12 — Notes page panels */
+@media (max-width: 600px) {
+  .panel { padding: 16px 12px 80px !important; }
+  .nb { padding: 14px 12px !important; }
+}
+
+
+/* ── BASE FONT SIZE 20px (user preference) ── */
+@media (max-width: 768px) {
+  html { font-size: 20px; }
+  body { font-size: 20px !important; }
+
+  /* Scale up all text elements */
+  p, li, span, div, td, th, label { font-size: 20px; }
+  .fs-xs, .score-sub, .wk-dates, .wk-note, .art,
+  .hud-label, .q-num, .diary-date, .diary-form-title,
+  .section-sub, .section-label, .eyebrow, .ms-pill,
+  .sr-date, .wa-article, .wa-yours, .wa-correct,
+  .mn-front, .mn-hint, .status-bar, .tab-count,
+  .wk-prog-label, .ob-label, .phase-label, .phase-tag,
+  .cd-label, .score-chip-mode { font-size: 16px !important; }
+
+  /* Questions and options */
+  .q-stem { font-size: 20px !important; }
+  .opt-text { font-size: 20px !important; }
+  .sd-text { font-size: 20px !important; }
+
+  /* Nav tabs */
+  .tab { font-size: 16px !important; }
+  .bnb-btn { font-size: 12px !important; }
+
+  /* Buttons */
+  .hbtn, .btn, .r-btn, .next-btn, .mode-badge { font-size: 18px !important; }
+
+  /* Inputs */
+  input, textarea, select,
+  .log-input, .diary-select, .diary-textarea, .wa-input {
+    font-size: 20px !important;
+  }
+
+  /* Diary text */
+  .diary-text { font-size: 20px !important; }
+  .wa-question { font-size: 20px !important; }
+
+  /* Score numbers */
+  .score-main, .hud-score { font-size: 22px !important; }
+
+  /* Mode cards */
+  .mode-name { font-size: 20px !important; }
+  .mode-desc { font-size: 16px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -214,7 +416,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 <!-- HEADER -->
 <div class="header">
   <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859 · Week 1</div>
-  <h1>Practice Quizzes</h1>
+  <h1>Quizzes</h1>
   <div class="header-actions">
     <a href="week1_notes_quiz.html" class="hbtn hbtn-outline">📋 Study Notes</a>
     <a href="study_dashboard.html#wrong-answers" class="hbtn hbtn-outline">❌ Wrong Answers Feed</a>
@@ -229,16 +431,26 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 
 <!-- TAB BAR -->
 <div class="tab-bar">
-  <button class="tab active" id="tab-art1" onclick="switchTab('art1',this)">CPL Art. 1 <span class="tab-count">43 Qs</span></button>
+  <button class="tab active" id="tab-art1" onclick="switchTab('art1',this)">CPL Art. 1 <span class="tab-count">56 Qs</span></button>
   <button class="tab" id="tab-art10" onclick="switchTab('art10',this)">CPL Art. 10 <span class="tab-count">8 Qs</span></button>
   <button class="tab" id="tab-art30" onclick="switchTab('art30',this)">CPL Art. 30 <span class="tab-count">5 Qs</span></button>
+  <button class="tab" id="tab-art20" onclick="switchTab('art20',this)">CPL Art. 20 <span class="tab-count">3 Qs</span></button>
+  <button class="tab" id="tab-misc" onclick="switchTab('misc',this)">Misc CPL <span class="tab-count">6 Qs</span></button>
+  <button class="tab" id="tab-acc" onclick="switchTab('acc',this)">Accusatory 100–110 <span class="tab-count">4 Qs</span></button>
+  <button class="tab" id="tab-officers" onclick="switchTab('officers',this)">Officers Art. 2 <span class="tab-count">3 Qs</span></button>
+  <button class="tab" id="tab-evidence" onclick="switchTab('evidence',this)">Evidence Art. 60 <span class="tab-count">5 Qs</span></button>
+  <button class="tab" id="tab-localct" onclick="switchTab('localct',this)">Local Court 170–180 <span class="tab-count">5 Qs</span></button>
+  <button class="tab" id="tab-dpimm" onclick="switchTab('dpimm',this)">Double Jeopardy/Immunity <span class="tab-count">3 Qs</span></button>
 </div>
+
+
+
 
 <!-- ══════ CPL ART 1 PANEL ══════ -->
 <div class="panel active" id="panel-art1">
   <div class="score-bar">
     <div>
-      <div class="score-main" id="sd1">0 / 43 correct</div>
+      <div class="score-main" id="sd1">0 / 56 correct</div>
       <div class="score-sub" id="ss1">Select an answer to begin</div>
     </div>
     <div class="score-track"><div class="score-fill" id="sf1" style="width:0%"></div></div>
@@ -282,6 +494,106 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   <div id="quiz-container-art30"></div>
 </div>
 
+<!-- ══════ CPL ART 20 PANEL ══════ -->
+<div class="panel" id="panel-art20">
+  <div class="score-bar">
+    <div>
+      <div class="score-main" id="sdart20">0 / 3 correct</div>
+      <div class="score-sub" id="ssart20">Select an answer to begin</div>
+    </div>
+    <div class="score-track"><div class="score-fill" id="sfart20" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetQuiz('art20')">Reset</button>
+      <button class="btn-action gold" onclick="revealAll('art20')">Reveal all</button>
+    </div>
+  </div>
+  <div id="quiz-container-art20"></div>
+</div>
+
+<!-- ══════ MISC CPL PANEL ══════ -->
+<div class="panel" id="panel-misc">
+  <div class="score-bar">
+    <div>
+      <div class="score-main" id="sdmisc">0 / 6 correct</div>
+      <div class="score-sub" id="ssmisc">Select an answer to begin</div>
+    </div>
+    <div class="score-track"><div class="score-fill" id="sfmisc" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetQuiz('misc')">Reset</button>
+      <button class="btn-action gold" onclick="revealAll('misc')">Reveal all</button>
+    </div>
+  </div>
+  <div id="quiz-container-misc"></div>
+</div>
+
+<!-- ══════ CPL ARTS. 100–110 ACCUSATORY PANEL ══════ -->
+<div class="panel" id="panel-acc">
+  <div class="score-bar">
+    <div>
+      <div class="score-main" id="sdacc">0 / 4 correct</div>
+      <div class="score-sub" id="ssacc">Select an answer to begin</div>
+    </div>
+    <div class="score-track"><div class="score-fill" id="sfacc" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetQuiz('acc')">Reset</button>
+      <button class="btn-action gold" onclick="revealAll('acc')">Reveal all</button>
+    </div>
+  </div>
+  <div id="quiz-container-acc"></div>
+</div>
+
+<!-- ══════ OFFICERS ART. 2 PANEL ══════ -->
+<div class="panel" id="panel-officers">
+  <div class="score-bar">
+    <div><div class="score-main" id="sdofficers">0 / 3 correct</div><div class="score-sub" id="ssofficers">Select an answer to begin</div></div>
+    <div class="score-track"><div class="score-fill" id="sfofficers" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetQuiz('officers')">Reset</button>
+      <button class="btn-action gold" onclick="revealAll('officers')">Reveal all</button>
+    </div>
+  </div>
+  <div id="quiz-container-officers"></div>
+</div>
+
+<!-- ══════ EVIDENCE ART. 60 PANEL ══════ -->
+<div class="panel" id="panel-evidence">
+  <div class="score-bar">
+    <div><div class="score-main" id="sdevidence">0 / 5 correct</div><div class="score-sub" id="ssevidence">Select an answer to begin</div></div>
+    <div class="score-track"><div class="score-fill" id="sfevidence" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetQuiz('evidence')">Reset</button>
+      <button class="btn-action gold" onclick="revealAll('evidence')">Reveal all</button>
+    </div>
+  </div>
+  <div id="quiz-container-evidence"></div>
+</div>
+
+<!-- ══════ LOCAL COURT 170-180 PANEL ══════ -->
+<div class="panel" id="panel-localct">
+  <div class="score-bar">
+    <div><div class="score-main" id="sdlocalct">0 / 5 correct</div><div class="score-sub" id="sslocalct">Select an answer to begin</div></div>
+    <div class="score-track"><div class="score-fill" id="sflocalct" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetQuiz('localct')">Reset</button>
+      <button class="btn-action gold" onclick="revealAll('localct')">Reveal all</button>
+    </div>
+  </div>
+  <div id="quiz-container-localct"></div>
+</div>
+
+<!-- ══════ DOUBLE JEOPARDY & IMMUNITY PANEL ══════ -->
+<div class="panel" id="panel-dpimm">
+  <div class="score-bar">
+    <div><div class="score-main" id="sddpimm">0 / 3 correct</div><div class="score-sub" id="ssdpimm">Select an answer to begin</div></div>
+    <div class="score-track"><div class="score-fill" id="sfdpimm" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetQuiz('dpimm')">Reset</button>
+      <button class="btn-action gold" onclick="revealAll('dpimm')">Reveal all</button>
+    </div>
+  </div>
+  <div id="quiz-container-dpimm"></div>
+</div>
+
 <div class="wa-toast" id="wa-toast">❌ Wrong answer saved to dashboard</div>
 
 <script>
@@ -290,7 +602,7 @@ const QUIZ_BANKS = {
   art1: {
     article: 'CPL Art. 1',
     scoreIds: { main:'sd1', sub:'ss1', fill:'sf1' },
-    total: 43,
+    total: 56,
     questions: [
       {n:1,q:"Which of the following is filed with a Superior Court?",opts:["a. Felony complaint","b. Misdemeanor complaint","c. Indictment","d. Information"],correct:"c",exp:"An indictment is voted by a Grand Jury and filed in a Superior Court. All other listed instruments are filed in local criminal courts.",ans:"Indictment"},
       {n:2,q:"A criminal action commences when:",opts:["a. A defendant is arrested","b. The first accusatory instrument is filed","c. An indictment is voted by a grand jury","d. The crime was committed"],correct:"b",exp:"CPL §1.20(16-17) — Filing of the first accusatory instrument commences a criminal action. Not arrest, not crime date, not indictment alone.",ans:"The first accusatory instrument is filed"},
@@ -334,7 +646,21 @@ const QUIZ_BANKS = {
       {n:40,q:"All attempts to commit an offense are:",opts:["a. Charged as the same grade as the completed offense","b. Automatically lesser-included offenses of the completed crime","c. Not chargeable unless the offense was completed","d. Only charged in superior courts"],correct:"b",exp:"CPL §1.20(37) — All attempts to commit an offense are automatically lesser-included offenses. You cannot attempt a crime without the attempt being a lesser-included of the completed crime.",ans:"Automatically lesser-included offenses of the completed crime"},
       {n:41,q:"A superior court warrant of arrest has the same force as:",opts:["a. A bench warrant","b. A local criminal court warrant of arrest","c. A subpoena","d. A prosecutor's information"],correct:"b",exp:"CPL §1.20(29) — A superior court warrant of arrest has the same force and effect as a warrant of arrest issued by a local criminal court.",ans:"A local criminal court warrant of arrest"},
       {n:42,q:"Which instrument requires verification by the complaining witness?",opts:["a. Simplified information","b. Prosecutor's information","c. Information","d. Bench warrant"],correct:"c",exp:"An information must be verified by the complainant. A simplified information does not require the same verification. A prosecutor's information is filed by the DA.",ans:"Information"},
-      {n:43,q:"A criminal proceeding is any proceeding:",opts:["a. Which takes place only after a conviction","b. Which constitutes a part of or relates to a criminal action","c. Involving civil penalties","d. Before the Court of Appeals only"],correct:"b",exp:"CPL §1.20(18) — A criminal proceeding is any proceeding which constitutes a part of, or relates to, a criminal action or prosecution.",ans:"Which constitutes a part of or relates to a criminal action"}
+      {n:43,q:"A criminal proceeding is any proceeding:",opts:["a. Which takes place only after a conviction","b. Which constitutes a part of or relates to a criminal action","c. Involving civil penalties","d. Before the Court of Appeals only"],correct:"b",exp:"CPL §1.20(18) — A criminal proceeding is any proceeding which constitutes a part of, or relates to, a criminal action or prosecution.",ans:"Which constitutes a part of or relates to a criminal action"},
+      {n:44,q:"The State is designated as the plaintiff in every accusatory instrument:",opts:["a. Unless the defendant is a corporation","b. Unless the action is prosecuted by the attorney general rather than a district attorney","c. Unless the accusatory instrument is a misdemeanor complaint","d. Without exception"],correct:"d",exp:"Choice (d) is correct (CPL 1.20-1). There are no exceptions. The victim of a crime may be a plaintiff in a civil action arising from the crime, but in a criminal action the State as plaintiff seeks to enforce the criminal law on behalf of the people of the State.",ans:"Without exception"},
+      {n:45,q:"Which of the following relate to an indictment? 1. It is a written accusation. 2. It is an accusation by a district attorney. 3. It is filed with a superior court. 4. It only concerns felonies.",opts:["a. 1 is correct, 2, 3 and 4 are not","b. 2 and 4 are correct, 1 and 3 are not","c. 1 and 3 are correct, 2 and 4 are not","d. 1, 2 and 3 are correct, 4 is not"],correct:"c",exp:"Choice (c) is correct (CPL 1.20-3). Statement 2 is incorrect because an indictment is an accusation by a grand jury, not a DA. Statement 4 is incorrect because an indictment must include at least one crime, which might be a misdemeanor.",ans:"1 and 3 are correct, 2 and 4 are not"},
+      {n:46,q:"An indictment is filed with a superior court in order to: (select all correct answers)",opts:["a. Charge one or more defendants with a crime","b. Alert a grand jury to the possible offenses","c. Commence a criminal action, in all cases","d. Both (a) and (d) — charge defendants AND serve as basis for prosecution"],correct:"d",exp:"Choices (a) and (d) are correct (CPL 1.20-2,3,3a). Choice (b) is incorrect — a grand jury precedes the indictment. Choice (c) is incorrect — most indictments result from a felony complaint which already commenced the action; only indictments commencing a new action commence the criminal action.",ans:"Both (a) and (d) — charge defendants AND serve as basis for prosecution"},
+      {n:47,q:"An information may serve:",opts:["a. Both to commence a criminal action and as a basis for prosecution","b. Both to commence a criminal action and to charge one or more defendants with a felony","c. Only to commence a criminal action","d. Only to serve as a basis for prosecution"],correct:"a",exp:"Choice (a) is correct (CPL 1.20-4). An information may serve both purposes — it commences a criminal action and serves as a basis for prosecution. It cannot charge a felony.",ans:"Both to commence a criminal action and as a basis for prosecution"},
+      {n:48,q:"Arraignment refers to a defendant's appearance in:",opts:["a. The court which will conduct a trial only","b. The court in which the criminal action is pending","c. Only the first court in which the defendant is produced","d. Any court which will decide, without a jury, defendant's guilt or innocence only"],correct:"b",exp:"Choice (b) is correct (CPL 1.20-9). An arraignment is held for the court to acquire and exercise control over the defendant's person and to set the course of further proceedings.",ans:"The court in which the criminal action is pending"},
+      {n:49,q:"John is caught while committing a felony, arrested and processed through court. The criminal action commences when:",opts:["a. John is arrested","b. John committed the crime","c. John is indicted by a vote of a grand jury","d. The first accusatory instrument is filed against him"],correct:"d",exp:"Choice (d) is correct (CPL 1.20-16,17). A criminal action commences with the filing of an accusatory instrument. Arrest on that instrument may happen later but the action has commenced.",ans:"The first accusatory instrument is filed against him"},
+      {n:50,q:"A process of a local criminal court requiring a defendant to appear before it for arraignment upon a filed accusatory instrument is known as:",opts:["a. A subpoena","b. An appearance ticket","c. A summons","d. A bench warrant"],correct:"c",exp:"Choice (c) is correct (CPL 1.20-27). A summons is a court process requiring a defendant to appear for arraignment on a filed accusatory instrument. An appearance ticket is issued by a public servant on an instrument not yet filed.",ans:"A summons"},
+      {n:51,q:"An indictment has been filed against a defendant. In order for an officer to bring the defendant before the court for arraignment upon the indictment, the officer must obtain:",opts:["a. A summons","b. A warrant of arrest","c. A superior court warrant of arrest","d. A bench warrant"],correct:"c",exp:"Choice (c) is correct (CPL 1.20-29). A superior court warrant of arrest is used to produce a defendant for arraignment only on an indictment when the indictment has commenced the criminal action.",ans:"A superior court warrant of arrest"},
+      {n:52,q:"A 'superior court warrant of arrest' directs:",opts:["a. A police officer","b. Any peace officer","c. A county marshal","d. A court officer of a superior court"],correct:"a",exp:"Choice (a) is correct (CPL 1.20-29). A superior court warrant of arrest directs a police officer to arrest a defendant for arraignment in a superior court. Peace officers, county marshals, and court officers are not included.",ans:"A police officer"},
+      {n:53,q:"The purpose of a bench warrant is to:",opts:["a. Return a defendant to a jail from which he or she has escaped","b. Bring a defendant into court for initial arraignment","c. Have a defendant appear before a grand jury to testify","d. Produce a defendant in court on a pending criminal action for some purpose other than initial arraignment"],correct:"d",exp:"Choice (d) is correct (CPL 1.20-30). A bench warrant is issued by a criminal court when a defendant in a pending case has previously been arraigned and further appearance is required.",ans:"Produce a defendant in court on a pending criminal action for some purpose other than initial arraignment"},
+      {n:54,q:"Select the correct statement about the geographical area of employment of police officers:",opts:["a. A 20-year NYS police officer assigned to Dover Plains, Dutchess County has a geographical area of employment of the entire state","b. An NYC police officer living and working in Kings County has a geographical area limited to Kings County","c. A Nassau County deputy sheriff assigned to the County Jail in Mineola has an area limited to Mineola","d. A Chatham town police officer's area does not include state or county roads passing through the town"],correct:"a",exp:"Choice (a) is correct (CPL 1.20-34a). Since the officer's employer is the state, his geographical area of employment is the entire state. An NYC officer's area is the entire city (not just one borough). A Nassau deputy's area is all of Nassau County.",ans:"A 20-year NYS police officer assigned to Dover Plains has a geographical area of the entire state"},
+      {n:55,q:"An attempt to commit an intentional assault was successful. The defendant was charged only with the completed assault. The defendant voluntarily pleads guilty to attempted assault in full satisfaction of the charge. This guilty plea:",opts:["a. Cannot be accepted since defendant was charged only with the completed crime","b. Can be accepted although not included in the indictment","c. Should be entered only if the indictment is amended to add attempted assault","d. Is illegal since a grand jury charged the completed crime"],correct:"b",exp:"Choice (b) is correct (CPL 1.20-37). Attempted assault is a lesser included offense. A defendant may plead guilty to a lesser included offense without it being charged in the indictment (CPL 220.10).",ans:"Can be accepted although not included in the indictment"},
+      {n:56,q:"Which of the following constitutes a juvenile offender?",opts:["a. A thirteen-year old who commits rape first degree","b. A twelve-year old who commits intentional murder second degree","c. A fourteen-year old who commits burglary first degree","d. A fifteen-year old who commits robbery third degree"],correct:"c",exp:"Choice (c) is correct (CPL 1.20-42, PL 30.00). A fourteen-year old who commits burglary first degree qualifies as a juvenile offender. A thirteen-year old cannot be a JO for rape. A twelve-year old cannot be a JO for any crime. Robbery third degree does not qualify a fifteen-year old as a JO.",ans:"A fourteen-year old who commits burglary first degree"},
+
     ]
   },
 
@@ -354,6 +680,91 @@ const QUIZ_BANKS = {
     ]
   },
 
+
+  art20: {
+    article: 'CPL Art. 20 — Geographical Jurisdiction',
+    scoreIds: { main:'sdart20', sub:'ss20', fill:'sf20' },
+    total: 3,
+    questions: [
+      {n:1,q:"Nick in New York contracts to fraudulently sell the Brooklyn Bridge. A $5 deposit is paid in New York, then they drive to New Jersey where the balance is paid. Under New York criminal procedure:",opts:["a. Nick can be tried only in New Jersey","b. There can be no NY prosecution because of the maxim 'Let the buyer beware'","c. The case must be dismissed because it is ridiculous","d. New Jersey courts are deprived of jurisdiction","e. Nick could be prosecuted in New York because conduct constituting an element of the offense occurred in New York"],correct:"e",exp:"Choice (e) is correct (CPL 20.20-1(a)). The New York part of the transaction completed at least an element of the criminal transaction. New Jersey may also have jurisdiction.",ans:"Nick could be prosecuted in New York because conduct constituting an element of the offense occurred in New York"},
+      {n:2,q:"Robert killed a victim and deposited body parts in six different New York counties. Concerning prosecution:",opts:["a. Only the county where death occurred can prosecute","b. Robert can be prosecuted only in the victim's home county","c. The case will be removed to another state due to its sensational nature","d. All six counties can prosecute but Robert can receive only one sentence","e. The county that first commences prosecution has jurisdiction to the exclusion of all others"],correct:"e",exp:"Choice (e) is correct (CPL 20.40-2(b)). Geographical jurisdiction is given to a county where the victim's body or a part is found. The first prosecutor to proceed will have control of the case under double jeopardy principles.",ans:"The county that first commences prosecution has jurisdiction to the exclusion of all others"},
+      {n:3,q:"Jane pushes John off a bridge connecting Nassau and Suffolk Counties. Jane may be prosecuted in:",opts:["a. The larger of the two counties only","b. Any court in New York State","c. The county nearest to the scene of the crime only","d. Either Nassau or Suffolk"],correct:"d",exp:"Choice (d) is correct (CPL 20.40-4(e)). The applicable section clearly gives geographical jurisdiction of an offense committed on a bridge to any terminal county — in this case either Nassau or Suffolk.",ans:"Either Nassau or Suffolk"}
+    ]
+  },
+
+  misc: {
+    article: 'Misc CPL — Art. 30 Limitation Periods & Speedy Trial',
+    scoreIds: { main:'sdmisc', sub:'ssmisc', fill:'sfmisc' },
+    total: 6,
+    questions: [
+      {n:1,q:"The limiting period within which a prosecution for murder (class A felony) must be commenced is:",opts:["a. Two years","b. Five years","c. Five years if the defendant does not leave the jurisdiction","d. None of the foregoing — there is no limiting period"],correct:"d",exp:"Choice (d) is correct (CPL 30.10). There is no limiting period to commence prosecution for a class A felony. Murder is a class A felony.",ans:"None of the foregoing — there is no limiting period"},
+      {n:2,q:"Prosecution for a crime must be commenced:",opts:["a. Within two years after commission for all misdemeanors","b. Within one year after commission for all misdemeanors","c. Within five years after commission for some felonies","d. Within five years after commission for all felonies"],correct:"c",exp:"Choice (c) is correct (CPL 30.10 sub. 2). For class A felonies there is no limiting period. For SOME other felonies it is five years. For misdemeanors it is two years. Choice (d) is incorrect because class A felonies have no limit.",ans:"Within five years after commission for some felonies"},
+      {n:3,q:"Except as otherwise provided, prosecution for a misdemeanor charge must generally be commenced, after its commission, within:",opts:["a. Two years","b. Three years","c. Four years","d. Five years"],correct:"a",exp:"Choice (a) is correct (CPL 30.10 sub. 2(c)). Prosecution for a misdemeanor must be commenced within two years after its commission. Subdivision 3 provides specified variations in specific situations.",ans:"Two years"},
+      {n:4,q:"According to New York CPL, a criminal action:",opts:["a. Is treated equally with civil cases in terms of court calendar","b. Has preference over other criminal actions if the defendant is in sheriff's custody","c. Does not take preference over other criminal actions except in murder cases","d. Is tried in chronological order with other criminal actions according to the date of the alleged crime"],correct:"b",exp:"Choice (b) is correct (CPL 30.20). Criminal cases have preference over civil cases, and criminal cases where the defendant is committed to custody get preference over other criminal cases. Murder cases have no statutory preference.",ans:"Has preference over other criminal actions if the defendant is in sheriff's custody"},
+      {n:5,q:"Generally for a felony other than certain homicides, the indictment is subject to being dismissed if the People are not ready for trial within:",opts:["a. Six months","b. One year","c. Two years","d. Five years"],correct:"a",exp:"Choice (a) is correct (CPL 30.30-1(a)). This six-month speedy trial period applies to felonies but does not apply to certain homicides (PL 125.10, 125.15, 125.20, 125.25, 125.27).",ans:"Six months"},
+      {n:6,q:"According to New York CPL, a person 'is prosecuted' when: (select all correct answers)",opts:["a. The action terminates in a conviction upon a plea of guilty","b. The defendant is charged by an accusatory instrument","c. The action proceeds to trial and a jury has been impaneled and sworn","d. Both (a) and (c) are correct"],correct:"d",exp:"Choices (a) and (c) are correct (CPL 40.30-1). As to (c), the section requires nothing more than that the jury be impaneled and sworn — no testimony need be taken. Choice (b) is incorrect because prosecution requires more than just being charged.",ans:"Both (a) and (c) are correct"}
+    ]
+  },
+  acc: {
+    article: 'CPL Arts. 100–110 — Accusatory Instruments',
+    scoreIds: { main:'sdacc', sub:'ssacc', fill:'sfacc' },
+    total: 4,
+    questions: [
+      {n:1,q:"A criminal action is commenced:",opts:["a. By the arrest of the defendant","b. By the defendant's physical arrival at the courthouse","c. By filing an accusatory instrument","d. By defendant's booking at a police station"],correct:"c",exp:"Choice (c) is correct (CPL 100.05). A criminal action is commenced by the filing of an accusatory instrument. CPL 1.20-17 defines this as the point of commencement.",ans:"By filing an accusatory instrument"},
+      {n:2,q:"A simplified traffic information:",opts:["a. Must contain factual allegations supporting the charge","b. Can be made only by a police officer or other authorized person","c. May charge the defendant with felonies related to traffic incidents","d. Is drafted in a form prescribed by the district attorney"],correct:"b",exp:"Choice (b) is correct (CPL 100.10-2). A simplified traffic information is filed by a police officer or other authorized person. It does not require factual allegations and cannot charge felonies.",ans:"Can be made only by a police officer or other authorized person"},
+      {n:3,q:"A supporting deposition:",opts:["a. Is always a written instrument","b. Provides direct support in all cases of the charges in an accusatory instrument","c. May be subscribed and verified by any witness","d. Is always subscribed and verified by the complainant"],correct:"a",exp:"Choice (a) is correct (CPL 100.20). A supporting deposition is always a written instrument. It need not support all charges and need not be from the complainant.",ans:"Is always a written instrument"},
+      {n:4,q:"A felony complaint may be sworn to: (select all correct)",opts:["a. Before the court with which it is filed","b. Before a police officer only if the officer has rank of sergeant or higher","c. Before a notary public","d. Both (a) and (c) are correct — court OR notary public"],correct:"d",exp:"Choices (a), (c) and (d) are correct (CPL 100.30). A felony complaint may be sworn to before the court with which it is filed, before a notary public, or before any desk officer in charge at a police station.",ans:"Both (a) and (c) are correct — court OR notary public"}
+    ]
+  },
+
+  officers: {
+    article: 'CPL Art. 2 — Peace Officers & Police Officers',
+    scoreIds: { main:'sdofficers', sub:'ssofficers', fill:'sfofficers' },
+    total: 3,
+    questions: [
+      {n:1,q:"New York City sheriffs and deputy sheriffs differ from other New York State sheriffs in that New York City sheriffs are considered:",opts:["a. Constables","b. Police and peace officers","c. Police officers","d. Peace officers"],correct:"d",exp:"Choice (d) is correct (CPL 2.10-2 and 1.20-34(b)). NYC sheriffs are primarily concerned with civil matters — service of papers and enforcement of court orders. Other NY sheriffs are police officers.",ans:"Peace officers"},
+      {n:2,q:"A City Marshal of New York City who has received appropriate training in firearms is considered to be:",opts:["a. Both a police and peace officer","b. A police officer","c. A peace officer","d. A patrolman"],correct:"c",exp:"Choice (c) is correct (CPL 2.10-33). A City Marshal of NYC with firearms training is a peace officer — not a police officer.",ans:"A peace officer"},
+      {n:3,q:"Which of the following are police officers under CPL? 1. All sheriffs, under-sheriffs and deputy sheriffs. 2. A deputy fire marshal in the NYC Fire Dept. 3. An investigator in a district attorney's office. 4. Long Island Railroad police. 5. A sworn Port Authority officer.",opts:["a. 1 only","b. 1 and 2 only","c. 2, 3 and 4 only","d. 2, 3, 4 and 5 only — NOT 1"],correct:"d",exp:"Choices (b),(c),(d) and (e) are correct (CPL 1.20-34). Sheriffs have police officer status ONLY when employed by counties outside NYC. In NYC they exercise only civil jurisdiction.",ans:"2, 3, 4 and 5 only — NOT 1"}
+    ]
+  },
+
+  evidence: {
+    article: 'CPL Art. 60 — Rules of Evidence',
+    scoreIds: { main:'sdevidence', sub:'ssevidence', fill:'sfevidence' },
+    total: 5,
+    questions: [
+      {n:1,q:"Ten-year old Mary witnesses her father's murder by her mother. Mary is bright, intelligent, and understands the nature of an oath. At her mother's trial, Mary:",opts:["a. Cannot testify at all because of her youth","b. Can give only unsworn testimony","c. Cannot testify because this is a private family matter","d. May be permitted to testify under oath"],correct:"d",exp:"Choice (d) is correct (CPL 60.20-2). Mary may be permitted by the court to testify if she understands the nature of an oath.",ans:"May be permitted to testify under oath"},
+      {n:2,q:"Mike and Minnie decided to rob a store together. Minnie was arrested and testified that Mike robbed the store with her. In this situation:",opts:["a. Minnie's testimony must be supported by other evidence connecting Mike to the crime","b. Mike can be convicted solely on Minnie's testimony","c. Minnie's testimony is meaningless since she was an accomplice","d. Mike's testimony must be similar to Minnie's"],correct:"a",exp:"Choice (a) is correct (CPL 60.22-1). Minnie is an accomplice. Mike cannot be convicted on her testimony alone — it must be supported by corroborative evidence.",ans:"Minnie's testimony must be supported by other evidence connecting Mike to the crime"},
+      {n:3,q:"A prosecution witness gives testimony that tends to disprove the prosecutor's case. The prosecutor:",opts:["a. May use a prior contradictory written statement as evidence in chief","b. Must remain silent since he called the witness","c. May present evidence that the witness previously made a signed written statement contradictory to his testimony","d. May not use a prior written statement to lessen the witness's credibility"],correct:"c",exp:"Choice (c) is correct (CPL 60.35-1,2). A prior contradictory statement may be used ONLY to impeach credibility — not as evidence in chief.",ans:"May present evidence that the witness previously made a signed written statement contradictory to his testimony"},
+      {n:4,q:"In a prosecution for a Penal Law Article 130 sex offense, evidence of the victim's prior sexual conduct:",opts:["a. Is never admissible","b. Is always admissible","c. Is admissible only on consent of the victim","d. Is not admissible generally except in specified circumstances"],correct:"d",exp:"Choice (d) is correct (CPL 60.42). CPL 60.42 lists five specific circumstances that make such evidence admissible.",ans:"Is not admissible generally except in specified circumstances"},
+      {n:5,q:"Statements made by a defendant to a psychiatrist during a mental examination are admissible at trial:",opts:["a. Only on the issue of lack of criminal responsibility by reason of mental disease or defect","b. Without limitation","c. Only if made to a psychiatrist, not a psychologist","d. Never — they are confidential"],correct:"a",exp:"Choice (a) is correct (CPL 60.55). The statements are received ONLY on the issue of lack of criminal responsibility by reason of mental disease or defect. No distinction is made between a psychiatrist and psychologist.",ans:"Only on the issue of lack of criminal responsibility by reason of mental disease or defect"}
+    ]
+  },
+
+  localct: {
+    article: 'CPL Arts. 170 & 180 — Local Criminal Court Proceedings',
+    scoreIds: { main:'sdlocalct', sub:'sslocalct', fill:'sflocalct' },
+    total: 5,
+    questions: [
+      {n:1,q:"A local criminal court is divested of misdemeanor jurisdiction when:",opts:["a. The defendant requests transfer to superior court","b. The DA files a superior court information","c. An indictment is filed in a superior court charging the defendant with the misdemeanor","d. The court determines it lacks proper venue"],correct:"c",exp:"Choice (c) is correct (CPL 170.20). A local criminal court is divested when an indictment is filed in superior court charging the same misdemeanor.",ans:"An indictment is filed in a superior court charging the defendant with the misdemeanor"},
+      {n:2,q:"Ordering an adjournment in contemplation of dismissal (ACD) in a marijuana case:",opts:["a. Is within the court's discretion","b. Is mandatory if the DA consents","c. Cannot be ordered unless defendant has no prior record","d. Requires a hearing"],correct:"a",exp:"Choice (a) is correct (CPL 170.56-2). An ACD in a marijuana case is within the court's discretion.",ans:"Is within the court's discretion"},
+      {n:3,q:"A defendant waives his right to a hearing upon a felony complaint. The local criminal court must:",opts:["a. Accept the waiver and hold the defendant for grand jury action","b. Hold the defendant for grand jury action only after taking testimony","c. Dismiss the felony complaint","d. Transfer the case to superior court immediately"],correct:"b",exp:"Choice (b) is correct (CPL 180). Even when a defendant waives the hearing, the court must take some testimony before holding the defendant for grand jury action.",ans:"Hold the defendant for grand jury action only after taking testimony"},
+      {n:4,q:"At a preliminary hearing on a felony complaint, the People must establish:",opts:["a. Proof beyond a reasonable doubt","b. Probable cause to believe the defendant committed a felony","c. Proof by a preponderance of the evidence","d. Prima facie proof of the offense charged"],correct:"b",exp:"Choice (b) is correct (CPL 180.60). The standard at a preliminary hearing is probable cause — lower than the trial standard.",ans:"Probable cause to believe the defendant committed a felony"},
+      {n:5,q:"When a defendant charged with a misdemeanor in local criminal court requests a jury trial and the court cannot conduct jury trials, the case must be:",opts:["a. Tried in local criminal court with a jury","b. Transferred to superior court","c. Dismissed","d. Tried without a jury in local criminal court"],correct:"b",exp:"Choice (b) is correct (CPL 170.25). The case must be transferred to a court that can conduct jury trials.",ans:"Transferred to superior court"}
+    ]
+  },
+
+  dpimm: {
+    article: 'CPL Arts. 40 & 50 — Double Jeopardy & Immunity',
+    scoreIds: { main:'sddpimm', sub:'ssdpimm', fill:'sfdpimm' },
+    total: 3,
+    questions: [
+      {n:1,q:"A person 'is prosecuted' under CPL when:",opts:["a. The action terminates in a conviction upon a plea of guilty","b. The defendant is charged by an accusatory instrument","c. The action proceeds to trial and a jury has been impaneled and sworn","d. Both (a) and (c) are correct"],correct:"d",exp:"Choices (a) and (c) are correct (CPL 40.30-1). As to (c), only impaneling and swearing of the jury is required — no testimony need be taken. Choice (b) is incorrect.",ans:"Both (a) and (c) are correct"},
+      {n:2,q:"A person testifies in a NY Supreme Court jury trial when compelled by court order and is granted immunity. That person:",opts:["a. Cannot be convicted of any offense based on his truthful testimony","b. Can be convicted of perjury for false testimony","c. Can be convicted of contempt for initial refusal to testify","d. Both (a) and (b) are correct"],correct:"d",exp:"Choices (a) and (b) are correct (CPL 50.10, 50.20). Immunity is complete as to the transaction — but perjury is a logical exception for false testimony. Initial refusal before immunity is granted has constitutional support.",ans:"Both (a) and (b) are correct"},
+      {n:3,q:"After the People present all their evidence, the defendant moves to dismiss for legally insufficient evidence. The court:",opts:["a. Must grant the motion if it finds the evidence insufficient as a matter of law","b. May deny the motion and let the jury decide","c. Must submit the case to the jury regardless","d. Can only grant with the DA's consent"],correct:"a",exp:"When the People have presented all their evidence, the court must grant a motion to dismiss if the evidence is legally insufficient as a matter of law. The jury cannot cure legally insufficient evidence.",ans:"Must grant the motion if it finds the evidence insufficient as a matter of law"}
+    ]
+  },
+
   art30: {
     article: 'CPL Art. 30',
     scoreIds: { main:'sd30', sub:'ss30', fill:'sf30' },
@@ -368,6 +779,8 @@ const QUIZ_BANKS = {
   }
 };
 
+
+
 // ── STATE ─────────────────────────────────────────────────
 const STORE = 'nys_w1_quiz_standalone';
 const state = {};
@@ -381,10 +794,17 @@ function saveState(){
 
 // ── TAB SWITCH ────────────────────────────────────────────
 function switchTab(id, btn){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
   btn.classList.add('active');
-  document.getElementById('panel-'+id).classList.add('active');
+  const active = document.getElementById('panel-' + id);
+  if(active){
+    active.classList.add('active');
+    active.style.display = 'block';
+  }
 }
 
 // ── BUILD QUIZ ────────────────────────────────────────────
@@ -441,7 +861,9 @@ function buildQuiz(articleKey){
 function selectAnswer(articleKey, qn, letter){
   const key = articleKey+'_'+qn;
   if(state[key]) return;
-  const q = QUIZ_BANKS[articleKey].questions.find(x=>x.n===qn);
+  const bank = QUIZ_BANKS[articleKey];
+  if(!bank) return;
+  const q = bank.questions.find(x=>x.n===qn);
   if(!q) return;
 
   state[key] = letter;
@@ -498,6 +920,7 @@ function selectAnswer(articleKey, qn, letter){
 // ── SCORE ─────────────────────────────────────────────────
 function updateScore(articleKey){
   const bank = QUIZ_BANKS[articleKey];
+  if(!bank) return;
   const ids = bank.scoreIds;
   const correct = bank.questions.filter(q=>state[articleKey+'_'+q.n]===q.correct).length;
   const answered = bank.questions.filter(q=>state[articleKey+'_'+q.n]).length;
@@ -568,11 +991,96 @@ function handleHash(){
 
 // ── INIT ──────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', ()=>{
+  // Force hide ALL panels first — prevents any CSS cascade from showing them
+  document.querySelectorAll('.panel').forEach(p => {
+    p.style.cssText += ';display:none !important';
+    p.classList.remove('active');
+  });
+  // Show only the first panel
+  const first = document.getElementById('panel-art1');
+  if(first){ first.style.cssText = ''; first.classList.add('active'); }
   loadState();
   Object.keys(QUIZ_BANKS).forEach(k => buildQuiz(k));
   handleHash();
 });
 window.addEventListener('hashchange', handleHash);
+</script>
+<div class="toast" id="page-toast"></div>
+<script>
+function showToast(msg, type){
+  var t=document.getElementById('page-toast');
+  if(!t) return;
+  t.textContent=msg;
+  t.className='toast toast-'+(type||'info')+' show';
+  clearTimeout(t._t);
+  t._t=setTimeout(function(){t.className='toast';},2200);
+}
+// Override form saves to show toast
+document.addEventListener('DOMContentLoaded', function(){
+  var forms = document.querySelectorAll('button[onclick*="save"], button[onclick*="log"], button[onclick*="Save"], button[onclick*="Log"]');
+  forms.forEach(function(btn){
+    var orig = btn.getAttribute('onclick');
+    if(orig && !orig.includes('showToast')){
+      btn.addEventListener('click', function(){
+        setTimeout(function(){ showToast('✓ Saved', 'success'); }, 800);
+      });
+    }
+  });
+});
+</script>
+<!-- QUICK ACTION BUTTON -->
+<button class="qab" id="qab-btn" onclick="toggleQAB()" title="Quick actions">＋</button>
+<div class="qab-menu" id="qab-menu">
+  <a href="study_dashboard.html#diary-form" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">📔</span>Write diary entry</a>
+  <a href="study_dashboard.html#wa-article" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">❌</span>Log wrong answer</a>
+  <a href="game.html" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">🎮</span>Play a game</a>
+  <a href="week1_quiz.html" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">❓</span>Take a quiz</a>
+</div>
+<script>
+function toggleQAB(){
+  var m=document.getElementById('qab-menu');
+  var b=document.getElementById('qab-btn');
+  m.classList.toggle('open');
+  b.textContent = m.classList.contains('open') ? '✕' : '＋';
+}
+function closeQAB(){
+  var m=document.getElementById('qab-menu');
+  var b=document.getElementById('qab-btn');
+  if(m){m.classList.remove('open');}
+  if(b){b.textContent='＋';}
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#qab-btn')&&!e.target.closest('#qab-menu')) closeQAB();
+});
+</script>
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav-bar" id="bottom-nav">
+  <a href="index.html" class="bnb-btn" id="bnb-home"><span class="bnb-icon">🏠</span>Home</a>
+  <a href="game.html" class="bnb-btn" id="bnb-game"><span class="bnb-icon">🎮</span>Game</a>
+  <a href="week1_quiz.html" class="bnb-btn" id="bnb-quiz"><span class="bnb-icon">❓</span>Quiz</a>
+  <a href="week1_notes_quiz.html" class="bnb-btn" id="bnb-notes"><span class="bnb-icon">📋</span>Notes</a>
+  <a href="study_dashboard.html" class="bnb-btn" id="bnb-dash"><span class="bnb-icon">📊</span>Dashboard</a>
+</nav>
+<script>
+(function(){
+  var path = window.location.pathname;
+  var map = {
+    'index.html':'bnb-home','game.html':'bnb-game',
+    'week1_quiz.html':'bnb-quiz','week1_notes_quiz.html':'bnb-notes',
+    'study_dashboard.html':'bnb-dash'
+  };
+  Object.keys(map).forEach(function(k){
+    if(path.includes(k)){
+      var el = document.getElementById(map[k]);
+      if(el) el.classList.add('active');
+    }
+  });
+  // Week schedules highlight Home
+  if(path.includes('week') && !path.includes('quiz') && !path.includes('notes')){
+    var el = document.getElementById('bnb-home');
+    if(el) el.classList.add('active');
+  }
+})();
 </script>
 </body>
 </html>

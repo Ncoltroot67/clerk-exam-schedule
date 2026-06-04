@@ -3,7 +3,10 @@
 <head>
 <!-- PWA Manifest & iOS -->
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>NYS Senior Court Clerk — 20-Week Study Schedule</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1a1f3c">
@@ -11,8 +14,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ClerkPrep">
-<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
 <link rel="apple-touch-startup-image" href="icons/icon-512.png">
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
@@ -284,6 +285,204 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
   .wk-cards { grid-template-columns: 1fr 1fr !important; }
 }
 
+
+/* ── BOTTOM NAV (shared) ── */
+.bottom-nav-bar{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0f1120;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:999;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.bnb-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 12px;border-radius:10px;text-decoration:none;color:rgba(255,255,255,.4);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-family:'DM Sans',system-ui,sans-serif;min-width:56px;transition:color .15s;background:none;border:none;cursor:pointer}
+.bnb-btn:hover,.bnb-btn.active{color:#e8a020}
+.bnb-icon{font-size:20px;line-height:1}
+body{padding-bottom:68px}
+/* Light page override */
+.light-page .bottom-nav-bar{background:#fff;border-top:1px solid #e2ddd6}
+.light-page .bnb-btn{color:#9ca3af}
+.light-page .bnb-btn:hover,.light-page .bnb-btn.active{color:#c9952a}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;color:white;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-family:'DM Sans',system-ui,sans-serif}
+.toast.show{opacity:1}
+.toast-success{background:#16a34a}
+.toast-error{background:#ef4444}
+.toast-info{background:#1a1f3c}
+
+/* ── QUICK ACTION BUTTON ── */
+.qab{position:fixed;bottom:76px;right:16px;width:48px;height:48px;border-radius:50%;background:#c9952a;color:#0f1120;border:none;font-size:22px;cursor:pointer;z-index:998;box-shadow:0 4px 16px rgba(201,149,42,.4);display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit}
+.qab:hover{transform:scale(1.08);box-shadow:0 6px 20px rgba(201,149,42,.5)}
+.qab:active{transform:scale(.95)}
+.qab-menu{position:fixed;bottom:134px;right:16px;background:#1c1f35;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:8px;z-index:998;display:none;flex-direction:column;gap:4px;min-width:200px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.qab-menu.open{display:flex}
+.qab-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:none;border:none;color:rgba(255,255,255,.8);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;transition:background .15s;white-space:nowrap}
+.qab-item:hover{background:rgba(255,255,255,.08)}
+.qab-item-icon{font-size:16px;width:20px;text-align:center}
+/* Light page */
+.light-page .qab-menu{background:#fff;border-color:#e2ddd6;box-shadow:0 8px 32px rgba(0,0,0,.15)}
+.light-page .qab-item{color:#1a1f3c}
+.light-page .qab-item:hover{background:#f5f5f5}
+
+
+/* ══════════════════════════════════════
+   iPHONE OPTIMIZATIONS
+   ══════════════════════════════════════ */
+
+/* 1 — Safe areas for notch + home bar */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+}
+body {
+  padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 2 — Bottom nav respects home indicator */
+.bottom-nav-bar {
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  height: auto !important;
+  padding-top: 10px !important;
+}
+
+/* 3 — Quick action button clears home indicator */
+.qab { bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; }
+.qab-menu { bottom: calc(134px + env(safe-area-inset-bottom, 0px)) !important; }
+
+/* 4 — All tap targets min 44px (Apple HIG) */
+button, .btn, .hbtn, .wk-link, .bnb-btn,
+.tab, .opt, .sd-opt, .r-btn, .next-btn,
+.mode-card, .mn-card, .diary-entry,
+a[href], input[type="button"], input[type="submit"] {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* 5 — Inputs — font 16px prevents iOS auto-zoom */
+input, textarea, select,
+.log-input, .diary-select, .diary-textarea,
+.wa-input {
+  font-size: 16px !important;
+  border-radius: 8px;
+}
+
+/* 6 — Quiz options — larger tap area */
+.opt {
+  padding: 14px 16px !important;
+  margin-bottom: 8px;
+}
+.opt-text { font-size: 16px !important; line-height: 1.5 !important; }
+
+/* 7 — Score bar wraps cleanly */
+.score-bar {
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+.score-track { width: 100% !important; order: 3 !important; }
+
+/* 8 — Tab bar scrolls horizontally, no wrapping */
+.tab-bar, .nq-tabs {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  flex-wrap: nowrap !important;
+  padding-bottom: 4px;
+}
+.tab {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+}
+
+/* 9 — Game options full width on small screens */
+@media (max-width: 480px) {
+  .showdown-options {
+    grid-template-columns: 1fr !important;
+  }
+  .sd-opt { min-height: 80px !important; }
+  .q-stem { font-size: 17px !important; }
+  .result-score { font-size: 60px !important; }
+  .home-title { font-size: 40px !important; }
+}
+
+/* 10 — Week cards — single column on iPhone */
+@media (max-width: 600px) {
+  .main {
+    grid-template-columns: 1fr !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .stats-row {
+    grid-template-columns: 1fr 1fr !important;
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+  }
+  .header, .countdown, .overall-bar, .phase-bar, .milestones {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  .header h1 { font-size: 24px !important; }
+  .cd-num { font-size: 22px !important; }
+  .cd-box { min-width: 60px !important; padding: 8px 10px !important; }
+}
+
+/* 11 — Dashboard form inputs full width */
+@media (max-width: 600px) {
+  .log-row { grid-template-columns: 1fr !important; }
+  .diary-textarea { min-height: 140px !important; }
+  .section-head { flex-direction: column !important; align-items: flex-start !important; }
+}
+
+/* 12 — Notes page panels */
+@media (max-width: 600px) {
+  .panel { padding: 16px 12px 80px !important; }
+  .nb { padding: 14px 12px !important; }
+}
+
+
+/* ── BASE FONT SIZE 20px (user preference) ── */
+@media (max-width: 768px) {
+  html { font-size: 20px; }
+  body { font-size: 20px !important; }
+
+  /* Scale up all text elements */
+  p, li, span, div, td, th, label { font-size: 20px; }
+  .fs-xs, .score-sub, .wk-dates, .wk-note, .art,
+  .hud-label, .q-num, .diary-date, .diary-form-title,
+  .section-sub, .section-label, .eyebrow, .ms-pill,
+  .sr-date, .wa-article, .wa-yours, .wa-correct,
+  .mn-front, .mn-hint, .status-bar, .tab-count,
+  .wk-prog-label, .ob-label, .phase-label, .phase-tag,
+  .cd-label, .score-chip-mode { font-size: 16px !important; }
+
+  /* Questions and options */
+  .q-stem { font-size: 20px !important; }
+  .opt-text { font-size: 20px !important; }
+  .sd-text { font-size: 20px !important; }
+
+  /* Nav tabs */
+  .tab { font-size: 16px !important; }
+  .bnb-btn { font-size: 12px !important; }
+
+  /* Buttons */
+  .hbtn, .btn, .r-btn, .next-btn, .mode-badge { font-size: 18px !important; }
+
+  /* Inputs */
+  input, textarea, select,
+  .log-input, .diary-select, .diary-textarea, .wa-input {
+    font-size: 20px !important;
+  }
+
+  /* Diary text */
+  .diary-text { font-size: 20px !important; }
+  .wa-question { font-size: 20px !important; }
+
+  /* Score numbers */
+  .score-main, .hud-score { font-size: 22px !important; }
+
+  /* Mode cards */
+  .mode-name { font-size: 20px !important; }
+  .mode-desc { font-size: 16px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -291,10 +490,10 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <!-- HEADER -->
 <div class="header">
   <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859</div>
-  <h1>20-Week Master Study Schedule</h1>
-  <div class="header-sub">May 26, 2026 → October 10, 2026 · Phone + books · Library Sundays · VJC starts July 14</div>
+  <h1>18-Week Master Study Schedule</h1>
+  <div class="header-sub">June 8, 2026 → October 10, 2026 · Phone + books · Library Sundays · VJC starts July 14</div>
   <div class="header-meta">
-    <div class="meta-pill">📅 <strong>Start:</strong> Mon May 26, 2026</div>
+    <div class="meta-pill">📅 <strong>Start:</strong> Mon Jun 8, 2026</div>
     <div class="meta-pill">🎯 <strong>Exam:</strong> Sat Oct 10, 2026</div>
     <div class="meta-pill">📋 <strong>105</strong> multiple-choice questions · passing 70</div>
     <div class="meta-pill">🎓 <strong>VJC classes:</strong> Jul 14 – Oct 3</div>
@@ -308,6 +507,9 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
     <a href="week1_notes_quiz.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:600;text-decoration:none">
       📋 Study Notes
     </a>
+    <a href="game.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.3);color:#fbbf24;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;text-decoration:none">
+      🎮 Clerk Challenge
+    </a>
     <a href="week1_quiz.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:600;text-decoration:none">
       ❓ Quizzes
     </a>
@@ -315,6 +517,91 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 </div>
 
 <!-- COUNTDOWN -->
+<!-- TODAY SECTION -->
+<div style="background:#1a1f3c;padding:16px 24px;border-bottom:2px solid #c9952a">
+  <div style="max-width:1400px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <!-- Exam countdown -->
+      <div style="text-align:center">
+        <div style="font-family:'DM Serif Display',serif;font-size:28px;color:#e8a020;line-height:1" id="today-days-left">—</div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4)">Days left</div>
+      </div>
+      <div style="width:1px;height:36px;background:rgba(255,255,255,.1)"></div>
+      <!-- Today's focus -->
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e8a020;margin-bottom:3px">Today</div>
+        <div style="font-size:15px;font-weight:600;color:white" id="today-focus">Loading...</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.4)" id="today-date"></div>
+      </div>
+    </div>
+
+    <!-- Spaced rep due today -->
+    <div id="today-due" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.35)">Review due:</span>
+    </div>
+
+  </div>
+</div>
+<script>
+(function(){
+  var exam = new Date('2026-10-10');
+  var today = new Date();
+  today.setHours(0,0,0,0);
+  var diff = Math.ceil((exam - today) / 86400000);
+  var el = document.getElementById('today-days-left');
+  if(el) el.textContent = diff;
+
+  var dateEl = document.getElementById('today-date');
+  if(dateEl) dateEl.textContent = today.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+
+  // Current week focus
+  var focusEl = document.getElementById('today-focus');
+  var weeks = [
+    {start:'2026-06-08',focus:'Week 1 · CPL Arts. 1, 10, 30 · PL Arts. 10, 55'},
+    {start:'2026-06-28',focus:'Week 2 · CPL Arts. 100, 110, 120, 160 · PL Art. 55'},
+    {start:'2026-06-22',focus:'Week 3 · CPL Arts. 180, 190, 195, 200, 210'},
+  ];
+  var current = weeks[0];
+  weeks.forEach(function(w){
+    if(today >= new Date(w.start)) current = w;
+  });
+  if(focusEl) focusEl.textContent = current.focus;
+
+  // Spaced rep due today
+  var sr = [
+    {article:'CPL Art. 1', reviews:['2026-06-09','2026-06-24','2026-06-23','2026-07-09','2026-08-10','2026-10-01']},
+    {article:'CPL Art. 10',reviews:['2026-06-23','2026-06-12','2026-06-24','2026-07-10','2026-08-11']},
+    {article:'CPL Art. 30',reviews:['2026-06-24','2026-06-14','2026-07-09','2026-07-12','2026-08-13']},
+    {article:'PL Art. 10', reviews:['2026-06-12','2026-06-14','2026-07-09','2026-07-13','2026-08-14']},
+    {article:'PL Art. 55', reviews:['2026-06-14','2026-06-16','2026-06-28','2026-07-01','2026-08-15']},
+    {article:'CPL Art. 100',reviews:['2026-06-16','2026-07-01','2026-07-13','2026-07-16']},
+    {article:'CPL Art. 110',reviews:['2026-07-13','2026-07-02','2026-07-01','2026-07-17']},
+    {article:'CPL Art. 120',reviews:['2026-07-01','2026-06-07','2026-07-02','2026-07-18']},
+    {article:'CPL Art. 160',reviews:['2026-07-02','2026-06-08','2026-07-16','2026-07-19']},
+  ];
+  var todayStr = today.toISOString().split('T')[0];
+  var dueToday = sr.filter(function(e){
+    return e.reviews.includes(todayStr);
+  });
+  var dueEl = document.getElementById('today-due');
+  if(dueEl && dueToday.length > 0){
+    dueToday.forEach(function(e){
+      var pill = document.createElement('span');
+      pill.style.cssText='background:rgba(196,80,58,.2);border:1px solid rgba(196,80,58,.3);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;color:#f4a090';
+      pill.textContent='🔁 '+e.article;
+      dueEl.appendChild(pill);
+    });
+  } else if(dueEl){
+    var none = document.createElement('span');
+    none.style.cssText='font-size:12px;color:rgba(255,255,255,.25)';
+    none.textContent='No reviews due today';
+    dueEl.appendChild(none);
+  }
+})();
+</script>
+
+
 <div class="countdown">
   <div class="cd-left">
     <div class="cd-box"><div class="cd-num" id="cd-weeks">20</div><div class="cd-label">Weeks</div></div>
@@ -333,15 +620,15 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
   <span class="ob-label">Overall progress</span>
   <div class="ob-track"><div class="ob-fill" id="overall-fill" style="width:0%"></div></div>
   <span class="ob-pct" id="overall-pct">0%</span>
-  <span class="ob-count" id="overall-count">0 / 20 weeks started</span>
+  <span class="ob-count" id="overall-count">0 / 18 weeks started</span>
 </div>
 
 <!-- PHASE LEGEND -->
 <div class="phase-bar">
   <span class="phase-label">Phases →</span>
-  <span class="phase-tag pt1">Phase 1 · Wks 1–7 · Pre-VJC foundation (CPL + PL + CPLR start)</span>
-  <span class="phase-tag pt2">Phase 2 · Wks 8–18 · VJC active + full statute coverage</span>
-  <span class="phase-tag pt3">Phase 3 · Wks 19–20 · Consolidation + exam prep only</span>
+  <span class="phase-tag pt1">Phase 1 · Wks 1–5 · Pre-VJC · Jun 8 – Jul 12</span>
+  <span class="phase-tag pt2">Phase 2 · Wks 6–17 · VJC active · Jul 13 – Oct 4</span>
+  <span class="phase-tag pt3">Phase 3 · Wk 18 · Exam prep · Oct 5–10</span>
   <span class="phase-tag pt-vjc">🎓 VJC class weeks</span>
   <span class="phase-tag pt-exam">📝 Exam week</span>
 </div>
@@ -349,7 +636,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <!-- MILESTONES -->
 <div class="milestones">
   <span class="ms-label">Key dates →</span>
-  <span class="ms-pill"><span class="ms-date">May 26</span> Week 1 starts · CPL + PL</span>
+  <span class="ms-pill"><span class="ms-date">Jun 8</span> Week 1 starts · CPL + PL</span>
   <span class="ms-pill"><span class="ms-date">Jul 8</span> 📋 File application opens</span>
   <span class="ms-pill"><span class="ms-date">Jul 14</span> 🎓 VJC classes begin</span>
   <span class="ms-pill"><span class="ms-date">Aug 5</span> 📋 Application deadline</span>
@@ -386,7 +673,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
       <div class="wk-num">Week 1</div>
       <span class="wk-badge wb-current">Current week</span>
     </div>
-    <div class="wk-dates">May 26 – Jun 1</div>
+    <div class="wk-dates">Jun 8 – Jun 14</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">CPL Arts. 1, 10, 30 · Penal Law Arts. 10, 55, 80</div>
@@ -394,7 +681,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
       <span class="art art-cpl">CPL 1</span><span class="art art-cpl">CPL 10</span><span class="art art-cpl">CPL 30</span>
       <span class="art art-pl">PL 10</span><span class="art art-pl">PL 55</span><span class="art art-pl">PL 80</span>
     </div>
-    <div class="wk-note">Intro week · Roman Room build (bedroom) · first mnemonic session Sat · library debut Sun</div>
+    <div class="wk-note">Official study start · first Cornell Notes session · first mnemonic · library Sunday</div>
     <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-1" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-1">Not started</div></div>
   </div>
   <div class="wk-foot">
@@ -407,7 +694,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase1" id="wk-2">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 2</div><span class="wk-badge wb-p1">Phase 1</span></div>
-    <div class="wk-dates">Jun 2 – Jun 8</div>
+    <div class="wk-dates">Jun 15 – Jun 21</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">CPL Arts. 100, 110, 120, 160 · PL Art. 55</div>
@@ -427,7 +714,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase1" id="wk-3">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 3</div><span class="wk-badge wb-p1">Phase 1</span></div>
-    <div class="wk-dates">Jun 9 – Jun 15</div>
+    <div class="wk-dates">Jun 22 – Jun 28</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">CPL Arts. 180, 190, 195, 200, 210</div>
@@ -447,7 +734,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase1" id="wk-4">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 4</div><span class="wk-badge wb-p1">Phase 1</span></div>
-    <div class="wk-dates">Jun 16 – Jun 22</div>
+    <div class="wk-dates">Jun 29 – Jul 5</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">CPL Arts. 220, 260, 270, 280, 300</div>
@@ -467,7 +754,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase1" id="wk-5">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 5</div><span class="wk-badge wb-p1">Phase 1</span></div>
-    <div class="wk-dates">Jun 23 – Jun 29</div>
+    <div class="wk-dates">Jul 6 – Jul 12</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">CPL Arts. 310, 320, 330, 340, 350</div>
@@ -487,7 +774,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase1" id="wk-6">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 6</div><span class="wk-badge wb-p1">Phase 1</span></div>
-    <div class="wk-dates">Jun 30 – Jul 6</div>
+    <div class="wk-dates">Jul 13 – Jul 19</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">CPL Arts. 360, 380, 390, 410, 420</div>
@@ -507,14 +794,14 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase1" id="wk-7">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 7</div><span class="wk-badge wb-p1">Phase 1</span></div>
-    <div class="wk-dates">Jul 7 – Jul 13</div>
+    <div class="wk-dates">Jul 20 – Jul 26</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">CPL Arts. 430, 440, 500, 510, 520</div>
     <div class="wk-articles">
       <span class="art art-cpl">CPL 430</span><span class="art art-cpl">CPL 440</span><span class="art art-cpl">CPL 500</span><span class="art art-cpl">CPL 510</span><span class="art art-cpl">CPL 520</span>
     </div>
-    <div class="wk-note">Post-judgment motions · bail · release · 📋 FILE APPLICATION this week (Jul 8–13) · VJC starts next week</div>
+    <div class="wk-note">Post-judgment motions · bail · release · 📋 FILE APPLICATION this week (Jul 8–13) · VJC starts in Week 6</div>
     <div class="wk-progress"><div class="wk-prog-bar"><div class="wk-prog-fill" id="prog-7" style="width:0%"></div></div><div class="wk-prog-label" id="prog-label-7">Not started</div></div>
   </div>
   <div class="wk-foot">
@@ -525,14 +812,14 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 
 <!-- ═══ PHASE 2 HEADER ═══ -->
 <div style="grid-column:1/-1;padding:14px 0 2px;border-top:1px solid var(--border);margin-top:6px">
-  <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy)">Phase 2 — VJC Active <span style="font-size:14px;font-weight:400;color:var(--text-muted)">Weeks 8–18 · Jul 14 – Sep 27 · Classes Tue/Wed/Thu 7PM + Sat 10AM · Full statute coverage</span></div>
+  <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy)">Phase 2 — VJC Active <span style="font-size:14px;font-weight:400;color:var(--text-muted)">Weeks 6–17 · Jul 13 – Oct 4 · Classes Tue/Wed/Thu 7PM + Sat 10AM · Full statute coverage</span></div>
 </div>
 
 <!-- WEEK 8 -->
 <div class="wk phase2 vjc-week" id="wk-8">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 8</div><span class="wk-badge wb-vjc">🎓 VJC starts</span></div>
-    <div class="wk-dates">Jul 14 – Jul 20</div>
+    <div class="wk-dates">Jul 27 – Aug 2</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">CPL Arts. 530, 550, 720, 722, 725, 730 + CPLR 2, 3, 4</div>
@@ -554,7 +841,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase2 vjc-week" id="wk-9">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 9</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
-    <div class="wk-dates">Jul 21 – Jul 27</div>
+    <div class="wk-dates">Aug 3 – Aug 9</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">CPLR Arts. 5, 10, 11, 21, 22, 23</div>
@@ -575,7 +862,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase2 vjc-week" id="wk-10">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 10</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
-    <div class="wk-dates">Jul 28 – Aug 3</div>
+    <div class="wk-dates">Aug 10 – Aug 16</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">CPLR Arts. 30, 32, 34, 40, 41, 42</div>
@@ -596,7 +883,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase2 vjc-week" id="wk-11">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 11</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
-    <div class="wk-dates">Aug 4 – Aug 10</div>
+    <div class="wk-dates">Aug 17 – Aug 23</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">CPLR Arts. 43, 44, 50, 52, 55, 70, 78</div>
@@ -617,7 +904,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase2 vjc-week" id="wk-12">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 12</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
-    <div class="wk-dates">Aug 11 – Aug 17</div>
+    <div class="wk-dates">Aug 24 – Aug 30</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">FCA Arts. 1, 2 + Court Rules Part 200</div>
@@ -639,7 +926,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase2 vjc-week" id="wk-13">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 13</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
-    <div class="wk-dates">Aug 18 – Aug 24</div>
+    <div class="wk-dates">Aug 31 – Sep 6</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">FCA Arts. 3, 4, 5, 5-B + Court Rules Part 202</div>
@@ -661,7 +948,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase2 vjc-week" id="wk-14">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 14</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
-    <div class="wk-dates">Aug 25 – Aug 31</div>
+    <div class="wk-dates">Sep 7 – Sep 13</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">FCA Arts. 6, 7, 8, 10 + Court Rules Part 205</div>
@@ -683,7 +970,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase2 vjc-week" id="wk-15">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 15</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
-    <div class="wk-dates">Sep 1 – Sep 7</div>
+    <div class="wk-dates">Sep 14 – Sep 20</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">FCA Arts. 10-A, 10-C, 11 + MHL Arts. 9, 10, 81</div>
@@ -705,7 +992,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase2 vjc-week" id="wk-16">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 16</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
-    <div class="wk-dates">Sep 8 – Sep 14</div>
+    <div class="wk-dates">Sep 21 – Sep 27</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">RPAPL Art. 7 · DRL Art. 5-A · SSL §384-C · VTL §§511, 1192, 1193</div>
@@ -727,7 +1014,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase2 vjc-week" id="wk-17">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 17</div><span class="wk-badge wb-vjc">🎓 VJC</span></div>
-    <div class="wk-dates">Sep 15 – Sep 21</div>
+    <div class="wk-dates">Oct 5 – Oct 10</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">Court Rules Part 208 · Full CPL weak-area review</div>
@@ -749,7 +1036,7 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 <div class="wk phase2 vjc-week" id="wk-18">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 18</div><span class="wk-badge wb-vjc">🎓 VJC final</span></div>
-    <div class="wk-dates">Sep 22 – Sep 27</div>
+    <div class="wk-dates">Oct 5 – Oct 10</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">Full FCA review · PL review · Mnemonic master test</div>
@@ -768,14 +1055,14 @@ html.desktop-view .main{padding-left:40px!important;padding-right:40px!important
 
 <!-- ═══ PHASE 3 HEADER ═══ -->
 <div style="grid-column:1/-1;padding:14px 0 2px;border-top:1px solid var(--border);margin-top:6px">
-  <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy)">Phase 3 — Exam Prep <span style="font-size:14px;font-weight:400;color:var(--text-muted)">Weeks 19–20 · Sep 28 – Oct 10 · Retrieval only · no new material after Oct 3</span></div>
+  <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy)">Phase 3 — Exam Prep <span style="font-size:14px;font-weight:400;color:var(--text-muted)">Week 18 · Oct 5 – Oct 10 · Retrieval only · no new material after Oct 3</span></div>
 </div>
 
 <!-- WEEK 19 -->
 <div class="wk phase3" id="wk-19">
   <div class="wk-head">
     <div class="wk-top"><div class="wk-num">Week 19</div><span class="wk-badge wb-p3">Phase 3 · Consolidation</span></div>
-    <div class="wk-dates">Sep 28 – Oct 4</div>
+    <div class="wk-dates">Oct 5 – Oct 10</div>
   </div>
   <div class="wk-body">
     <div class="wk-focus">Full scope review · timed practice · weak-area blitz</div>
@@ -867,10 +1154,10 @@ function loadWeekProgress(){
     const pctEl = document.getElementById('overall-pct');
     const cntEl = document.getElementById('overall-count');
     const weeksStarted = pct > 0 ? 1 : 0;
-    const overallPct = Math.round((pct / 100) / 20 * 100);
+    const overallPct = Math.round((pct / 100) / 18 * 100);
     if(fill) fill.style.width = overallPct+'%';
     if(pctEl) pctEl.textContent = overallPct+'%';
-    if(cntEl) cntEl.textContent = weeksStarted+' / 20 weeks started';
+    if(cntEl) cntEl.textContent = weeksStarted+' / 18 weeks started';
   } catch(e){}
 }
 loadWeekProgress();
@@ -879,5 +1166,82 @@ loadWeekProgress();
 
 <script src="clerk_sync.js"></script>
 <script src="pwa-features.js"></script>
+<div class="toast" id="page-toast"></div>
+<script>
+function showToast(msg, type){
+  var t=document.getElementById('page-toast');
+  if(!t) return;
+  t.textContent=msg;
+  t.className='toast toast-'+(type||'info')+' show';
+  clearTimeout(t._t);
+  t._t=setTimeout(function(){t.className='toast';},2200);
+}
+// Override form saves to show toast
+document.addEventListener('DOMContentLoaded', function(){
+  var forms = document.querySelectorAll('button[onclick*="save"], button[onclick*="log"], button[onclick*="Save"], button[onclick*="Log"]');
+  forms.forEach(function(btn){
+    var orig = btn.getAttribute('onclick');
+    if(orig && !orig.includes('showToast')){
+      btn.addEventListener('click', function(){
+        setTimeout(function(){ showToast('✓ Saved', 'success'); }, 800);
+      });
+    }
+  });
+});
+</script>
+<!-- QUICK ACTION BUTTON -->
+<button class="qab" id="qab-btn" onclick="toggleQAB()" title="Quick actions">＋</button>
+<div class="qab-menu" id="qab-menu">
+  <a href="study_dashboard.html#diary-form" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">📔</span>Write diary entry</a>
+  <a href="study_dashboard.html#wa-article" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">❌</span>Log wrong answer</a>
+  <a href="game.html" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">🎮</span>Play a game</a>
+  <a href="week1_quiz.html" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">❓</span>Take a quiz</a>
+</div>
+<script>
+function toggleQAB(){
+  var m=document.getElementById('qab-menu');
+  var b=document.getElementById('qab-btn');
+  m.classList.toggle('open');
+  b.textContent = m.classList.contains('open') ? '✕' : '＋';
+}
+function closeQAB(){
+  var m=document.getElementById('qab-menu');
+  var b=document.getElementById('qab-btn');
+  if(m){m.classList.remove('open');}
+  if(b){b.textContent='＋';}
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#qab-btn')&&!e.target.closest('#qab-menu')) closeQAB();
+});
+</script>
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav-bar" id="bottom-nav">
+  <a href="index.html" class="bnb-btn" id="bnb-home"><span class="bnb-icon">🏠</span>Home</a>
+  <a href="game.html" class="bnb-btn" id="bnb-game"><span class="bnb-icon">🎮</span>Game</a>
+  <a href="week1_quiz.html" class="bnb-btn" id="bnb-quiz"><span class="bnb-icon">❓</span>Quiz</a>
+  <a href="week1_notes_quiz.html" class="bnb-btn" id="bnb-notes"><span class="bnb-icon">📋</span>Notes</a>
+  <a href="study_dashboard.html" class="bnb-btn" id="bnb-dash"><span class="bnb-icon">📊</span>Dashboard</a>
+</nav>
+<script>
+(function(){
+  var path = window.location.pathname;
+  var map = {
+    'index.html':'bnb-home','game.html':'bnb-game',
+    'week1_quiz.html':'bnb-quiz','week1_notes_quiz.html':'bnb-notes',
+    'study_dashboard.html':'bnb-dash'
+  };
+  Object.keys(map).forEach(function(k){
+    if(path.includes(k)){
+      var el = document.getElementById(map[k]);
+      if(el) el.classList.add('active');
+    }
+  });
+  // Week schedules highlight Home
+  if(path.includes('week') && !path.includes('quiz') && !path.includes('notes')){
+    var el = document.getElementById('bnb-home');
+    if(el) el.classList.add('active');
+  }
+})();
+</script>
 </body>
 </html>

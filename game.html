@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Clerk Challenge — NYS Exam Study Game</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="clerk_sync.js"></script>
+<style>
+:root {
+  --bg:#0a0c14;--bg2:#0f1120;--bg3:#161828;
+  --navy:#1a1f3c;--card:#1c1f35;--card2:#22273f;
+  --gold:#e8a020;--gold2:#ffc850;
+  --blue:#3b82f6;--blue2:#60a5fa;
+  --red:#ef4444;--red2:#f87171;
+  --green:#22c55e;--green2:#4ade80;
+  --violet:#8b5cf6;--violet2:#a78bfa;
+  --teal:#14b8a6;
+  --text:#f0f2ff;--muted:rgba(240,242,255,.45);--faint:rgba(240,242,255,.15);
+  --border:rgba(255,255,255,.08);
+  --fs-hero:52px;--fs-h2:28px;--fs-h3:20px;
+  --fs-base:17px;--fs-sm:15px;--fs-xs:13px;--fs-xxs:11px;
+  --radius:14px;
+}
+@media(max-width:480px){:root{--fs-hero:36px;--fs-h2:22px;--fs-h3:18px;--fs-base:16px;}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overscroll-behavior:none}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:var(--fs-base);line-height:1.6;overflow-x:hidden}
+
+/* ── SCREENS ── */
+.screen{position:fixed;inset:0;overflow-y:auto;display:none;flex-direction:column}
+.screen.active{display:flex}
+
+/* ── HOME SCREEN ── */
+#screen-home{background:var(--bg);padding:0}
+.home-hero{padding:48px 24px 32px;text-align:center;position:relative;overflow:hidden}
+.home-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -20%,rgba(59,130,246,.18),transparent)}
+.home-hero::after{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:300px;height:300px;background:radial-gradient(circle,rgba(232,160,32,.06),transparent 70%);border-radius:50%}
+.game-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(232,160,32,.12);border:1px solid rgba(232,160,32,.25);border-radius:20px;padding:5px 14px;font-size:var(--fs-xxs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;position:relative;z-index:1}
+.home-title{font-family:'Syne',sans-serif;font-size:var(--fs-hero);font-weight:800;color:var(--text);line-height:1;letter-spacing:-.02em;margin-bottom:8px;position:relative;z-index:1}
+.home-title span{color:var(--gold)}
+.home-sub{font-size:var(--fs-sm);color:var(--muted);margin-bottom:28px;position:relative;z-index:1}
+.home-stats{display:flex;justify-content:center;gap:20px;margin-bottom:8px;position:relative;z-index:1}
+.hs{text-align:center}
+.hs-num{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--gold2)}
+.hs-label{font-size:var(--fs-xxs);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+/* ── MODE CARDS ── */
+.modes{padding:8px 16px 100px;display:flex;flex-direction:column;gap:12px}
+.mode-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:16px;position:relative;overflow:hidden}
+.mode-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .18s}
+.mode-card:active{transform:scale(.98)}
+.mode-card.speed::before{background:linear-gradient(135deg,rgba(239,68,68,.08),transparent)}
+.mode-card.challenge::before{background:linear-gradient(135deg,rgba(232,160,32,.08),transparent)}
+.mode-card.showdown::before{background:linear-gradient(135deg,rgba(139,92,246,.08),transparent)}
+.mode-card.simulator::before{background:linear-gradient(135deg,rgba(20,184,166,.08),transparent)}
+.mode-card:hover::before,.mode-card:active::before{opacity:1}
+.mode-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.speed .mode-icon{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.2)}
+.challenge .mode-icon{background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.2)}
+.showdown .mode-icon{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.2)}
+.simulator .mode-icon{background:rgba(20,184,166,.15);border:1px solid rgba(20,184,166,.2)}
+.mode-info{flex:1}
+.mode-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:3px}
+.mode-desc{font-size:var(--fs-xs);color:var(--muted);line-height:1.4}
+.mode-badge{font-size:var(--fs-xxs);font-weight:600;padding:3px 8px;border-radius:8px;white-space:nowrap}
+.speed .mode-badge{background:rgba(239,68,68,.15);color:var(--red2)}
+.challenge .mode-badge{background:rgba(232,160,32,.15);color:var(--gold2)}
+.showdown .mode-badge{background:rgba(139,92,246,.15);color:var(--violet2)}
+.simulator .mode-badge{background:rgba(20,184,166,.15);color:#5eead4}
+.mnemo .mode-icon{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.2)}
+.mnemo .mode-badge{background:rgba(139,92,246,.15);color:var(--violet2)}
+.mnemo::before{background:linear-gradient(135deg,rgba(139,92,246,.08),transparent)}
+.mode-arrow{color:var(--faint);font-size:18px;flex-shrink:0}
+
+/* ── BACK NAV ── */
+.top-nav{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100}
+.back-btn{width:36px;height:36px;border-radius:10px;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:18px;flex-shrink:0;transition:all .15s}
+.back-btn:hover{background:var(--card);color:var(--text)}
+.nav-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+
+/* ── GAME CONTENT AREA ── */
+.game-area{flex:1;display:flex;flex-direction:column;padding:20px 20px 40px}
+
+/* ── TIMER BAR ── */
+.timer-container{margin-bottom:20px}
+.timer-label{display:flex;justify-content:space-between;margin-bottom:6px}
+.timer-label span{font-size:var(--fs-xxs);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.timer-time{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--text)}
+.timer-time.urgent{color:var(--red2);animation:pulse-red .5s infinite}
+@keyframes pulse-red{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.timer-fill{height:100%;border-radius:3px;transition:width .1s linear,background .5s}
+.timer-fill.high{background:var(--green)}
+.timer-fill.mid{background:var(--gold)}
+.timer-fill.low{background:var(--red)}
+
+/* ── SCORE/LIVES ROW ── */
+.hud{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+.hud-score{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--gold)}
+.hud-label{font-size:var(--fs-xxs);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.lives{display:flex;gap:6px}
+.life{font-size:20px;transition:all .3s}
+.life.lost{opacity:.2;filter:grayscale(1);transform:scale(.8)}
+.article-badge{font-size:var(--fs-xxs);font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.2);color:var(--blue2)}
+.progress-text{font-size:var(--fs-xxs);color:var(--muted);font-family:'DM Mono',monospace}
+
+/* ── QUESTION ── */
+.q-num{font-size:var(--fs-xxs);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px}
+.q-stem{font-size:var(--fs-h3);font-weight:500;color:var(--text);line-height:1.45;margin-bottom:24px}
+.q-scenario{background:var(--card2);border:1px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:var(--fs-sm);color:rgba(240,242,255,.7);line-height:1.6;font-style:italic}
+.q-scenario strong{color:var(--text);font-style:normal}
+
+/* ── OPTIONS ── */
+.options{display:flex;flex-direction:column;gap:10px}
+.opt{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;display:flex;align-items:flex-start;gap:12px;transition:all .15s;position:relative;overflow:hidden}
+.opt:active:not(.locked){transform:scale(.98)}
+.opt:hover:not(.locked){border-color:rgba(255,255,255,.18);background:var(--card2)}
+.opt.correct{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.4);cursor:default}
+.opt.wrong{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.4);cursor:default}
+.opt.reveal{background:rgba(34,197,94,.06);border-color:rgba(34,197,94,.2);cursor:default;opacity:.7}
+.opt.locked:not(.correct):not(.wrong):not(.reveal){cursor:default;opacity:.55}
+.opt-letter{width:28px;height:28px;border-radius:8px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--muted);flex-shrink:0;margin-top:1px;transition:all .15s}
+.opt.correct .opt-letter{background:var(--green);border-color:var(--green);color:white}
+.opt.wrong .opt-letter{background:var(--red);border-color:var(--red);color:white}
+.opt.reveal .opt-letter{background:var(--green);border-color:var(--green);color:white}
+.opt-text{font-size:var(--fs-sm);color:var(--text);line-height:1.45;flex:1;padding-top:2px}
+
+/* ── SHOWDOWN ── */
+.showdown-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1}
+.showdown-vs{text-align:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--muted);padding:8px 0;letter-spacing:.1em}
+.sd-opt{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:20px 16px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:all .18s;min-height:140px;gap:10px}
+.sd-opt:active:not(.locked){transform:scale(.97)}
+.sd-opt:hover:not(.locked){border-color:var(--violet);background:rgba(139,92,246,.06)}
+.sd-opt.correct{border-color:var(--green);background:rgba(34,197,94,.1)}
+.sd-opt.wrong{border-color:var(--red);background:rgba(239,68,68,.1)}
+.sd-opt.reveal{border-color:var(--green);background:rgba(34,197,94,.05);opacity:.65}
+.sd-letter{width:36px;height:36px;border-radius:10px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--muted)}
+.sd-opt.correct .sd-letter{background:var(--green);border-color:var(--green);color:white}
+.sd-opt.wrong .sd-letter{background:var(--red);border-color:var(--red);color:white}
+.sd-text{font-size:var(--fs-sm);color:var(--text);line-height:1.4}
+
+/* ── EXPLANATION ── */
+.explanation{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:var(--fs-sm);color:var(--muted);line-height:1.6;display:none}
+.explanation.show{display:block}
+.explanation strong{color:var(--green2)}
+
+/* ── NEXT BTN ── */
+.next-btn{background:var(--blue);color:white;border:none;border-radius:10px;padding:14px 28px;font-size:var(--fs-base);font-weight:600;font-family:inherit;cursor:pointer;width:100%;margin-top:20px;transition:all .15s;display:none}
+.next-btn.show{display:block}
+.next-btn:hover{background:var(--blue2)}
+.next-btn:active{transform:scale(.98)}
+
+/* ── RESULT SCREEN ── */
+#screen-result{background:var(--bg);justify-content:center;align-items:center;padding:32px 24px}
+.result-inner{max-width:380px;width:100%;text-align:center}
+.result-emoji{font-size:64px;margin-bottom:16px;animation:pop .4s ease}
+@keyframes pop{0%{transform:scale(0)}80%{transform:scale(1.2)}100%{transform:scale(1)}}
+.result-score{font-family:'Syne',sans-serif;font-size:72px;font-weight:800;color:var(--gold);line-height:1;margin-bottom:4px}
+.result-label{font-size:var(--fs-sm);color:var(--muted);margin-bottom:24px}
+.result-grade{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;margin-bottom:8px}
+.result-msg{font-size:var(--fs-sm);color:var(--muted);margin-bottom:32px;line-height:1.6}
+.result-breakdown{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:24px;text-align:left}
+.rb-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:var(--fs-sm)}
+.rb-row:last-child{border-bottom:none}
+.rb-label{color:var(--muted)}
+.rb-val{font-family:'DM Mono',monospace;font-weight:500}
+.rb-val.good{color:var(--green2)}
+.rb-val.bad{color:var(--red2)}
+.result-btns{display:flex;flex-direction:column;gap:10px}
+.r-btn{padding:14px;border-radius:10px;font-size:var(--fs-base);font-weight:600;font-family:inherit;cursor:pointer;border:none;transition:all .15s}
+.r-btn:active{transform:scale(.98)}
+.r-btn.primary{background:var(--blue);color:white}
+.r-btn.secondary{background:var(--card);color:var(--text);border:1px solid var(--border)}
+.r-btn.gold{background:var(--gold);color:var(--bg)}
+
+/* ── FEEDBACK FLASH ── */
+.feedback{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Syne',sans-serif;font-size:48px;font-weight:800;pointer-events:none;opacity:0;z-index:999}
+.feedback.show-correct{color:var(--green2);animation:feedbackPop .6s ease forwards}
+.feedback.show-wrong{color:var(--red2);animation:feedbackPop .6s ease forwards}
+@keyframes feedbackPop{0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}40%{opacity:1;transform:translate(-50%,-50%) scale(1.3)}100%{opacity:0;transform:translate(-50%,-80%) scale(1)}}
+
+/* ── HIGH SCORES ── */
+.scores-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
+.score-chip{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:var(--fs-xxs);color:var(--muted);display:flex;flex-direction:column;align-items:center}
+.score-chip-val{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)}
+.score-chip-mode{text-transform:uppercase;letter-spacing:.07em;font-size:10px}
+
+/* ── EMPTY STATE ── */
+.empty-game{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;gap:12px}
+.empty-game .icon{font-size:48px;opacity:.4}
+.empty-game p{color:var(--muted);font-size:var(--fs-sm)}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);padding:12px 24px 20px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(10px);z-index:50}
+.bn-btn{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;color:var(--muted);font-size:var(--fs-xxs);text-transform:uppercase;letter-spacing:.06em;text-decoration:none;transition:color .15s}
+.bn-btn:hover,.bn-btn.active{color:var(--gold)}
+.bn-icon{font-size:20px}
+
+.bottom-nav-bar{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0f1120;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:999}
+.bnb-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 12px;border-radius:10px;text-decoration:none;color:rgba(255,255,255,.4);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-family:'DM Sans',system-ui,sans-serif;transition:color .15s;background:none;border:none;cursor:pointer}
+.bnb-btn:hover,.bnb-btn.active{color:#e8a020}
+.bnb-icon{font-size:20px;line-height:1}
+.qab{position:fixed;bottom:76px;right:16px;width:48px;height:48px;border-radius:50%;background:#c9952a;color:#0f1120;border:none;font-size:22px;cursor:pointer;z-index:998;box-shadow:0 4px 16px rgba(201,149,42,.4);display:flex;align-items:center;justify-content:center}
+
+body{padding-bottom:68px}
+
+/* ══════════════════════════════════════
+   iPHONE OPTIMIZATIONS
+   ══════════════════════════════════════ */
+
+/* 1 — Safe areas for notch + home bar */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+}
+body {
+  padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 2 — Bottom nav respects home indicator */
+.bottom-nav-bar {
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  height: auto !important;
+  padding-top: 10px !important;
+}
+
+/* 3 — Quick action button clears home indicator */
+.qab { bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; }
+.qab-menu { bottom: calc(134px + env(safe-area-inset-bottom, 0px)) !important; }
+
+/* 4 — All tap targets min 44px (Apple HIG) */
+button, .btn, .hbtn, .wk-link, .bnb-btn,
+.tab, .opt, .sd-opt, .r-btn, .next-btn,
+.mode-card, .mn-card, .diary-entry,
+a[href], input[type="button"], input[type="submit"] {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* 5 — Inputs — font 16px prevents iOS auto-zoom */
+input, textarea, select,
+.log-input, .diary-select, .diary-textarea,
+.wa-input {
+  font-size: 16px !important;
+  border-radius: 8px;
+}
+
+/* 6 — Quiz options — larger tap area */
+.opt {
+  padding: 14px 16px !important;
+  margin-bottom: 8px;
+}
+.opt-text { font-size: 16px !important; line-height: 1.5 !important; }
+
+/* 7 — Score bar wraps cleanly */
+.score-bar {
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+.score-track { width: 100% !important; order: 3 !important; }
+
+/* 8 — Tab bar scrolls horizontally, no wrapping */
+.tab-bar, .nq-tabs {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  flex-wrap: nowrap !important;
+  padding-bottom: 4px;
+}
+.tab {
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+}
+
+/* 9 — Game options full width on small screens */
+@media (max-width: 480px) {
+  .showdown-options {
+    grid-template-columns: 1fr !important;
+  }
+  .sd-opt { min-height: 80px !important; }
+  .q-stem { font-size: 17px !important; }
+  .result-score { font-size: 60px !important; }
+  .home-title { font-size: 40px !important; }
+}
+
+/* 10 — Week cards — single column on iPhone */
+@media (max-width: 600px) {
+  .main {
+    grid-template-columns: 1fr !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .stats-row {
+    grid-template-columns: 1fr 1fr !important;
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+  }
+  .header, .countdown, .overall-bar, .phase-bar, .milestones {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  .header h1 { font-size: 24px !important; }
+  .cd-num { font-size: 22px !important; }
+  .cd-box { min-width: 60px !important; padding: 8px 10px !important; }
+}
+
+/* 11 — Dashboard form inputs full width */
+@media (max-width: 600px) {
+  .log-row { grid-template-columns: 1fr !important; }
+  .diary-textarea { min-height: 140px !important; }
+  .section-head { flex-direction: column !important; align-items: flex-start !important; }
+}
+
+/* 12 — Notes page panels */
+@media (max-width: 600px) {
+  .panel { padding: 16px 12px 80px !important; }
+  .nb { padding: 14px 12px !important; }
+}
+
+
+/* ── BASE FONT SIZE 20px (user preference) ── */
+@media (max-width: 768px) {
+  html { font-size: 20px; }
+  body { font-size: 20px !important; }
+
+  /* Scale up all text elements */
+  p, li, span, div, td, th, label { font-size: 20px; }
+  .fs-xs, .score-sub, .wk-dates, .wk-note, .art,
+  .hud-label, .q-num, .diary-date, .diary-form-title,
+  .section-sub, .section-label, .eyebrow, .ms-pill,
+  .sr-date, .wa-article, .wa-yours, .wa-correct,
+  .mn-front, .mn-hint, .status-bar, .tab-count,
+  .wk-prog-label, .ob-label, .phase-label, .phase-tag,
+  .cd-label, .score-chip-mode { font-size: 16px !important; }
+
+  /* Questions and options */
+  .q-stem { font-size: 20px !important; }
+  .opt-text { font-size: 20px !important; }
+  .sd-text { font-size: 20px !important; }
+
+  /* Nav tabs */
+  .tab { font-size: 16px !important; }
+  .bnb-btn { font-size: 12px !important; }
+
+  /* Buttons */
+  .hbtn, .btn, .r-btn, .next-btn, .mode-badge { font-size: 18px !important; }
+
+  /* Inputs */
+  input, textarea, select,
+  .log-input, .diary-select, .diary-textarea, .wa-input {
+    font-size: 20px !important;
+  }
+
+  /* Diary text */
+  .diary-text { font-size: 20px !important; }
+  .wa-question { font-size: 20px !important; }
+
+  /* Score numbers */
+  .score-main, .hud-score { font-size: 22px !important; }
+
+  /* Mode cards */
+  .mode-name { font-size: 20px !important; }
+  .mode-desc { font-size: 16px !important; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- HOME SCREEN -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="screen active" id="screen-home">
+  <div class="home-hero">
+    <div class="game-badge">⚖️ NYS Clerk Exam · No. 55-859</div>
+    <h1 class="home-title">Clerk<br><span>Challenge</span></h1>
+    <p class="home-sub">4 game modes · add questions each week · wrong answers tracked</p>
+    <div class="home-stats">
+      <div class="hs"><div class="hs-num" id="hs-total">98</div><div class="hs-label">Questions</div></div>
+      <div class="hs"><div class="hs-num" id="hs-best">—</div><div class="hs-label">Best Score</div></div>
+      <div class="hs"><div class="hs-num" id="hs-streak">—</div><div class="hs-label">Best Streak</div></div>
+    </div>
+    <div class="scores-row" id="high-scores-row"></div>
+  </div>
+
+  <div class="modes">
+    <div class="mode-card speed" onclick="startGame('speed')">
+      <div class="mode-icon">⚡</div>
+      <div class="mode-info">
+        <div class="mode-name">Speed Round</div>
+        <div class="mode-desc">10 questions · 60-second countdown · beat your last score</div>
+      </div>
+      <div class="mode-badge">60 sec</div>
+      <div class="mode-arrow">›</div>
+    </div>
+    <div class="mode-card challenge" onclick="startGame('challenge')">
+      <div class="mode-icon">🏆</div>
+      <div class="mode-info">
+        <div class="mode-name">Clerk Challenge</div>
+        <div class="mode-desc">3 lives · gets harder as you go · how far can you get?</div>
+      </div>
+      <div class="mode-badge">3 lives</div>
+      <div class="mode-arrow">›</div>
+    </div>
+    <div class="mode-card showdown" onclick="startGame('showdown')">
+      <div class="mode-icon">⚔️</div>
+      <div class="mode-info">
+        <div class="mode-name">Article Showdown</div>
+        <div class="mode-desc">2 choices only · faster decisions · higher pressure</div>
+      </div>
+      <div class="mode-badge">A vs B</div>
+      <div class="mode-arrow">›</div>
+    </div>
+    <div class="mode-card mnemo" onclick="startGame('mnemo')">
+      <div class="mode-icon">🧠</div>
+      <div class="mode-info">
+        <div class="mode-name">Mnemonic Master</div>
+        <div class="mode-desc">Article → mnemonic · mnemonic → meaning · lock them in</div>
+      </div>
+      <div class="mode-badge">2 directions</div>
+      <div class="mode-arrow">›</div>
+    </div>
+    <div class="mode-card simulator" onclick="startGame('simulator')">
+      <div class="mode-icon">🏛️</div>
+      <div class="mode-info">
+        <div class="mode-name">Court Clerk Sim</div>
+        <div class="mode-desc">You're the clerk · real scenarios · make the call</div>
+      </div>
+      <div class="mode-badge">Scenarios</div>
+      <div class="mode-arrow">›</div>
+    </div>
+  </div>
+
+  
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- GAME SCREEN -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-game">
+  <div class="top-nav">
+    <div class="back-btn" onclick="goHome()">←</div>
+    <div class="nav-title" id="mode-title">Speed Round</div>
+    <div class="nav-right">
+      <span class="article-badge" id="current-article">CPL Art. 1</span>
+    </div>
+  </div>
+  <div class="game-area" id="game-area">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- RESULT SCREEN -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-result">
+  <div class="result-inner">
+    <div class="result-emoji" id="res-emoji">🎉</div>
+    <div class="result-score" id="res-score">8</div>
+    <div class="result-label" id="res-label">out of 10 correct</div>
+    <div class="result-grade" id="res-grade">Great work!</div>
+    <div class="result-msg" id="res-msg">Keep going.</div>
+    <div class="result-breakdown" id="res-breakdown"></div>
+    <div class="result-btns">
+      <button class="r-btn primary" onclick="playAgain()">↺ Play again</button>
+      <button class="r-btn gold" onclick="goHome()">Try another mode</button>
+      <a href="study_dashboard.html" class="r-btn secondary" style="text-decoration:none;display:block;text-align:center">📊 View wrong answers</a>
+    </div>
+  </div>
+</div>
+
+<!-- FEEDBACK FLASH -->
+<div class="feedback" id="feedback"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// QUESTION BANK
+// Add new week questions here — format:
+// { n:1, q:"question stem", opts:["a. opt","b. opt","c. opt","d. opt"],
+//   correct:"a", exp:"explanation", ans:"correct answer text",
+//   article:"CPL Art. 1", diff:1, // 1=easy, 2=medium, 3=hard
+//   scenario:"You are the clerk. [context]..." // optional court scenario version
+// }
+// ═══════════════════════════════════════════════════════
+
+const ALL_QUESTIONS = [
+  // ── CPL ART. 1 ────────────────────────────────────────
+  {n:1,q:"A criminal action commences when:",opts:["a. A defendant is arrested","b. The first accusatory instrument is filed","c. An indictment is voted by a grand jury","d. The crime was committed"],correct:"b",exp:"CPL §1.20(16-17) — Filing of the first accusatory instrument commences a criminal action.",ans:"The first accusatory instrument is filed",article:"CPL Art. 1",diff:1,scenario:"A defense attorney at the arraignment counter tells you the criminal action commenced when his client was arrested last Tuesday. You respond:"},
+  {n:2,q:"A felony complaint:",opts:["a. Commences a criminal action AND is a basis for prosecution","b. Commences a criminal action but is NOT a basis for prosecution","c. Is a basis for prosecution but does not commence a criminal action","d. Does neither"],correct:"b",exp:"CPL §1.20(8) — A felony complaint commences a criminal action but can NEVER serve as the basis for prosecution of a felony.",ans:"Commences a criminal action but is NOT a basis for prosecution",article:"CPL Art. 1",diff:1,scenario:"A DA's office intern asks you: 'Can we proceed to trial on this felony complaint?' You tell them:"},
+  {n:3,q:"A plea of guilty on a felony complaint:",opts:["a. Constitutes a conviction","b. Does NOT constitute a conviction","c. Constitutes a judgment","d. Serves as basis for prosecution"],correct:"b",exp:"CPL §1.20(13) — A plea of guilty on a felony complaint does NOT constitute a conviction. This is a specific exception.",ans:"Does NOT constitute a conviction",article:"CPL Art. 1",diff:2,scenario:"A defendant pleads guilty on a felony complaint. When filing paperwork, you mark the conviction field:"},
+  {n:4,q:"A conviction occurs when:",opts:["a. Sentence is imposed","b. A plea or verdict is entered","c. Both plea/verdict and sentence occur","d. An indictment is filed"],correct:"b",exp:"CPL §1.20(13) — A conviction is the entry of a plea or verdict. Sentence comes after.",ans:"A plea or verdict is entered",article:"CPL Art. 1",diff:1,scenario:"The defendant just entered a guilty plea. You are asked to record the conviction date. You enter:"},
+  {n:5,q:"A judgment consists of:",opts:["a. The verdict only","b. The plea only","c. The conviction plus the sentence","d. The indictment and the conviction"],correct:"c",exp:"CPL §1.20(14-15) — A judgment = conviction + sentence. Both elements are required.",ans:"The conviction plus the sentence",article:"CPL Art. 1",diff:1},
+  {n:6,q:"NYC Sheriffs under the CPL have:",opts:["a. Criminal jurisdiction throughout NYC","b. Civil jurisdiction only","c. Both civil and criminal jurisdiction","d. Criminal jurisdiction in Manhattan only"],correct:"b",exp:"NYC Sheriffs exercise CIVIL jurisdiction only under the CPL. They are NOT police officers.",ans:"Civil jurisdiction only",article:"CPL Art. 1",diff:2,scenario:"An NYC Sheriff approaches the clerk's counter and attempts to serve a criminal warrant. You explain:"},
+  {n:7,q:"Which court issues a warrant of arrest?",opts:["a. Superior courts only","b. Local criminal courts only","c. Both local and superior courts","d. The district attorney"],correct:"b",exp:"CPL §1.20(28) — A warrant of arrest is a process of a LOCAL CRIMINAL COURT only.",ans:"Local criminal courts only",article:"CPL Art. 1",diff:2},
+  {n:8,q:"A bench warrant is used to:",opts:["a. Bring a defendant for initial arraignment","b. Produce a defendant already arraigned in a pending case","c. Execute a search","d. Summon a grand jury"],correct:"b",exp:"CPL §1.20(30) — A bench warrant produces a defendant in a pending case for some purpose OTHER than initial arraignment.",ans:"Produce a defendant already arraigned in a pending case",article:"CPL Art. 1",diff:2,scenario:"A defendant who was arraigned last month failed to appear. The judge asks you to prepare a process. Which one?"},
+  {n:9,q:"A lesser included offense is one where:",opts:["a. It carries a lesser sentence","b. It is impossible to commit the greater without also committing the lesser","c. The defendant requests a lesser charge","d. The DA agrees to reduce the charge"],correct:"b",exp:"CPL §1.20(37) — Impossible to commit the greater without simultaneously committing the lesser by the same conduct.",ans:"It is impossible to commit the greater without also committing the lesser",article:"CPL Art. 1",diff:3},
+  {n:10,q:"An information may charge:",opts:["a. Felonies and misdemeanors","b. Felonies only","c. Any offense except a felony","d. Violations only"],correct:"c",exp:"CPL §1.20(4) — An information charges any offense EXCEPT a felony.",ans:"Any offense except a felony",article:"CPL Art. 1",diff:1},
+  // ── CPL ART. 10 ───────────────────────────────────────
+  {n:11,q:"Superior courts in New York are:",opts:["a. Supreme Court and County Court","b. NYC Criminal Court and Supreme Court","c. District Court and Supreme Court","d. Family Court and Supreme Court"],correct:"a",exp:"Superior courts = Supreme Court and County Court ONLY. NYC Criminal Court is a local criminal court.",ans:"Supreme Court and County Court",article:"CPL Art. 10",diff:1,scenario:"A defendant asks you which court will try his felony indictment. You direct him to:"},
+  {n:12,q:"Superior courts have exclusive trial jurisdiction over:",opts:["a. All offenses","b. Misdemeanors only","c. Felonies","d. Violations and misdemeanors"],correct:"c",exp:"Superior courts have EXCLUSIVE trial jurisdiction over felonies. Misdemeanors are concurrent.",ans:"Felonies",article:"CPL Art. 10",diff:1},
+  {n:13,q:"A superior court judge sitting as a local criminal court may:",opts:["a. Conduct arraignments only","b. Issue warrants of arrest only","c. Issue search warrants only","d. Do all three — arraignments, warrants of arrest, and search warrants"],correct:"d",exp:"CPL §10.20(3) — All three functions are authorized for superior court judges sitting as local criminal courts.",ans:"Do all three — arraignments, warrants of arrest, and search warrants",article:"CPL Art. 10",diff:2},
+  // ── CPL ART. 30 ───────────────────────────────────────
+  {n:14,q:"For a felony charge, the People must be ready for trial within:",opts:["a. 90 days","b. 6 months","c. 1 year","d. 2 years"],correct:"b",exp:"CPL §30.30(1)(a) — The People must be ready for trial within 6 months for a felony.",ans:"6 months",article:"CPL Art. 30",diff:1,scenario:"Defense counsel files a 30.30 motion to dismiss. The felony complaint was filed 7 months ago and the People have not announced ready. You process the motion because:"},
+  {n:15,q:"Which offenses are EXEMPT from the §30.30 speedy trial limits?",opts:["a. Class A felonies","b. All sex offenses","c. Homicide offenses (PL §§125.10–125.27)","d. All violent felonies"],correct:"c",exp:"CPL §30.30(3)(a) expressly exempts homicide offenses from BOTH the readiness deadline and the custody release rule.",ans:"Homicide offenses (PL §§125.10–125.27)",article:"CPL Art. 30",diff:2},
+  // ── PL ART. 10 ────────────────────────────────────────
+  {n:16,q:"The four mental states in order from MOST to LEAST culpable are:",opts:["a. Knowingly, intentionally, recklessly, negligence","b. Intentionally, knowingly, recklessly, criminal negligence","c. Recklessly, knowingly, intentionally, negligence","d. Criminal negligence, recklessly, knowingly, intentionally"],correct:"b",exp:"Most to least: Intentionally → Knowingly → Recklessly → Criminal Negligence. Mnemonic: I Know Real Negligence.",ans:"Intentionally, knowingly, recklessly, criminal negligence",article:"PL Art. 10",diff:1},
+  {n:17,q:"The key difference between recklessly and criminal negligence is:",opts:["a. The type of risk involved","b. Whether the person was aware of the risk","c. The severity of the outcome","d. The type of crime charged"],correct:"b",exp:"Recklessly = CONSCIOUSLY DISREGARDS the risk. Criminal negligence = FAILS TO PERCEIVE the risk. Awareness is the dividing line.",ans:"Whether the person was aware of the risk",article:"PL Art. 10",diff:2,scenario:"A defendant says he had no idea his actions posed a risk. If true, the most applicable mental state is:"},
+  // ── PL ART. 55 ────────────────────────────────────────
+  {n:18,q:"A 'crime' under the Penal Law includes:",opts:["a. Violations only","b. Misdemeanors and felonies","c. Traffic infractions and violations","d. All offenses"],correct:"b",exp:"A crime = misdemeanor OR felony. Violations and traffic infractions are offenses but NOT crimes.",ans:"Misdemeanors and felonies",article:"PL Art. 55",diff:1},
+  {n:19,q:"A violation is an offense punishable by imprisonment of:",opts:["a. More than 15 days but not more than 1 year","b. Exactly 15 days","c. Not more than 15 days","d. More than 1 year"],correct:"c",exp:"A violation = imprisonment of NOT MORE THAN 15 days. A misdemeanor = more than 15 days up to 1 year.",ans:"Not more than 15 days",article:"PL Art. 55",diff:1},
+  {n:20,q:"A class A felony carries a maximum sentence of:",opts:["a. 25 years","b. Life imprisonment","c. More than 1 year","d. It depends on the subdivision"],correct:"b",exp:"Class A felonies carry a maximum sentence of life imprisonment. Class A-I = indeterminate life. Class A-II also life.",ans:"Life imprisonment",article:"PL Art. 55",diff:2},
+];
+
+// ─── SCENARIOS (Court Clerk Simulator wrappers) ───────────
+const SCENARIOS = {
+  1: "A defense attorney at your counter says the criminal action started when the police arrested his client at the scene. He's asking about timing for a motion. You tell him the action actually commenced when:",
+  2: "The DA's office sends over a felony complaint and asks you to mark it as the basis for prosecution. You explain that a felony complaint:",
+  3: "After a plea on a felony complaint, a court officer asks you to stamp the conviction date. You advise that a plea on a felony complaint:",
+  4: "A defendant enters a guilty plea in open court. The judge's clerk asks you to record when the conviction occurred. You note it as the moment:",
+  6: "An NYC Sheriff approaches your clerk window with a criminal warrant he says he needs to serve. You explain to him:",
+  8: "A judge asks you to prepare the appropriate process to bring a previously arraigned defendant back to court. You prepare a:",
+  14: "Defense counsel files a dismissal motion on a felony indictment that is 7 months old with no announcement of readiness. You determine the motion has a valid basis because:",
+  17: "A defendant testifies he had absolutely no idea his conduct could cause harm. His attorney argues this negates recklessness. The appropriate lower mental state would be:",
+};
+
+// ═══════════════════════════════════════════════════════
+// GAME STATE
+// ═══════════════════════════════════════════════════════
+let currentMode = '';
+let currentQuestions = [];
+let currentIndex = 0;
+let score = 0;
+let lives = 3;
+let answered = false;
+let wrongCount = 0;
+let correctCount = 0;
+let timerInterval = null;
+let timeLeft = 60;
+let gameStartTime = null;
+const highScores = JSON.parse(localStorage.getItem('clerk_game_scores') || '{}');
+
+// ═══════════════════════════════════════════════════════
+// SCREEN MANAGEMENT
+// ═══════════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  clearInterval(timerInterval);
+  showScreen('screen-home');
+  updateHomeStats();
+}
+
+// ═══════════════════════════════════════════════════════
+// HOME STATS
+// ═══════════════════════════════════════════════════════
+function updateHomeStats() {
+  const best = Math.max(...Object.values(highScores).map(s => s.best || 0), 0);
+  const bestStreak = highScores.challenge?.bestStreak || 0;
+  document.getElementById('hs-best').textContent = best || '—';
+  document.getElementById('hs-streak').textContent = bestStreak || '—';
+  document.getElementById('hs-total').textContent = ALL_QUESTIONS.length;
+
+  const row = document.getElementById('high-scores-row');
+  const modes = [{key:'speed',label:'Speed',icon:'⚡'},{key:'challenge',label:'Challenge',icon:'🏆'},{key:'showdown',label:'Showdown',icon:'⚔️'},{key:'simulator',label:'Sim',icon:'🏛️'}];
+  row.innerHTML = modes.filter(m => highScores[m.key]?.best).map(m => `
+    <div class="score-chip">
+      <span class="score-chip-val">${highScores[m.key].best}</span>
+      <span class="score-chip-mode">${m.icon} ${m.label}</span>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// START GAME
+// ═══════════════════════════════════════════════════════
+function startGame(mode) {
+  if(mode === 'mnemo') { startMnemoGame(); return; }
+  currentMode = mode;
+  score = 0;
+  lives = 3;
+  currentIndex = 0;
+  answered = false;
+  wrongCount = 0;
+  correctCount = 0;
+  timeLeft = 60;
+  gameStartTime = Date.now();
+
+  const titles = { speed:'Speed Round', challenge:'Clerk Challenge', showdown:'Article Showdown', simulator:'Court Clerk Sim', mnemo:'Mnemonic Master' };
+  document.getElementById('mode-title').textContent = titles[mode];
+
+  // Shuffle and pick questions
+  let pool = [...ALL_QUESTIONS].sort(() => Math.random() - .5);
+  if(mode === 'speed') currentQuestions = pool.slice(0, 10);
+  else if(mode === 'challenge') currentQuestions = pool.sort((a,b) => a.diff - b.diff); // easy to hard
+  else if(mode === 'showdown') currentQuestions = pool.slice(0, 15);
+  else currentQuestions = pool.filter(q => q.scenario).slice(0, 10);
+
+  if(currentQuestions.length === 0) {
+    showScreen('screen-game');
+    document.getElementById('game-area').innerHTML = `
+      <div class="empty-game">
+        <span class="icon">🎮</span>
+        <p>No questions available for this mode yet.</p>
+        <p>Add questions to the ALL_QUESTIONS array in game.html</p>
+      </div>`;
+    return;
+  }
+
+  showScreen('screen-game');
+  if(mode === 'speed') startTimer();
+  renderQuestion();
+}
+
+// ═══════════════════════════════════════════════════════
+// TIMER (Speed Round)
+// ═══════════════════════════════════════════════════════
+function startTimer() {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerUI();
+    if(timeLeft <= 0) {
+      clearInterval(timerInterval);
+      showResult();
+    }
+  }, 1000);
+}
+
+function updateTimerUI() {
+  const el = document.getElementById('timer-time');
+  const fill = document.getElementById('timer-fill');
+  if(!el || !fill) return;
+  el.textContent = timeLeft + 's';
+  el.className = 'timer-time' + (timeLeft <= 10 ? ' urgent' : '');
+  const pct = (timeLeft / 60) * 100;
+  fill.style.width = pct + '%';
+  fill.className = 'timer-fill ' + (pct > 50 ? 'high' : pct > 20 ? 'mid' : 'low');
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER QUESTION
+// ═══════════════════════════════════════════════════════
+function renderQuestion() {
+  if(currentIndex >= currentQuestions.length) { showResult(); return; }
+  answered = false;
+  const q = currentQuestions[currentIndex];
+  const area = document.getElementById('game-area');
+  document.getElementById('current-article').textContent = q.article || 'CPL';
+
+  // HUD
+  let hudHtml = '';
+  if(currentMode === 'speed') {
+    hudHtml = `
+      <div class="timer-container">
+        <div class="timer-label"><span>Time remaining</span><span class="timer-time" id="timer-time">${timeLeft}s</span></div>
+        <div class="timer-track"><div class="timer-fill high" id="timer-fill" style="width:${(timeLeft/60)*100}%"></div></div>
+      </div>
+      <div class="hud">
+        <div><div class="hud-label">Score</div><div class="hud-score">${score}</div></div>
+        <div class="progress-text">${currentIndex+1} / ${currentQuestions.length}</div>
+      </div>`;
+  } else if(currentMode === 'challenge') {
+    hudHtml = `
+      <div class="hud">
+        <div><div class="hud-label">Score</div><div class="hud-score">${score}</div></div>
+        <div class="lives">${[0,1,2].map(i => `<span class="life${i >= lives ? ' lost' : ''}">⚡</span>`).join('')}</div>
+        <div class="progress-text">Q${currentIndex+1}</div>
+      </div>`;
+  } else {
+    hudHtml = `
+      <div class="hud">
+        <div><div class="hud-label">Score</div><div class="hud-score">${score}</div></div>
+        <div class="progress-text">${currentIndex+1} / ${currentQuestions.length}</div>
+      </div>`;
+  }
+
+  // Question stem
+  const scenarioHtml = (currentMode === 'simulator' && q.scenario)
+    ? `<div class="q-scenario"><strong>Scenario:</strong> ${q.scenario}</div>`
+    : '';
+
+  const qHtml = `
+    <div class="q-num">Question ${currentIndex + 1} · ${q.article} · ${['','Easy','Medium','Hard'][q.diff]}</div>
+    ${scenarioHtml}
+    <div class="q-stem">${q.q}</div>`;
+
+  // Options
+  let optsHtml = '';
+  if(currentMode === 'showdown') {
+    // Pick 2 options — correct + one wrong
+    const opts = q.opts.slice(0, 4);
+    const correctIdx = 'abcd'.indexOf(q.correct);
+    let wrongIdx = (correctIdx + 1) % opts.length;
+    const chosen = [
+      { letter: q.correct, text: opts[correctIdx].substring(3) },
+      { letter: 'abcd'[wrongIdx], text: opts[wrongIdx].substring(3) }
+    ].sort(() => Math.random() - .5);
+
+    optsHtml = `
+      <div style="flex:1;display:flex;flex-direction:column">
+        <div class="showdown-vs">PICK THE CORRECT ANSWER</div>
+        <div class="showdown-options">
+          ${chosen.map(o => `
+            <div class="sd-opt" id="sdopt-${o.letter}" onclick="selectAnswer('${o.letter}')">
+              <div class="sd-letter">${o.letter.toUpperCase()}</div>
+              <div class="sd-text">${o.text}</div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  } else {
+    optsHtml = `<div class="options">${q.opts.map(opt => {
+      const l = opt[0];
+      const text = opt.substring(3);
+      return `<div class="opt" id="opt-${l}" onclick="selectAnswer('${l}')">
+        <div class="opt-letter">${l.toUpperCase()}</div>
+        <div class="opt-text">${text}</div>
+      </div>`;
+    }).join('')}</div>`;
+  }
+
+  area.innerHTML = hudHtml + qHtml + optsHtml +
+    `<div class="explanation" id="exp">${q.exp}<br><strong>✓ ${q.ans}</strong></div>
+     <button class="next-btn" id="next-btn" onclick="nextQuestion()">
+       ${currentIndex + 1 >= currentQuestions.length ? 'See Results →' : 'Next Question →'}
+     </button>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// ANSWER SELECTION
+// ═══════════════════════════════════════════════════════
+function selectAnswer(letter) {
+  if(answered) return;
+  answered = true;
+  const q = currentQuestions[currentIndex];
+  const isCorrect = letter === q.correct;
+
+  // Flash feedback
+  const fb = document.getElementById('feedback');
+  fb.textContent = isCorrect ? '✓' : '✗';
+  fb.className = 'feedback ' + (isCorrect ? 'show-correct' : 'show-wrong');
+  setTimeout(() => fb.className = 'feedback', 600);
+
+  if(currentMode === 'showdown') {
+    // Mark showdown options
+    document.querySelectorAll('.sd-opt').forEach(el => el.classList.add('locked'));
+    const selectedEl = document.getElementById('sdopt-' + letter);
+    const correctEl = document.getElementById('sdopt-' + q.correct);
+    if(selectedEl) selectedEl.classList.add(isCorrect ? 'correct' : 'wrong');
+    if(!isCorrect && correctEl) correctEl.classList.add('reveal');
+  } else {
+    // Mark regular options
+    document.querySelectorAll('.opt').forEach(el => el.classList.add('locked'));
+    const selectedEl = document.getElementById('opt-' + letter);
+    const correctEl = document.getElementById('opt-' + q.correct);
+    if(selectedEl) selectedEl.classList.add(isCorrect ? 'correct' : 'wrong');
+    if(!isCorrect && correctEl) correctEl.classList.add('reveal');
+  }
+
+  // Show explanation and next button
+  document.getElementById('exp').classList.add('show');
+  document.getElementById('next-btn').classList.add('show');
+
+  if(isCorrect) {
+    score++;
+    correctCount++;
+  } else {
+    wrongCount++;
+    lives = Math.max(0, lives - 1);
+    // Save wrong answer to Supabase
+    if(typeof CLERK_SYNC !== 'undefined') {
+      CLERK_SYNC.saveWrongAnswer(q.article, q.q.substring(0,120), q.opts['abcd'.indexOf(letter)], q.ans);
+    }
+    // Challenge mode — check lives
+    if(currentMode === 'challenge' && lives === 0) {
+      document.getElementById('next-btn').textContent = 'Game Over →';
+      // Update lives display
+      document.querySelectorAll('.life').forEach(l => l.classList.add('lost'));
+    }
+  }
+
+  // Speed round: update score display
+  const hud = document.querySelector('.hud-score');
+  if(hud) hud.textContent = score;
+}
+
+// ═══════════════════════════════════════════════════════
+// NEXT QUESTION
+// ═══════════════════════════════════════════════════════
+function nextQuestion() {
+  // Challenge: game over on 0 lives
+  if(currentMode === 'challenge' && lives === 0) {
+    showResult(); return;
+  }
+  currentIndex++;
+  if(currentIndex >= currentQuestions.length) {
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// SHOW RESULT
+// ═══════════════════════════════════════════════════════
+function showResult() {
+  clearInterval(timerInterval);
+  const total = Math.min(currentIndex + (answered ? 1 : 0), currentQuestions.length);
+  const pct = total > 0 ? Math.round(score / total * 100) : 0;
+
+  // Grade
+  let emoji, grade, msg;
+  if(pct >= 90)     { emoji='🏆'; grade='Excellent!'; msg='You are ready for this material. Keep the streak going.'; }
+  else if(pct >= 75){ emoji='💪'; grade='Strong!'; msg='A few gaps to fill. Review your wrong answers on the dashboard.'; }
+  else if(pct >= 60){ emoji='📚'; grade='Keep going.'; msg='Review the wrong answers feed and add the misses to Anki tonight.'; }
+  else               { emoji='🔄'; grade='More reps needed.'; msg='Go back to your Cornell Notes for these articles before playing again.'; }
+
+  document.getElementById('res-emoji').textContent = emoji;
+  document.getElementById('res-score').textContent = score;
+  document.getElementById('res-label').textContent = `out of ${total} correct · ${pct}%`;
+  document.getElementById('res-grade').textContent = grade;
+  document.getElementById('res-msg').textContent = msg;
+
+  // Time elapsed
+  const elapsed = Math.round((Date.now() - gameStartTime) / 1000);
+  const mins = Math.floor(elapsed / 60);
+  const secs = elapsed % 60;
+
+  document.getElementById('res-breakdown').innerHTML = `
+    <div class="rb-row"><span class="rb-label">Mode</span><span class="rb-val">${document.getElementById('mode-title').textContent}</span></div>
+    <div class="rb-row"><span class="rb-label">Correct</span><span class="rb-val good">${score}</span></div>
+    <div class="rb-row"><span class="rb-label">Wrong</span><span class="rb-val ${wrongCount>0?'bad':''}">${wrongCount}</span></div>
+    <div class="rb-row"><span class="rb-label">Accuracy</span><span class="rb-val ${pct>=70?'good':'bad'}">${pct}%</span></div>
+    <div class="rb-row"><span class="rb-label">Time</span><span class="rb-val">${mins}m ${secs}s</span></div>
+    ${wrongCount > 0 ? `<div class="rb-row"><span class="rb-label">Wrong answers</span><span class="rb-val bad">Saved to dashboard ↗</span></div>` : ''}`;
+
+  // Save high score
+  if(!highScores[currentMode] || score > (highScores[currentMode].best || 0)) {
+    if(!highScores[currentMode]) highScores[currentMode] = {};
+    highScores[currentMode].best = score;
+  }
+  if(currentMode === 'challenge') {
+    if(score > (highScores.challenge?.bestStreak || 0)) {
+      highScores.challenge.bestStreak = score;
+    }
+  }
+  localStorage.setItem('clerk_game_scores', JSON.stringify(highScores));
+
+  // Save to Supabase
+  if(typeof CLERK_SYNC !== 'undefined') {
+    CLERK_SYNC.saveTestScore(currentMode + '_game', `${score}/${total} (${pct}%)`, currentMode);
+  }
+
+  showScreen('screen-result');
+}
+
+function playAgain() {
+  startGame(currentMode);
+}
+
+
+// ═══════════════════════════════════════════════════════
+// MNEMONIC MASTER — YOUR MNEMONICS
+// Add a new entry here each time you create a mnemonic
+// Format:
+// {
+//   article: 'CPL 1.20(42)',         // article name
+//   mnemonic: 'Meek\'s Arrest...',  // your mnemonic sentence
+//   covers: 'Murder 2nd, Arson...',  // what the letters stand for
+//   letters: [                       // each letter breakdown
+//     { letter:'M', crime:'Murder 2nd degree (also age 13+)' },
+//     ...
+//   ]
+// }
+// ═══════════════════════════════════════════════════════
+
+const MY_MNEMONICS = [
+  {
+    article: 'CPL 1.20(42)',
+    topic: 'Juvenile Offenders — crimes tried in criminal court',
+    mnemonic: "Meek\'s Arrest Raised Kids\' Awareness: Being Reckless Always Means Serious Charges",
+    covers: 'Murder 2nd · Arson 1&2 · Rape 1 · Kidnapping 1 · Assault 1 · Burglary 1&2 · Robbery 1&2 · Attempted murder · Manslaughter 1 · Sexually motivated felony · Criminal possession weapon 2',
+    note: 'M and S also apply to 13-year-olds',
+    letters: [
+      { letter:'M', crime:'Murder 2nd degree (also age 13+) + Attempted murder 2nd' },
+      { letter:'A', crime:'Arson 1st & 2nd degree' },
+      { letter:'R', crime:'Rape 1st degree' },
+      { letter:'K', crime:'Kidnapping 1st + Attempted kidnapping' },
+      { letter:'A', crime:'Assault 1st degree' },
+      { letter:'B', crime:'Burglary 1st & 2nd degree' },
+      { letter:'R', crime:'Robbery 1st & 2nd degree' },
+      { letter:'A', crime:'Attempted murder 2nd degree' },
+      { letter:'M', crime:'Manslaughter 1st degree' },
+      { letter:'S', crime:'Sexually motivated felony (also age 13+) + Aggravated sexual abuse 1st' },
+      { letter:'C', crime:'Criminal possession of weapon 2nd + on school grounds' },
+    ]
+  }
+  // Add more mnemonics here as you create them each week
+];
+
+// ═══════════════════════════════════════════════════════
+// BUILD MNEMONIC QUESTIONS FROM MY_MNEMONICS
+// Generates questions automatically from each mnemonic entry
+// ═══════════════════════════════════════════════════════
+
+function buildMnemonicQuestions() {
+  const questions = [];
+
+  MY_MNEMONICS.forEach(mn => {
+    // Q1 — Mnemonic → Article (what does this mnemonic help you remember?)
+    questions.push({
+      type: 'm2a',
+      q: `What does this mnemonic help you remember?
+
+"${mn.mnemonic}"`,
+      correct: mn.topic,
+      distractors: generateDistractors(mn.topic, mn.article),
+      exp: `${mn.article} — ${mn.covers}. ${mn.note || ''}`,
+      article: mn.article
+    });
+
+    // Q2 — Article → Mnemonic (what is your mnemonic for this article?)
+    questions.push({
+      type: 'a2m',
+      q: `${mn.article} — ${mn.topic}
+
+What is your mnemonic?`,
+      correct: mn.mnemonic,
+      distractors: generateMnemoDistractors(mn.mnemonic),
+      exp: `Each letter stands for a crime: ${mn.letters.map(l => l.letter + '=' + l.crime.split(' ')[0]).join(', ')}`,
+      article: mn.article
+    });
+
+    // Q3-Q5 — Letter breakdown questions (pick 3 random letters)
+    const shuffled = [...mn.letters].sort(() => Math.random() - .5).slice(0, 3);
+    shuffled.forEach(item => {
+      const wrongLetters = mn.letters
+        .filter(l => l.letter !== item.letter && l.crime !== item.crime)
+        .sort(() => Math.random() - .5)
+        .slice(0, 3)
+        .map(l => l.crime);
+
+      questions.push({
+        type: 'letter',
+        q: `In the mnemonic "${mn.mnemonic}"
+
+What does the letter "${item.letter}" stand for?`,
+        correct: item.crime,
+        distractors: wrongLetters.length >= 3 ? wrongLetters : [
+          'Criminal contempt 1st degree',
+          'Coercion 1st degree',
+          'Grand larceny 1st degree'
+        ].slice(0, 3 - wrongLetters.length).concat(wrongLetters),
+        exp: `In MARKABRAMSC, ${item.letter} = ${item.crime}. Full mnemonic: ${mn.covers}`,
+        article: mn.article
+      });
+    });
+  });
+
+  return questions;
+}
+
+// Generate plausible wrong answers for article/topic questions
+function generateDistractors(correct, article) {
+  const pool = [
+    'The 7 accusatory instruments (CPL Art. 1)',
+    'The speedy trial deadlines for felonies (CPL Art. 30)',
+    'The 4 mental states from most to least culpable (PL Art. 10)',
+    'The Penal Law classification ladder (PL Art. 55)',
+    'The two tiers of criminal courts (CPL Art. 10)',
+    'When a criminal action commences (CPL Art. 1)',
+    'The definition of conviction vs judgment (CPL Art. 1)',
+    'Crimes requiring fingerprinting (CPL Art. 160)'
+  ];
+  return pool.filter(d => d !== correct).slice(0, 3);
+}
+
+// Generate plausible wrong mnemonic sentences
+function generateMnemoDistractors(correct) {
+  const pool = [
+    "Many Arrests Ruin Kids' Academic Beginnings, Ruining All Motivation, Seriously Changing lives",
+    "Most At-Risk Rappers Know All Block Realities Are Making Street Choices",
+    "Mark Always Ran, Knew All Big Risks And Made Stupid Choices",
+    "Many Artists Rise, Kids Also Build Reps And Make Skills Count"
+  ];
+  return pool.filter(d => d !== correct).slice(0, 3);
+}
+
+// ═══════════════════════════════════════════════════════
+// MNEMONIC GAME MODE — UPDATED
+// ═══════════════════════════════════════════════════════
+
+function startMnemoGame() {
+  currentMode = 'mnemo';
+  score = 0;
+  lives = 3;
+  currentIndex = 0;
+  answered = false;
+  wrongCount = 0;
+  correctCount = 0;
+  gameStartTime = Date.now();
+
+  document.getElementById('mode-title').textContent = 'Mnemonic Master';
+
+  // Build questions from saved mnemonics
+  const questions = buildMnemonicQuestions();
+
+  if(questions.length === 0 || MY_MNEMONICS.length === 0) {
+    showScreen('screen-game');
+    document.getElementById('game-area').innerHTML = `
+      <div class="empty-game">
+        <span class="icon">🧠</span>
+        <p style="font-weight:600;color:var(--text)">No mnemonics yet</p>
+        <p>Create your first mnemonic in the daily wind-down block on your week schedule, then add it to MY_MNEMONICS in game.html.</p>
+        <p style="margin-top:12px;font-size:12px;color:var(--muted)">Your first one is already loaded — CPL 1.20(42)</p>
+      </div>`;
+    return;
+  }
+
+  currentQuestions = questions.sort(() => Math.random() - .5);
+  showScreen('screen-game');
+  renderMnemoQuestion();
+}
+
+function renderMnemoQuestion() {
+  if(currentIndex >= currentQuestions.length) { showResult(); return; }
+  answered = false;
+  const q = currentQuestions[currentIndex];
+  const area = document.getElementById('game-area');
+  document.getElementById('current-article').textContent = q.article || 'Mnemonic';
+
+  // Type label
+  const typeLabels = {
+    'a2m': { text: 'ARTICLE → MNEMONIC', color: 'var(--violet2)' },
+    'm2a': { text: 'MNEMONIC → MEANING', color: 'var(--gold)' },
+    'letter': { text: 'LETTER BREAKDOWN', color: 'var(--teal)' }
+  };
+  const tl = typeLabels[q.type] || { text: 'MNEMONIC', color: 'var(--violet2)' };
+
+  const hudHtml = `
+    <div class="hud">
+      <div><div class="hud-label">Score</div><div class="hud-score">${score}</div></div>
+      <div class="lives">${[0,1,2].map(i => `<span class="life${i >= lives ? ' lost' : ''}">🧠</span>`).join('')}</div>
+      <div class="progress-text">${currentIndex+1} / ${currentQuestions.length}</div>
+    </div>`;
+
+  // Build shuffled options
+  const allOpts = [q.correct, ...q.distractors].sort(() => Math.random() - .5);
+  const letters = ['a','b','c','d'];
+
+  const optsHtml = `<div class="options">${allOpts.map((opt, i) => `
+    <div class="opt" id="mnopt-${i}" onclick="selectMnemo(${i})">
+      <div class="opt-letter">${letters[i].toUpperCase()}</div>
+      <div class="opt-text">${opt}</div>
+    </div>`).join('')}</div>`;
+
+  area.innerHTML = hudHtml + `
+    <div class="q-num">Question ${currentIndex + 1} · ${q.article}</div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:${tl.color};margin-bottom:10px">${tl.text}</div>
+    <div class="q-stem" style="margin-bottom:20px;white-space:pre-line">${q.q}</div>
+    ${optsHtml}
+    <div class="explanation" id="mnexp">${q.exp}</div>
+    <button class="next-btn" id="next-btn" onclick="nextMnemo()">
+      ${currentIndex + 1 >= currentQuestions.length ? 'See Results →' : 'Next →'}
+    </button>`;
+
+  area.dataset.correctOpt = allOpts.indexOf(q.correct);
+}
+
+function selectMnemo(idx) {
+  if(answered) return;
+  answered = true;
+  const q = currentQuestions[currentIndex];
+  const area = document.getElementById('game-area');
+  const correctIdx = parseInt(area.dataset.correctOpt);
+  const isCorrect = idx === correctIdx;
+
+  const fb = document.getElementById('feedback');
+  fb.textContent = isCorrect ? '✓' : '✗';
+  fb.className = 'feedback ' + (isCorrect ? 'show-correct' : 'show-wrong');
+  setTimeout(() => fb.className = 'feedback', 600);
+
+  document.querySelectorAll('.opt').forEach((el, i) => {
+    el.classList.add('locked');
+    if(i === correctIdx) el.classList.add(isCorrect && i === idx ? 'correct' : 'reveal');
+    if(i === idx && !isCorrect) el.classList.add('wrong');
+    if(i === idx && isCorrect) { el.classList.remove('reveal'); el.classList.add('correct'); }
+  });
+
+  document.getElementById('mnexp').classList.add('show');
+  document.getElementById('next-btn').classList.add('show');
+
+  if(isCorrect) { score++; correctCount++; }
+  else {
+    wrongCount++;
+    lives = Math.max(0, lives - 1);
+    if(typeof CLERK_SYNC !== 'undefined') {
+      CLERK_SYNC.saveWrongAnswer(q.article, q.q.substring(0,120), 'wrong', q.correct);
+    }
+    if(lives === 0) {
+      document.getElementById('next-btn').textContent = 'Game Over →';
+      document.querySelectorAll('.life').forEach(l => l.classList.add('lost'));
+    }
+  }
+  const hud = document.querySelector('.hud-score');
+  if(hud) hud.textContent = score;
+}
+
+function nextMnemo() {
+  if(lives === 0) { showResult(); return; }
+  currentIndex++;
+  if(currentIndex >= currentQuestions.length) showResult();
+  else renderMnemoQuestion();
+}
+
+// ── INIT ───────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', updateHomeStats);
+</script>
+<nav class="bottom-nav-bar">
+  <a href="index.html" class="bnb-btn"><span class="bnb-icon">🏠</span>Home</a>
+  <a href="game.html" class="bnb-btn active"><span class="bnb-icon">🎮</span>Game</a>
+  <a href="week1_quiz.html" class="bnb-btn"><span class="bnb-icon">❓</span>Quiz</a>
+  <a href="week1_notes_quiz.html" class="bnb-btn"><span class="bnb-icon">📋</span>Notes</a>
+  <a href="study_dashboard.html" class="bnb-btn"><span class="bnb-icon">📊</span>Dashboard</a>
+</nav>
+<div class="toast" id="page-toast" style="position:fixed;bottom:76px;left:50%;transform:translateX(-50%);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;color:white;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-family:'DM Sans',system-ui,sans-serif"></div>
+</body>
+</html>

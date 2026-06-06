@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
@@ -10,6 +11,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="clerk_sync.js"></script>
 <style>
+
+/* ══ MOBILE RENDERING FIX ══ */
+html {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  overflow-x: hidden;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100vw;
+}
+@media screen and (max-width: 768px) {
+  html, body { font-size: 18px; }
+  * { max-width: 100%; word-break: break-word; }
+  img, video, iframe, table { max-width: 100% !important; }
+  pre, code { white-space: pre-wrap; overflow-wrap: break-word; }
+}
+
 :root {
   --bg:#0a0c14;--bg2:#0f1120;--bg3:#161828;
   --navy:#1a1f3c;--card:#1c1f35;--card2:#22273f;
@@ -519,6 +540,218 @@ const ALL_QUESTIONS = [
   {n:18,q:"A 'crime' under the Penal Law includes:",opts:["a. Violations only","b. Misdemeanors and felonies","c. Traffic infractions and violations","d. All offenses"],correct:"b",exp:"A crime = misdemeanor OR felony. Violations and traffic infractions are offenses but NOT crimes.",ans:"Misdemeanors and felonies",article:"PL Art. 55",diff:1},
   {n:19,q:"A violation is an offense punishable by imprisonment of:",opts:["a. More than 15 days but not more than 1 year","b. Exactly 15 days","c. Not more than 15 days","d. More than 1 year"],correct:"c",exp:"A violation = imprisonment of NOT MORE THAN 15 days. A misdemeanor = more than 15 days up to 1 year.",ans:"Not more than 15 days",article:"PL Art. 55",diff:1},
   {n:20,q:"A class A felony carries a maximum sentence of:",opts:["a. 25 years","b. Life imprisonment","c. More than 1 year","d. It depends on the subdivision"],correct:"b",exp:"Class A felonies carry a maximum sentence of life imprisonment. Class A-I = indeterminate life. Class A-II also life.",ans:"Life imprisonment",article:"PL Art. 55",diff:2},
+
+  // ── CPL ART. 10 — CRIMINAL COURTS ──────────────────────
+  {n:21,q:"Which courts are classified as 'superior courts' in New York?",
+   opts:["a. Supreme Court and County Court only","b. Supreme Court, County Court, and NYC Criminal Court","c. Supreme Court, County Court, and District Court","d. Any court with felony jurisdiction"],
+   correct:"a",article:"CPL Art. 10",diff:1,
+   exp:"§10.10(2) — Superior courts = Supreme Court and County Court ONLY. NYC Criminal Court is a local criminal court.",
+   ans:"Supreme Court and County Court only",
+   scenario:"A defendant asks you which court will handle his felony indictment. You direct him to the:"},
+
+  {n:22,q:"A Superior Court has EXCLUSIVE trial jurisdiction over:",
+   opts:["a. Misdemeanors","b. Felonies","c. Petty offenses","d. All offenses"],
+   correct:"b",article:"CPL Art. 10",diff:1,
+   exp:"§10.20(1)(a) — Superior courts have EXCLUSIVE trial jurisdiction over felonies. Concurrent for misdemeanors.",
+   ans:"Felonies",
+   scenario:"Defense counsel asks to transfer a felony case to NYC Criminal Court for trial. You explain that NYC Criminal Court cannot conduct felony trials because:"},
+
+  {n:23,q:"A Superior Court judge sitting as a local criminal court has authority to do which of the following?",
+   opts:["a. Conduct arraignments, issue warrants of arrest, and issue search warrants","b. Conduct full felony trials","c. Accept guilty pleas on felony charges","d. All of the above"],
+   correct:"a",article:"CPL Art. 10",diff:2,
+   exp:"§10.20(2) — Superior Court judges sitting as local courts have THREE functions only: arraignments, warrants of arrest, and search warrants. No trial jurisdiction.",
+   ans:"Conduct arraignments, issue warrants of arrest, and issue search warrants",
+   scenario:"A Supreme Court justice agrees to sit as a local criminal court during an off-hours arraignment. Which actions is that justice authorized to perform?"},
+
+  {n:24,q:"Local Criminal Courts have EXCLUSIVE trial jurisdiction over:",
+   opts:["a. Misdemeanors","b. Felonies","c. Petty offenses","d. All non-felony offenses"],
+   correct:"c",article:"CPL Art. 10",diff:2,
+   exp:"§10.30(1)(a) — Local criminal courts have EXCLUSIVE trial jurisdiction over petty offenses. Concurrent with superior courts for misdemeanors.",
+   ans:"Petty offenses",
+   scenario:"A defendant charged with a violation demands a jury trial and asks to transfer to County Court. You advise that the local court has EXCLUSIVE jurisdiction over:"},
+
+  {n:25,q:"NYC Criminal Court is classified as a:",
+   opts:["a. Superior court","b. Local criminal court","c. Both","d. Neither — it has its own classification"],
+   correct:"b",article:"CPL Art. 10",diff:1,
+   exp:"§10.10(3) — NYC Criminal Court is specifically listed as a local criminal court, NOT a superior court. This is one of the most tested exam traps.",
+   ans:"Local criminal court",
+   scenario:"An attorney files papers in NYC Criminal Court and labels it a 'superior court.' You must correct this because NYC Criminal Court is:"},
+
+  // ── CPL ART. 30 — SPEEDY TRIAL ──────────────────────────
+  {n:26,q:"The People must be ready for trial within 6 months for which type of charge?",
+   opts:["a. Class A misdemeanor","b. Any misdemeanor","c. Felony","d. Class B misdemeanor"],
+   correct:"c",article:"CPL Art. 30",diff:1,
+   exp:"§30.30(1)(a) — Felony = 6 months. Class A misdemeanor = 90 days. Class B misdemeanor = 60 days. Petty offense = 30 days.",
+   ans:"Felony",
+   scenario:"Defense counsel files a 30.30 motion on a robbery case filed 7 months ago with no readiness announcement. You process the motion because the felony deadline is:"},
+
+  {n:27,q:"For a Class A misdemeanor (sentence over 3 months), the People must be ready within:",
+   opts:["a. 30 days","b. 60 days","c. 90 days","d. 6 months"],
+   correct:"c",article:"CPL Art. 30",diff:1,
+   exp:"§30.30(1)(b) — Class A misdemeanor (punishable by over 3 months) = 90 days readiness deadline.",
+   ans:"90 days",
+   scenario:"A defendant charged with Class A misdemeanor assault has been waiting 4 months. Counsel moves to dismiss. The applicable readiness deadline was:"},
+
+  {n:28,q:"The speedy trial limits of CPL §30.30 do NOT apply when the charge is:",
+   opts:["a. Any Class A felony","b. Homicide offenses under PL §§125.10–125.27","c. Any violent felony","d. Murder only"],
+   correct:"b",article:"CPL Art. 30",diff:2,
+   exp:"§30.30(3)(a) — The homicide exemption: §30.30(1) and (2) do NOT apply where any offense charged is defined in PL §§125.10, 125.15, 125.20, 125.25, 125.26, or 125.27.",
+   ans:"Homicide offenses under PL §§125.10–125.27",
+   scenario:"Defense moves to dismiss a murder case under §30.30 after 8 months with no readiness statement. You know this motion will fail because:"},
+
+  {n:29,q:"There is NO statute of limitations for prosecution of:",
+   opts:["a. All felonies","b. Class A felonies AND certain sex offenses","c. Murder only","d. Class A and B felonies"],
+   correct:"b",article:"CPL Art. 30",diff:2,
+   exp:"§30.10(2)(a) — No time limit for Class A felonies AND Rape 1°, former crimes under PL §130.50, Aggravated Sexual Abuse 1°, Course of Sexual Conduct Against Child 1°, and Incest 1°.",
+   ans:"Class A felonies AND certain sex offenses",
+   scenario:"A prosecutor asks whether a 15-year-old rape first degree case can still be prosecuted. Under §30.10 you advise:"},
+
+  {n:30,q:"The statute of limitations for a misdemeanor is:",
+   opts:["a. 1 year","b. 2 years","c. 3 years","d. 5 years"],
+   correct:"b",article:"CPL Art. 30",diff:1,
+   exp:"§30.10(2)(d) — Misdemeanor SOL = 2 years. Petty offense = 1 year. Other felonies = 5 years.",
+   ans:"2 years",
+   scenario:"A complaining witness reports a misdemeanor assault that happened 30 months ago. You advise the DA that prosecution is time-barred because:"},
+
+  {n:31,q:"A defendant in custody on a felony charge must be RELEASED if the People are not ready within:",
+   opts:["a. 30 days","b. 60 days","c. 90 days","d. 6 months"],
+   correct:"c",article:"CPL Art. 30",diff:2,
+   exp:"§30.30(2)(a) — Custody release deadline for felony = 90 days. This is DIFFERENT from the readiness deadline of 6 months.",
+   ans:"90 days",
+   scenario:"A defendant charged with felony robbery has been in jail for 95 days with no readiness statement. Defense moves for release. Under §30.30(2) the release deadline was:"},
+
+  // ── CPL ART. 100 — ACCUSATORY INSTRUMENTS ───────────────
+  {n:32,q:"A Felony Complaint commences a criminal action but:",
+   opts:["a. Also serves as the basis for prosecution","b. NEVER serves as the basis for prosecution","c. Serves as the basis for prosecution when defendant waives indictment","d. Only serves as prosecution basis in youth court"],
+   correct:"b",article:"CPL Art. 100",diff:1,
+   exp:"§100.10(5) — A Felony Complaint commences an action but NEVER serves as the basis for prosecution. This is the most tested §100 exam trap.",
+   ans:"NEVER serves as the basis for prosecution",
+   scenario:"A DA's office intern tells you the felony complaint filed this morning will be the basis for trial. You correct them because:"},
+
+  {n:33,q:"Which accusatory instrument requires non-hearsay allegations establishing every element of the offense?",
+   opts:["a. Felony Complaint","b. Misdemeanor Complaint","c. Information","d. Simplified Information"],
+   correct:"c",article:"CPL Art. 100",diff:2,
+   exp:"§100.40(1)(c) — An Information must contain non-hearsay allegations establishing, if true, every element of the offense. Misdemeanor/Felony Complaints do NOT have this requirement.",
+   ans:"Information",
+   scenario:"A defense attorney moves to dismiss the information as facially insufficient, arguing it contains only hearsay. Under §100.40, a valid information requires:"},
+
+  {n:34,q:"A Simplified Information is considered insufficient on its face if:",
+   opts:["a. It contains hearsay","b. It charges a felony","c. The complainant officer fails to serve the supporting deposition within the time required by §100.25(2)","d. It is not signed by the DA"],
+   correct:"c",article:"CPL Art. 100",diff:2,
+   exp:"§100.40(2) — A Simplified Information becomes insufficient on its face when a court-ordered supporting deposition is not served within the §100.25(2) time limit.",
+   ans:"The complainant officer fails to serve the supporting deposition within the time required by §100.25(2)",
+   scenario:"Defendant timely requested a supporting deposition on a simplified traffic information. The officer failed to serve it within 30 days of the request. The simplified information is now:"},
+
+  {n:35,q:"A defendant charged by Simplified Information has a right to request a supporting deposition within:",
+   opts:["a. 10 days after arraignment","b. 30 days after the appearance date on the ticket","c. 60 days after filing","d. Any time before trial"],
+   correct:"b",article:"CPL Art. 100",diff:2,
+   exp:"§100.25(2) — The timely request period is 30 days after the appearance date on the ticket. Late requests for misdemeanor charges may be allowed for good cause, but no later than 90 days.",
+   ans:"30 days after the appearance date on the ticket",
+   scenario:"A defendant charged by simplified traffic information comes to the clerk's window 35 days after his return date asking for a supporting deposition. You advise that the right to request may have expired because the deadline was:"},
+
+  {n:36,q:"A Prosecutor's Information commences a new criminal action ONLY when:",
+   opts:["a. It is filed by the DA after indictment","b. It results from Grand Jury direction in a case NOT previously commenced in local criminal court","c. It charges a misdemeanor","d. The defendant waives indictment"],
+   correct:"b",article:"CPL Art. 100",diff:3,
+   exp:"§100.10(3) — A Prosecutor's Information serves as the basis for prosecution, but commences an action ONLY when it results from a Grand Jury direction in a case not previously commenced in local criminal court.",
+   ans:"It results from Grand Jury direction in a case NOT previously commenced in local criminal court"},
+
+  // ── CPL ART. 110 — ARRAIGNMENT ───────────────────────────
+  {n:37,q:"After a criminal action is commenced by filing an accusatory instrument, a defendant not yet arraigned may be compelled to appear by:",
+   opts:["a. Warrant of arrest or summons only","b. Warrant of arrest, summons, or interstate extradition procedures","c. Bench warrant only","d. The DA's office calling the defendant"],
+   correct:"b",article:"CPL Art. 110",diff:2,
+   exp:"§110.10(1) — Three methods: (a) warrant of arrest (Article 120); (b) summons (Article 130); (c) interstate/extradition procedures (Articles 560–600) for defendants outside the state.",
+   ans:"Warrant of arrest, summons, or interstate extradition procedures",
+   scenario:"The defendant in a pending case cannot be located. Defense counsel asks what tools the People have to compel appearance. You advise the options are:"},
+
+  {n:38,q:"When NO criminal action has yet been commenced, a defendant may be required to appear for arraignment by:",
+   opts:["a. Warrant of arrest or summons","b. Warrantless arrest or appearance ticket","c. Bench warrant","d. Court order only"],
+   correct:"b",article:"CPL Art. 110",diff:2,
+   exp:"§110.10(2) — Where no action is yet commenced: warrantless arrest (Article 140) OR appearance ticket (Article 150). The accusatory instrument is filed at or before appearance.",
+   ans:"Warrantless arrest or appearance ticket",
+   scenario:"Police stop a suspect for a misdemeanor and have not yet filed any accusatory instrument. The proper way to bring the suspect before the court for arraignment is:"},
+
+  {n:39,q:"When a crime is charged in a local criminal court (other than NYC Criminal Court), a copy of the accusatory instrument must be transmitted to the District Attorney:",
+   opts:["a. Within 24 hours of filing","b. Promptly upon or prior to arraignment","c. Within 5 business days","d. Only upon DA request"],
+   correct:"b",article:"CPL Art. 110",diff:2,
+   exp:"§110.20 — Notice must be promptly transmitted to the DA upon or prior to arraignment. If a police/peace officer is the complainant, that officer/agency transmits it. Otherwise the clerk does.",
+   ans:"Promptly upon or prior to arraignment"},
+
+  // ── CPL ART. 120 — WARRANT OF ARREST ───────────────────
+  {n:40,q:"The SOLE function of a warrant of arrest is to:",
+   opts:["a. Authorize a search of defendant's premises","b. Achieve defendant's court appearance for arraignment","c. Authorize detention pending bail","d. Commence a new criminal action"],
+   correct:"b",article:"CPL Art. 120",diff:1,
+   exp:"§120.10(1) — A warrant of arrest's SOLE function is to achieve the defendant's court appearance for arraignment on the accusatory instrument by which the action was commenced.",
+   ans:"Achieve defendant's court appearance for arraignment",
+   scenario:"A police officer asks if an arrest warrant authorizes searching the defendant's home. You explain that a warrant of arrest has only one function:"},
+
+  {n:41,q:"A warrant issued by a town court or village court (not a district court) is executable:",
+   opts:["a. Anywhere in the state without restriction","b. Only within that town or village","c. In the county of issuance or any adjoining county — or statewide with written endorsement","d. Only with the endorsement of the DA"],
+   correct:"c",article:"CPL Art. 120",diff:2,
+   exp:"§120.70(2) — Town/village/city court warrants: executable in the county of issuance or adjoining counties. Executable ANYWHERE in the state only upon written endorsement of a local court in the county of arrest.",
+   ans:"In the county of issuance or any adjoining county — or statewide with written endorsement",
+   scenario:"A village court issues a warrant for a defendant believed to be in another part of the state. An officer in that distant county asks if they can execute it. You advise:"},
+
+  {n:42,q:"A warrant of arrest must be subscribed by:",
+   opts:["a. The District Attorney","b. The arresting officer","c. The issuing judge","d. The court clerk"],
+   correct:"c",article:"CPL Art. 120",diff:1,
+   exp:"§120.10(2) — Warrants must be subscribed (signed) by the ISSUING JUDGE and must state specific required information including the court, date, offense, and defendant identification.",
+   ans:"The issuing judge",
+   scenario:"An officer brings you a warrant signed by the DA, not the judge. You must reject it because a valid warrant of arrest must be subscribed by:"},
+
+  {n:43,q:"A warrant of arrest may be executed on:",
+   opts:["a. Business days only during court hours","b. Any day of the week at any hour of the day or night","c. Only between 6 AM and 10 PM","d. Only during regular court hours"],
+   correct:"b",article:"CPL Art. 120",diff:1,
+   exp:"§120.80(1) — Warrants may be executed on ANY day of the week and at ANY hour of the day or night.",
+   ans:"Any day of the week at any hour of the day or night",
+   scenario:"An officer wants to execute an arrest warrant at 3 AM on a Sunday. You advise that under §120.80 this is:"},
+
+  {n:44,q:"After a non-felony arrest pursuant to a warrant executed in a non-adjoining county, if the defendant DOES wish to appear before a local court for bail, the officer must:",
+   opts:["a. Hold the defendant until the delegating officer arrives","b. Bring the defendant before a local court in the county of arrest for ROR or bail","c. Release the defendant on his own recognizance","d. Return directly to the issuing court"],
+   correct:"b",article:"CPL Art. 120",diff:3,
+   exp:"§120.90(3) — For non-felony, non-adjoining county: if defendant wishes to appear before a local court for bail, officer MUST bring them before a local court of the county of ARREST, which fixes bail for appearance in issuing court.",
+   ans:"Bring the defendant before a local court in the county of arrest for ROR or bail"},
+
+  // ── PENAL LAW §10.00 — DEFINITIONS ──────────────────────
+  {n:45,q:"Under Penal Law §10.00, a 'crime' is defined as:",
+   opts:["a. A felony only","b. A misdemeanor or a felony","c. Any offense","d. Any offense punishable by imprisonment"],
+   correct:"b",article:"PL §10.00",diff:1,
+   exp:"PL §10.00(6) — A CRIME = a misdemeanor OR a felony. Violations and traffic infractions are offenses but NOT crimes.",
+   ans:"A misdemeanor or a felony",
+   scenario:"A defendant charged with a violation asks if he has a 'criminal' record. You explain that a violation is an offense but technically not a:"},
+
+  {n:46,q:"A 'violation' under the Penal Law is an offense for which a sentence of imprisonment:",
+   opts:["a. In excess of 30 days cannot be imposed","b. In excess of 15 days cannot be imposed","c. Of up to 90 days may be imposed","d. Of up to 1 year may be imposed"],
+   correct:"b",article:"PL §10.00",diff:1,
+   exp:"PL §10.00(3) — A violation is an offense (other than traffic infraction) for which imprisonment IN EXCESS OF 15 DAYS CANNOT be imposed. Misdemeanor = over 15 days up to 1 year.",
+   ans:"In excess of 15 days cannot be imposed"},
+
+  {n:47,q:"'Serious Physical Injury' under PL §10.00 means:",
+   opts:["a. Any physical pain","b. Physical injury creating substantial risk of death, or causing death, serious disfigurement, or protracted impairment","c. Any injury requiring hospitalization","d. Broken bones or lacerations"],
+   correct:"b",article:"PL §10.00",diff:2,
+   exp:"PL §10.00(10) — Serious Physical Injury = physical injury that creates a substantial risk of death, OR causes death, serious and protracted disfigurement, protracted impairment of health, or protracted loss/impairment of any bodily organ.",
+   ans:"Physical injury creating substantial risk of death, or causing death, serious disfigurement, or protracted impairment",
+   scenario:"Charging the right crime requires knowing whether injuries are 'physical injury' or 'serious physical injury.' The latter includes:"},
+
+  {n:48,q:"A 'Deadly Weapon' under PL §10.00 includes:",
+   opts:["a. Any sharp object","b. Any object used to threaten","c. A loaded weapon from which a shot readily capable of producing death may be discharged; or a switchblade, dagger, billy, blackjack, or metal knuckles","d. A dangerous instrument"],
+   correct:"c",article:"PL §10.00",diff:2,
+   exp:"PL §10.00(12) — Deadly Weapon is specifically defined: loaded firearm capable of lethal discharge OR specifically enumerated items: switchblade, pilum ballistic knife, metal knuckle knife, dagger, billy, blackjack, plastic/metal knuckles.",
+   ans:"A loaded weapon capable of lethal discharge, or specifically enumerated weapons like switchblades, daggers, or metal knuckles"},
+
+  {n:49,q:"PL §10.00 defines a 14-year-old as criminally responsible as a Juvenile Offender for which crime?",
+   opts:["a. Grand Larceny 1°","b. Burglary 1°","c. Assault 2°","d. Robbery 3°"],
+   correct:"b",article:"PL §10.00",diff:2,
+   exp:"PL §10.00(18)(b) — Tier 2 (age 14-15): includes Burglary 1° (§140.30). Grand Larceny, Assault 2°, and Robbery 3° are NOT juvenile offender crimes.",
+   ans:"Burglary 1°",
+   scenario:"A 14-year-old is arrested for Burglary 1st degree. Defense counsel argues the case should be in Family Court. You know this case goes to criminal court because:"},
+
+  {n:50,q:"A 13-year-old can ONLY be tried as a juvenile offender in criminal court for which crimes?",
+   opts:["a. Murder 2°, Robbery 1°, and Rape 1°","b. Murder 2° (PL §125.25(1) or (2)) and sexually motivated felony only","c. Any violent felony","d. Murder 1° only"],
+   correct:"b",article:"PL §10.00",diff:3,
+   exp:"PL §10.00(18)(a) — Age 13 (Tier 1): ONLY Murder 2° under §125.25(1) or (2), and sexually motivated felony under §130.91. All other JO crimes require age 14 or 15.",
+   ans:"Murder 2° (PL §125.25(1) or (2)) and sexually motivated felony only",
+   scenario:"A 13-year-old is charged with Robbery 1°. Defense moves to transfer to Family Court. You know this motion will succeed because at age 13 the only juvenile offender crimes are:"},
+
 ];
 
 // ─── SCENARIOS (Court Clerk Simulator wrappers) ───────────
@@ -1136,5 +1369,6 @@ document.addEventListener('DOMContentLoaded', updateHomeStats);
   <a href="study_dashboard.html" class="bnb-btn"><span class="bnb-icon">📊</span>Dashboard</a>
 </nav>
 <div class="toast" id="page-toast" style="position:fixed;bottom:76px;left:50%;transform:translateX(-50%);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;color:white;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-family:'DM Sans',system-ui,sans-serif"></div>
+<script src="pwa-features.js"></script>
 </body>
 </html>

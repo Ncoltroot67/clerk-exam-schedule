@@ -1,7 +1,7 @@
 // ── SERVICE WORKER — NYS Clerk Exam PWA v5 ───────────────
 // Simplified for maximum Safari compatibility
 
-const CACHE = 'clerk-exam-v7';
+const CACHE = 'clerk-exam-v8';
 
 const FILES = [
   './',
@@ -12,6 +12,7 @@ const FILES = [
   './week1_quiz.html',
   './study_dashboard.html',
   './game.html',
+  './jeopardy.html',
   './offline.html',
   './clerk_sync.js',
   './pwa-features.js',

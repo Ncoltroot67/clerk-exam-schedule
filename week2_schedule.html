@@ -638,7 +638,7 @@ input, textarea, select,
   <div class="sb-grid">
     <div class="sb-day" style="border-color:#2563eb33;background:#2563eb11">
       <div class="sb-day-label" style="color:#60a5fa">Mon–Thu</div>
-      <div class="sb-day-desc">ClerkOne commute · Rotating lunch technique · Statute reading · Active recall · Cornell Notes</div>
+      <div class="sb-day-desc">ClerkOne + Anki (morning) · Rotating lunch · Active recall (commute) · Cornell Notes + Game session + Law book reading (evening)</div>
     </div>
     <div class="sb-day" style="border-color:#7c3aed33;background:#7c3aed11">
       <div class="sb-day-label" style="color:#a78bfa">Friday</div>
@@ -693,7 +693,7 @@ input, textarea, select,
     <div class="block-cb"><div class="block-cb-box" id="bcb-mon_commute" onclick="toggleBlockCB(this,'mon_commute')"></div><div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div></div>
     <div>
       <div class="btitle"><span>ClerkOne — CPL Art. 100 Notes</span><span class="tool t-co">ClerkOne</span></div>
-      <div class="bbody">Read CPL Art. 100 notes on ClerkOne. Art. 100 covers local criminal court accusatory instruments — the formal requirements for informations, simplified informations, misdemeanor complaints, and felony complaints. Focus on: what each instrument must contain, verification requirements, and how each is used.<div class="callout callout-teal">🔵 Blue article — use blue pen for any notes you make on the commute. Stop at 30 min even if you're mid-section.</div></div>
+      <div class="bbody">ClerkOne — CPL Art. 100 notes, then T/F and MC questions. Last 5 min: Anki deck — review any Art. 1, 10, 30 cards flagged from Week 1. Morning commute = ClerkOne first, Anki after. — the formal requirements for informations, simplified informations, misdemeanor complaints, and felony complaints. Focus on: what each instrument must contain, verification requirements, and how each is used.<div class="callout callout-teal">🔵 Blue article — use blue pen for any notes you make on the commute. Stop at 30 min even if you're mid-section.</div></div>
     </div>
   </div>
 
@@ -744,14 +744,27 @@ input, textarea, select,
     </div>
   </div>
 
-  <div class="block">
-    <div class="block-cb"><div class="block-cb-box" id="bcb-mon_winddown" onclick="toggleBlockCB(this,'mon_winddown')"></div><div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div></div>
+
+  <div class="block" style="background:rgba(20,184,166,.1);border-left:3px solid #5eead4">
+    <div class="block-cb"><div class="block-cb-box" id="bcb-mon_game" onclick="toggleBlockCB(this,'mon_game')"></div><div><div class="bwindow">Game</div><div class="bdur">10–15 min</div></div></div>
     <div>
-      <div class="btitle"><span>Book preview — CPL Art. 110 + mnemonic start</span><span class="tool t-paper">Paper</span></div>
-      <div class="bbody">Physical book — index → end questions → summary of CPL Art. 110 (arraignments). Then spend 5 min on tonight's mnemonic.
-        <div class="mnemo-block">
+      <div class="btitle"><span>Law Jeopardy — CPL Art. 100</span><span class="tool" style="background:rgba(20,184,166,.1);color:#5eead4;border:1px solid rgba(20,184,166,.25)">🎮 Game</span></div>
+      <div class="bbody">
+        <a href="jeopardy.html" style="display:inline-flex;align-items:center;gap:6px;background:rgba(20,184,166,.1);border:1px solid rgba(20,184,166,.25);color:#5eead4;border-radius:6px;padding:7px 14px;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:8px">▶ Play Law Jeopardy</a><br>
+        <span style="font-size:14px;color:var(--text-muted);line-height:1.6">Full 5-category board. After Cornell Notes your brain is primed — the game locks Art. 100 into long-term memory. Aim to clear all $400–$500 clues.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" style="background:#fffbeb;border-left:3px solid #f59e0b">
+    <div class="block-cb"><div class="block-cb-box" id="bcb-mon_reading" onclick="toggleBlockCB(this,'mon_reading')"></div><div><div class="bwindow">Law Reading</div><div class="bdur">20 min</div><div class="noscreen">Book</div></div></div>
+    <div>
+      <div class="btitle"><span>CPL Art. 110 — Statute Text</span><span class="tool" style="background:#fef3c7;color:#92400e;border:1px solid #fcd34d">📖 Law Book</span></div>
+      <div class="bbody">Read the actual CPL Art. 110 statute text — <strong>§§110.10–110.20</strong>. Read aloud. Let the exact statutory language sink in — not summaries, not notes. The statute itself.
+        <div class="callout callout-gold" style="margin-top:8px">📖 Focus on §110.10 — the two situations (action already commenced vs. not yet commenced) and the methods available in each. Exact statutory wording matters.</div>
+        <div class="mnemo-block" style="margin-top:10px">
           <div class="mnemo-label">🧠 Tonight's mnemonic — CPL Art. 100</div>
-          <div class="mnemo-prompt">Create a mnemonic for the sufficiency requirements of an information — what it must allege. Acronym or short phrase.</div>
+          <div class="mnemo-prompt">Create a mnemonic for the non-hearsay sufficiency requirement of an information — what it must allege to be facially sufficient.</div>
           <textarea class="mnemo-input" id="mn-input-mon_art100" placeholder="Write your mnemonic here..."></textarea>
           <div class="mnemo-save-row">
             <button class="mnemo-btn mnemo-btn-save" onclick="saveMnemonic('mon','art100')">💾 Save</button>
@@ -836,14 +849,27 @@ input, textarea, select,
     </div>
   </div>
 
-  <div class="block">
-    <div class="block-cb"><div class="block-cb-box" id="bcb-tue_winddown" onclick="toggleBlockCB(this,'tue_winddown')"></div><div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div></div>
+
+  <div class="block" style="background:rgba(201,149,42,.1);border-left:3px solid #fbbf24">
+    <div class="block-cb"><div class="block-cb-box" id="bcb-tue_game" onclick="toggleBlockCB(this,'tue_game')"></div><div><div class="bwindow">Game</div><div class="bdur">10–15 min</div></div></div>
     <div>
-      <div class="btitle"><span>Book preview — CPL Art. 120 + mnemonic</span><span class="tool t-paper">Paper</span></div>
-      <div class="bbody">Book — index → end questions → summary of CPL Art. 120 (warrant of arrest). Then mnemonic for tonight.
-        <div class="mnemo-block">
+      <div class="btitle"><span>Clerk Challenge — CPL Art. 110</span><span class="tool" style="background:rgba(201,149,42,.1);color:#fbbf24;border:1px solid rgba(201,149,42,.3)">🎮 Game</span></div>
+      <div class="bbody">
+        <a href="game.html" style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,149,42,.1);border:1px solid rgba(201,149,42,.3);color:#fbbf24;border-radius:6px;padding:7px 14px;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:8px">▶ Play Clerk Challenge</a><br>
+        <span style="font-size:14px;color:var(--text-muted);line-height:1.6">Court Clerk Sim mode — arraignment scenario questions. Someone just got arrested at 2 AM on a felony complaint — what happens next? Practice the steps from Art. 110.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" style="background:#fffbeb;border-left:3px solid #f59e0b">
+    <div class="block-cb"><div class="block-cb-box" id="bcb-tue_reading" onclick="toggleBlockCB(this,'tue_reading')"></div><div><div class="bwindow">Law Reading</div><div class="bdur">20 min</div><div class="noscreen">Book</div></div></div>
+    <div>
+      <div class="btitle"><span>CPL Art. 120 — Statute Text</span><span class="tool" style="background:#fef3c7;color:#92400e;border:1px solid #fcd34d">📖 Law Book</span></div>
+      <div class="bbody">Read the actual CPL Art. 120 statute text — <strong>§§120.10–120.70</strong>. Read aloud. Let the exact statutory language sink in — not summaries, not notes. The statute itself.
+        <div class="callout callout-gold" style="margin-top:8px">📖 Focus on §120.70 — where warrants are executable. Know the difference: District Court/NYC Criminal Court warrants are statewide. Town/village court warrants need written endorsement for anywhere outside the county.</div>
+        <div class="mnemo-block" style="margin-top:10px">
           <div class="mnemo-label">🧠 Tonight's mnemonic — CPL Art. 110</div>
-          <div class="mnemo-prompt">Create a mnemonic for what must happen at every arraignment — the court's mandatory obligations.</div>
+          <div class="mnemo-prompt">Create a mnemonic for the methods a court may use to compel a defendant's appearance for arraignment.</div>
           <textarea class="mnemo-input" id="mn-input-tue_art110" placeholder="Write your mnemonic here..."></textarea>
           <div class="mnemo-save-row">
             <button class="mnemo-btn mnemo-btn-save" onclick="saveMnemonic('tue','art110')">💾 Save</button>
@@ -941,14 +967,27 @@ input, textarea, select,
     </div>
   </div>
 
-  <div class="block">
-    <div class="block-cb"><div class="block-cb-box" id="bcb-wed_winddown" onclick="toggleBlockCB(this,'wed_winddown')"></div><div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div></div>
+
+  <div class="block" style="background:rgba(20,184,166,.1);border-left:3px solid #5eead4">
+    <div class="block-cb"><div class="block-cb-box" id="bcb-wed_game" onclick="toggleBlockCB(this,'wed_game')"></div><div><div class="bwindow">Game</div><div class="bdur">10–15 min</div></div></div>
     <div>
-      <div class="btitle"><span>Book preview — CPL Art. 160 + mnemonic</span><span class="tool t-paper">Paper</span></div>
-      <div class="bbody">Book — index → end questions → summary of CPL Art. 160 (fingerprinting). Then tonight's mnemonic.
-        <div class="mnemo-block">
+      <div class="btitle"><span>Law Jeopardy — All articles</span><span class="tool" style="background:rgba(20,184,166,.1);color:#5eead4;border:1px solid rgba(20,184,166,.25)">🎮 Game</span></div>
+      <div class="bbody">
+        <a href="jeopardy.html" style="display:inline-flex;align-items:center;gap:6px;background:rgba(20,184,166,.1);border:1px solid rgba(20,184,166,.25);color:#5eead4;border-radius:6px;padding:7px 14px;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:8px">▶ Play Law Jeopardy</a><br>
+        <span style="font-size:14px;color:var(--text-muted);line-height:1.6">Full board — all 5 categories. Mid-week full session. Aim for $500 clues tonight — those are the nuanced distinctions that show up on the actual exam.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" style="background:#fffbeb;border-left:3px solid #f59e0b">
+    <div class="block-cb"><div class="block-cb-box" id="bcb-wed_reading" onclick="toggleBlockCB(this,'wed_reading')"></div><div><div class="bwindow">Law Reading</div><div class="bdur">20 min</div><div class="noscreen">Book</div></div></div>
+    <div>
+      <div class="btitle"><span>CPL Art. 160 — Statute Text</span><span class="tool" style="background:#fef3c7;color:#92400e;border:1px solid #fcd34d">📖 Law Book</span></div>
+      <div class="bbody">Read the actual CPL Art. 160 statute text — <strong>§§160.10–160.60</strong>. Read aloud. Let the exact statutory language sink in — not summaries, not notes. The statute itself.
+        <div class="callout callout-gold" style="margin-top:8px">📖 Focus on §160.10 — which offenses require mandatory fingerprinting. Know the exact list. Then §160.50 — what happens to records on dismissal or acquittal.</div>
+        <div class="mnemo-block" style="margin-top:10px">
           <div class="mnemo-label">🧠 Tonight's mnemonic — CPL Art. 120</div>
-          <div class="mnemo-prompt">Create a mnemonic for what a warrant of arrest must contain OR for the three types of warrants and their key distinctions.</div>
+          <div class="mnemo-prompt">Create a mnemonic for the information a warrant of arrest must contain — §120.10(2) lists 6 required elements.</div>
           <textarea class="mnemo-input" id="mn-input-wed_art120" placeholder="Write your mnemonic here..."></textarea>
           <div class="mnemo-save-row">
             <button class="mnemo-btn mnemo-btn-save" onclick="saveMnemonic('wed','art120')">💾 Save</button>
@@ -980,7 +1019,7 @@ input, textarea, select,
   <div class="block">
     <div class="block-cb"><div class="block-cb-box" id="bcb-thu_commute" onclick="toggleBlockCB(this,'thu_commute')"></div><div><div class="bwindow">Morning commute</div><div class="bdur">30 min</div></div></div>
     <div>
-      <div class="btitle"><span>ClerkOne — CPL Art. 160 Notes + PL Art. 55 Review</span><span class="tool t-co">ClerkOne</span></div>
+      <div class="btitle"><span>ClerkOne — CPL Art. 160 (fingerprinting) + PL Art. 55 notes. T/F and MC on both. Last 5 min: Anki review — add any new cards from this week's wrong answers. Notes + PL Art. 55 Review</span><span class="tool t-co">ClerkOne</span></div>
       <div class="bbody">First 20 min: CPL Art. 160 — fingerprinting and photographing of arrested persons. What offenses require it, what records are kept, sealing procedures. Last 10 min: ClerkOne PL Art. 55 review — run through the classification questions to reinforce the ladder from Week 1.
         <div class="callout callout-coral">🔴 Switch to red pen for PL Art. 55 notes. Blue for CPL Art. 160.</div>
       </div>
@@ -1034,12 +1073,25 @@ input, textarea, select,
     </div>
   </div>
 
-  <div class="block">
-    <div class="block-cb"><div class="block-cb-box" id="bcb-thu_winddown" onclick="toggleBlockCB(this,'thu_winddown')"></div><div><div class="bwindow">Wind-down</div><div class="bdur">15 min</div><div class="noscreen">NO SCREEN</div></div></div>
+
+  <div class="block" style="background:rgba(201,149,42,.06);border-left:3px solid #fbbf24">
+    <div class="block-cb"><div class="block-cb-box" id="bcb-thu_game" onclick="toggleBlockCB(this,'thu_game')"></div><div><div class="bwindow">Game</div><div class="bdur">10–15 min</div></div></div>
     <div>
-      <div class="btitle"><span>Book preview — Week 3 first article + mnemonic</span><span class="tool t-paper">Paper</span></div>
-      <div class="bbody">Preview the first article for Week 3 in your physical book (index → questions → summary only). Then create tonight's mnemonic.
-        <div class="mnemo-block">
+      <div class="btitle"><span>Speed Round — CPL Art. 30 &amp; 100</span><span class="tool" style="background:rgba(201,149,42,.12);color:#fbbf24;border:1px solid rgba(201,149,42,.3)">🎮 Game</span></div>
+      <div class="bbody">
+        <a href="game.html" style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,149,42,.12);border:1px solid rgba(201,149,42,.3);color:#fbbf24;border-radius:6px;padding:7px 14px;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:8px">▶ Play Clerk Challenge</a><br>
+        <span style="font-size:14px;color:var(--text-muted);line-height:1.6">Speed Round — 60 seconds on speedy trial deadlines and accusatory instrument rules. The 6/90/60/30 limits need to be automatic by Friday. Time yourself beating last week's score.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" style="background:#fffbeb;border-left:3px solid #f59e0b">
+    <div class="block-cb"><div class="block-cb-box" id="bcb-thu_reading" onclick="toggleBlockCB(this,'thu_reading')"></div><div><div class="bwindow">Law Reading</div><div class="bdur">20 min</div><div class="noscreen">Book</div></div></div>
+    <div>
+      <div class="btitle"><span>PL §10.00 — Statute Text</span><span class="tool" style="background:#fef3c7;color:#92400e;border:1px solid #fcd34d">📖 Law Book</span></div>
+      <div class="bbody">Read the actual PL §10.00 statute — <strong>definitions §§1–22</strong>. Pay attention to the exact wording for violation, misdemeanor, felony, crime. Read the juvenile offender definition both tiers (age 13 vs. 14–15) aloud.
+        <div class="callout callout-gold" style="margin-top:8px">📖 The exam tests exact statutory language. "In excess of 15 days" for violation, "in excess of one year" for felony — those exact phrases are the answer.</div>
+        <div class="mnemo-block" style="margin-top:10px">
           <div class="mnemo-label">🧠 Tonight's mnemonic — CPL Art. 160 or PL Art. 55</div>
           <div class="mnemo-prompt">Mnemonic for fingerprinting requirements (which offenses trigger it) OR reinforce your Week 1 classification ladder mnemonic.</div>
           <textarea class="mnemo-input" id="mn-input-thu_art160" placeholder="Write your mnemonic here..."></textarea>

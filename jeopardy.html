@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Law Jeopardy — Clerk Challenge</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+/* ══ MOBILE RENDERING FIX ══ */
+html { overflow-x:hidden; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body { overflow-x:hidden; min-width:0!important; width:100%!important; max-width:100vw; }
+
+:root {
+  --bg:#0a0c14; --bg2:#0f1120; --bg3:#161828;
+  --navy:#1a1f3c; --card:#1c1f35; --card2:#22273f;
+  --gold:#e8a020; --gold2:#ffc850;
+  --blue:#3b82f6; --blue2:#60a5fa;
+  --red:#ef4444; --red2:#f87171;
+  --green:#22c55e; --green2:#4ade80;
+  --violet:#8b5cf6;
+  --text:#f0f2ff; --muted:rgba(240,242,255,.45); --faint:rgba(240,242,255,.15);
+  --border:rgba(255,255,255,.08);
+  --radius:14px;
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html, body { height:100%; overscroll-behavior:none; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:'DM Sans',sans-serif; font-size:17px; line-height:1.6;
+  padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  -webkit-overflow-scrolling:touch;
+}
+
+/* ── TOP NAV ── */
+.top-nav {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 20px; border-bottom:1px solid var(--border);
+  background:var(--bg2); position:sticky; top:0; z-index:100;
+}
+.back-btn {
+  width:36px; height:36px; border-radius:10px;
+  background:var(--card2); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:var(--muted); font-size:18px;
+  text-decoration:none; transition:all .15s; flex-shrink:0;
+}
+.back-btn:hover { background:var(--card); color:var(--text); }
+.nav-title { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--text); }
+.nav-score {
+  margin-left:auto; display:flex; align-items:center; gap:8px;
+  font-family:'DM Mono',monospace; font-size:14px;
+}
+.score-label { color:var(--muted); font-size:12px; }
+.score-val { color:var(--gold); font-weight:700; font-size:18px; }
+.reset-btn {
+  background:var(--card2); color:var(--text); border:1px solid var(--border);
+  border-radius:8px; padding:7px 12px; font-size:12px; font-weight:600;
+  cursor:pointer; font-family:inherit; transition:all .15s; white-space:nowrap;
+}
+.reset-btn:hover { border-color:var(--gold); color:var(--gold); }
+
+/* ── BOARD WRAPPER (horizontal scroll on mobile) ── */
+.board-scroll {
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  padding:16px 12px 8px;
+}
+.jeopardy-board {
+  display:grid;
+  grid-template-columns:repeat(5, minmax(120px, 1fr));
+  gap:6px;
+  width:100%;
+  min-width:600px;
+  max-width:1000px;
+  margin:0 auto;
+}
+
+/* ── CATEGORY HEADERS ── */
+.j-category {
+  background:var(--navy);
+  color:var(--gold);
+  font-family:'Syne',sans-serif;
+  font-size:11px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.05em;
+  text-align:center; padding:14px 6px;
+  border-radius:8px; border:1px solid rgba(201,149,42,.2);
+  display:flex; align-items:center; justify-content:center;
+  min-height:70px; line-height:1.3;
+}
+
+/* ── CLUE CELLS ── */
+.j-cell {
+  background:linear-gradient(135deg, #1e3a8a, #1d4ed8);
+  color:var(--gold2);
+  font-family:'Syne',sans-serif;
+  font-size:24px; font-weight:800;
+  text-align:center; padding:20px 0;
+  border-radius:8px; cursor:pointer;
+  border:2px solid transparent;
+  transition:all .18s;
+  display:flex; align-items:center; justify-content:center;
+  min-height:70px;
+  box-shadow:0 2px 12px rgba(29,78,216,.3);
+}
+.j-cell:hover:not(.used) {
+  background:linear-gradient(135deg, #2563eb, #3b82f6);
+  transform:scale(1.03);
+  box-shadow:0 4px 20px rgba(59,130,246,.4);
+}
+.j-cell:active:not(.used) { transform:scale(.97); }
+.j-cell.used {
+  background:var(--card);
+  color:var(--faint);
+  cursor:default;
+  border:1px solid var(--border);
+  box-shadow:none;
+}
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  max-width:1000px; margin:0 auto 8px; padding:0 12px;
+  display:flex; align-items:center; gap:10px;
+}
+.prog-track {
+  flex:1; height:4px; background:rgba(255,255,255,.08);
+  border-radius:2px; overflow:hidden;
+}
+.prog-fill {
+  height:100%; border-radius:2px;
+  background:linear-gradient(90deg,var(--green),var(--gold));
+  transition:width .4s ease;
+}
+.prog-label { font-size:11px; font-family:'DM Mono',monospace; color:var(--muted); white-space:nowrap; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(10,12,20,.92); backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  z-index:1000; align-items:center; justify-content:center; padding:20px;
+  overflow-y:auto;
+}
+.modal-overlay.active { display:flex; }
+.modal-box {
+  background:var(--card); border:2px solid var(--gold);
+  border-radius:16px; padding:28px 24px;
+  max-width:580px; width:100%; text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  animation:modalIn .25s ease;
+}
+@keyframes modalIn {
+  from { opacity:0; transform:scale(.94) translateY(12px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+.modal-category {
+  font-size:11px; text-transform:uppercase;
+  letter-spacing:.12em; color:var(--muted); margin-bottom:6px;
+}
+.modal-value {
+  font-family:'Syne',sans-serif; font-size:42px; font-weight:800;
+  color:var(--gold); margin-bottom:20px; line-height:1;
+}
+.modal-clue {
+  font-size:20px; font-weight:500; color:var(--text);
+  line-height:1.55; margin-bottom:24px;
+  min-height:80px; display:flex; align-items:center; justify-content:center;
+}
+.reveal-btn {
+  background:var(--gold); color:var(--bg);
+  border:none; border-radius:10px; padding:13px 28px;
+  font-size:15px; font-weight:700; font-family:'Syne',sans-serif;
+  cursor:pointer; margin-bottom:20px; transition:all .2s;
+  width:100%;
+}
+.reveal-btn:hover { background:var(--gold2); }
+.reveal-btn.hidden { display:none; }
+.modal-answer {
+  font-size:18px; font-weight:600; color:var(--green2);
+  margin-bottom:10px; display:none; line-height:1.5;
+  background:rgba(34,197,94,.08); border:1px solid rgba(34,197,94,.2);
+  border-radius:10px; padding:14px;
+}
+.modal-answer.show { display:block; }
+.modal-source {
+  font-size:12px; color:var(--muted);
+  font-family:'DM Mono',monospace; margin-bottom:20px;
+  display:none;
+}
+.modal-source.show { display:block; }
+.close-btn {
+  background:var(--card2); color:var(--text);
+  border:1px solid var(--border); border-radius:10px;
+  padding:13px 24px; font-size:15px; font-weight:600;
+  font-family:inherit; cursor:pointer; width:100%;
+  transition:all .15s;
+}
+.close-btn:hover { background:var(--navy); border-color:rgba(255,255,255,.2); }
+
+/* ── SCORE FLASH ── */
+.score-flash {
+  position:fixed; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Syne',sans-serif; font-size:52px; font-weight:800;
+  pointer-events:none; opacity:0; z-index:2000;
+}
+.score-flash.show { animation:flashPop .7s ease forwards; }
+@keyframes flashPop {
+  0%  { opacity:1; transform:translate(-50%,-50%) scale(.6); color:var(--gold); }
+  50% { opacity:1; transform:translate(-50%,-50%) scale(1.2); }
+  100%{ opacity:0; transform:translate(-50%,-60%) scale(1); }
+}
+
+/* ── EMPTY / ERROR ── */
+.board-msg {
+  grid-column:1/-1; text-align:center; padding:48px 20px;
+  color:var(--muted); font-size:15px;
+}
+.board-msg.error { color:var(--red2); }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav-bar {
+  position:fixed; bottom:0; left:0; right:0;
+  height:auto; background:#0f1120;
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex; align-items:center; justify-content:space-around;
+  padding:10px 8px env(safe-area-inset-bottom, 0px);
+  z-index:999; backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.bnb-btn {
+  display:flex; flex-direction:column; align-items:center;
+  gap:2px; padding:6px 12px; border-radius:10px;
+  text-decoration:none; color:rgba(255,255,255,.4);
+  font-size:10px; font-weight:600; letter-spacing:.05em;
+  text-transform:uppercase; font-family:'DM Sans',system-ui,sans-serif;
+  transition:color .15s; background:none; border:none; cursor:pointer;
+}
+.bnb-btn:hover, .bnb-btn.active { color:#e8a020; }
+.bnb-icon { font-size:20px; line-height:1; }
+
+/* ── MOBILE ── */
+@media (max-width:768px) {
+  html, body { font-size:18px; }
+  .modal-clue { font-size:18px; }
+  .modal-value { font-size:34px; }
+  .j-cell { font-size:20px; }
+  .j-category { font-size:10px; min-height:60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="top-nav">
+  <a href="game.html" class="back-btn">←</a>
+  <div class="nav-title">⚖️ Law Jeopardy</div>
+  <div class="nav-score">
+    <span class="score-label">Score</span>
+    <span class="score-val" id="score-display">$0</span>
+    <button class="reset-btn" onclick="resetBoard()">↺ Reset</button>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  <div class="prog-label" id="prog-label">0 / 25 answered</div>
+</div>
+
+<!-- BOARD -->
+<div class="board-scroll">
+  <div id="jeopardy-board" class="jeopardy-board">
+    <div class="board-msg">Loading game board...</div>
+  </div>
+</div>
+
+<!-- CLUE MODAL -->
+<div id="clue-modal" class="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-category" id="modal-category"></div>
+    <div class="modal-value" id="modal-value"></div>
+    <div class="modal-clue" id="modal-clue"></div>
+    <button class="reveal-btn" id="reveal-btn" onclick="revealAnswer()">Reveal Answer</button>
+    <div class="modal-answer" id="modal-answer"></div>
+    <div class="modal-source" id="modal-source"></div>
+    <button class="close-btn" onclick="closeModal()">✓ Close & Return to Board</button>
+  </div>
+</div>
+
+<!-- SCORE FLASH -->
+<div class="score-flash" id="score-flash"></div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav-bar">
+  <a href="index.html" class="bnb-btn"><span class="bnb-icon">🏠</span>Home</a>
+  <a href="game.html" class="bnb-btn active"><span class="bnb-icon">🎮</span>Game</a>
+  <a href="week1_quiz.html" class="bnb-btn"><span class="bnb-icon">❓</span>Quiz</a>
+  <a href="week1_notes_quiz.html" class="bnb-btn"><span class="bnb-icon">📋</span>Notes</a>
+  <a href="study_dashboard.html" class="bnb-btn"><span class="bnb-icon">📊</span>Dashboard</a>
+</nav>
+
+<script>
+// ── SUPABASE ──────────────────────────────────────────────
+const SB_URL = 'https://khddivyhzdlptkoznytl.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoZGRpdnloemRscHRrb3pueXRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNDk3OTksImV4cCI6MjA5NTgyNTc5OX0.jnTbiHdFPYK1K282polY59j3OG2TcrQesrly1UZojB8';
+const sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+const GAME_NAME  = 'cpl_pl_basics';
+const TOTAL_QS   = 25;
+let   currentQ   = null;
+let   score       = 0;
+let   answered    = 0;
+
+// ── LOAD BOARD ────────────────────────────────────────────
+async function loadBoard() {
+  const board = document.getElementById('jeopardy-board');
+  board.innerHTML = '<div class="board-msg">Loading...</div>';
+
+  // Get game ID
+  const { data: game, error: gErr } = await sb
+    .from('games').select('id').eq('name', GAME_NAME).single();
+
+  if (gErr || !game) {
+    board.innerHTML = '<div class="board-msg error">⚠️ Game not found — run jeopardy_setup.sql in Supabase first.</div>';
+    return;
+  }
+
+  // Get questions
+  const { data: questions, error: qErr } = await sb
+    .from('questions').select('*')
+    .eq('game_id', game.id)
+    .order('category').order('value');
+
+  if (qErr || !questions || questions.length === 0) {
+    board.innerHTML = '<div class="board-msg error">⚠️ No questions found. Run jeopardy_setup.sql first.</div>';
+    return;
+  }
+
+  // Group by category
+  const cats = {};
+  questions.forEach(q => {
+    if (!cats[q.category]) cats[q.category] = [];
+    cats[q.category].push(q);
+  });
+
+  const catNames = Object.keys(cats);
+
+  // Update grid columns dynamically
+  board.style.gridTemplateColumns = `repeat(${catNames.length}, minmax(110px, 1fr))`;
+
+  board.innerHTML = '';
+
+  // Render headers
+  catNames.forEach(cat => {
+    const h = document.createElement('div');
+    h.className = 'j-category';
+    h.textContent = cat;
+    board.appendChild(h);
+  });
+
+  // Render cells 100–500
+  let usedCount = 0;
+  for (let v = 100; v <= 500; v += 100) {
+    catNames.forEach(cat => {
+      const q   = cats[cat].find(i => i.value === v);
+      const cell = document.createElement('div');
+
+      if (!q) {
+        cell.className = 'j-cell used';
+        board.appendChild(cell);
+        return;
+      }
+
+      if (q.is_used) usedCount++;
+
+      cell.className = q.is_used ? 'j-cell used' : 'j-cell';
+      cell.textContent = q.is_used ? '' : `$${v}`;
+
+      if (!q.is_used) {
+        cell.addEventListener('click', () => openClue(q));
+      }
+      board.appendChild(cell);
+    });
+  }
+
+  updateProgress(usedCount);
+}
+
+// ── OPEN CLUE ─────────────────────────────────────────────
+async function openClue(q) {
+  currentQ = q;
+
+  document.getElementById('modal-category').textContent = q.category;
+  document.getElementById('modal-value').textContent    = `$${q.value}`;
+  document.getElementById('modal-clue').textContent     = q.clue;
+  document.getElementById('modal-answer').textContent   = q.response;
+  document.getElementById('modal-source').textContent   = q.source_section ? `Source: ${q.source_section}` : '';
+
+  document.getElementById('modal-answer').classList.remove('show');
+  document.getElementById('modal-source').classList.remove('show');
+  document.getElementById('reveal-btn').classList.remove('hidden');
+
+  document.getElementById('clue-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  // Mark used in Supabase
+  await sb.from('questions').update({ is_used: true }).eq('id', q.id);
+}
+
+// ── REVEAL ANSWER ─────────────────────────────────────────
+function revealAnswer() {
+  document.getElementById('modal-answer').classList.add('show');
+  document.getElementById('modal-source').classList.add('show');
+  document.getElementById('reveal-btn').classList.add('hidden');
+
+  // Add score
+  if (currentQ) {
+    score += currentQ.value;
+    answered++;
+    document.getElementById('score-display').textContent = `$${score.toLocaleString()}`;
+    flashScore(`+$${currentQ.value}`);
+    updateProgress(answered);
+  }
+}
+
+// ── CLOSE MODAL ───────────────────────────────────────────
+function closeModal() {
+  document.getElementById('clue-modal').classList.remove('active');
+  document.body.style.overflow = '';
+  currentQ = null;
+  loadBoard();
+}
+
+function handleOverlayClick(e) {
+  if (e.target.id === 'clue-modal') closeModal();
+}
+
+// ── SCORE FLASH ───────────────────────────────────────────
+function flashScore(text) {
+  const el = document.getElementById('score-flash');
+  el.textContent = text;
+  el.className = 'score-flash';
+  void el.offsetWidth; // reflow
+  el.className = 'score-flash show';
+}
+
+// ── PROGRESS ──────────────────────────────────────────────
+function updateProgress(usedCount) {
+  const pct  = Math.round((usedCount / TOTAL_QS) * 100);
+  document.getElementById('prog-fill').style.width  = pct + '%';
+  document.getElementById('prog-label').textContent = `${usedCount} / ${TOTAL_QS} answered`;
+}
+
+// ── RESET ─────────────────────────────────────────────────
+async function resetBoard() {
+  if (!confirm('Reset all questions to unused? Your score will be cleared.')) return;
+
+  const { data: game } = await sb
+    .from('games').select('id').eq('name', GAME_NAME).single();
+
+  if (game) {
+    await sb.from('questions').update({ is_used: false }).eq('game_id', game.id);
+  }
+
+  score = 0; answered = 0;
+  document.getElementById('score-display').textContent = '$0';
+  loadBoard();
+}
+
+// ── INIT ──────────────────────────────────────────────────
+loadBoard();
+</script>
+</body>
+</html>

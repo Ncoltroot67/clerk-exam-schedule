@@ -58,8 +58,8 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 
 /* ── HEADER ── */
 .header{background:var(--navy);color:white;padding:32px 40px 28px;position:relative;overflow:hidden}
-.header::before{content:'';position:absolute;top:-50px;right:-50px;width:240px;height:240px;border-radius:50%;border:44px solid rgba(201,149,42,.12)}
-.header::after{content:'';position:absolute;bottom:-60px;left:28%;width:180px;height:180px;border-radius:50%;border:32px solid rgba(255,255,255,.05)}
+.header::before{content:'';position:absolute;top:-50px;right:-50px;width:240px;height:240px;border-radius:50%;border:44px solid rgba(201,149,42,.12);pointer-events:none;z-index:0}
+.header::after{content:'';position:absolute;bottom:-60px;left:28%;width:180px;height:180px;border-radius:50%;border:32px solid rgba(255,255,255,.05);pointer-events:none;z-index:0}
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .header h1{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.12;margin-bottom:6px}
 .header-sub{font-size:14px;color:rgba(255,255,255,.65);margin-bottom:18px}
@@ -522,7 +522,7 @@ input, textarea, select,
     <div class="meta-pill">🛑 <strong>Days off:</strong> Sat PM + Sun post-library</div>
     <div class="meta-pill">📍 <strong>Sunday:</strong> Library intensive (5–6 hrs)</div>
   </div>
-  <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+  <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1">
     <a href="study_dashboard.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;text-decoration:none">
       📊 Study Dashboard
     </a>

@@ -370,10 +370,12 @@ body {
 button, .btn, .hbtn, .wk-link, .bnb-btn,
 .tab, .opt, .sd-opt, .r-btn, .next-btn,
 .mode-card, .mn-card, .diary-entry,
-a[href], input[type="button"], input[type="submit"] {
+input[type="button"], input[type="submit"] {
   min-height: 44px;
   cursor: pointer;
 }
+/* Header links — dont force min-height, let padding control size */
+.header a, .top-nav a, .back-btn { cursor: pointer; }
 
 /* 5 — Inputs — font 16px prevents iOS auto-zoom */
 input, textarea, select,
@@ -530,7 +532,7 @@ input, textarea, select,
     <a href="game.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.3);color:#fbbf24;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;text-decoration:none">
       🎮 Clerk Challenge
     </a>
-    <a href="jeopardy.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(20,184,166,.12);border:1px solid rgba(20,184,166,.25);color:#5eead4;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;text-decoration:none">
+    <a href="jeopardy.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(20,184,166,.12);border:1px solid rgba(20,184,166,.25);color:#5eead4;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:rgba(20,184,166,.3)">
       ⚖️ Law Jeopardy
     </a>
     <a href="week1_quiz.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:600;text-decoration:none">

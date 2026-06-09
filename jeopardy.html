@@ -176,6 +176,12 @@ body {
   .j-category { font-size:10px; min-height:60px; }
   .answer-input { font-size:16px; }
 }
+
+.game-tabs{display:flex;gap:8px;padding:12px 12px 4px;max-width:1000px;margin:0 auto;flex-wrap:wrap}
+.game-tab{padding:9px 18px;border-radius:8px;border:1px solid var(--border);background:var(--card2);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.game-tab.active{background:var(--navy);border-color:var(--gold);color:var(--gold)}
+.game-tab:hover:not(.active){border-color:rgba(255,255,255,.2);color:var(--text)}
+
 </style>
 </head>
 <body>
@@ -195,6 +201,10 @@ body {
   <div class="prog-label" id="prog-label">0 / 25 answered</div>
 </div>
 
+<div class="game-tabs">
+  <button class="game-tab active" id="tab-week1_jeopardy" onclick="switchGame('week1_jeopardy')">⚖️ Week 1 — Courts &amp; Definitions</button>
+  <button class="game-tab" id="tab-week2_jeopardy" onclick="switchGame('week2_jeopardy')">📋 Week 2 — Procedure &amp; Instruments</button>
+</div>
 <div class="board-scroll">
   <div id="jeopardy-board" class="jeopardy-board">
     <div class="board-msg">Loading game board...</div>
@@ -234,53 +244,59 @@ const SB_URL = 'https://khddivyhzdlptkoznytl.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoZGRpdnloemRscHRrb3pueXRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNDk3OTksImV4cCI6MjA5NTgyNTc5OX0.jnTbiHdFPYK1K282polY59j3OG2TcrQesrly1UZojB8';
 const sb = window.supabase.createClient(SB_URL, SB_KEY);
 
-const GAME_NAME = 'cpl_pl_basics';
+let currentGame = 'week1_jeopardy';
 let TOTAL_QS = 25;
 let currentQ = null;
 let score = 0;
 let answered = 0;
 
-// ── SMART MATCHING ─────────────────────────────────────────
+function switchGame(name) {
+  currentGame = name;
+  score = 0; answered = 0;
+  document.getElementById('score-display').textContent = '$0';
+  document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  loadBoard();
+}
+
 function checkSimilarity(userAns, correctAns) {
-  const stopWords = new Set(['what','is','are','the','a','an','of','in','to','for','and','or','it','on','at','by','that','this','with','as','from','they','be','have','has','had','but','not','define','definition','means','who']);
+  const stopWords = new Set(['what','is','are','the','a','an','of','in','to','for','and','or','it','on','at','by','that','this','with','as','from','they','be','have','has','had','but','not','define','means','who']);
   const clean = str => str.toLowerCase().replace(/[^\w\s]/g,'').split(/\s+/).filter(w => w.length > 1 && !stopWords.has(w));
   const uWords = clean(userAns);
   const cWords = clean(correctAns);
   if (cWords.length === 0) return 1;
   if (uWords.length === 0) return 0;
-  const firstWord = cWords[0];
-  if (firstWord === 'true' || firstWord === 'false') {
-    return uWords.includes(firstWord) ? 1.0 : 0;
-  }
+  const first = cWords[0];
+  if (first === 'true' || first === 'false') return uWords.includes(first) ? 1.0 : 0;
   let matches = 0;
   cWords.forEach(w => { if (uWords.includes(w)) matches++; });
   return matches / cWords.length;
 }
 
-// ── LOAD BOARD ─────────────────────────────────────────────
 async function loadBoard() {
   const board = document.getElementById('jeopardy-board');
   board.innerHTML = '<div class="board-msg">Loading...</div>';
 
-  const { data: game, error: gErr } = await sb.from('games').select('id').eq('name', GAME_NAME).single();
-  if (gErr || !game) {
-    board.innerHTML = '<div class="board-msg error">⚠️ Game not found — run jeopardy_setup.sql in Supabase first.</div>';
-    return;
-  }
+  const { data: questions, error } = await sb
+    .from('question_bank')
+    .select('*')
+    .eq('qtype', 'jeopardy')
+    .eq('game_name', currentGame)
+    .order('j_category')
+    .order('j_value');
 
-  const { data: questions, error: qErr } = await sb
-    .from('questions').select('*').eq('game_id', game.id).order('category').order('value');
-
-  if (qErr || !questions || questions.length === 0) {
-    board.innerHTML = '<div class="board-msg error">⚠️ No questions found.</div>';
+  if (error || !questions || questions.length === 0) {
+    board.innerHTML = '<div class="board-msg error">Run question_bank_setup.sql in Supabase first.</div>';
     return;
   }
 
   TOTAL_QS = questions.length;
   const cats = {};
-  questions.forEach(q => { if (!cats[q.category]) cats[q.category] = []; cats[q.category].push(q); });
+  questions.forEach(q => {
+    if (!cats[q.j_category]) cats[q.j_category] = [];
+    cats[q.j_category].push(q);
+  });
   const catNames = Object.keys(cats);
-
   board.style.gridTemplateColumns = `repeat(${catNames.length}, minmax(110px, 1fr))`;
   board.innerHTML = '';
 
@@ -294,27 +310,27 @@ async function loadBoard() {
   let usedCount = 0;
   for (let v = 100; v <= 500; v += 100) {
     catNames.forEach(cat => {
-      const q = cats[cat].find(i => i.value === v);
+      const q = cats[cat].find(i => i.j_value === v);
       const cell = document.createElement('div');
       if (!q) { cell.className = 'j-cell used'; board.appendChild(cell); return; }
       if (q.is_used) usedCount++;
       cell.className = q.is_used ? 'j-cell used' : 'j-cell';
       cell.textContent = q.is_used ? '' : `$${v}`;
-      if (!q.is_used) cell.addEventListener('click', () => openClue(q));
+      if (!q.is_used) cell.addEventListener('click', () => openClue(q, cell));
       board.appendChild(cell);
     });
   }
   updateProgress(usedCount);
 }
 
-// ── OPEN CLUE ──────────────────────────────────────────────
-async function openClue(q) {
+async function openClue(q, cellEl) {
   currentQ = q;
-  document.getElementById('modal-category').textContent = q.category;
-  document.getElementById('modal-value').textContent = `$${q.value}`;
-  document.getElementById('modal-clue').textContent = q.clue;
-  document.getElementById('modal-answer').textContent = q.response;
-  document.getElementById('modal-source').textContent = q.source_section ? `Source: ${q.source_section}` : '';
+  if (cellEl) { cellEl.className = 'j-cell used'; cellEl.textContent = ''; cellEl.onclick = null; }
+  document.getElementById('modal-category').textContent = q.j_category;
+  document.getElementById('modal-value').textContent = `$${q.j_value}`;
+  document.getElementById('modal-clue').textContent = q.j_clue;
+  document.getElementById('modal-answer').textContent = q.j_response;
+  document.getElementById('modal-source').textContent = q.source ? `Source: ${q.source}` : '';
   document.getElementById('modal-answer').classList.remove('show');
   document.getElementById('modal-source').classList.remove('show');
   document.getElementById('reveal-btn').classList.add('hidden');
@@ -324,51 +340,45 @@ async function openClue(q) {
   document.getElementById('clue-modal').classList.add('active');
   document.body.style.overflow = 'hidden';
   setTimeout(() => document.getElementById('user-answer').focus(), 300);
-  await sb.from('questions').update({ is_used: true }).eq('id', q.id);
+  sb.from('question_bank').update({ is_used: true }).eq('id', q.id);
 }
 
-// ── CHECK ANSWER ───────────────────────────────────────────
 function checkAnswer() {
   const input = document.getElementById('user-answer');
   const userAns = input.value.trim();
   if (!userAns) { input.style.borderColor = 'var(--red)'; return; }
-
-  const similarity = checkSimilarity(userAns, currentQ.response);
+  const similarity = checkSimilarity(userAns, currentQ.j_response);
   const msgEl = document.getElementById('result-msg');
   const isCorrect = similarity >= 0.55;
-
   if (isCorrect) {
-    score += currentQ.value;
+    score += currentQ.j_value;
     answered++;
     document.getElementById('score-display').textContent = `$${score.toLocaleString()}`;
-    flashScore(`+$${currentQ.value}`);
+    flashScore(`+$${currentQ.j_value}`);
     updateProgress(answered);
     msgEl.className = 'result-msg correct';
-    msgEl.textContent = `✓ Correct! (+$${currentQ.value})`;
+    msgEl.textContent = `Correct! (+$${currentQ.j_value})`;
   } else {
     msgEl.className = 'result-msg incorrect';
-    msgEl.textContent = `✗ Not quite. (${Math.round(similarity * 100)}% match)`;
+    msgEl.textContent = `Not quite. (${Math.round(similarity * 100)}% match)`;
   }
-
   document.getElementById('answer-area').style.display = 'none';
   document.getElementById('reveal-btn').classList.remove('hidden');
 }
 
-function revealAnswer() {
-  document.getElementById('answer-area').style.display = 'none';
-  showCorrectAnswer();
-}
-
+function revealAnswer() { document.getElementById('answer-area').style.display = 'none'; showCorrectAnswer(); }
 function showCorrectAnswer() {
   document.getElementById('modal-answer').classList.add('show');
   document.getElementById('modal-source').classList.add('show');
   document.getElementById('reveal-btn').classList.add('hidden');
 }
 
-function closeModal() {
+async function closeModal() {
+  const qId = currentQ?.id;
   document.getElementById('clue-modal').classList.remove('active');
   document.body.style.overflow = '';
   currentQ = null;
+  if (qId) await sb.from('question_bank').update({ is_used: true }).eq('id', qId);
   loadBoard();
 }
 
@@ -388,16 +398,15 @@ function updateProgress(usedCount) {
 
 async function resetBoard() {
   if (!confirm('Reset all questions? Score will be cleared.')) return;
-  const { data: game } = await sb.from('games').select('id').eq('name', GAME_NAME).single();
-  if (game) await sb.from('questions').update({ is_used: false }).eq('game_id', game.id);
+  await sb.from('question_bank').update({ is_used: false }).eq('game_name', currentGame);
   score = 0; answered = 0;
   document.getElementById('score-display').textContent = '$0';
   loadBoard();
 }
 
 document.getElementById('user-answer').addEventListener('keypress', e => { if (e.key === 'Enter') checkAnswer(); });
-
 loadBoard();
+
 </script>
 </body>
 </html>

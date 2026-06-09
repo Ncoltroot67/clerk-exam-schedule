@@ -1114,5 +1114,18 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<div class="toast" id="page-toast"></div>
+<script>
+function showToast(msg,type){var t=document.getElementById('page-toast');if(!t)return;t.textContent=msg;t.className='toast toast-'+(type||'info')+' show';clearTimeout(t._t);t._t=setTimeout(function(){t.className='toast';},2200);}
+</script>
+
+<nav class="bottom-nav-bar">
+  <a href="index.html" class="bnb-btn"><span class="bnb-icon">🏠</span>Home</a>
+  <a href="game.html" class="bnb-btn"><span class="bnb-icon">🎮</span>Game</a>
+  <a href="week1_quiz.html" class="bnb-btn"><span class="bnb-icon">❓</span>Quiz</a>
+  <a href="week1_notes_quiz.html" class="bnb-btn active"><span class="bnb-icon">📋</span>Notes</a>
+  <a href="study_dashboard.html" class="bnb-btn"><span class="bnb-icon">📊</span>Dashboard</a>
+</nav>
+
 </body>
 </html>

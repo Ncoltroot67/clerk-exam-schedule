@@ -2,34 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Week 1 — Study Notes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+<title>Week 1 — Notes & Quiz · CPL Arts. 1, 10, 30</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
-
-/* ══ MOBILE RENDERING FIX ══ */
-html {
-  overflow-x: hidden;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
-body {
-  overflow-x: hidden;
-  min-width: 0 !important;
-  width: 100% !important;
-  max-width: 100vw;
-}
-@media screen and (max-width: 768px) {
-  html, body { font-size: 18px; }
-  * { max-width: 100%; word-break: break-word; }
-  img, video, iframe, table { max-width: 100% !important; }
-  pre, code { white-space: pre-wrap; overflow-wrap: break-word; }
-}
-
 :root{
   --navy:#1a1f3c;--navy-mid:#2d3561;
   --gold:#c9952a;--gold-light:#f5e6c8;
@@ -67,6 +43,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .panel.active{display:block}
 
 /* SCORE BAR */
+.score-bar{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .score-main{font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy)}
 .score-sub{font-size:14px;color:var(--text-muted)}
 .score-track{flex:1;min-width:120px;height:8px;background:var(--slate-light);border-radius:4px;overflow:hidden}
@@ -100,6 +77,7 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .nln{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--navy);color:white;font-size:10px;font-weight:600;flex-shrink:0;margin-top:2px}
 
 /* QUIZ QUESTIONS — Bluemedia style */
+.quiz-wrap{display:flex;flex-direction:column;gap:16px}
 
 .qcard{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .qcard.answered-correct{border-color:#4caf50}
@@ -158,383 +136,51 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
   .cd-num{font-size:22px}
   .header h1{font-size:26px!important}
   .wk{font-size:14px}
+  .score-bar{flex-direction:column;align-items:flex-start}
   .qi-actions,.dq-opts{flex-direction:column}
+  .notes-body,.quiz-wrap{padding:0}
 }
 html.mobile-view .main{padding-left:16px!important;padding-right:16px!important;grid-template-columns:1fr!important}
 html.desktop-view .main{padding-left:40px!important;padding-right:40px!important;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))!important}
-
-/* ══════════════════════════════════════
-   MOBILE RESPONSIVE — all screen fixes
-   ══════════════════════════════════════ */
-@media (max-width: 768px) {
-
-  /* Base font */
-  body { font-size: 18px !important; }
-
-  /* Padding */
-  .header, .bar, .legend, .main, .color-legend,
-  .structure-banner, .sync-bar-inner,
-  [style*="padding:18px 36px"], [style*="padding:28px 36px"],
-  [style*="padding: 18px 36px"], [style*="margin:0 36px"] {
-    padding-left: 14px !important;
-    padding-right: 14px !important;
-  }
-
-  /* All multi-column grids → single column */
-  .main, .hub-grid, .obs-grid, .method-grid,
-  .art-grid, .two, .cl-days, .sb-grid,
-  .mnemonic-grid, .quiz-article-grid,
-  [style*="grid-template-columns:1fr 1fr"],
-  [style*="grid-template-columns: 1fr 1fr"],
-  [style*="grid-template-columns:repeat(auto-fill"],
-  [style*="grid-template-columns:repeat(auto-fit"] {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Day cards full width */
-  .day-card, .day-card.full, .full { grid-column: 1 !important; }
-
-  /* Block layout — time column narrower */
-  .block { grid-template-columns: 76px 1fr !important; padding: 12px 12px !important; }
-  .bwindow { font-size: 12px !important; }
-  .bdur { font-size: 14px !important; }
-
-  /* Headers */
-  .header h1, h1 { font-size: 26px !important; }
-  .day-name { font-size: 22px !important; }
-  .header-meta { flex-direction: column; align-items: flex-start; }
-  .back-btn { margin-left: 0 !important; margin-top: 6px; }
-  .header-actions { flex-direction: column; align-items: flex-start; }
-
-  /* Tab bars */
-  .tab-bar, .nq-tabs { padding-left: 14px !important; padding-right: 14px !important; overflow-x: auto; }
-  .tab { padding: 12px 14px !important; font-size: 14px !important; }
-
-  /* Cards */
-  .card-head { flex-direction: column; align-items: flex-start; gap: 6px; }
-  .week-row { gap: 8px; }
-  .week-count { display: none; }
-
-  /* Score bars */
-  .score-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .score-actions { flex-wrap: wrap; }
-  .score-track { width: 100% !important; }
-
-  /* Quiz options */
-  .opt, .dq-opt, .qq-opt { padding: 10px 12px !important; }
-  .opt-text, .dq-opt div, .qq-opt div { font-size: 15px !important; }
-
-  /* Buttons */
-  .btn, .hbtn, .btn-action { font-size: 14px !important; }
-
-  /* Mnemonic */
-  .mnemo-save-row { flex-direction: column; }
-  .mnemo-btn { width: 100%; text-align: center; padding: 12px; }
-  .mnemo-input { font-size: 16px !important; }
-
-  /* Test panel */
-  .tp-grid { grid-template-columns: 1fr !important; }
-
-  /* Tech panel */
-  .tech-panel .tech-item { flex-direction: column; }
-
-  /* Week cards on dashboard */
-  .wk-cards { grid-template-columns: 1fr !important; }
-  .wk { min-width: unset !important; }
-
-  /* Countdown boxes */
-  .cd-box { min-width: 56px !important; padding: 8px !important; }
-  .cd-num { font-size: 24px !important; }
-
-  /* Bottom banners */
-  .notes-banner { flex-direction: column; align-items: flex-start; }
-  .nb-btn { width: 100%; text-align: center; }
-
-  /* Study dashboard */
-  .today-strip { flex-direction: column; align-items: flex-start; }
-  .today-badges { margin-left: 0 !important; }
-  .score-timeline .score-entry { flex-wrap: wrap; }
-  .score-notes { width: 100%; }
-
-  /* Progress rings */
-  .day-progress { gap: 6px; }
-  .dp-ring { width: 30px; height: 30px; }
-
-  /* Visual diagrams — scroll horizontally */
-  .visual-diagram .vd-body { overflow-x: auto; }
-  .comp-grid { min-width: 500px; }
-
-  /* Notes page */
-  .panel { display: none; padding: 16px 14px 40px !important; }
-  .panel.active { display: block; }
-  .notes-wrap { padding: 0 !important; }
-  .nb { padding: 12px 14px !important; }
-
-  /* Inline buttons */
-  [style*="display:flex;gap:10px;flex-wrap:wrap"] { flex-direction: column !important; }
-  .header-actions a, .header-actions button { width: 100%; justify-content: center; }
-}
-
-/* Slightly wider phones — 2 columns ok for week cards */
-@media (min-width: 480px) and (max-width: 768px) {
-  .wk-cards { grid-template-columns: 1fr 1fr !important; }
-}
-
-
-/* ── BOTTOM NAV (shared) ── */
-.bottom-nav-bar{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0f1120;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:999;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.bnb-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 12px;border-radius:10px;text-decoration:none;color:rgba(255,255,255,.4);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-family:'DM Sans',system-ui,sans-serif;min-width:56px;transition:color .15s;background:none;border:none;cursor:pointer}
-.bnb-btn:hover,.bnb-btn.active{color:#e8a020}
-.bnb-icon{font-size:20px;line-height:1}
-body{padding-bottom:68px}
-/* Light page override */
-.light-page .bottom-nav-bar{background:#fff;border-top:1px solid #e2ddd6}
-.light-page .bnb-btn{color:#9ca3af}
-.light-page .bnb-btn:hover,.light-page .bnb-btn.active{color:#c9952a}
-
-/* ── TOAST ── */
-.toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;color:white;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-family:'DM Sans',system-ui,sans-serif}
-.toast.show{opacity:1}
-.toast-success{background:#16a34a}
-.toast-error{background:#ef4444}
-.toast-info{background:#1a1f3c}
-
-/* ── QUICK ACTION BUTTON ── */
-.qab{position:fixed;bottom:76px;right:16px;width:48px;height:48px;border-radius:50%;background:#c9952a;color:#0f1120;border:none;font-size:22px;cursor:pointer;z-index:998;box-shadow:0 4px 16px rgba(201,149,42,.4);display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit}
-.qab:hover{transform:scale(1.08);box-shadow:0 6px 20px rgba(201,149,42,.5)}
-.qab:active{transform:scale(.95)}
-.qab-menu{position:fixed;bottom:134px;right:16px;background:#1c1f35;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:8px;z-index:998;display:none;flex-direction:column;gap:4px;min-width:200px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
-.qab-menu.open{display:flex}
-.qab-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:none;border:none;color:rgba(255,255,255,.8);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;transition:background .15s;white-space:nowrap}
-.qab-item:hover{background:rgba(255,255,255,.08)}
-.qab-item-icon{font-size:16px;width:20px;text-align:center}
-/* Light page */
-.light-page .qab-menu{background:#fff;border-color:#e2ddd6;box-shadow:0 8px 32px rgba(0,0,0,.15)}
-.light-page .qab-item{color:#1a1f3c}
-.light-page .qab-item:hover{background:#f5f5f5}
-
-
-/* ══════════════════════════════════════
-   iPHONE OPTIMIZATIONS
-   ══════════════════════════════════════ */
-
-/* 1 — Safe areas for notch + home bar */
-:root {
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bot: env(safe-area-inset-bottom, 0px);
-}
-body {
-  padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* 2 — Bottom nav respects home indicator */
-.bottom-nav-bar {
-  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
-  height: auto !important;
-  padding-top: 10px !important;
-}
-
-/* 3 — Quick action button clears home indicator */
-.qab { bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; }
-.qab-menu { bottom: calc(134px + env(safe-area-inset-bottom, 0px)) !important; }
-
-/* 4 — All tap targets min 44px (Apple HIG) */
-button, .btn, .hbtn, .wk-link, .bnb-btn,
-.tab, .opt, .sd-opt, .r-btn, .next-btn,
-.mode-card, .mn-card, .diary-entry,
-input[type="button"], input[type="submit"] {
-  min-height: 44px;
-  cursor: pointer;
-}
-
-/* 5 — Inputs — font 16px prevents iOS auto-zoom */
-input, textarea, select,
-.log-input, .diary-select, .diary-textarea,
-.wa-input {
-  font-size: 16px !important;
-  border-radius: 8px;
-}
-
-/* 6 — Quiz options — larger tap area */
-.opt {
-  padding: 14px 16px !important;
-  margin-bottom: 8px;
-}
-.opt-text { font-size: 16px !important; line-height: 1.5 !important; }
-
-/* 7 — Score bar wraps cleanly */
-.score-bar {
-  flex-wrap: wrap !important;
-  gap: 10px !important;
-}
-.score-track { width: 100% !important; order: 3 !important; }
-
-/* 8 — Tab bar scrolls horizontally, no wrapping */
-.tab-bar, .nq-tabs {
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  -webkit-overflow-scrolling: touch !important;
-  flex-wrap: nowrap !important;
-  padding-bottom: 4px;
-}
-.tab {
-  white-space: nowrap !important;
-  flex-shrink: 0 !important;
-  padding: 10px 14px !important;
-  font-size: 13px !important;
-}
-
-/* 9 — Game options full width on small screens */
-@media (max-width: 480px) {
-  .showdown-options {
-    grid-template-columns: 1fr !important;
-  }
-  .sd-opt { min-height: 80px !important; }
-  .q-stem { font-size: 17px !important; }
-  .result-score { font-size: 60px !important; }
-  .home-title { font-size: 40px !important; }
-}
-
-/* 10 — Week cards — single column on iPhone */
-@media (max-width: 600px) {
-  .main {
-    grid-template-columns: 1fr !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-  }
-  .stats-row {
-    grid-template-columns: 1fr 1fr !important;
-    margin-left: 12px !important;
-    margin-right: 12px !important;
-  }
-  .header, .countdown, .overall-bar, .phase-bar, .milestones {
-    padding-left: 14px !important;
-    padding-right: 14px !important;
-  }
-  .header h1 { font-size: 24px !important; }
-  .cd-num { font-size: 22px !important; }
-  .cd-box { min-width: 60px !important; padding: 8px 10px !important; }
-}
-
-/* 11 — Dashboard form inputs full width */
-@media (max-width: 600px) {
-  .log-row { grid-template-columns: 1fr !important; }
-  .diary-textarea { min-height: 140px !important; }
-  .section-head { flex-direction: column !important; align-items: flex-start !important; }
-}
-
-/* 12 — Notes page panels */
-@media (max-width: 600px) {
-  .panel { padding: 16px 12px 80px !important; }
-  .nb { padding: 14px 12px !important; }
-}
-
-
-/* ── BASE FONT SIZE 20px (user preference) ── */
-@media (max-width: 768px) {
-  html { font-size: 20px; }
-  body { font-size: 20px !important; }
-
-  /* Scale up all text elements */
-  p, li, span, div, td, th, label { font-size: 20px; }
-  .fs-xs, .score-sub, .wk-dates, .wk-note, .art,
-  .hud-label, .q-num, .diary-date, .diary-form-title,
-  .section-sub, .section-label, .eyebrow, .ms-pill,
-  .sr-date, .wa-article, .wa-yours, .wa-correct,
-  .mn-front, .mn-hint, .status-bar, .tab-count,
-  .wk-prog-label, .ob-label, .phase-label, .phase-tag,
-  .cd-label, .score-chip-mode { font-size: 16px !important; }
-
-  /* Questions and options */
-  .q-stem { font-size: 20px !important; }
-  .opt-text { font-size: 20px !important; }
-  .sd-text { font-size: 20px !important; }
-
-  /* Nav tabs */
-  .tab { font-size: 16px !important; }
-  .bnb-btn { font-size: 12px !important; }
-
-  /* Buttons */
-  .hbtn, .btn, .r-btn, .next-btn, .mode-badge { font-size: 18px !important; }
-
-  /* Inputs */
-  input, textarea, select,
-  .log-input, .diary-select, .diary-textarea, .wa-input {
-    font-size: 20px !important;
-  }
-
-  /* Diary text */
-  .diary-text { font-size: 20px !important; }
-  .wa-question { font-size: 20px !important; }
-
-  /* Score numbers */
-  .score-main, .hud-score { font-size: 22px !important; }
-
-  /* Mode cards */
-  .mode-name { font-size: 20px !important; }
-  .mode-desc { font-size: 16px !important; }
-}
-
-
-/* ── NOTES CONTENT STYLES ── */
-.nb-rule{height:1px;background:var(--border);margin:20px 0}
-.nb-section-head{font-size:16px;font-weight:700;color:var(--navy);background:var(--gold-light);border-left:4px solid var(--gold);padding:8px 14px;border-radius:0 8px 8px 0;margin:18px 0 10px}
-.nb-sub-head{font-size:15px;font-weight:600;color:var(--navy);margin:14px 0 6px;padding-left:8px;border-left:3px solid var(--gold)}
-.nb-p{font-size:15px;color:var(--text);line-height:1.7;margin-bottom:8px}
-.nb-ul{margin:6px 0 10px 20px;display:flex;flex-direction:column;gap:5px}
-.nb-ul li{font-size:14px;color:var(--text);line-height:1.6}
-.nb-sub-li{margin-left:16px;font-size:13px}
-.nb-tbl-wrap{overflow-x:auto;margin:10px 0}
-.nb-tbl{border-collapse:collapse;width:100%;font-size:13px}
-.nb-tbl th{background:var(--navy);color:white;padding:8px 12px;text-align:left;font-size:12px;font-weight:600;letter-spacing:.05em}
-.nb-tbl td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
-.nb-tbl tr:nth-child(even) td{background:#faf7f2}
-.nb-tbl tr:hover td{background:#f5f0e8}
-.nb-quote{background:#fff8e7;border-left:3px solid var(--gold);padding:10px 14px;margin:10px 0;font-size:13px;color:var(--text);font-style:italic;border-radius:0 6px 6px 0}
-.nb-sec{color:#1a3a7a;font-weight:600;font-size:.95em}
-.nb-key{color:#b01c1c;font-weight:700;font-size:.95em}
-.nb-code{background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:.9em;font-family:monospace;color:#333}
-@media(max-width:768px){
-  .nb-section-head{font-size:18px}
-  .nb-p{font-size:17px}
-  .nb-ul li{font-size:16px}
-  .nb-tbl{font-size:14px}
-}
-
 </style>
-  
 </head>
 <body>
 
 <div class="header">
   <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859 · Week 1</div>
-  <h1>Study Notes</h1>
+  <h1>Notes &amp; Quiz</h1>
   <div class="header-meta">
-    <div class="meta-pill">🔵 <strong>CPL Art. 1</strong> — Definitions</div>
-    <div class="meta-pill">🔵 <strong>CPL Art. 10</strong> — Criminal Courts</div>
-    <div class="meta-pill">🔵 <strong>CPL Art. 30</strong> — Speedy Trial</div>
-    <a class="back-btn" href="week1_quiz.html" style="background:var(--gold);color:var(--navy);border-color:var(--gold)">❓ Quizzes</a>
+    <div class="meta-pill">📋 <strong>CPL Art. 1</strong> — 43 questions</div>
+    <div class="meta-pill">📋 <strong>CPL Art. 10</strong> — 8 questions</div>
+    <div class="meta-pill">📋 <strong>CPL Art. 30</strong> — 5 questions</div>
     <a class="back-btn" href="index.html">← Dashboard</a>
   </div>
 </div>
 
 <div class="tab-bar">
-  <button class="tab active" onclick="switchTab('art1',this)">CPL Art. 1</button>
-  <button class="tab" onclick="switchTab('art10',this)">CPL Art. 10</button>
-  <button class="tab" onclick="switchTab('cpl30',this)">CPL Art. 30</button>
-  <button class="tab" onclick="switchTab('cpl100',this)">CPL Art. 100</button>
-  <button class="tab" onclick="switchTab('cpl110',this)">CPL Art. 110</button>
-  <button class="tab" onclick="switchTab('cpl120',this)">CPL Art. 120</button>
-  <button class="tab" onclick="switchTab('pl1000',this)">PL §10.00</button>
+  <button class="tab active" onclick="switchTab('art1',this)">CPL Art. 1 <span class="tab-count">43 Qs</span></button>
+  <button class="tab" onclick="switchTab('art10',this)">CPL Art. 10 <span class="tab-count">8 Qs</span></button>
+  <button class="tab" onclick="switchTab('pl10',this)">CPL Art. 30 <span class="tab-count">5 Qs</span></button>
 </div>
 
 <!-- ══════════════════════════════════════════════ -->
 <!-- CPL ART 1 PANEL -->
 <!-- ══════════════════════════════════════════════ -->
 <div class="panel active" id="panel-art1">
+
+  <!-- SCORE BAR -->
+  <div class="score-bar">
+    <div>
+      <div class="score-main" id="sd">0 / 43 correct</div>
+      <div class="score-sub" id="ss">Select an answer to begin</div>
+    </div>
+    <div class="score-track"><div class="score-fill" id="sf" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetAll()">Reset quiz</button>
+      <button class="btn-action gold" onclick="revealAllAnswers()">Reveal all answers</button>
+    </div>
+  </div>
+
   <!-- NOTES -->
   <div class="sec-head">
     <span class="sec-icon">📋</span>
@@ -618,16 +264,36 @@ input, textarea, select,
   </div>
   </div>
 
-  <div style="margin:16px 0">
-    <a href="week1_quiz.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:white;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;text-decoration:none">❓ CPL Art. 1 Practice Quiz →</a>
+  <!-- QUIZ -->
+  <div class="sec-head" style="margin-top:16px">
+    <span class="sec-icon">❓</span>
+    <span class="sec-title">Multiple Choice Quiz — CPL Art. 1 (43 questions · select one answer per question)</span>
+    <button class="toggle-btn" onclick="toggleEl('quiz-art1',this)">Hide quiz</button>
+  </div>
+  <div id="quiz-art1">
+  <div class="quiz-wrap" id="quiz-container"></div>
   </div>
 
 </div><!-- /panel-art1 -->
+
 
 <!-- ══════════════════════════════════════════════ -->
 <!-- CPL ART 10 PANEL -->
 <!-- ══════════════════════════════════════════════ -->
 <div class="panel" id="panel-art10">
+
+  <!-- SCORE BAR -->
+  <div class="score-bar">
+    <div>
+      <div class="score-main" id="sd10">0 / 8 correct</div>
+      <div class="score-sub" id="ss10">Select an answer to begin</div>
+    </div>
+    <div class="score-track"><div class="score-fill" id="sf10" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetQuiz10()">Reset quiz</button>
+      <button class="btn-action gold" onclick="revealAll10()">Reveal all answers</button>
+    </div>
+  </div>
 
   <!-- NOTES -->
   <div class="sec-head">
@@ -683,10 +349,14 @@ input, textarea, select,
   </div>
   </div>
 
-  <div style="margin:16px 0 0">
-    <a href="study_dashboard.html#quizzes" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:white;border-radius:8px;padding:10px 18px;font-size:var(--fs-xs);font-weight:600;text-decoration:none">
-      ❓ Take CPL Art. 10 Quiz →
-    </a>
+  <!-- QUIZ -->
+  <div class="sec-head" style="margin-top:16px">
+    <span class="sec-icon">❓</span>
+    <span class="sec-title">Quiz — CPL Art. 10 (8 questions)</span>
+    <button class="toggle-btn" onclick="toggleEl('quiz-art10',this)">Hide quiz</button>
+  </div>
+  <div id="quiz-art10">
+  <div class="quiz-grid" id="quiz-container-10"></div>
   </div>
 
 </div><!-- /panel-art10 -->
@@ -694,438 +364,764 @@ input, textarea, select,
 <!-- ══════════════════════════════════════════════ -->
 <!-- CPL ART 30 PANEL (tab labelled pl10) -->
 <!-- ══════════════════════════════════════════════ -->
-<div class="panel" id="panel-cpl30">
-  <div class="panel-header">
-    <div class="panel-eyebrow">NYS Senior Court Clerk Exam · Notes</div>
-    <h2 class="panel-title">CPL Article 30</h2>
-    <div class="panel-sub">§§30.10–30.30 · Speedy Trial & Statute of Limitations</div>
+<div class="panel" id="panel-pl10">
+
+  <!-- SCORE BAR -->
+  <div class="score-bar">
+    <div>
+      <div class="score-main" id="sd30">0 / 5 correct</div>
+      <div class="score-sub" id="ss30">Select an answer to begin</div>
+    </div>
+    <div class="score-track"><div class="score-fill" id="sf30" style="width:0%"></div></div>
+    <div class="score-actions">
+      <button class="btn-action" onclick="resetQuiz30()">Reset quiz</button>
+      <button class="btn-action gold" onclick="revealAll30()">Reveal all answers</button>
+    </div>
   </div>
+
+  <!-- NOTES -->
+  <div class="sec-head">
+    <span class="sec-icon">📋</span>
+    <span class="sec-title">Study Notes — CPL Art. 30 · Timeliness of Prosecutions &amp; Speedy Trial (2026)</span>
+    <button class="toggle-btn" onclick="toggleEl('notes-art30',this)">Hide notes</button>
+  </div>
+  <div id="notes-art30">
   <div class="notes-wrap">
-    <div class="nb-rule"></div>
-<div class="nb-section-head">§30.10(1)-(2) — Statute of Limitations: Basic Periods</div>
-<div class="nb-tbl-wrap"><table class="nb-tbl">
-<tr><th>TYPE OF OFFENSE</th><th>TIMELINESS OF PROSECUTION (SOL)</th></tr>
-<tr><td>Class A Felony; Rape 1° (PL <span class="nb-sec">§130.35</span>); crimes formerly defined in PL <span class="nb-sec">§130.50</span>; Aggravated Sexual Abuse 1° (PL <span class="nb-sec">§130.70</span>); Course of Sexual Conduct Against a Child 1° (PL <span class="nb-sec">§130.75</span>); Incest 1° (PL <span class="nb-sec">§255.27</span>)</td><td><strong>AT <span class="nb-key">ANY TIME</span></strong></td></tr>
-<tr><td>Rape 2° (PL <span class="nb-sec">§130.30(2)</span>); Criminal Sexual Act 2° (PL <span class="nb-sec">§130.45(2)</span>); Incest 2° (PL <span class="nb-sec">§255.26</span>) where underlying crime is Rape 2° or Criminal Sexual Act 2°</td><td><strong>20 years</strong> after commission — OR <strong>10 years</strong> from when first reported to law enforcement — <strong>whichever occurs FIRST</strong></td></tr>
-<tr><td>Rape 3° (PL <span class="nb-sec">§130.25(1)</span> or (3)); Criminal Sexual Act 3° (PL <span class="nb-sec">§130.40(1)</span> or (3))</td><td><strong>10 years</strong> after commission</td></tr>
-<tr><td>Any other felony</td><td><strong>5 years</strong></td></tr>
-<tr><td>Misdemeanor</td><td><strong>2 years</strong></td></tr>
-<tr><td>Petty offense</td><td><strong>1 year</strong></td></tr>
-</table></div>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§30.10(3) — Extended / Exception Periods</div>
-<div class="nb-tbl-wrap"><table class="nb-tbl">
-<tr><th>TYPE OF OFFENSE</th><th>SOL</th></tr>
-<tr><td>Larceny in violation of fiduciary duty</td><td>Within <strong>1 year</strong> of discovery (or when reasonably should have been discovered)</td></tr>
-<tr><td>Misconduct in public office (or person acting in concert)</td><td>During term in office OR within <strong>5 years</strong> after end of service — but <strong>no more than 5 years</strong> beyond the regular SOL</td></tr>
-<tr><td>Article 71, Title 27 — Environmental Conservation Law</td><td>Within <strong>4 years</strong> of discovery by responsible public servant</td></tr>
-<tr><td>Misdemeanor under Tax Law or Chapter 46 of the NYC Administrative Code</td><td>Within <strong>3 years</strong> after commission</td></tr>
-<tr><td>Course of Sexual Conduct Against a Child 2° (PL <span class="nb-sec">§130.80</span>)</td><td>Within <strong>5 years</strong> of the most recent act of sexual conduct</td></tr>
-<tr><td>Certain sexual offenses against a child under 18 (Article 130 PL other than <span class="nb-sec">§30.10(2)(a)</span> offenses; Incest 1°/2°/3°; Use of Child in Sexual Performance PL <span class="nb-sec">§263.05</span>)</td><td>Period does <strong><span class="nb-key">NOT</span> begin to run</strong> until the child reaches age <strong>23</strong> — OR the offense is reported to a law enforcement agency or Statewide Central Register of Child Abuse and Maltreatment — <strong>whichever occurs EARLIER</strong></td></tr>
-<tr><td>Terrorism felonies (Article 490 PL)</td><td><strong>8 years</strong> — BUT if commission resulted in or created a foreseeable risk of death or serious physical injury: <strong>AT <span class="nb-key">ANY TIME</span></strong></td></tr>
-<tr><td>Deed theft or fraud in real property transaction (felony)</td><td><strong>5 years</strong> from commission OR <strong>2 years</strong> from discovery by aggrieved party — <strong>whichever is LATER</strong></td></tr>
-</table></div>
-<p class="nb-p"><strong><span class="nb-sec">§30.10(4)</span> — Tolling:</strong> The following periods are <span class="nb-key">NOT</span> counted in calculating the limitation period:</p>
-<ul class="nb-ul">
-<li><strong>(a)</strong> Any period during which (i) defendant was continuously outside New York, or (ii) defendant's whereabouts were continuously unknown and unascertainable by due diligence — but in <strong>no event</strong> shall this extension exceed <strong>5 additional years</strong> beyond the regular period.</li>
-</ul>
-<p class="nb-p"><em>(Example: misdemeanor SOL = 2 years + max 5 = <strong>7 years</strong> total; felony SOL = 5 years + max 5 = <strong>10 years</strong> total.)</em></p>
-<ul class="nb-ul">
-<li><strong>(b)</strong> The period from commencement of a timely prosecution on the same conduct/offense to dismissal of that accusatory instrument, where dismissal is under circumstances permitting lodging of another charge for the same offense or conduct.</li>
-</ul>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§30.20 — Right to Speedy Trial</div>
-<p class="nb-p">Defendant is entitled to a <strong>SPEEDY TRIAL</strong> after a criminal action is commenced. Criminal cases get preference over civil cases; criminal cases where defendant is committed to the custody of the sheriff get preference over other criminal cases.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§30.30(1) — People's Readiness: Motion to Dismiss Deadlines</div>
-<p class="nb-p">★ <strong>MOTION TO DISMISS <span class="nb-key">MUST</span> BE GRANTED</strong> if the People are not ready for trial within the following periods after filing of the accusatory instrument ★</p>
-<div class="nb-tbl-wrap"><table class="nb-tbl">
-<tr><th>TYPE OF OFFENSE</th><th>PEOPLE MUST BE READY WITHIN</th></tr>
-<tr><td>Felony (at least one charge)</td><td><strong>6 months</strong></td></tr>
-<tr><td>Misdemeanor "A" — sentence over 3 months (no felony)</td><td><strong>90 days</strong></td></tr>
-<tr><td>Misdemeanor "B" — sentence up to 3 months (no crime punishable by more than 3 months)</td><td><strong>60 days</strong></td></tr>
-<tr><td>Petty offense / Violation only (no crime)</td><td><strong>30 days</strong></td></tr>
-</table></div>
-<p class="nb-p"><em>Note: "Offense" includes VTL infractions.</em></p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§30.30(2) — Custody Release Deadlines</div>
-<p class="nb-p">★ <strong>WHERE DEFENDANT HAS BEEN COMMITTED TO CUSTODY OF SHERIFF</strong> (or Office of Children and Family Services), defendant <strong><span class="nb-key">MUST</span> BE RELEASED</strong> on bail or ROR when the People are not ready for trial within the following periods after commencement of defendant's custody ★</p>
-<div class="nb-tbl-wrap"><table class="nb-tbl">
-<tr><th>TYPE OF OFFENSE</th><th>MUST BE RELEASED WITHIN</th></tr>
-<tr><td>Felony (at least one charge)</td><td><strong>90 days</strong></td></tr>
-<tr><td>Misdemeanor "A" — sentence over 3 months (no felony)</td><td><strong>30 days</strong></td></tr>
-<tr><td>Misdemeanor "B" — sentence up to 3 months (no crime punishable by more than 3 months)</td><td><strong>15 days</strong></td></tr>
-<tr><td>Petty offense / Violation only (no crime)</td><td><strong>5 days</strong></td></tr>
-</table></div>
-<p class="nb-p"><em>Note: Release <span class="nb-key">NOT</span> required if defendant: is serving a term for another offense; is held on another charge whose applicable period has not elapsed; or is re-detained after release for a new crime or violation of release conditions.</em></p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§30.30(3) — Exceptions</div>
-<p class="nb-p"><strong>(a) Homicide exception:</strong> <span class="nb-sec">§30.30(1)</span> and (2) do <span class="nb-key">NOT</span> apply where any offense charged is defined in PL §<span class="nb-sec">§125.10</span>, 125.15, 125.20, 125.25, 125.26, or 125.27.</p>
-<p class="nb-p"><strong>(b) Exceptional circumstance:</strong> A motion MAY be denied if the People were previously ready but are now unready due to exceptional facts — including sudden unavailability of material evidence — when D.A. has exercised due diligence and there are reasonable grounds evidence will become available in a reasonable period.</p>
-<p class="nb-p"><strong>(c)</strong> <span class="nb-sec">§30.30(2)</span> release shall <span class="nb-key">NOT</span>: (i) apply to defendant serving a term for another offense; (ii) require release of defendant held on another charge whose period has not elapsed; (iii) prevent re-detention after release for a new crime or violation of release conditions.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§30.30(4) — Excluded Periods (Tolls Against Readiness Clock)</div>
-<ul class="nb-ul">
-<li><strong>(a)</strong> Delay from other proceedings: competency determination/period; demand to produce; bill of particulars; pre-trial motions; appeals; trial of other charges; court consideration thereof.</li>
-<li><strong>(b)</strong> Continuance at defendant's request or with defendant's consent — court must be satisfied it is in the interest of justice; pro-se defendant must be advised on the record.</li>
-<li><strong>(c)(i)</strong> Absence or unavailability of defendant. <strong>Absent</strong> = location unknown, attempting to avoid apprehension/prosecution, or location undeterminable by due diligence. <strong>Unavailable</strong> = location known but presence cannot be obtained by due diligence.</li>
-<li><strong>(c)(ii)</strong> Defendant escaped or failed to appear on bail/ROR (not in custody on another matter): from bench warrant issuance (<span class="nb-sec">§530.70</span>) to defendant's subsequent appearance.</li>
-<li><strong>(d)</strong> Reasonable delay for co-defendant joinder where good cause is not shown for severance.</li>
-<li><strong>(e)</strong> Detention in another jurisdiction where D.A. is aware and making diligent reasonable efforts.</li>
-<li><strong>(f)</strong> Period without counsel through no fault of the court (except when defendant proceeds pro-se with court permission).</li>
-<li><strong>(g)</strong> Exceptional circumstances: (i) unavailability of material evidence — D.A. exercised due diligence, reasonable grounds evidence will become available; or (ii) additional time justified by exceptional case circumstances. After a prior statement of readiness, requires court inquiry on the record.</li>
-<li><strong>(h)</strong> Period of ACD/ACOD (§<span class="nb-sec">§170.55</span>, 170.56, or 215.10).</li>
-<li><strong>(i)</strong> Period prior to defendant's actual arraignment appearance where defendant was directed to appear by D.A. (<span class="nb-sec">§120.20(3)</span> or <span class="nb-sec">§210.10(3)</span>).</li>
-<li><strong>(j)</strong> Period while family offense is before Family Court — until accusatory instrument or indictment is filed alleging a crime constituting a family offense (<span class="nb-sec">§530.11</span>).</li>
-</ul>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§30.30(5) — Readiness Statements & Certificate of Compliance</div>
-<p class="nb-p"><strong>(a)</strong> Court must inquire on the record as to actual readiness whenever the People state or notice readiness. If not actually ready, the statement is <strong>invalid</strong>. Court may deem People <span class="nb-key">NOT</span> ready for failure to comply with Article 245 (discovery) <span class="nb-key">ONLY</span> if the certificate of compliance was <strong>invalid under <span class="nb-sec">§245.50</span></strong> — assessed by totality of prosecution's efforts, considering: efforts made; volume of discovery provided and outstanding; case complexity; knowledge of missing material; explanation for lapse; response upon notice; whether belated discovery was duplicative/insignificant/easily remedied; self-reporting and prompt remedial action; and whether delayed disclosure was prejudicial.</p>
-<p class="nb-p"><strong>(b)</strong> On a local criminal court accusatory instrument, readiness statement is <strong>INVALID</strong> unless the prosecutor certifies all counts meet §<span class="nb-sec">§100.15</span> and 100.40, and non-compliant counts have been dismissed.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§30.30(6)</div>
-<p class="nb-p">An order finally denying a motion to dismiss under <span class="nb-sec">§30.30(1)</span> is <strong>reviewable on appeal</strong> from an ensuing judgment of conviction — even if entered upon a guilty plea.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§30.30(7) — Special Commencement Rules</div>
-<ul class="nb-ul">
-<li><strong>(a)</strong> After withdrawal of guilty plea or order for retrial: criminal action deemed commenced on the date the withdrawal or order becomes final.</li>
-<li><strong>(b)</strong> After appearance ticket served: action deemed commenced on date of defendant's first appearance in local criminal court.</li>
-<li><strong>(c)</strong> After felony complaint converted/replaced by information, prosecutor's information, or misdemeanor complaint: <span class="nb-sec">§30.30(1)</span> period runs from the new instrument — <strong>UNLESS</strong> aggregate of new period plus elapsed time exceeds <strong>6 months</strong>, in which case the felony complaint period controls.</li>
-<li><strong>(d)</strong> Same as (c) for <span class="nb-sec">§30.30(2)</span> custody-release period — UNLESS aggregate exceeds <strong>90 days</strong>.</li>
-<li><strong>(e)</strong> After count of indictment reduced to misdemeanor/petty offense and reduced indictment or prosecutor's information filed: <span class="nb-sec">§30.30(1)</span> period runs from new instrument — UNLESS aggregate exceeds <strong>6 months</strong>.</li>
-<li><strong>(f)</strong> Same as (e) for <span class="nb-sec">§30.30(2)</span> custody-release period — UNLESS aggregate exceeds <strong>90 days</strong>.</li>
-</ul>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§30.30(8)</div>
-<p class="nb-p">The procedural rules of <span class="nb-sec">§210.45(1)</span>-(7) governing motions to dismiss an indictment do <strong><span class="nb-key">NOT</span></strong> apply to a <span class="nb-sec">§30.30(2)</span> motion. If a time period is in dispute upon oral argument, the court must promptly conduct a hearing at which the People must prove the period is excludable.</p>
-  </div>
-</div>
+  <div class="notes-body">
 
-<div class="panel" id="panel-cpl100">
-  <div class="panel-header">
-    <div class="panel-eyebrow">NYS Senior Court Clerk Exam · Notes</div>
-    <h2 class="panel-title">CPL Art. 100</h2>
-    <div class="panel-sub">§§100.05–100.60 · Accusatory Instruments</div>
-  </div>
-  <div class="notes-wrap">
-    <div class="nb-rule"></div>
-<div class="nb-section-head">§100.05 — Commencement of Action; In General</div>
-<p class="nb-p">A criminal action is commenced by the <strong>filing of an accusatory instrument</strong> with a criminal court. For a juvenile offender or adolescent offender (other than one charged only with a violation or traffic infraction), commencement is in the <strong>youth part of the superior court</strong>. If multiple instruments are filed in the same action, commencement dates from the <strong>FIRST</strong> filing.</p>
-<p class="nb-p">The <strong><span class="nb-key">ONLY</span></strong> way to commence a criminal action in a Superior Court (non-juvenile) is by the Grand Jury filing an indictment against a defendant who has <strong><span class="nb-key">NEVER</span> been held</strong> by a local criminal court for the action of that grand jury on any charge in the indictment.</p>
-<p class="nb-p">Otherwise, a local criminal court action commences by filing: <strong>Information; Simplified Information; Prosecutor's Information; Misdemeanor Complaint;</strong> or <strong>Felony Complaint</strong>.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.07 — Family Court; Concurrent Jurisdiction</div>
-<p class="nb-p">Criminal Courts have <strong>concurrent jurisdiction</strong> with Family Court over family offense proceedings, even where Family Court has or may be exercising jurisdiction over substantially the same allegations.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.10 — Accusatory Instruments; Definitions</div>
-<p class="nb-p"><strong><span class="nb-sec">§100.10(1)</span> — Information</strong> — verified written accusation by a person, filed with a local criminal court, charging one or more offenses — <strong>NONE of which is a felony</strong>. May both <strong>commence</strong> an action and serve as the <strong>basis for prosecution</strong>.</p>
-<p class="nb-p"><strong><span class="nb-sec">§100.10(2)</span> — Simplified Information</strong> — three types (written accusations in simplified form, containing <strong>NO factual allegations of an evidentiary nature</strong>, charging only non-felony offenses):</p>
-<ul class="nb-ul">
-<li><strong>(a) Simplified Traffic Information</strong> — Commissioner of Motor Vehicles form; charges traffic infractions and/or misdemeanors relating to traffic.</li>
-<li><strong>(b) Simplified Parks Information</strong> — Commissioner of Parks and Recreation form; charges non-felony offenses prosecutable under the Parks and Recreation Law/Navigation Law.</li>
-<li><strong>(c) Simplified Environmental Conservation Information</strong> — Commissioner of Environmental Conservation form; charges non-felony offenses under the Environmental Conservation Law.</li>
-</ul>
-<p class="nb-p">All three commence actions and may serve as basis for prosecution under <span class="nb-sec">§100.25</span> circumstances.</p>
-<p class="nb-p"><strong><span class="nb-sec">§100.10(3)</span> — Prosecutor's Information</strong> — written accusation by the D.A., filed with a local criminal court, issued at: (a) direction of a Grand Jury (<span class="nb-sec">§190.70</span>); (b) direction of a local criminal court (§<span class="nb-sec">§180.50</span> or 180.70); (c) D.A.'s own instance (<span class="nb-sec">§100.50(2)</span>); or (d) direction of a superior court (<span class="nb-sec">§210.20(1-a)</span>). Charges <strong>only non-felony offenses</strong>. Serves as the basis for prosecution, but <strong>commences an action <span class="nb-key">ONLY</span></strong> where it results from a Grand Jury direction in a case <strong><span class="nb-key">NOT</span> previously commenced</strong> in a local criminal court.</p>
-<p class="nb-p"><strong><span class="nb-sec">§100.10(4)</span> — Misdemeanor Complaint</strong> — verified written accusation charging at least one misdemeanor and no felonies. Commences an action; may serve as prosecution basis <strong><span class="nb-key">ONLY</span> where defendant WAIVES prosecution by information</strong> (<span class="nb-sec">§170.65(3)</span>).</p>
-<p class="nb-p"><strong><span class="nb-sec">§100.10(5)</span> — Felony Complaint</strong> — verified written accusation filed with a local criminal court <strong>OR youth part of the superior court</strong>, charging one or more felonies. Commences an action; <strong><span class="nb-key">NEVER</span></strong> serves as a basis for prosecution.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.15 — Form and Content</div>
-<p class="nb-p">All informations and complaints must: specify the <strong>name of the court</strong> and <strong>title of the action</strong>; be subscribed and verified by the complainant (including upon "information and belief"). Contains two parts — complainant's verification applies <strong><span class="nb-key">ONLY</span> to the Factual Part</strong>:</p>
-<ul class="nb-ul">
-<li><strong>Factual Part</strong> — statement of evidentiary facts supporting the charges; where multiple offenses are charged, should be a single account applicable to all counts. Allegations may be based on personal knowledge or information and belief. Non-hearsay requirement for sufficiency of an Information (<span class="nb-sec">§100.40(1)(c)</span>) applies separately.</li>
-<li><strong>Accusatory Part</strong> — designates each offense in separate counts. May charge two or more defendants <span class="nb-key">ONLY</span> if all are jointly charged with every offense alleged.</li>
-</ul>
-<p class="nb-p">Where a felony complaint charges a violent felony (PL <span class="nb-sec">§70.02</span>) that is also an armed felony (CPL <span class="nb-sec">§1.20(41)</span>): the accusatory part <strong><span class="nb-key">MUST</span> designate it as an armed felony</strong>, and the factual part must allege supporting facts.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.20 — Supporting Deposition</div>
-<p class="nb-p">A verified written instrument subscribed by a person <strong>OTHER than the complainant</strong>, accompanying or filed with an Information, Simplified Information, Misdemeanor Complaint, or Felony Complaint. Contains factual allegations of an evidentiary character (based on personal knowledge or information and belief) that supplement the accusatory instrument and support or tend to support the charges.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.25 — Simplified Information: Supporting Deposition Rights</div>
-<p class="nb-p"><strong>(1)</strong> Must substantially conform to the form prescribed by the applicable Commissioner.</p>
-<p class="nb-p"><strong>(2) Right to Supporting Deposition — Timely Request:</strong> Defendant is entitled as a matter of right, upon timely request, to a supporting deposition from the complainant officer/public servant providing reasonable cause to believe defendant committed the offense(s). <strong>Timely</strong> = before guilty plea or trial <strong>AND no later than 30 days</strong> after the appearance date. If mailed, must be mailed within such 30-day period.</p>
-<p class="nb-p">Upon request, court must order officer to: serve the deposition within <strong>30 days of receipt</strong> of the request, or at least <strong>5 days before trial</strong>, whichever is <strong>EARLIER</strong>; and file it with the clerk with proof of service.</p>
-<p class="nb-p"><strong>(3)</strong> Where at least one charge is a misdemeanor, court may permit a late request for good cause in the interest of justice — but <strong>NO motion may be brought more than 90 days</strong> after the appearance date.</p>
-<p class="nb-p"><strong>(4) Notice on appearance ticket</strong> — must contain verbatim:</p>
-<div class="nb-quote"><em>"NOTICE: YOU ARE ENTITLED TO RECEIVE A SUPPORTING DEPOSITION FURTHER EXPLAINING THE CHARGES PROVIDED YOU REQUEST SUCH SUPPORTING DEPOSITION WITHIN THIRTY DAYS FROM THE DATE YOU ARE DIRECTED TO APPEAR IN COURT AS SET FORTH ON THIS APPEARANCE TICKET. DO YOU REQUEST A SUPPORTING DEPOSITION? [ ] YES [ ] NO"</em></div>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.30 — Verification Methods</div>
-<p class="nb-p">Verification of an Information, Misdemeanor Complaint, Felony Complaint, Supporting Deposition, or proof of service thereof may be by any of the following (unless court directs a specific method):</p>
-<ul class="nb-ul">
-<li><strong>(a)</strong> Sworn before the <strong>court where filed</strong>;</li>
-<li><strong>(b)</strong> Sworn before a <strong>police desk officer or superior officer</strong>;</li>
-<li><strong>(c)</strong> Where filed by a public servant after issuance of an appearance ticket, sworn before another <strong>designated public servant</strong> authorized by law;</li>
-<li><strong>(d)</strong> Instrument bears a notice that false statements are punishable as a <strong>Class A Misdemeanor</strong> (PL <span class="nb-sec">§210.45</span>) — subscription together with the notice constitutes verification;</li>
-<li><strong>(e)</strong> Sworn before a <strong>notary public</strong>.</li>
-</ul>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.35 — Prosecutor's Information: Form and Content</div>
-<p class="nb-p">Must contain: name of the <strong>local criminal court</strong> and title of action; subscribed by the <strong>D.A.</strong>; one or more counts with a <strong>plain and concise statement</strong> of conduct for each offense. Otherwise follows indictment form (<span class="nb-sec">§200.50</span>). Joinder rules for indictments (§<span class="nb-sec">§200.20</span> and 200.40) apply.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.40 — Facial Sufficiency</div>
-<p class="nb-p"><strong>Information</strong> (or count): sufficient when (a) substantially conforms to <span class="nb-sec">§100.15</span>; (b) factual allegations and/or supporting depositions provide <strong>reasonable cause to believe</strong> defendant committed the offense; AND (c) <strong>non-hearsay</strong> allegations establish, if true, <strong>every element</strong> of the offense and defendant's commission thereof.</p>
-<p class="nb-p"><strong>Simplified Information:</strong> sufficient when substantially conforms to prescribed form. Failure by complainant officer to comply with a court order for a supporting deposition within the time provided by <span class="nb-sec">§100.25(2)</span> renders it <strong>INSUFFICIENT on its face</strong>.</p>
-<p class="nb-p"><strong>Prosecutor's Information</strong> (or count): sufficient when substantially conforms to <span class="nb-sec">§100.35.</span></p>
-<p class="nb-p"><strong>Misdemeanor/Felony Complaint</strong> (or count): sufficient when (a) substantially conforms to <span class="nb-sec">§100.15</span>; AND (b) allegations provide <strong>reasonable cause to believe</strong> defendant committed the offense — <strong>NO non-hearsay requirement</strong>.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.45 — Severance, Amendment, Bill of Particulars</div>
-<p class="nb-p">Severance, consolidation (§<span class="nb-sec">§200.20</span>, 200.40), and bills of particulars (<span class="nb-sec">§200.95</span>) apply to <strong>Informations, Prosecutor's Informations, and Misdemeanor Complaints</strong>.</p>
-<p class="nb-p">Amendment of <strong>Prosecutor's Information</strong> governed by <span class="nb-sec">§200.70</span> indictment amendment rules.</p>
-<p class="nb-p">Amendment of <strong>Information</strong>: before guilty plea or trial, court may — on application of the People with <strong>notice to defendant and opportunity to be heard</strong> — add a count supported by existing factual allegations/supporting depositions. Defendant must receive a <strong>reasonable adjournment</strong>.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.50 — Superseding Informations and Prosecutor's Informations</div>
-<p class="nb-p"><strong>(1)</strong> If, before guilty plea or trial, another Information or Prosecutor's Information is filed charging an offense already in the first instrument, the second <strong>SUPERSEDES</strong> the first as to that offense; upon arraignment on the second, the corresponding count of the first <strong><span class="nb-key">MUST</span> be dismissed</strong>. The first is <strong><span class="nb-key">NOT</span></strong> superseded as to counts not charged in the second.</p>
-<p class="nb-p"><strong>(2)</strong> Before guilty plea or trial, D.A. may file a Prosecutor's Information charging any offense supported by the original Information's factual part and/or supporting depositions; the original is superseded and, upon arraignment on the Prosecutor's Information, <strong>DEEMED DISMISSED</strong>.</p>
-<p class="nb-p"><strong>(3)</strong> A misdemeanor complaint must or may be replaced and superseded by an information under <span class="nb-sec">§170.65.</span></p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.55 — Where Local Criminal Court Instruments May Be Filed</div>
-<ul class="nb-ul">
-<li><strong>(1) District Court:</strong> any county where offense was allegedly committed (or that part within the court's jurisdiction).</li>
-<li><strong>(2) NYC Criminal Court:</strong> any offense allegedly committed in New York City.</li>
-<li><strong>(3) City Court:</strong> any offense allegedly committed in that city.</li>
-<li><strong>(4) Town Court:</strong> Information, Simplified Information, Prosecutor's Information, or Misdemeanor Complaint — when offense was allegedly committed anywhere in that town <strong>OTHER THAN</strong> in a village thereof having a village court.</li>
-<li><strong>(5) Village Court:</strong> Information, Simplified Information, Prosecutor's Information, or Misdemeanor Complaint — when offense was allegedly committed in that village.</li>
-<li><strong>(6) Felony Complaint:</strong> any town or village court of the county where the felony was allegedly committed — need <strong><span class="nb-key">NOT</span></strong> be the specific town/village of commission.</li>
-<li><strong>(7) Superior Court Judge sitting as local court:</strong> Information, Simplified Information, Misdemeanor Complaint, or Felony Complaint — when offense allegedly committed in a county where judge is then present AND either resides or is currently holding (or assigned to hold) a term of superior court.</li>
-<li><strong>(8)</strong> Other courts as expressly authorized by law.</li>
-<li><strong>(9)</strong> Where two or more courts are each authorized: may file with <strong>ANY ONE</strong>, but <strong><span class="nb-key">NOT</span> MORE THAN ONE</strong>.</li>
-<li><strong>(10)</strong> "Committed in" includes where the offense is prosecutable under §<span class="nb-sec">§20.40</span> and 20.50.</li>
-<li><strong>(11)</strong> May also be filed with a local criminal court operating an <strong>OFF-HOURS ARRAIGNMENT PART</strong> (Judiciary Law <span class="nb-sec">§212(1)(w)</span>), provided the offense was allegedly committed in that court's county.</li>
-</ul>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§100.60 — Youth Part: Where Instruments May Be Filed</div>
-<p class="nb-p">Any youth part of the superior court accusatory instrument may be filed with the <strong>youth part of the superior court of the particular county</strong> in which the offense charged was allegedly committed (or the part thereof within the court's jurisdiction).</p>
-  </div>
-</div>
+    <div class="nb">
+      <div class="ns">§30.10 — Standard Limitation Periods</div>
+      <div class="ni key">⚡ Class A Felony = NO LIMIT. Rape 1° · Criminal Sexual Act 1° · Aggravated Sexual Abuse 1° · Course of Sexual Conduct Against Child 1° · Incest 1° = all NO LIMIT</div>
+      <div class="ni upd">🆕 NEW 2026 — Rape 2°/CSA 2° (subd. 2) + Incest 2° where underlying act is Rape 2° or CSA 2°: 20 years from commission OR 10 years from first report to law enforcement — whichever is EARLIER</div>
+      <div class="ni upd">🆕 NEW 2026 — Rape 3°/CSA 3° (subds. 1 or 3): 10 years from commission</div>
+      <div class="ni"><strong>Any other Felony:</strong> 5 years · <strong>Misdemeanor:</strong> 2 years · <strong>Petty Offense:</strong> 1 year</div>
+    </div>
 
-<div class="panel" id="panel-cpl110">
-  <div class="panel-header">
-    <div class="panel-eyebrow">NYS Senior Court Clerk Exam · Notes</div>
-    <h2 class="panel-title">CPL Art. 110</h2>
-    <div class="panel-sub">§§110.10–110.20 · Arraignment</div>
-  </div>
-  <div class="notes-wrap">
-    <div class="nb-rule"></div>
-<div class="nb-section-head">§110.10 — Methods of Requiring Defendant's Appearance for Arraignment</div>
-<p class="nb-p">After a criminal action has been commenced in a local criminal court <strong>or youth part of the superior court</strong> by filing an accusatory instrument, a defendant not yet arraigned and not under the court's control may be compelled or required to appear for arraignment by:</p>
-<ul class="nb-ul">
-<li><strong>(a)</strong> Issuance and execution of a <strong>warrant of arrest</strong> (Article 120); or</li>
-<li><strong>(b)</strong> Issuance and service of a <strong>summons</strong> (Article 130); or</li>
-<li><strong>(c)</strong> Interstate/extradition procedures under Articles 560, 570, 580, 590, and 600 (for defendants not at liberty within the state).</li>
-</ul>
-<p class="nb-p">Where <strong>NO criminal action has yet been commenced</strong>, a defendant may be compelled to appear in a local criminal court <strong>or youth part of the superior court</strong> for arraignment upon an instrument to be filed at or before the time of appearance, by:</p>
-<ul class="nb-ul">
-<li><strong>(a)</strong> Warrantless arrest (Article 140); or</li>
-<li><strong>(b)</strong> Issuance and service of an <strong>appearance ticket</strong> (Article 150).</li>
-</ul>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§110.20 — Notice to District Attorney</div>
-<p class="nb-p">Whenever a criminal action in which a <strong>crime is charged</strong> is commenced in a local criminal court or youth part of the superior court (other than the NYC Criminal Court), a copy of the accusatory instrument must be <strong>promptly transmitted</strong> to the appropriate District Attorney upon or prior to arraignment.</p>
-<ul class="nb-ul">
-<li>If a <strong>police officer or peace officer</strong> is the complainant or filer of a Simplified Information, or has arrested the defendant or brought him before the court pursuant to <span class="nb-sec">§140.20(1)</span>: that <strong>officer or agency</strong> transmits the copy to the D.A.</li>
-<li>In all other cases: the <strong>clerk of the arraigning court</strong> transmits it.</li>
-</ul>
-  </div>
-</div>
+    <div class="nb">
+      <div class="ns">§30.10(3) — Extended Limitation Periods</div>
+      <div class="ni"><strong>(a) Larceny by Fiduciary:</strong> 1 year from discovery (or when discoverable by reasonable diligence)</div>
+      <div class="ni"><strong>(b) Public Officer Misconduct:</strong> Any time during service OR up to 5 years after termination — but NOT more than 5 years beyond the normal limitation period</div>
+      <div class="ni key">⚡ Public officer: double cap — 5 years after leaving office AND never more than 5 years beyond standard period</div>
+      <div class="ni"><strong>(e) Course of Sexual Conduct Against Child 2°:</strong> 5 years from most recent act</div>
+      <div class="ni upd">🆕 NEW 2026 — §30.10(3)(f): Child sex offenses — tolling period runs until child turns AGE 23 (previously 18), OR offense is reported to law enforcement/SCR — whichever comes FIRST</div>
+      <div class="ni"><strong>(g) Terrorism Felonies (PL Art. 490):</strong> 8 years. If death or foreseeable risk of death/serious physical injury: NO LIMIT</div>
+      <div class="ni upd">🆕 NEW 2026 — §30.10(3)(h): Deed Theft / Fraud in real property transaction (Felony): 5 years from commission OR 2 years from discovery — whichever is LATER (note: LATER, not earlier)</div>
+    </div>
 
-<div class="panel" id="panel-cpl120">
-  <div class="panel-header">
-    <div class="panel-eyebrow">NYS Senior Court Clerk Exam · Notes</div>
-    <h2 class="panel-title">CPL Art. 120</h2>
-    <div class="panel-sub">§§120.10–120.90 · Warrant of Arrest</div>
-  </div>
-  <div class="notes-wrap">
-    <div class="nb-rule"></div>
-<div class="nb-section-head">§120.10 — Definition, Form and Content</div>
-<p class="nb-p"><strong><span class="nb-sec">§120.10(1)</span></strong> — A warrant of arrest is process issued by a local criminal court directing a police officer to arrest a defendant designated in an accusatory instrument filed with such court and to bring him before that court. Its <strong>SOLE function</strong> is to achieve the defendant's court appearance in a criminal action for the purpose of <strong>arraignment upon the accusatory instrument</strong> by which the action was commenced.</p>
-<p class="nb-p"><strong><span class="nb-sec">§120.10(2)</span></strong> — Warrants must be <strong>subscribed by the issuing judge</strong> and must state:</p>
-<ul class="nb-ul">
-<li>(a) Name of issuing court;</li>
-<li>(b) Date of issuance;</li>
-<li>(c) Name or title of an offense charged in the underlying accusatory instrument;</li>
-<li>(d) Defendant's name, or if unknown, any name or description by which he can be identified with reasonable certainty;</li>
-<li>(e) The police officer(s) to whom addressed; and</li>
-<li>(f) A direction that such officer arrest the defendant and bring him before the issuing court.</li>
-</ul>
-<p class="nb-p"><strong><span class="nb-sec">§120.10(3)</span></strong> — A warrant may be addressed to a <strong>classification</strong> of police officers (or two or more classifications), as well as to a designated individual officer or officers. <strong>Multiple copies</strong> may be issued.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§120.20 — When Issuable</div>
-<p class="nb-p">When a criminal action has been commenced in a local criminal court or youth part of the superior court by filing an accusatory instrument <strong>other than a simplified traffic information</strong>, against a defendant not yet arraigned and not under the court's control:</p>
-<ul class="nb-ul">
-<li><strong>(a)</strong> The court <strong>MAY</strong> issue a warrant if the accusatory instrument is <strong>sufficient on its face</strong> (per <span class="nb-sec">§100.40</span>); OR</li>
-<li><strong>(b)</strong> If the instrument is <strong><span class="nb-key">NOT</span> sufficient</strong> on its face AND it would be <strong>IMPOSSIBLE</strong> to file a sufficient one based on available facts/evidence, the court <strong><span class="nb-key">MUST</span> dismiss</strong> the accusatory instrument.</li>
-</ul>
-<p class="nb-p">Even where sufficient, the court may <strong>REFUSE</strong> to issue a warrant and may further examine witnesses (under oath or otherwise) to satisfy itself there is reasonable cause to believe defendant committed the charged offense.</p>
-<p class="nb-p"><strong>Notwithstanding subd. 1:</strong> if a summons may be issued under <span class="nb-sec">§130.20</span> and the court is satisfied defendant will respond, it <strong><span class="nb-key">MAY <span class="nb-key">NOT</span></span> issue a warrant</strong>. Upon the D.A.'s request, in lieu of a warrant or summons, the court may authorize the D.A. to <strong>direct the defendant to appear</strong> for arraignment on a designated date.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§120.30 — By What Courts Issuable; Returnable</div>
-<p class="nb-p">A warrant may be issued <strong><span class="nb-key">ONLY</span></strong> by the local criminal court <strong>or youth part of the superior court</strong> with which the underlying accusatory instrument has been filed (as determined by <span class="nb-sec">§100.55</span> or <span class="nb-sec">§100.60</span>), and is returnable <strong><span class="nb-key">ONLY</span></strong> in that issuing court.</p>
-<p class="nb-p"><strong>Backup filing rules:</strong></p>
-<ul class="nb-ul">
-<li>If the target <strong>town court</strong> is unavailable: instrument may be filed with the town court of any adjoining town in the same county.</li>
-<li>If the target <strong>village court</strong> is unavailable: with the town court embracing that village, or if that is also unavailable, with the town court of any adjoining town in the same county.</li>
-</ul>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§120.40 — Attaching Accusatory Instrument to Warrant</div>
-<p class="nb-p">A town court, village court, or city court issuing a warrant may attach a <strong>duplicate copy of the underlying accusatory instrument</strong> to the warrant (and to any duplicate copies of the warrant). Where a defendant is brought before a different court under <span class="nb-sec">§120.90(5)</span>, the attached copy constitutes a valid basis for arraignment under <span class="nb-sec">§170.15(1)</span>.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§120.50 — To Whom Warrant Is Addressed</div>
-<p class="nb-p">A warrant shall be addressed to any police officer or classification of police officers whose <strong>geographical area of employment</strong> embraces EITHER (a) the place where the offense was allegedly committed, OR (b) the locality of the issuing court.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§120.55 — Execution by Parole / Probation Officers</div>
-<p class="nb-p">If a defendant named in a warrant issued by a local criminal court, youth part of the superior court, or a superior court (<span class="nb-sec">§210.10(3)</span>) is under supervision of the <strong>State Department of Corrections and Community Supervision</strong> or a local or state probation department, the warrant may be executed by a parole officer or probation officer — when <strong>authorized by his or her probation director</strong> — within the officer's geographical area of employment, in the same manner and upon the same conditions as execution by a police officer.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§120.60 — What Police Officers May Execute a Warrant</div>
-<p class="nb-p">A warrant may be executed by: (a) any police officer <strong>to whom it is addressed</strong>; or (b) any other police officer <strong>delegated</strong> to execute it as an agent.</p>
-<p class="nb-p"><strong>Delegation — Conditions (subd. 2):</strong> ALL of the following must be met:</p>
-<ul class="nb-ul">
-<li>(a) Addressee has reasonable cause to believe defendant is in a county <strong>other than the one where the warrant is returnable</strong>; AND</li>
-<li>(b) The warrant is executable in that county <strong>without endorsement</strong> (<span class="nb-sec">§120.70</span>); AND</li>
-<li>(c) The geographical area of employment of the delegated officer <strong>embraces the locality of arrest</strong>.</li>
-</ul>
-<p class="nb-p"><strong>Delegation — Procedure (subd. 3):</strong> The addressee may inform the delegated officer — by telecommunication, mail, or any other means — of the warrant's issuance, the offense charged, and all other pertinent details, and may <strong>request</strong> the delegated officer to act as agent. Upon such request, the delegated officer has the same authority as the delegating officer within the delegated officer's geographical area of employment. Upon arresting the defendant, the delegated officer must proceed as provided in <strong><span class="nb-sec">§120.90</span> subdivisions two and four</strong>.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§120.70 — Where Warrants Are Executable</div>
-<p class="nb-p"><strong>Statewide:</strong> Warrants issued by a District Court, NYC Criminal Court, youth part of a superior court, or a Superior Court judge sitting as a local criminal court may be executed <strong>ANYWHERE IN THE STATE</strong>.</p>
-<p class="nb-p"><strong>City/Town/Village court warrants:</strong> executable in the county of issuance or any <strong>ADJOINING county</strong>; or <strong>ANYWHERE else in the state</strong> upon the <strong>written endorsement</strong> of a local criminal court of the county where the arrest is to be made — upon endorsement, the warrant is deemed the process of <strong>BOTH</strong> the issuing and endorsing courts.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§120.80 — When and How Executed</div>
-<p class="nb-p">Warrants may be executed on <strong>ANY day of the week</strong> and at <strong>ANY hour of the day or night</strong>.</p>
-<p class="nb-p">Unless encountering physical resistance, flight, or other factors rendering normal procedure impractical, officer <strong><span class="nb-key">MUST</span></strong> inform the defendant a warrant for his arrest has been issued for the designated offense; must show the warrant upon request if in possession, or at the earliest opportunity thereafter.</p>
-<p class="nb-p">Officer may use physical force justifiable under <strong>PL <span class="nb-sec">§35.30</span></strong>.</p>
-<p class="nb-p">Officer may enter any premises where defendant is reasonably believed present — but if a <strong>THIRD PARTY'S dwelling</strong>, must proceed per Article 690. Before entry, must give or make reasonable effort to give notice of authority and purpose — <strong>UNLESS</strong> there is reasonable cause to believe notice would result in: (a) defendant escaping; (b) endangering life/safety of officer or another; or (c) destruction/damage/concealment of material evidence. If authorized to enter without notice, or if notice is given and entry denied, officer may <strong>enter by breaking</strong> if necessary.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§120.85 — Child-Sensitive Arrests</div>
-<p class="nb-p">A state or local law enforcement officer who arrests an individual legally charged with the care or custody of a child under 18 must, to the extent practicable at the time of arrest, take appropriate action conducive to the child's <strong>safety and/or security</strong>, consistent with policies established under Executive Law <span class="nb-sec">§214</span>-i or <span class="nb-sec">§840(3)(f-2)</span>, as applicable.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§120.90 — Procedure After Arrest on a Warrant</div>
-<p class="nb-p"><strong>(1) Addressee — same/adjoining county, or felony anywhere in state:</strong> Must without unnecessary delay bring defendant before the local criminal court or youth part of the superior court in which the warrant is returnable. If an <strong>off-hours arraignment part</strong> (Judiciary Law <span class="nb-sec">§212(1)(w)</span>) is operating in that county at the time, officer may bring defendant there instead.</p>
-<p class="nb-p"><strong>(2) Delegated officer — same/adjoining county or felony:</strong> Must without unnecessary delay deliver defendant to the delegating officer, who then proceeds as in subd. 1.</p>
-<p class="nb-p"><strong>(3) Addressee — non-felony, non-adjoining county:</strong> Must inform defendant of right to appear before a local criminal court of the county of arrest for ROR or bail.</p>
-<ul class="nb-ul">
-<li>If defendant does <strong><span class="nb-key">NOT</span></strong> wish to exercise this right: officer requests him to <strong>endorse such fact upon the warrant</strong>; on endorsement, officer brings defendant before the issuing court.</li>
-<li>If defendant <strong>DOES</strong> wish to exercise (or refuses to endorse): officer must bring defendant before a local court of the county of arrest, which must release on ROR or fix bail for appearance in the issuing court on a specified date.</li>
-<li>If defendant is in <strong>default of bail</strong>: officer must bring defendant before the issuing court.</li>
-</ul>
-<p class="nb-p"><strong>(4) Delegated officer — non-felony, non-adjoining county:</strong> May hold defendant up to <strong>2 HOURS</strong> to deliver to the delegating officer.</p>
-<ul class="nb-ul">
-<li>If not delivered in time: delegated officer must inform defendant of right to appear before a local court for ROR or bail.</li>
-<li>If defendant does <strong><span class="nb-key">NOT</span></strong> wish to exercise: officer requests him to make, sign, and deliver a <strong>written statement</strong> of such fact; officer retains custody and delivers to delegating officer.</li>
-<li>If defendant <strong>DOES</strong> wish to exercise (or refuses to make/deliver the statement): officer must bring defendant before a local court of the county of arrest and submit a written statement reciting material facts; that court releases on ROR or fixes bail. Default of bail: officer retains custody, delivers to delegating officer, who brings defendant before the issuing court.</li>
-</ul>
-<p class="nb-p"><strong>(5) Alternate court when issuing court unavailable</strong> (instrument must be attached per <span class="nb-sec">§120.40</span>):</p>
-<ul class="nb-ul">
-<li><strong>Town court unavailable:</strong> bring before any village court embraced (in whole or in part) by such town, or the local criminal court of an adjoining town or city in the same county, or a village court of such adjoining town.</li>
-<li><strong>Village court unavailable:</strong> bring before the town court of the town embracing such village, or any other village court within such town; if those are also unavailable, before the local criminal court of any adjoining town or city of the same county, or any village embraced in whole or in part by such adjoining town.</li>
-<li><strong>City court unavailable:</strong> bring before the local criminal court of any adjoining town or village embraced in whole or in part by such adjoining town of the same county.</li>
-</ul>
-<p class="nb-p"><strong>(5-a) Youth Part unavailable:</strong> If defendant is required to be brought before a youth part of a superior court and that court is not in session, officer must bring defendant before the most accessible <strong>magistrate designated by the Appellate Division</strong> of the applicable department to act as a youth part.</p>
-<p class="nb-p"><strong>(6) Fingerprinting:</strong> Officer must perform all required fingerprinting and other preliminary police duties before bringing defendant before court. Where defendant was released by another county's local court before fingerprinting (for an offense specified in <span class="nb-sec">§160.10(1)</span>), the arraigning court must direct defendant to appear for fingerprinting at a designated time and place.</p>
-<p class="nb-p"><strong>(7) Juvenile/Adolescent Offenders:</strong> Upon arrest of a juvenile offender or adolescent offender, officer must <strong>immediately notify</strong> the parent or other person legally responsible for the offender's care (or person with whom offender is domiciled) of the arrest and the <strong>location of the detention facility</strong>.</p>
-<p class="nb-p"><strong>(8) Telephone access:</strong> Upon arresting a defendant other than a juvenile offender for any offense pursuant to a warrant, officer must — upon defendant's request — permit the defendant to communicate by telephone (provided by the law enforcement facility) to any number in the <strong>United States or Puerto Rico</strong> to obtain counsel and/or inform a relative or friend of the arrest — <strong>UNLESS</strong> granting the call will compromise an ongoing investigation or prosecution.</p>
-  </div>
-</div>
+    <div class="nb">
+      <div class="ns">§30.10(4) — Tolling Provisions</div>
+      <div class="ni"><strong>(a)</strong> Defendant continuously outside NYS, OR whereabouts continuously unknown and unascertainable by reasonable diligence — tolling cannot extend the period by more than 5 additional years</div>
+      <div class="ni"><strong>(b)</strong> Period from commencement of prior prosecution on related charges to dismissal (where dismissal permits re-filing)</div>
+    </div>
 
-<div class="panel" id="panel-pl1000">
-  <div class="panel-header">
-    <div class="panel-eyebrow">NYS Senior Court Clerk Exam · Notes</div>
-    <h2 class="panel-title">PL §10.00</h2>
-    <div class="panel-sub">§10.00 · General Definitions</div>
+    <div class="nb">
+      <div class="ns">§30.30 — Speedy Trial Readiness Deadlines</div>
+      <div class="ni key">⚡ READINESS CLOCK §30.30(1): Felony = 6 months · Misdemeanor &gt;3 months imprisonment = 90 days · Misdemeanor ≤3 months imprisonment = 60 days · Violation only = 30 days</div>
+      <div class="ni key">⚡ CUSTODY CLOCK §30.30(2): Felony = 90 days · Misd. &gt;3 months = 30 days · Misd. ≤3 months = 15 days · Violation = 5 days</div>
+      <div class="ni"><strong>Homicide exemption:</strong> PL §§125.10–125.27 homicide offenses are EXEMPT from BOTH §30.30(1) and §30.30(2)</div>
+      <div class="ni"><strong>Custody exceptions — need not release even after deadline if:</strong> defendant serving term for another offense · defendant held on another charge whose period has not elapsed · defendant re-detained for new crime or violation of release conditions</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§30.30(4) — Key Excluded Periods (Don't Count Against People)</div>
+      <div class="ni"><strong>(a)</strong> Delays from other proceedings — competency, pre-trial motions, appeals, bill of particulars, demand to produce, trial of other charges</div>
+      <div class="ni"><strong>(b)</strong> Continuance at defendant's request or with consent — pro se defendant must be advised of speedy trial rights ON THE RECORD in open court</div>
+      <div class="ni"><strong>(c)(i)</strong> Absence/unavailability of defendant — absent = location unknown AND avoiding apprehension or unlocatable by due diligence</div>
+      <div class="ni"><strong>(c)(ii)</strong> Escape from custody / failure to appear — from bench warrant issuance to reappearance. Defendant must NOT be in custody on another matter</div>
+      <div class="ni"><strong>(e)</strong> Detention in another jurisdiction — DA must be aware AND have exercised diligence to obtain defendant's presence</div>
+      <div class="ni"><strong>(g)</strong> Exceptional circumstances — unavailable material evidence (DA exercised due diligence) OR additional prep time justified by exceptional circumstances</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§30.30(5) — Certificate of Compliance (NEW 2026)</div>
+      <div class="ni upd">🆕 NEW 2026: Court must inquire on the record as to actual readiness when People state readiness. If not actually ready, statement of readiness is INVALID</div>
+      <div class="ni">Certificate of compliance is INVALID when court finds People did not exercise due diligence — assessed by totality of prosecution's efforts including: volume of discovery provided, complexity of case, whether prosecutor knew of missing material, response when apprised of missing discovery, whether omission was corrected, and whether delayed disclosure was prejudicial to defense</div>
+      <div class="ni upd">🆕 NEW 2026 — §30.30(5-a): On a local criminal court accusatory instrument, statement of readiness not valid unless prosecuting attorney certifies all counts meet CPL §§100.15 and 100.40 requirements</div>
+    </div>
+
+    <div class="nb">
+      <div class="ns">§30.30(7) — Instrument Conversion Clock Rules</div>
+      <div class="ni"><strong>Felony complaint converted to Information/Misdemeanor Complaint (non-custody):</strong> Clock resets to new instrument date UNLESS aggregate would exceed 6 months → original felony complaint date controls</div>
+      <div class="ni"><strong>Felony complaint converted (custody §30.30(2)):</strong> Clock resets UNLESS aggregate would exceed 90 days → original date controls</div>
+      <div class="ni"><strong>§30.30(8) — People bear the burden at hearing:</strong> If time period disputed at oral argument, court must hold prompt hearing where People must PROVE the period is excludable</div>
+    </div>
+
   </div>
-  <div class="notes-wrap">
-    <p class="nb-p">The following definitions apply throughout the Penal Law unless a different meaning is expressly specified elsewhere in this chapter.</p>
-<div class="nb-rule"></div>
-<div class="nb-section-head">Core Offense Definitions</div>
-<div class="nb-tbl-wrap"><table class="nb-tbl">
-<tr><th>TERM</th><th>DEFINITION</th></tr>
-<tr><td><strong>1. Offense</strong></td><td>Conduct for which a sentence of imprisonment or a fine is provided by any law of this state, or by any law, local law, or ordinance of a political subdivision thereof, or by any order, rule, or regulation of a governmental instrumentality authorized by law to adopt the same.</td></tr>
-<tr><td><strong>2. Traffic Infraction</strong></td><td>Any offense defined as a traffic infraction by VTL <span class="nb-sec">§155.</span></td></tr>
-<tr><td><strong>3. Violation</strong></td><td>An offense, <strong>other than a traffic infraction</strong>, for which a sentence of imprisonment <strong>IN EXCESS OF 15 DAYS CANNOT</strong> be imposed.</td></tr>
-<tr><td><strong>4. Misdemeanor</strong></td><td>An offense, <strong>other than a traffic infraction</strong>, for which a sentence <strong>IN EXCESS OF 15 DAYS MAY</strong> be imposed, but for which a sentence <strong>IN EXCESS OF ONE YEAR CANNOT</strong> be imposed.</td></tr>
-<tr><td><strong>5. Felony</strong></td><td>An offense for which a sentence of imprisonment <strong>IN EXCESS OF ONE YEAR MAY</strong> be imposed.</td></tr>
-<tr><td><strong>6. Crime</strong></td><td>A misdemeanor or a felony.</td></tr>
-</table></div>
-<div class="nb-rule"></div>
-<div class="nb-section-head">General Definitions</div>
-<div class="nb-tbl-wrap"><table class="nb-tbl">
-<tr><th>TERM</th><th>DEFINITION</th></tr>
-<tr><td><strong>7. Person</strong></td><td>A human being and, where appropriate, a public or private corporation, unincorporated association, partnership, government, or governmental instrumentality.</td></tr>
-<tr><td><strong>8. Possess</strong></td><td>To have physical possession or otherwise to exercise dominion or control over tangible property.</td></tr>
-<tr><td><strong>9. Physical Injury</strong></td><td>Impairment of physical condition or substantial pain.</td></tr>
-<tr><td><strong>10. Serious Physical Injury</strong></td><td>Physical injury which creates a substantial risk of death, or which causes death or serious and protracted disfigurement, protracted impairment of health, or protracted loss or impairment of the function of any bodily organ.</td></tr>
-<tr><td><strong>11. Deadly Physical Force</strong></td><td>Physical force which, under the circumstances in which it is used, is readily capable of causing death or other serious physical injury.</td></tr>
-<tr><td><strong>12. Deadly Weapon</strong></td><td>Any loaded weapon from which a shot readily capable of producing death or other serious physical injury may be discharged; or a switchblade knife, pilum ballistic knife, metal knuckle knife, dagger, billy, blackjack, plastic knuckles, or metal knuckles.</td></tr>
-<tr><td><strong>13. Dangerous Instrument</strong></td><td>Any instrument, article, or substance (including a "vehicle" as defined herein) which, under the circumstances in which it is used, attempted to be used, or threatened to be used, is readily capable of causing death or other serious physical injury.</td></tr>
-<tr><td><strong>14. Vehicle</strong></td><td>A motor vehicle, trailer, or semi-trailer (as defined in the VTL); any snowmobile (Parks and Recreation Law); any aircraft; or any vessel equipped for propulsion by mechanical means or by sail.</td></tr>
-<tr><td><strong>15. Public Servant</strong></td><td>(a) Any public officer or employee of the state or of any political subdivision thereof, or of any governmental instrumentality within the state; or (b) any person exercising the functions of any such public officer or employee. Includes a person elected or designated to become a public servant.</td></tr>
-<tr><td><strong>16. Juror</strong></td><td>Any person who is a member of any jury (including a grand jury) impaneled by any court in this state or by any public servant authorized by law to impanel a jury. Also includes a person drawn or summoned to attend as a prospective juror.</td></tr>
-<tr><td><strong>17. Benefit</strong></td><td>Any gain or advantage to the beneficiary, including any gain or advantage to a third person pursuant to the desire or consent of the beneficiary.</td></tr>
-<tr><td><strong>21. Drug Trafficking Felony</strong></td><td>Any of the following offenses in PL Article 220: Use of child to commit controlled substance offense (<span class="nb-sec">§220.28</span>); Criminal Sale of a Controlled Substance 4° (<span class="nb-sec">§220.34</span>), 3° (<span class="nb-sec">§220.39</span>), 2° (<span class="nb-sec">§220.41</span>), 1° (<span class="nb-sec">§220.43</span>); Criminal Sale in or near school grounds (<span class="nb-sec">§220.44</span>); Unlawful Manufacture of Methamphetamine 2° (<span class="nb-sec">§220.74</span>), 1° (<span class="nb-sec">§220.75</span>); Operating as a Major Trafficker (<span class="nb-sec">§220.77</span>).</td></tr>
-<tr><td><strong>22. Employee</strong> <em>(for PL §<span class="nb-sec">§20.20</span> & 60.27)</em></td><td>Any person providing labor or services for remuneration for a private entity or business within New York state, without regard to immigration status. Includes part-time workers, independent contractors, apprentices, domestic workers, home care and personal care workers, day laborers, farmworkers, and other temporary and seasonal workers.</td></tr>
-</table></div>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§10.00(18) — Juvenile Offender (Two Tiers)</div>
-<p class="nb-p"><strong>Tier 1 — Age 13:</strong> Criminally responsible for acts constituting <strong>Murder in the Second Degree</strong> (PL <span class="nb-sec">§125.25(1)</span> or (2)) or such conduct as a <strong>sexually motivated felony</strong> (PL <span class="nb-sec">§130.91</span>).</p>
-<p class="nb-p"><strong>Tier 2 — Age 14 or 15:</strong> Criminally responsible for acts constituting:</p>
-<ul class="nb-ul">
-<li>Murder 2° — <span class="nb-sec">§125.25(1)</span> and (2); or <span class="nb-sec">§125.25(3)</span> where the underlying crime is one for which such person is criminally responsible;</li>
-<li>Kidnapping 1° (<span class="nb-sec">§135.25</span>); Arson 1° (<span class="nb-sec">§150.20</span>); Assault 1° (<span class="nb-sec">§120.10(1)</span> and (2)); Manslaughter 1° (<span class="nb-sec">§125.20</span>);</li>
-<li>Rape 1° — <span class="nb-sec">§130.35</span>, paragraphs (a) and (b) of subdivisions one, two, and three; or former <span class="nb-sec">§130.35</span> subdivisions one and two;</li>
-<li>Former Criminal Sexual Act 1° — former <span class="nb-sec">§130.50</span> subdivisions one and two;</li>
-<li>Aggravated Sexual Abuse 1° (<span class="nb-sec">§130.70</span>); Burglary 1° (<span class="nb-sec">§140.30</span>); Burglary 2° subd. 1 (<span class="nb-sec">§140.25(1)</span>); Arson 2° (<span class="nb-sec">§150.15</span>);</li>
-<li>Robbery 1° (<span class="nb-sec">§160.15</span>); Robbery 2° subd. 2 (<span class="nb-sec">§160.10(2)</span>);</li>
-<li><span class="nb-sec">§265.03</span> (Criminal Possession of a Weapon — <strong>machine gun or firearm</strong>) where such machine gun or firearm is possessed on <strong>school grounds</strong> as defined in PL <span class="nb-sec">§220.00(14)</span>; or</li>
-<li>An attempt to commit Murder 2° or Kidnapping 1°, or such conduct as a sexually motivated felony (PL <span class="nb-sec">§130.91</span>).</li>
-</ul>
-<div class="nb-rule"></div>
-<div class="nb-section-head">§10.00(19) & (20) — Additional Definitions</div>
-<p class="nb-p"><strong><span class="nb-sec">§10.00(19)</span> — Child Day Care Provider</strong> <em>(for purposes of PL §<span class="nb-sec">§260.30</span> and 120.01):</em> as defined in Social Services Law <span class="nb-sec">§390.</span></p>
-<p class="nb-p"><strong><span class="nb-sec">§10.00(20)</span> — Peace Officer</strong> <em>(for purposes of PL §<span class="nb-sec">§120.13</span>, 120.18, 125.11, 125.21, and 125.22):</em> a peace officer as defined in specified subdivisions of CPL <span class="nb-sec">§2.10</span> and any federal law enforcement officer defined in CPL <span class="nb-sec">§2.15.</span></p>
   </div>
-</div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="sec-head" style="margin-top:16px">
+    <span class="sec-icon">❓</span>
+    <span class="sec-title">Quiz — CPL Art. 30 (5 questions)</span>
+    <button class="toggle-btn" onclick="toggleEl('quiz-art30',this)">Hide quiz</button>
+  </div>
+  <div id="quiz-art30">
+  <div class="quiz-grid" id="quiz-container-30"></div>
+  </div>
+
+</div><!-- /panel-pl10 -->
 
 
-<div class="toast" id="page-toast"></div>
 <script>
-function showToast(msg,type){var t=document.getElementById('page-toast');if(!t)return;t.textContent=msg;t.className='toast toast-'+(type||'info')+' show';clearTimeout(t._t);t._t=setTimeout(function(){t.className='toast';},2200);}
-function switchTab(id, btn) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => {
-    p.classList.remove('active');
-    p.style.display = 'none';
+// ══════════════════════════════════════════════════════════════
+// QUESTION DATA — all 43 questions with choices + explanations
+// ══════════════════════════════════════════════════════════════
+const QUESTIONS = [
+{n:1, q:"CPL applies to:",
+ opts:["a. all criminal actions and proceedings","b. only those criminal actions and proceedings commenced before but still pending on the effective date of CPL","c. all criminal actions and proceedings commenced before but still pending on the effective date of CPL, provided that application of the provisions would not work injustice","d. only appeals and other post-judgment proceedings commenced on or after the effective date of CPL"],
+ correct:"c",
+ exp:"The effective date of CPL is September 1, 1971. The correct answer covers both pending matters and the injustice safeguard. Choice (a) is overbroad. Choices (b) and (d) are each incomplete.",
+ ans:"all criminal actions and proceedings commenced before but still pending on the effective date of CPL, provided that application of the provisions would not work injustice"},
+
+{n:2, q:'A "superior court information" is similar in legal effect to an indictment except that a "superior court information" is filed by:',
+ opts:["a. a grand jury","b. a district attorney","c. a superior court","d. an arresting officer"],
+ correct:"b",
+ exp:"An indictment is the product of a grand jury; a superior court information has the same force and effect as an indictment, and is filed with a superior court by a district attorney.",
+ ans:"a district attorney"},
+
+{n:3, q:"An information in a local criminal court is:",
+ opts:["a. an unverified written accusation by a person","b. a verified written accusation by a person","c. a verified oral accusation by a person","d. a verified written accusation which can be made only by a district attorney"],
+ correct:"b",
+ exp:'Verification of an information is covered by CPL 100.30. Basically it means "sworn to."',
+ ans:"a verified written accusation by a person"},
+
+{n:4, q:"An information may serve:",
+ opts:["a. both to commence a criminal action and as a basis for prosecution","b. both to commence a criminal action and to charge one or more defendants with a felony","c. only to commence a criminal action","d. only to serve as a basis for prosecution"],
+ correct:"a",
+ exp:"An information may serve both purposes. The commencement of a criminal action is defined in CPL 1.20-17. The significance of the date of commencement is given in CPL 30.10, which deals with timeliness of prosecution.",
+ ans:"both to commence a criminal action and as a basis for prosecution"},
+
+{n:5, q:'A "prosecutor\'s information" can charge a defendant with a:',
+ opts:["a. class A misdemeanor and class B felony","b. traffic infraction and class A felony","c. traffic infraction","d. class C felony"],
+ correct:"c",
+ exp:"A prosecutor's information cannot be used for a felony, thus eliminating choices (a), (b) and (d).",
+ ans:"traffic infraction"},
+
+{n:6, q:"A misdemeanor complaint can charge one or more defendants with:",
+ opts:["a. only misdemeanors","b. any offense, with at least one being a crime","c. a felony","d. any offense, with at least one being a crime, but none being a felony"],
+ correct:"d",
+ exp:"A misdemeanor complaint can charge one or more offenses, provided that at least one is a misdemeanor and none is a felony.",
+ ans:"any offense, with at least one being a crime, but none being a felony"},
+
+{n:7, q:"A felony complaint…",
+ opts:["a. is filed with any criminal court","b. serves to commence a criminal action, but may not, except upon the defendant's consent, serve as a basis for prosecution","c. is a written accusation by a person, filed with a local criminal court, that charges a defendant with a felony but does not serve to commence a criminal action","d. can serve to commence a criminal action but may not serve as a basis for the prosecution of that action"],
+ correct:"d",
+ exp:"Choice (d) is correct (CPL 1.20-8). Choice (a) is incorrect because a felony complaint is filed only with a local criminal court. Choice (b) is incorrect because a felony complaint cannot serve as the basis for prosecuting a felony. Choice (c) is incorrect because a felony complaint does serve to commence a criminal action.",
+ ans:"can serve to commence a criminal action but may not serve as a basis for the prosecution of that action"},
+
+{n:8, q:"Arraignment refers to a defendant's appearance in:",
+ opts:["a. the court which will conduct a trial, only","b. the court in which the criminal action is pending","c. only the first court in which the defendant is produced","d. any court which will decide, without a jury, defendant's guilt or innocence, only"],
+ correct:"b",
+ exp:"Choice (b) is correct (CPL 1.20-9). An arraignment is held for the court to acquire and exercise control over defendant's person and to set the course of further proceedings — bail status, lawyer, and scheduling. Choice (a) is incorrect because arraignment for a felony is usually in a local criminal court, which lacks trial jurisdiction as to felonies. Choice (c) is incorrect because it may not be the only court. Choice (d) has no legal support.",
+ ans:"the court in which the criminal action is pending"},
+
+{n:9, q:"Jury trial commences:",
+ opts:["a. when first witness is sworn","b. when first opening address is made","c. when the judge announces that the case is on trial","d. with selection of the jury"],
+ correct:"d",
+ exp:"The time when a jury trial commences may be a significant factor in relation to double jeopardy issues (CPL 40.30-1(b)).",
+ ans:"with selection of the jury"},
+
+{n:10, q:"Defendant is arrested and charged with a felony. He demands a jury trial. Which of the following is a part of the jury trial?",
+ opts:["a. Opening statements","b. Sentence","c. Selection of jurors","d. Witnesses being sworn at trial"],
+ correct:"c",
+ exp:'"A jury trial commences with the selection of the jury and includes all further proceedings through the rendition of a verdict." Sentence follows upon a verdict of conviction and is therefore not part of a jury trial.',
+ ans:"Selection of jurors"},
+
+{n:11, q:"Which one of the following constitutes a conviction?",
+ opts:["a. The imposition of sentence upon a verdict of guilty","b. A verdict of guilty rendered by a jury","c. The entry of a plea of guilty upon an indictment","d. A plea of guilty upon a felony complaint"],
+ correct:"c",
+ exp:"The imposition of sentence is based on a conviction but is subsequent in time. A plea of guilty upon a felony complaint is expressly negated by CPL 1.20-13.",
+ ans:"The entry of a plea of guilty upon an indictment"},
+
+{n:12, q:"Accusatory instruments are used on behalf of the State as plaintiff to charge:",
+ opts:["a. only crimes","b. only felonies","c. all offenses","d. only misdemeanors and felonies"],
+ correct:"c",
+ exp:'An "offense" under Penal Law 10.00-1 means any conduct for which a sentence of imprisonment or fine is provided; accusatory instruments are used for all offenses.',
+ ans:"all offenses"},
+
+{n:13, q:"According to CPL, a criminal action commences when:",
+ opts:["a. a defendant is arrested","b. the first accusatory instrument is filed against the defendant","c. an indictment is voted by a grand jury","d. the crime was committed"],
+ correct:"b",
+ exp:"Not at arrest, not at the crime date, not at indictment — filing of the first accusatory instrument is the trigger per CPL 1.20-1, 8, 16, 17.",
+ ans:"the first accusatory instrument is filed against the defendant"},
+
+{n:14, q:'What does "trial jurisdiction" mean?',
+ opts:["a. The authority of a court to issue an arrest warrant","b. The authority of a court to make a final disposition of a case on its merits","c. The authority of a court to commence a preliminary hearing","d. The authority of a court to arraign a defendant"],
+ correct:"b",
+ exp:"A court can have both preliminary and trial jurisdiction; an indictment may originate in a grand jury without a prior lower-court hearing.",
+ ans:"The authority of a court to make a final disposition of a case on its merits"},
+
+{n:15, q:"Regarding an appearance ticket, which statement is correct? (1) It must be in writing (2) It may be issued only by a police officer (3) It may require defendant to appear in any criminal court (4) It cannot be used for a felony",
+ opts:["a. Only statement 1 is correct","b. Statements 1 and 2 are correct","c. Statements 1 and 4 are correct","d. All four statements are correct"],
+ correct:"a",
+ exp:"Statement 2 is wrong — other public servants may issue appearance tickets per CPL 150.10. Statement 3 is wrong — it directs appearance in a designated local criminal court. Statement 4 is wrong — it may be used for certain class E felonies per CPL 150.20-2.",
+ ans:"Only statement 1 is correct"},
+
+{n:16, q:'A "summons" in a criminal action is served upon:',
+ opts:["a. an alleged offender requiring him to appear for trial","b. a defendant who has not yet been charged with any offense","c. a defendant against whom a criminal action has commenced","d. a witness whose attendance is required at a trial"],
+ correct:"c",
+ exp:"Choice (a) is incorrect because a summons requires a defendant to appear for arraignment. Choice (b) is incorrect because a summons is based upon a filed accusatory instrument. Choice (d) is incorrect because a summons is not used for a witness — the attendance of witnesses is obtained by subpoena.",
+ ans:"a defendant against whom a criminal action has commenced"},
+
+{n:17, q:"A process of a local criminal court requiring a defendant to appear before it for arraignment upon a filed accusatory instrument by which a criminal action was commenced is known as:",
+ opts:["a. a subpoena","b. an appearance ticket","c. a summons","d. a bench warrant"],
+ correct:"c",
+ exp:"Choice (a) is incorrect because a subpoena is used to require a witness to appear. Choice (b) is incorrect because an appearance ticket is issued by a police officer or other public servant, and is not a process of a local criminal court. Choice (d) is incorrect because a bench warrant is used to produce a defendant for some purpose other than initial arraignment (CPL 1.20-30).",
+ ans:"a summons"},
+
+{n:18, q:"A summons may be issued by:",
+ opts:["a. a local criminal court, only","b. a superior court, only","c. a local or superior court","d. a police officer"],
+ correct:"c",
+ exp:"The amended section, effective 11/1/93, authorizes a superior court to issue a summons, as well as a local criminal court. Choices (a) and (b) are necessarily incorrect. Choice (d) is incorrect — a police officer may issue an appearance ticket (CPL 1.20-26).",
+ ans:"a local or superior court"},
+
+{n:19, q:"Police have probable cause to believe Joe has committed a crime. They apply to a local criminal court for a court order which directs a police officer to arrest Joe, and bring him in for arraignment upon a filed accusatory instrument. This order is called a:",
+ opts:["a. bench warrant","b. prosecutor's warrant","c. warrant of arrest","d. search warrant"],
+ correct:"c",
+ exp:"Choice (a) is incorrect because a bench warrant is used to produce a defendant for some purpose other than initial arraignment. Choice (b) is meaningless, because a warrant is a court process. Choice (d) is incorrect because a search warrant is directed to tangible physical evidence rather than a defendant.",
+ ans:"warrant of arrest"},
+
+{n:20, q:"A warrant of arrest is addressed to and can be executed by:",
+ opts:["a. a police officer","b. any peace officer","c. a court officer","d. a county's clerk's officer"],
+ correct:"a",
+ exp:"Choice (b) is incorrect. Although not explicitly stated in CPL 1.20-28, there is provision in CPL 120.10-1 for a warrant of arrest to direct 'a peace officer appointed by the state university to arrest a defendant...' This authority is not given to all peace officers. Choice (c) is incorrect because the title does not exist.",
+ ans:"a police officer"},
+
+{n:21, q:"An indictment has been filed against a defendant to commence the criminal action against him. In order for an officer to bring the defendant before the court for the purpose of arraignment upon the indictment he must obtain:",
+ opts:["a. a summons","b. a warrant of arrest","c. a superior court warrant of arrest","d. a bench warrant"],
+ correct:"c",
+ exp:"Choice (b) is incorrect because a warrant of arrest is a process of a local criminal court directing a police officer to produce the defendant for purpose of arraignment on an accusatory instrument. Choice (a) has no application to an indictment (CPL 1.20-27, 130.10). Choice (d) may be used by a criminal court when a defendant in a pending case has previously been arraigned and his further appearance is required.",
+ ans:"a superior court warrant of arrest"},
+
+{n:22, q:'A "superior court warrant of arrest" directs __________ to arrest a defendant for arraignment in a superior court.',
+ opts:["a. a police officer","b. any peace officer","c. a county marshal","d. a court officer of a superior court","e. the Office of Arrest Warrants"],
+ correct:"a",
+ exp:"Choices (b), (c) and (d) are incorrect because they are not included in the applicable definition. Choice (e) is meaningless — no such office is known to exist. In New York City, the Police Department has a warrant squad composed of police officers, and prosecutor's offices may have police officers assigned. In addition, note CPL 1.20-34(g) which includes in the category of police officers 'An investigator employed in the office of a district attorney.'",
+ ans:"a police officer"},
+
+{n:23, q:"A process of a criminal court which directs a police officer to take into custody a defendant who has previously been arraigned upon an accusatory instrument by which an action was commenced is:",
+ opts:["a. a superior court warrant of arrest","b. a bench warrant","c. an indictment","d. a criminal court warrant"],
+ correct:"b",
+ exp:"Since the defendant has previously been arraigned, a bench warrant is appropriate to achieve defendant's further court appearance.",
+ ans:"a bench warrant"},
+
+{n:24, q:"Accusatory instruments include:",
+ opts:["a. indictments and warrants of arrest","b. felony complaints and a prosecutor's information","c. grand jury statements and superior court orders","d. misdemeanor complaints and indictments"],
+ correct:"d",
+ exp:"Choice (a) is incorrect because a warrant of arrest is not an accusatory instrument. When issued, warrant of arrest is based on an accusatory instrument (CPL 120.10-1). Choice (c) uses terms which are neither defined in CPL nor relevant to accusatory instruments.",
+ ans:"misdemeanor complaints and indictments"},
+
+{n:25, q:"The purpose of a bench warrant is to:",
+ opts:["a. return a defendant to a jail from which he or she has escaped","b. bring a defendant into court for initial arraignment","c. have a defendant appear before a grand jury to testify","d. produce a defendant in court on a pending criminal action for some purpose other than initial arraignment"],
+ correct:"d",
+ exp:"A bench warrant produces a defendant in court on a pending criminal action for some purpose other than initial arraignment.",
+ ans:"produce a defendant in court on a pending criminal action for some purpose other than initial arraignment"},
+
+{n:26, q:'The term "prosecutor" includes:',
+ opts:["a. a district attorney","b. the attorney-general","c. a special prosecutor","d. the New York City Corporation Counsel"],
+ correct:"a",
+ exp:"Choices (b) and (c) may represent the people in certain criminal actions, instead of the district attorney. Choice (d) is incorrect, for it refers to the person who as head of New York City's legal department is concerned with civil legal matters. Criminal actions would have to be referred to an appropriate prosecutor.",
+ ans:"a district attorney"},
+
+{n:27, q:"Which of the following are police officers, under CPL?",
+ opts:["a. All sheriffs, under-sheriffs and deputy sheriffs","b. A deputy fire marshal in the bureau of fire investigation of the New York City Fire Department","c. An investigator employed in the office of a district attorney","d. Long Island Railroad police","e. A sworn officer of the police force of the Port Authority of New York and New Jersey (a public authority created by an interstate compact between New York and New Jersey)"],
+ correct:"c",
+ exp:"Choice (a) is incorrect because these officials have police officer status only when employed by counties outside New York City. In New York City, the sheriff, under-sheriff and deputy sheriffs exercise only civil jurisdiction.",
+ ans:"An investigator employed in the office of a district attorney"},
+
+{n:28, q:"The State University of New York operates state-wide. For security functions it appoints persons who are designated in CPL as:",
+ opts:["a. peace officers","b. police officers","c. constables","d. security officers"],
+ correct:"b",
+ exp:"The correct answer is: police officers.",
+ ans:"police officers"},
+
+{n:29, q:"Select the correct statement as to the geographical area of employment of police officers:",
+ opts:["a. A twenty-year veteran New York State police officer has spent all his police service assigned to the Dover Plains Station in Dutchess County. His geographical area of employment is the entire state","b. A New York City police officer lives and works in Kings County, one of the five counties of New York City. The officer's geographical area of employment is solely Kings County","c. A deputy sheriff of Nassau County has always been assigned to the County Jail in Mineola. The sheriff's geographical area of employment is limited to Mineola","d. A police officer of the town of Chatham, in Columbia County, is assigned to road patrol for traffic violators. The officer's geographical area of employment does not include state or county roads which pass through the town"],
+ correct:"a",
+ exp:"Since the officer's employer is the state, his geographical area of employment is the entire state. Choice (b) is incorrect, for the geographical area of employment of a New York City police officer is the entire city. Choice (c) is incorrect — Nassau County determines his geographical area of employment as being all of the county. Choice (d) is incorrect — the entire town is included in the officer's geographical area of employment. Note that subdivision 34-a relative to the NYS geographical area of employment is repealed eff. 9/1/25, per Ch.55, L.2023.",
+ ans:"A twenty-year veteran New York State police officer has spent all his police service assigned to the Dover Plains Station in Dutchess County. His geographical area of employment is the entire state"},
+
+{n:30, q:"Select the correct statement as to the geographical area of employment of a police officer appointed by the state university:",
+ opts:["a. The officer's geographical area of employment is the entire state, because the state university functions throughout the state","b. The officer's geographical area of employment is limited to the campus properties of the state university","c. The officer's geographical area of employment is fixed and defined by his employer, the state university, according to his duty assignment","d. The officer's geographical area of employment includes university campuses and other university property, including any portion of a public highway which may cross or abut university property"],
+ correct:"d",
+ exp:"Choices (a), (b) and (c) are incorrect because CPL 1.20-34a(d) limits the geographical area of employment of police officers appointed by the state university to campuses and other property of the state university, including any portion of a public highway which crosses or abuts such property. Generally, CPL 1.20-34a provides that other police officers of an agency have a geographical area of employment throughout the state when the agency functions throughout the state.",
+ ans:"The officer's geographical area of employment includes university campuses and other university property, including any portion of a public highway which may cross or abut university property"},
+
+{n:31, q:"Select all correct statements as to a lesser included offense:",
+ opts:["a. Intentional assault is a lesser included offense of intentional murder","b. Petit larceny (stealing property, a misdemeanor) is a lesser included offense of grand larceny first degree (stealing over one million dollars in property, a class B felony)","c. Sexual abuse first degree (sexual contact by forcible compulsion, a class D felony) is a lesser included offense of rape first degree (sexual intercourse by forcible compulsion, a class B felony)","d. Trespass (entering premises unlawfully, a violation) is a lesser included offense of burglary first degree (entering a dwelling unlawfully while armed, a class B felony)"],
+ correct:"a",
+ exp:"In each situation it would be impossible to commit the greater offense without at the same time and by the same conduct committing the lesser. Choice (b) is incorrect — it is possible to steal over $1M without committing petit larceny. Choice (c) is incorrect — it is possible to commit rape 1st without committing sexual abuse 1st. Choice (d) is incorrect — it is possible to commit burglary 1st without committing trespass.",
+ ans:"Intentional assault is a lesser included offense of intentional murder"},
+
+{n:32, q:"An attempt to commit an intentional assault may be successful or unsuccessful. Assume a successful attempt in which the defendant is charged only with the completed assault. It has, however, been agreed that the defendant will voluntarily plead guilty to attempted assault in full satisfaction of the charge. This guilty plea:",
+ opts:["a. cannot be accepted, since defendant was charged only with the completed crime","b. can be accepted, although not included in the indictment","c. should be entered only if the indictment is amended to add a new charge of attempted assault","d. is illegal and improper in any case, since a grand jury saw fit to charge the completed crime"],
+ correct:"b",
+ exp:"In the case of a lesser included offense, it is not necessary that the lesser offense be charged. Defendant may be permitted to plead guilty to a lesser included offense (CPL 220.10), and in the case of a court's charge to a jury, CPL 300.30 and 300.50 provides for the court to submit lesser included offenses for the jury's consideration.",
+ ans:"can be accepted, although not included in the indictment"},
+
+{n:33, q:"According to CPL, an affirmation is most nearly equal to:",
+ opts:["a. an acknowledgment","b. an oath","c. an allegation","d. a truth"],
+ correct:"b",
+ exp:'Adherents of some religions, and others, may have personal reasons for refusing to take an oath. For such persons, an affirmation may be used, as well as any "other mode authorized by law of attesting to the truth of that which is stated." In this regard, an interested person may find case law helpful.',
+ ans:"an oath"},
+
+{n:34, q:"Petty offenses include:",
+ opts:["a. violations, only","b. violations and misdemeanors","c. traffic infractions and violations","d. all offenses"],
+ correct:"c",
+ exp:"Petty offenses is a defined term, and its use must accord with the definition.",
+ ans:"traffic infractions and violations"},
+
+{n:35, q:"Which of the following constitutes a juvenile offender?",
+ opts:["a. A thirteen-year-old male who commits acts constituting the crime of rape first degree","b. A twelve-year-old who commits acts constituting the crime of intentional murder second degree","c. A fourteen-year-old who commits acts constituting the crime of burglary first degree","d. A fifteen-year-old who commits acts constituting the crime of robbery third degree"],
+ correct:"c",
+ exp:"Choice (a) is incorrect because rape in any degree is not a crime for which a thirteen-year-old is criminally responsible as a juvenile offender. Choice (b) is incorrect because a twelve-year-old is not criminally responsible as a juvenile offender for any crime. Choice (d) is incorrect because a fifteen-year-old is not criminally responsible as a juvenile offender for robbery third degree. Also note: certain conduct involving sexually motivated felonies are included. See Penal Law §130.91.",
+ ans:"A fourteen-year-old who commits acts constituting the crime of burglary first degree"},
+
+{n:36, q:"As to possession of a loaded firearm by a person fourteen years of age, select the correct statement:",
+ opts:["a. If the possession is in the person's home there is no criminal responsibility","b. There is criminal responsibility for any such possession","c. There is criminal responsibility only if such possession is on school grounds","d. There is criminal responsibility only if such possession is on school grounds of a public school"],
+ correct:"c",
+ exp:'The legislature extended criminal responsibility in this situation to conduct by a fourteen-year old as described in PL 265.02-4 or PL 265.03, only where the conduct occurred on school grounds, as that term is defined in PL 220.00-14. Choices (b) and (d) are incorrect. Choice (b) is incorrect because it is only such possession on school grounds that entails criminal responsibility. Choice (d) is incorrect because the term "school grounds" is defined by PL 220.00-14 to include a public or private school.',
+ ans:"There is criminal responsibility only if such possession is on school grounds"},
+
+{n:37, q:"The State is designated as the plaintiff in every accusatory instrument:",
+ opts:["a. unless the defendant is a corporation","b. unless the action is prosecuted by the attorney general rather than by a district attorney","c. unless the accusatory instrument is a misdemeanor complaint","d. without exception"],
+ correct:"d",
+ exp:'There are no exceptions. The victim of a crime may be a plaintiff in a civil action arising from the crime, but in a criminal action the State as plaintiff seeks to enforce the criminal law on behalf of "the people" of the State.',
+ ans:"without exception"},
+
+{n:38, q:"An appearance ticket or a parking infraction must contain which of the following: I. time and place of infraction  II. license plate  III. make and model of vehicle  IV. body type of vehicle",
+ opts:["a. I. and II. only","b. II and III. only","c. I., II. and III. only","d. I., II., III. and IV."],
+ correct:"d",
+ exp:"CPL1.20(1)(b) requires all four elements.",
+ ans:"I., II., III. and IV."},
+
+{n:39, q:'"Local criminal court accusatory instruments" include:',
+ opts:["a. indictments","b. felony complaints","c. superior court informations","d. misdemeanor complaints"],
+ correct:"b",
+ exp:"Choices (a) and (c) are incorrect because they are specifically excluded by CPL 1.20-2. Both of these accusatory instruments are used only in superior courts.",
+ ans:"felony complaints"},
+
+{n:40, q:"An indictment is an accusation by:",
+ opts:["a. a prosecutor","b. a grand jury","c. a judge","d. a police officer"],
+ correct:"b",
+ exp:"Neither a prosecutor, judge or police officer has power to indict. An indictment results only from the vote of a grand jury.",
+ ans:"a grand jury"},
+
+{n:41, q:"Which of the following relate to an indictment? 1. It is a written accusation  2. It is an accusation by a district attorney  3. It is filed with a superior court  4. It only concerns felonies",
+ opts:["a. 1 and 2 only","b. 1 and 3 only","c. 2 and 4 only","d. 1, 2, 3 and 4"],
+ correct:"b",
+ exp:"Statement 2 is wrong — an indictment is by a grand jury, not a district attorney. Statement 4 is wrong — an indictment must include at least one crime, which may be a misdemeanor; there is no legal exclusion as to misdemeanors.",
+ ans:"1 and 3 only"},
+
+{n:42, q:"An indictment is filed with a superior court in order to:",
+ opts:["a. alert the grand jury that it must consider evidence against a defendant","b. charge one or more defendants with a crime","c. commence a criminal action in all cases","d. serve as a basis for prosecution in all cases"],
+ correct:"b",
+ exp:"An indictment is the product of grand jury consideration — it does not alert the grand jury. It does not commence a criminal action 'in all cases' — most indictments follow a felony complaint that already commenced the action. It may or may not serve as the basis for prosecution depending on how the action was commenced.",
+ ans:"charge one or more defendants with a crime"},
+
+{n:43, q:"A superior court information is classified in CPL as:",
+ opts:["a. a written accusation by a grand jury, filed with a superior court, which charges a defendant with the commission of one or more offenses at least one of which is a crime","b. a written accusation by a district attorney, filed with a superior court, which charges a defendant with the commission of one or more offenses at least one of which is a crime","c. a written accusation by a district attorney, filed with a local criminal court, which charges a defendant with one or more misdemeanors","d. a written accusation by a police officer, filed with a superior court, which charges a defendant with one or more felonies"],
+ correct:"b",
+ exp:"Under CPL Article 195, with defendant's consent, a DA may file a superior court information as an alternative to grand jury action; it has the same force and effect as an indictment.",
+ ans:"a written accusation by a district attorney, filed with a superior court, which charges a defendant with the commission of one or more offenses at least one of which is a crime"}
+];
+
+// ══════════════════════════════════════════════════════════════
+// STATE & STORAGE
+// ══════════════════════════════════════════════════════════════
+const state = {}; // {qNum: 'a'|'b'|'c'|'d'|'e'}
+const STORE = 'nys_w1_mc';
+
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){} }
+function load(){ try{ const s=JSON.parse(localStorage.getItem(STORE)||'{}'); Object.assign(state,s); }catch(e){} }
+
+// ══════════════════════════════════════════════════════════════
+// BUILD QUIZ
+// ══════════════════════════════════════════════════════════════
+function buildQuiz(){
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = '';
+  QUESTIONS.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.id = 'qcard-'+q.n;
+
+    const answered = state[q.n];
+    const isCorrect = answered === q.correct;
+    if(answered) card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+
+    const letters = ['a','b','c','d','e'];
+    let optsHtml = '';
+    q.opts.forEach((opt, i) => {
+      const letter = letters[i];
+      const text = opt.substring(3); // remove "a. " prefix
+      let cls = 'opt';
+      let badge = '';
+      let letterCls = 'opt-letter';
+      if(answered){
+        cls += ' locked';
+        if(letter === q.correct){
+          cls += ' reveal-correct';
+          badge = '<span class="opt-badge badge-correct">✓ Correct</span>';
+        } else if(letter === answered && answered !== q.correct){
+          cls += ' selected-wrong';
+          badge = '<span class="opt-badge badge-wrong">✗ Incorrect</span>';
+        }
+      }
+      optsHtml += `<div class="${cls}" onclick="selectAnswer(${q.n},'${letter}')" id="opt-${q.n}-${letter}">
+        <div class="opt-letter" id="ol-${q.n}-${letter}">${letter.toUpperCase()}</div>
+        <div class="opt-text">${text}</div>
+        ${badge}
+      </div>`;
+    });
+
+    const expDisplay = answered ? 'show' : '';
+    card.innerHTML = `
+      <div class="qcard-head">
+        <div class="qcard-num">Question ${q.n}</div>
+        <div class="qcard-q">${q.q}</div>
+      </div>
+      <div class="qcard-options">${optsHtml}</div>
+      <div class="qcard-explanation ${expDisplay}" id="exp-${q.n}">
+        <div class="exp-text">${q.exp}</div>
+        <div class="exp-answer">✓ The correct answer is: ${q.ans}</div>
+      </div>`;
+    container.appendChild(card);
   });
-  btn.classList.add('active');
-  const panel = document.getElementById('panel-' + id);
-  if (panel) {
-    panel.classList.add('active');
-    panel.style.display = 'block';
-  }
+  updateScore();
 }
-// Init — hide all panels except first
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.panel').forEach(p => {
-    p.style.display = 'none';
-    p.classList.remove('active');
+
+// ══════════════════════════════════════════════════════════════
+// SELECT ANSWER
+// ══════════════════════════════════════════════════════════════
+function selectAnswer(qNum, letter){
+  if(state[qNum]) return; // already answered
+  const q = QUESTIONS.find(x=>x.n===qNum);
+  if(!q) return;
+
+  state[qNum] = letter;
+  save();
+
+  const card = document.getElementById('qcard-'+qNum);
+  const isCorrect = letter === q.correct;
+  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+
+  // Update option styles
+  const letters = ['a','b','c','d','e'];
+  q.opts.forEach((opt, i) => {
+    const l = letters[i];
+    const optEl = document.getElementById('opt-'+qNum+'-'+l);
+    const olEl = document.getElementById('ol-'+qNum+'-'+l);
+    if(!optEl) return;
+    optEl.classList.add('locked');
+    if(l === q.correct){
+      optEl.classList.add('reveal-correct');
+      // add correct badge
+      if(!optEl.querySelector('.opt-badge')){
+        const badge = document.createElement('span');
+        badge.className = 'opt-badge badge-correct';
+        badge.textContent = '✓ Correct';
+        optEl.appendChild(badge);
+      }
+    } else if(l === letter && !isCorrect){
+      optEl.classList.add('selected-wrong');
+      if(!optEl.querySelector('.opt-badge')){
+        const badge = document.createElement('span');
+        badge.className = 'opt-badge badge-wrong';
+        badge.textContent = '✗ Incorrect';
+        optEl.appendChild(badge);
+      }
+    }
   });
-  var first = document.getElementById('panel-art1');
-  if (first) { first.style.display = 'block'; first.classList.add('active'); }
-  var firstTab = document.querySelector('.tab');
-  if (firstTab) firstTab.classList.add('active');
+
+  // Show explanation
+  const exp = document.getElementById('exp-'+qNum);
+  if(exp) exp.classList.add('show');
+
+  updateScore();
+}
+
+// ══════════════════════════════════════════════════════════════
+// SCORE
+// ══════════════════════════════════════════════════════════════
+function updateScore(){
+  const answered = Object.keys(state).length;
+  const correct = Object.entries(state).filter(([n,l])=>{
+    const q=QUESTIONS.find(x=>x.n===parseInt(n));
+    return q && l===q.correct;
+  }).length;
+  const pct = answered>0 ? Math.round(correct/QUESTIONS.length*100) : 0;
+  const sd = document.getElementById('sd');
+  const ss = document.getElementById('ss');
+  const sf = document.getElementById('sf');
+  if(sd) sd.textContent = correct+' / '+QUESTIONS.length+' correct';
+  if(ss) ss.textContent = answered+' answered · '+pct+'% score';
+  if(sf) sf.style.width = pct+'%';
+}
+
+// ══════════════════════════════════════════════════════════════
+// RESET
+// ══════════════════════════════════════════════════════════════
+function resetAll(){
+  if(!confirm('Reset all answers? This cannot be undone.')) return;
+  Object.keys(state).forEach(k=>delete state[k]);
+  save();
+  buildQuiz();
+}
+
+// ══════════════════════════════════════════════════════════════
+// REVEAL ALL
+// ══════════════════════════════════════════════════════════════
+function revealAllAnswers(){
+  QUESTIONS.forEach(q=>{
+    if(!state[q.n]){
+      state[q.n] = '__revealed__'; // mark as revealed but not scored
+    }
+    const exp = document.getElementById('exp-'+q.n);
+    if(exp) exp.classList.add('show');
+    // highlight correct option
+    const correctOpt = document.getElementById('opt-'+q.n+'-'+q.correct);
+    if(correctOpt && !correctOpt.classList.contains('reveal-correct')){
+      correctOpt.classList.add('reveal-correct','locked');
+      if(!correctOpt.querySelector('.opt-badge')){
+        const badge = document.createElement('span');
+        badge.className = 'opt-badge badge-correct';
+        badge.textContent = '✓ Correct';
+        correctOpt.appendChild(badge);
+      }
+    }
+    // lock all options
+    const letters=['a','b','c','d','e'];
+    letters.forEach(l=>{
+      const o = document.getElementById('opt-'+q.n+'-'+l);
+      if(o) o.classList.add('locked');
+    });
+  });
+}
+
+// ══════════════════════════════════════════════════════════════
+// TAB SWITCH
+// ══════════════════════════════════════════════════════════════
+function switchTab(id, btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════════════
+// TOGGLE SECTION
+// ══════════════════════════════════════════════════════════════
+function toggleEl(id, btn){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const isHidden = el.style.display==='none';
+  el.style.display = isHidden ? 'block' : 'none';
+  const label = id.includes('notes') ? 'notes' : 'quiz';
+  btn.textContent = isHidden ? 'Hide '+label : 'Show '+label;
+}
+
+// ══════════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', ()=>{
+  load();
+  buildQuiz();
 });
 </script>
 
-<div class="toast" id="page-toast"></div>
 <script>
-function showToast(msg,type){var t=document.getElementById('page-toast');if(!t)return;t.textContent=msg;t.className='toast toast-'+(type||'info')+' show';clearTimeout(t._t);t._t=setTimeout(function(){t.className='toast';},2200);}
+// ════════════════════════════════════════════════════════
+// CPL ART 10 — 8 QUESTIONS (from quiz mode document)
+// ════════════════════════════════════════════════════════
+const Q10 = [
+  {n:1, q:"Smith commits a crime in New York City. His criminal case can be tried, according to the CPL:",
+   opts:["a. only in a local criminal court","b. only in a local criminal court or superior court","c. only in the New York City Criminal Court","d. only in a superior court or County Court","e. only by a superior court justice sitting as a local criminal court"],
+   correct:"b",
+   exp:"Since the crime is not specified, the appropriate court cannot be specified. For a felony the case could be tried only in Supreme Court in NYC (there is no County Court within NYC). The correct answer is: <strong>only in a local criminal court or superior court.</strong>",
+   ans:"only in a local criminal court or superior court"},
+  {n:2, q:"A superior court of criminal jurisdiction refers to:",
+   opts:["a. New York City Criminal Court and Supreme Court","b. Supreme Court, Appellate Division and Court of Appeals","c. District Court, New York City Criminal Court and Supreme Court","d. Supreme Court and County Court"],
+   correct:"d",
+   exp:"NYC Criminal Court is a local criminal court. The Appellate Division and Court of Appeals are appellate courts. The District Court is a local criminal court. <strong>Correct: Supreme Court and County Court.</strong>",
+   ans:"Supreme Court and County Court"},
+  {n:3, q:"Superior courts have: 1. unlimited trial jurisdiction over all petty offenses 2. exclusive trial jurisdiction of felonies 3. no trial jurisdiction over misdemeanors 4. no trial jurisdiction over petty offenses 5. preliminary jurisdiction over all offenses only through their grand juries",
+   opts:["a. All of the above are true","b. None of the above are true","c. 2 and 5 are true, the others are not","d. 1 and 2 are true, the others are not"],
+   correct:"c",
+   exp:"Statement 1 incorrect — trial jurisdiction over petty offenses limited to those in an indictment that also charges a crime. Statement 3 incorrect — superior courts have concurrent trial jurisdiction of misdemeanors. Statement 4 incorrect — petty offense jurisdiction exists when included in an indictment charging a crime. <strong>Correct: 2 and 5 are true.</strong>",
+   ans:"2 and 5 are true, the others are not"},
+  {n:4, q:"Superior courts have trial jurisdiction over:",
+   opts:["a. only felonies","b. only felonies and misdemeanors","c. petty offenses, only if there is also a felony charge","d. petty offenses, only if there is also a crime charged"],
+   correct:"d",
+   exp:"A crime includes both misdemeanors AND felonies — not just felonies. So the correct answer is the broader statement: <strong>petty offenses, only if there is also a crime charged.</strong>",
+   ans:"petty offenses, only if there is also a crime charged"},
+  {n:5, q:"Creep has been indicted on a petty offense. The indictment also charges Creep with a crime. Creep's case may be heard only in a:",
+   opts:["a. district court","b. local criminal court","c. superior court","d. city court"],
+   correct:"c",
+   exp:"The significant part of the question is that Creep has been <em>indicted</em>. An indictment may be tried only in a superior court. <strong>Correct: superior court.</strong>",
+   ans:"superior court"},
+  {n:6, q:"Superior court judges, when sitting as local criminal courts, may: 1. conduct arraignments 2. issue warrants of arrest 3. issue search warrants",
+   opts:["a. 1 only","b. 1 and 2 only","c. 2 only","d. 2 and 3 only","e. 1, 2 and 3"],
+   correct:"e",
+   exp:"CPL §10.20(3) lists all three functions. When sitting as a local criminal court, a superior court judge may conduct arraignments, issue warrants of arrest, and issue search warrants. <strong>Correct: 1, 2 and 3.</strong>",
+   ans:"1, 2 and 3"},
+  {n:7, q:"Donny Defendant has decided to represent himself in his criminal case. The county court requires electronic filing. In representing himself, Donny:",
+   opts:["a. Must be assigned a paralegal by the Court to assist with e-filing","b. Must figure out electronic filing himself and comply","c. Is exempt from the electronic filing requirement as a pro se defendant","d. Must apply to the presiding judge for permission to be excused"],
+   correct:"c",
+   exp:"CPL §10.40(2)(b) provides a specific exemption for pro se litigants from the electronic filing requirement. Unrepresented parties can never be compelled to e-file. <strong>Correct: exempt as a pro se defendant.</strong>",
+   ans:"Is exempt from the electronic filing requirement as a pro se defendant"},
+  {n:8, q:"Reporter Nora Nosey wants to view papers filed electronically in a pending county court criminal case online. Nora:",
+   opts:["a. Must obtain the permission of the presiding judge to view online","b. Cannot view the papers online under any circumstances","c. Must file a Freedom of Information Law request to view online","d. Can view the papers if she first registers with OCA for online access"],
+   correct:"b",
+   exp:"CPL §10.40(2)(e)(ii) prohibits viewing of electronically filed papers in criminal proceedings online. FOIL does not apply to courts — only executive agencies. <strong>Correct: cannot view online under any circumstances.</strong>",
+   ans:"Cannot view the papers online under any circumstances"},
+];
+
+// ════════════════════════════════════════════════════════
+// CPL ART 30 — 5 QUESTIONS
+// ════════════════════════════════════════════════════════
+const Q30 = [
+  {n:1, q:"For a felony charge, the People must be ready for trial within:",
+   opts:["a. 90 days","b. 120 days","c. 6 months (approximately 180 days)","d. 1 year"],
+   correct:"c",
+   exp:"CPL §30.30(1) — the People must be ready for trial within <strong>6 months</strong> for a felony. Note: separately, a defendant held in custody on a felony must be released if not ready within 90 days (§30.30(2)).",
+   ans:"6 months (approximately 180 days)"},
+  {n:2, q:"Under CPL §30.30, which offenses are EXEMPT from the speedy trial time limits?",
+   opts:["a. Class A felonies","b. All sex offenses","c. Homicide offenses (PL §§125.10–125.27)","d. Terrorism felonies under PL Art. 490"],
+   correct:"c",
+   exp:"CPL §30.30 expressly exempts <strong>homicide offenses (PL §§125.10–125.27)</strong> from both the readiness deadline and the custody release rule. Class A felonies, sex offenses, and terrorism felonies are all subject to §30.30.",
+   ans:"Homicide offenses (PL §§125.10–125.27)"},
+  {n:3, q:"Under the 2026 law, the statute of limitations period for child sex offenses (against a child under 18) is tolled until:",
+   opts:["a. The victim turns 18","b. The victim turns 21","c. The victim turns 23, or the offense is reported to law enforcement or SCR — whichever is earlier","d. There is no limitation period for any child sex offense"],
+   correct:"c",
+   exp:"NEW 2026: CPL §30.10(3)(f) was updated — the tolling period now runs until the child turns <strong>23</strong> (previously 18), OR the offense is reported to law enforcement or the SCR — whichever comes FIRST.",
+   ans:"The victim turns 23, or the offense is reported to law enforcement or SCR — whichever is earlier"},
+  {n:4, q:"Under §30.10(3)(h) (NEW 2026), the statute of limitations for deed theft / felony fraud in a real property transaction is:",
+   opts:["a. 5 years from commission, period","b. 2 years from discovery, period","c. 5 years from commission OR 2 years from discovery — whichever is EARLIER","d. 5 years from commission OR 2 years from discovery — whichever is LATER"],
+   correct:"d",
+   exp:"NEW 2026: §30.10(3)(h) — deed theft is <strong>5 years from commission OR 2 years from discovery — whichever is LATER</strong>. Note this carefully: 'later' not 'earlier.' This gives the prosecution the longer of the two periods.",
+   ans:"5 years from commission OR 2 years from discovery — whichever is LATER"},
+  {n:5, q:"When a felony complaint is converted to a misdemeanor complaint (non-custody case), the speedy trial clock:",
+   opts:["a. Always resets to the new instrument filing date","b. Resets to the new instrument filing date, UNLESS the aggregate of elapsed time plus the new allowable period would exceed 6 months — then the original felony complaint date controls","c. Always runs from the original felony complaint filing date","d. Resets only if the defendant consents to the conversion"],
+   correct:"b",
+   exp:"CPL §30.30(7) — the clock resets to the new instrument date <strong>UNLESS</strong> the aggregate of elapsed time plus the new allowable period would exceed 6 months (non-custody). If it would exceed 6 months, the original felony complaint date controls.",
+   ans:"Resets to the new instrument filing date, UNLESS the aggregate would exceed 6 months — then the original felony complaint date controls"},
+];
+
+// ════════════════════════════════════════════════════════
+// SHARED QUIZ ENGINE FOR ART 10 + ART 30
+// ════════════════════════════════════════════════════════
+const state10 = {};
+const state30 = {};
+const STORE10 = 'nys_w1_nq_art10';
+const STORE30 = 'nys_w1_nq_art30';
+
+function loadQ10(){ try{ Object.assign(state10, JSON.parse(localStorage.getItem(STORE10)||'{}')); }catch(e){} }
+function saveQ10(){ try{ localStorage.setItem(STORE10, JSON.stringify(state10)); }catch(e){} }
+function loadQ30(){ try{ Object.assign(state30, JSON.parse(localStorage.getItem(STORE30)||'{}')); }catch(e){} }
+function saveQ30(){ try{ localStorage.setItem(STORE30, JSON.stringify(state30)); }catch(e){} }
+
+function buildQuizN(questions, containerId, prefix, state){
+  const c = document.getElementById(containerId);
+  if(!c) return;
+  c.innerHTML = '';
+  questions.forEach(q => {
+    const answered = state[q.n];
+    const letters = ['a','b','c','d','e'];
+    let optsHtml = '';
+    q.opts.forEach((opt,i) => {
+      const l = letters[i];
+      const text = opt.substring(3);
+      let cls = 'opt';
+      let badge = '';
+      if(answered){
+        cls += ' locked';
+        if(l === q.correct){ cls += ' reveal-correct'; badge = '<span class="opt-badge badge-correct">✓ Correct</span>'; }
+        else if(l === answered && answered !== q.correct){ cls += ' selected-wrong'; badge = '<span class="opt-badge badge-wrong">✗ Incorrect</span>'; }
+      }
+      optsHtml += `<div class="${cls}" id="opt-${prefix}-${q.n}-${l}" onclick="pickAnswer('${prefix}',${q.n},'${l}')">
+        <div class="opt-letter">${l.toUpperCase()}</div>
+        <div class="opt-text">${text}</div>${badge}</div>`;
+    });
+    const expShow = answered ? 'show' : '';
+    const card = document.createElement('div');
+    card.className = 'qcard' + (answered ? (state[q.n] === q.correct ? ' answered-correct' : ' answered-wrong') : '');
+    card.id = `qcard-${prefix}-${q.n}`;
+    card.innerHTML = `
+      <div class="qcard-head">
+        <div class="qcard-num">Question ${q.n}</div>
+        <div class="qcard-q">${q.q}</div>
+      </div>
+      <div class="qcard-options">${optsHtml}</div>
+      <div class="qcard-explanation ${expShow}" id="exp-${prefix}-${q.n}">
+        <div class="exp-text">${q.exp}</div>
+        <div class="exp-answer">✓ Correct answer: ${q.ans}</div>
+      </div>`;
+    c.appendChild(card);
+  });
+}
+
+function pickAnswer(prefix, qn, letter){
+  const questions = prefix === 'a10' ? Q10 : Q30;
+  const state = prefix === 'a10' ? state10 : state30;
+  if(state[qn]) return;
+  const q = questions.find(x=>x.n===qn);
+  if(!q) return;
+  state[qn] = letter;
+  prefix === 'a10' ? saveQ10() : saveQ30();
+  const isCorrect = letter === q.correct;
+  const card = document.getElementById(`qcard-${prefix}-${qn}`);
+  if(card){ card.classList.add(isCorrect?'answered-correct':'answered-wrong'); }
+  const letters = ['a','b','c','d','e'];
+  q.opts.forEach((_,i)=>{
+    const l = letters[i];
+    const el = document.getElementById(`opt-${prefix}-${qn}-${l}`);
+    if(!el) return;
+    el.classList.add('locked');
+    if(l===q.correct){ el.classList.add('reveal-correct'); if(!el.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-correct'; b.textContent='✓ Correct'; el.appendChild(b); } }
+    else if(l===letter && !isCorrect){ el.classList.add('selected-wrong'); if(!el.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-wrong'; b.textContent='✗ Incorrect'; el.appendChild(b); } }
+  });
+  const exp = document.getElementById(`exp-${prefix}-${qn}`);
+  if(exp) exp.classList.add('show');
+  updateScoreN(prefix);
+}
+
+function updateScoreN(prefix){
+  const questions = prefix==='a10'?Q10:Q30;
+  const state = prefix==='a10'?state10:state30;
+  const suffix = prefix==='a10'?'10':'30';
+  const correct = Object.entries(state).filter(([n,l])=>{ const q=questions.find(x=>x.n===parseInt(n)); return q&&l===q.correct; }).length;
+  const answered = Object.keys(state).length;
+  const pct = answered>0?Math.round(correct/questions.length*100):0;
+  const sd=document.getElementById('sd'+suffix); const ss=document.getElementById('ss'+suffix); const sf=document.getElementById('sf'+suffix);
+  if(sd) sd.textContent=correct+' / '+questions.length+' correct';
+  if(ss) ss.textContent=answered+' answered · '+pct+'% score';
+  if(sf) sf.style.width=pct+'%';
+}
+
+function resetQuiz10(){ if(!confirm('Reset Art. 10 quiz?')) return; Object.keys(state10).forEach(k=>delete state10[k]); saveQ10(); buildQuizN(Q10,'quiz-container-10','a10',state10); updateScoreN('a10'); }
+function resetQuiz30(){ if(!confirm('Reset Art. 30 quiz?')) return; Object.keys(state30).forEach(k=>delete state30[k]); saveQ30(); buildQuizN(Q30,'quiz-container-30','a30',state30); updateScoreN('a30'); }
+
+function revealAll10(){ Q10.forEach(q=>{ if(!state10[q.n]) pickAnswer('a10',q.n,'__reveal__'); const e=document.getElementById('exp-a10-'+q.n); if(e) e.classList.add('show'); const c=document.getElementById('opt-a10-'+q.n+'-'+q.correct); if(c&&!c.classList.contains('reveal-correct')){ c.classList.add('reveal-correct','locked'); if(!c.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-correct'; b.textContent='✓ Correct'; c.appendChild(b); } } ['a','b','c','d','e'].forEach(l=>{ const o=document.getElementById('opt-a10-'+q.n+'-'+l); if(o) o.classList.add('locked'); }); }); }
+function revealAll30(){ Q30.forEach(q=>{ if(!state30[q.n]) pickAnswer('a30',q.n,'__reveal__'); const e=document.getElementById('exp-a30-'+q.n); if(e) e.classList.add('show'); const c=document.getElementById('opt-a30-'+q.n+'-'+q.correct); if(c&&!c.classList.contains('reveal-correct')){ c.classList.add('reveal-correct','locked'); if(!c.querySelector('.opt-badge')){ const b=document.createElement('span'); b.className='opt-badge badge-correct'; b.textContent='✓ Correct'; c.appendChild(b); } } ['a','b','c','d','e'].forEach(l=>{ const o=document.getElementById('opt-a30-'+q.n+'-'+l); if(o) o.classList.add('locked'); }); }); }
+
+// Init all quizzes on DOMContentLoaded
+const _origInit = document.addEventListener;
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadQ10(); loadQ30();
+  buildQuizN(Q10,'quiz-container-10','a10',state10);
+  buildQuizN(Q30,'quiz-container-30','a30',state30);
+  updateScoreN('a10'); updateScoreN('a30');
+});
 </script>
 
-<nav class="bottom-nav-bar">
-  <a href="index.html" class="bnb-btn"><span class="bnb-icon">🏠</span>Home</a>
-  <a href="game.html" class="bnb-btn"><span class="bnb-icon">🎮</span>Game</a>
-  <a href="week1_quiz.html" class="bnb-btn"><span class="bnb-icon">❓</span>Quiz</a>
-  <a href="week1_notes_quiz.html" class="bnb-btn active"><span class="bnb-icon">📋</span>Notes</a>
-  <a href="study_dashboard.html" class="bnb-btn"><span class="bnb-icon">📊</span>Dashboard</a>
-</nav>
+<!-- BACK TO DASHBOARD -->
+<div style="padding:0 36px 40px">
+  <a href="index.html" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:13px;font-weight:600;color:var(--navy);text-decoration:none">
+    ← Back to Dashboard
+  </a>
+</div>
 
 </body>
 </html>

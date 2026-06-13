@@ -9,7 +9,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Week 1 — Quizzes</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-<script src="clerk_sync.js"></script>
+<script src="clerk_sync.js">
+const OQ_ANSWERS={oq1:'d',oq2:'a',oq3:'a',oq4:'c',oq5:'d',oq6:'d',oq7:'a',oq8:'d',oq9:'c',oq10:'a',oq11:'d',oq12:'a',oq13:'c',oq14:'b',oq15:'d',oq16:'b',oq17:'d',oq18:'d',oq19:'b',oq20:'d',oq21:'c',oq22:'c',oq23:'d',oq24:'d'};
+function checkOfficial(){
+  let correct=0;
+  for(let i=1;i<=24;i++){
+    const nm='oq'+i;
+    const chosen=document.querySelector('input[name="'+nm+'"]:checked');
+    const ansDiv=document.getElementById('ans-'+nm);
+    if(ansDiv)ansDiv.style.display='block';
+    document.querySelectorAll('.oq-opt input[name="'+nm+'"]').forEach(opt=>{
+      const lbl=opt.parentElement;
+      lbl.classList.remove('correct','wrong');
+      if(opt.value===OQ_ANSWERS[nm])lbl.classList.add('correct');
+      else if(chosen&&opt.value===chosen.value)lbl.classList.add('wrong');
+    });
+    if(chosen&&chosen.value===OQ_ANSWERS[nm])correct++;
+  }
+  const sc=document.getElementById('official-score');
+  const pct=Math.round(correct/24*100);
+  sc.style.display='block';
+  sc.innerHTML='Score: '+correct+' / 24 ('+pct+'%) '+(pct>=70?'✓ PASSING':'✗ Keep studying');
+  sc.style.color=pct>=70?'#22c55e':'#ef4444';
+}
+
+</script>
 <style>
 
 /* ══ MOBILE RENDERING FIX ══ */
@@ -430,6 +454,10 @@ input, textarea, select,
   .mode-desc { font-size: 16px !important; }
 }
 
+
+.oq-opt.correct{background:rgba(34,197,94,.12)!important;outline:1px solid rgba(34,197,94,.3)!important;color:#4ade80!important}
+.oq-opt.wrong{background:rgba(239,68,68,.1)!important;outline:1px solid rgba(239,68,68,.2)!important;color:#f87171!important}
+
 </style>
 </head>
 <body>
@@ -439,7 +467,7 @@ input, textarea, select,
   <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859 · Week 1</div>
   <h1>Quizzes</h1>
   <div class="header-actions">
-    <a href="week1_notes_quiz.html" class="hbtn hbtn-outline">📋 Study Notes</a>
+    <a href="week1_notes.html" class="hbtn hbtn-outline">📋 Study Notes</a>
     <a href="study_dashboard.html#wrong-answers" class="hbtn hbtn-outline">❌ Wrong Answers Feed</a>
     <a href="index.html" class="hbtn hbtn-outline">← Dashboard</a>
   </div>
@@ -453,15 +481,16 @@ input, textarea, select,
 <!-- TAB BAR -->
 <div class="tab-bar">
   <button class="tab active" id="tab-art1" onclick="switchTab('art1',this)">CPL Art. 1 <span class="tab-count">56 Qs</span></button>
-  <button class="tab" id="tab-art10" onclick="switchTab('art10',this)">CPL Art. 10 <span class="tab-count">8 Qs</span></button>
-  <button class="tab" id="tab-art30" onclick="switchTab('art30',this)">CPL Art. 30 <span class="tab-count">5 Qs</span></button>
-  <button class="tab" id="tab-art20" onclick="switchTab('art20',this)">CPL Art. 20 <span class="tab-count">3 Qs</span></button>
-  <button class="tab" id="tab-misc" onclick="switchTab('misc',this)">Misc CPL <span class="tab-count">6 Qs</span></button>
-  <button class="tab" id="tab-acc" onclick="switchTab('acc',this)">Accusatory 100–110 <span class="tab-count">4 Qs</span></button>
-  <button class="tab" id="tab-officers" onclick="switchTab('officers',this)">Officers Art. 2 <span class="tab-count">3 Qs</span></button>
-  <button class="tab" id="tab-evidence" onclick="switchTab('evidence',this)">Evidence Art. 60 <span class="tab-count">5 Qs</span></button>
-  <button class="tab" id="tab-localct" onclick="switchTab('localct',this)">Local Court 170–180 <span class="tab-count">5 Qs</span></button>
-  <button class="tab" id="tab-dpimm" onclick="switchTab('dpimm',this)">Double Jeopardy/Immunity <span class="tab-count">3 Qs</span></button>
+  <button class="tab" id="tab-officers" onclick="switchTab('officers',this)">CPL Art. 2 — Officers <span class="tab-count">3 Qs</span></button>
+  <button class="tab" id="tab-art10" onclick="switchTab('art10',this)">CPL Art. 10 — Courts <span class="tab-count">8 Qs</span></button>
+  <button class="tab" id="tab-art20" onclick="switchTab('art20',this)">CPL Art. 20 — Jurisdiction <span class="tab-count">3 Qs</span></button>
+  <button class="tab" id="tab-art30" onclick="switchTab('art30',this)">CPL Art. 30 — Speedy Trial <span class="tab-count">5 Qs</span></button>
+  <button class="tab" id="tab-misc" onclick="switchTab('misc',this)">CPL Art. 30 — Limitations <span class="tab-count">6 Qs</span></button>
+  <button class="tab" id="tab-dpimm" onclick="switchTab('dpimm',this)">CPL Arts. 40 & 50 — Double Jeopardy <span class="tab-count">3 Qs</span></button>
+  <button class="tab" id="tab-evidence" onclick="switchTab('evidence',this)">CPL Art. 60 — Evidence <span class="tab-count">5 Qs</span></button>
+  <button class="tab" id="tab-acc" onclick="switchTab('acc',this)">CPL Arts. 100 & 110 — Accusatory <span class="tab-count">4 Qs</span></button>
+  <button class="tab" id="tab-localct" onclick="switchTab('localct',this)">CPL Arts. 170 & 180 — Local Court <span class="tab-count">5 Qs</span></button>
+  <button class="tab" id="tab-official" onclick="switchTab('official',this)">📋 Official Sample <span class="tab-count">24 Qs</span></button>
 </div>
 
 
@@ -617,11 +646,294 @@ input, textarea, select,
 
 <div class="wa-toast" id="wa-toast">❌ Wrong answer saved to dashboard</div>
 
+<div id="panel-official" class="panel">
+  <div class="callout callout-gold" style="margin:0 0 20px 0">
+    ⚠️ <strong>Official DCAS sample questions</strong> for exam No. 55-859 (rev. 05/13/2024).
+    These cover the full exam scope: <strong>CPL · FCA · CPLR · DRL · PL · Uniform Rules</strong>.
+    Study these closely — they reflect the exact format and difficulty of the actual exam.
+  </div>
+
+  <div class="quiz-resources" style="background:#1a1f3c;border-radius:10px;padding:14px 16px;margin-bottom:20px">
+    <div style="color:#fbbf24;font-weight:700;margin-bottom:8px">📖 Additional Practice Resources</div>
+    <div style="color:rgba(255,255,255,.8);font-size:14px;line-height:2">
+      <a href="https://www.empirecourtprep.com" target="_blank" style="color:#60a5fa;text-decoration:none">Empire Court Prep</a> — 300+ practice questions, adaptive flashcards, full-length practice tests<br>
+      <a href="https://www.brainscape.com/subjects/senior-court-clerk" target="_blank" style="color:#60a5fa;text-decoration:none">Brainscape — Senior Court Clerk</a> — FCA / CPL / PL flashcard decks<br>
+      <a href="https://quizlet.com/134580897/nys-court-clerk-exam-2016-flash-cards/" target="_blank" style="color:#60a5fa;text-decoration:none">Quizlet — NYS Court Clerk</a> — CPLR flashcard deck
+    </div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q1 · FCA §841</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">At the conclusion of a dispositional hearing under Article 8 of the Family Court Act, the court may enter which orders?<br><em>1. Dismissing the petition if allegations are established &nbsp;·&nbsp; 2. Suspending judgment not exceeding 3 months &nbsp;·&nbsp; 3. Placing respondent on probation not exceeding 6 months &nbsp;·&nbsp; 4. Making an order of protection under §842 &nbsp;·&nbsp; 5. Directing payment of restitution up to $10,000</em></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq1" value="a" style="margin-top:3px;flex-shrink:0"> A. 1 and 5, but not 2, 3, or 4</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq1" value="b" style="margin-top:3px;flex-shrink:0"> B. 2, 3, and 5, but not 1 or 4</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq1" value="c" style="margin-top:3px;flex-shrink:0"> C. 3 and 4, but not 1, 2, or 5</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq1" value="d" style="margin-top:3px;flex-shrink:0"> D. 4 and 5, but not 1, 2, or 3</label>
+    </div>
+    <div id="ans-oq1" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ D — FCA §841 permits: an order of protection (§842) AND restitution up to $10,000. Cannot dismiss if allegations ARE established; probation/suspension limits differ from stated.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q2 · FCA §427(a)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">Personal service of a summons and petition by delivery to a suitable-age person at the place of business/dwelling, plus mailing, must be made at least how many days before the appearance date?</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq2" value="a" style="margin-top:3px;flex-shrink:0"> A. 8 days</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq2" value="b" style="margin-top:3px;flex-shrink:0"> B. 13 days</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq2" value="c" style="margin-top:3px;flex-shrink:0"> C. 15 days</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq2" value="d" style="margin-top:3px;flex-shrink:0"> D. 30 days</label>
+    </div>
+    <div id="ans-oq2" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ A — FCA §427(a): At least EIGHT days before the appearance date.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q3 · FCA §168.2</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">A copy of an order of protection issued by Family Court must be filed by the clerk with the sheriff or police department of the county where the ___ resides.</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq3" value="a" style="margin-top:3px;flex-shrink:0"> A. Petitioner only</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq3" value="b" style="margin-top:3px;flex-shrink:0"> B. Respondent only</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq3" value="c" style="margin-top:3px;flex-shrink:0"> C. Petitioner or Respondent</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq3" value="d" style="margin-top:3px;flex-shrink:0"> D. Petitioner and Respondent</label>
+    </div>
+    <div id="ans-oq3" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ A — FCA §168.2: Filed where the PETITIONER resides — not the respondent.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q4 · FCA §312.1</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">A summons issued by Family Court upon the filing of a juvenile delinquency petition must be signed by:<br><em>1. The probation department &nbsp;·&nbsp; 2. The presentment agency &nbsp;·&nbsp; 3. The clerk of the court &nbsp;·&nbsp; 4. A judge of the court</em></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq4" value="a" style="margin-top:3px;flex-shrink:0"> A. 1 and 2, but not 3 and 4</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq4" value="b" style="margin-top:3px;flex-shrink:0"> B. 2 and 3, but not 1 and 4</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq4" value="c" style="margin-top:3px;flex-shrink:0"> C. 3 and 4, but not 1 and 2</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq4" value="d" style="margin-top:3px;flex-shrink:0"> D. 1 and 3, but not 2 and 4</label>
+    </div>
+    <div id="ans-oq4" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ C — FCA §312.1: Signed by a JUDGE or by the CLERK OF THE COURT only.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q5 · DRL §75-a</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">Which is NOT a "child custody proceeding" under the Uniform Child Custody Jurisdiction Enforcement Act (DRL §75-a)?</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq5" value="a" style="margin-top:3px;flex-shrink:0"> A. Paternity</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq5" value="b" style="margin-top:3px;flex-shrink:0"> B. Visitation</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq5" value="c" style="margin-top:3px;flex-shrink:0"> C. Guardianship</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq5" value="d" style="margin-top:3px;flex-shrink:0"> D. Contractual Emancipation</label>
+    </div>
+    <div id="ans-oq5" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ D — DRL §75-a expressly excludes: juvenile delinquency, PINS, and CONTRACTUAL EMANCIPATION.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q6 · Uniform Rules 205.43(b)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">A support magistrate must commence a hearing to determine willful violation of child support within ___ days of the summons date. The hearing must conclude within ___ days of commencement.</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq6" value="a" style="margin-top:3px;flex-shrink:0"> A. 3, 15</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq6" value="b" style="margin-top:3px;flex-shrink:0"> B. 7, 14</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq6" value="c" style="margin-top:3px;flex-shrink:0"> C. 15, 30</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq6" value="d" style="margin-top:3px;flex-shrink:0"> D. 30, 60</label>
+    </div>
+    <div id="ans-oq6" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ D — Uniform Rules 205.43(b): Commence within 30 days; conclude within 60 days.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q7 · CPL §500.10(9)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">"Bail" means:<br><em>1. Cash bail or a bail bond &nbsp;·&nbsp; 2. Real property &nbsp;·&nbsp; 3. Equity in full force and effect</em></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq7" value="a" style="margin-top:3px;flex-shrink:0"> A. 1 only, but not 2 or 3</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq7" value="b" style="margin-top:3px;flex-shrink:0"> B. 1 and 2, but not 3</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq7" value="c" style="margin-top:3px;flex-shrink:0"> C. 1 and 3, but not 2</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq7" value="d" style="margin-top:3px;flex-shrink:0"> D. 1, 2, and 3</label>
+    </div>
+    <div id="ans-oq7" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ A — CPL §500.10(9): "Bail" = cash bail, bail bond, or money paid with a credit card. Real property and equity are NOT included.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q8 · CPL §320.10(2)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">A defendant's waiver of jury trial in Superior Court must include:<br><em>1. May be made in writing &nbsp;·&nbsp; 2. Signed by defendant in person in open court in the presence of the court &nbsp;·&nbsp; 3. Consent of the prosecutor &nbsp;·&nbsp; 4. Approved by the court</em></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq8" value="a" style="margin-top:3px;flex-shrink:0"> A. 1, 2 and 3, but not 4</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq8" value="b" style="margin-top:3px;flex-shrink:0"> B. 1 and 4, but not 2 or 3</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq8" value="c" style="margin-top:3px;flex-shrink:0"> C. 2 and 3, but not 1 or 4</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq8" value="d" style="margin-top:3px;flex-shrink:0"> D. 2 and 4, but not 1 or 3</label>
+    </div>
+    <div id="ans-oq8" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ D — CPL §320.10(2): Must be IN WRITING, SIGNED BY DEFENDANT IN OPEN COURT, WITH COURT APPROVAL. Prosecutor consent NOT required.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q9 · CPL §380.90(2)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">When a student is sentenced for a crime, the court must notify the school's educational official. This applies to students up to and including age:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq9" value="a" style="margin-top:3px;flex-shrink:0"> A. 16</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq9" value="b" style="margin-top:3px;flex-shrink:0"> B. 17</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq9" value="c" style="margin-top:3px;flex-shrink:0"> C. 18</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq9" value="d" style="margin-top:3px;flex-shrink:0"> D. 19</label>
+    </div>
+    <div id="ans-oq9" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ C — CPL §380.90(2): "Person under the age of NINETEEN" = up to and including age 18.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q10 · CPL §160.50(1)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">When a criminal action is terminated in favor of a person, the DA or court must give the person or attorney how many days' notice before moving that interests of justice require otherwise (opposing sealing)?</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq10" value="a" style="margin-top:3px;flex-shrink:0"> A. 5 days</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq10" value="b" style="margin-top:3px;flex-shrink:0"> B. 7 days</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq10" value="c" style="margin-top:3px;flex-shrink:0"> C. 10 days</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq10" value="d" style="margin-top:3px;flex-shrink:0"> D. 14 days</label>
+    </div>
+    <div id="ans-oq10" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ A — CPL §160.50(1): NOT LESS THAN FIVE DAYS notice to the person or attorney.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q11 · CPL §720.20(1)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">When must the court determine whether an eligible youth is a youthful offender?</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq11" value="a" style="margin-top:3px;flex-shrink:0"> A. At arraignment</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq11" value="b" style="margin-top:3px;flex-shrink:0"> B. At any time before trial</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq11" value="c" style="margin-top:3px;flex-shrink:0"> C. Upon conviction</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq11" value="d" style="margin-top:3px;flex-shrink:0"> D. At the time of pronouncing sentence</label>
+    </div>
+    <div id="ans-oq11" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ D — CPL §720.20(1): After receiving the pre-sentence report, the court determines YO status AT THE TIME OF PRONOUNCING SENTENCE.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q12 · CPL §170.56(1)-(2)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">Upon arraignment on marijuana possession/sale charges (§§221.05, 221.10, 221.15, 221.35, or 221.40), before a plea or trial, the court may adjourn in contemplation of dismissal for not more than:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq12" value="a" style="margin-top:3px;flex-shrink:0"> A. 12 months</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq12" value="b" style="margin-top:3px;flex-shrink:0"> B. 90 days</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq12" value="c" style="margin-top:3px;flex-shrink:0"> C. 30 days</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq12" value="d" style="margin-top:3px;flex-shrink:0"> D. 6 months</label>
+    </div>
+    <div id="ans-oq12" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ A — CPL §170.56(1)-(2): Total period shall not exceed TWELVE MONTHS.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q13 · CPLR §3025(a)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">A party may amend a pleading ONCE without leave of court:<br><em>1. Within twenty days after its service &nbsp;·&nbsp; 2. Within thirty days after its service &nbsp;·&nbsp; 3. Any time before response period expires &nbsp;·&nbsp; 4. Within thirty days after service of a responding pleading</em></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq13" value="a" style="margin-top:3px;flex-shrink:0"> A. 1 and 4, but not 2 or 3</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq13" value="b" style="margin-top:3px;flex-shrink:0"> B. 2 and 3, but not 1 or 4</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq13" value="c" style="margin-top:3px;flex-shrink:0"> C. 1 and 3, but not 2 or 4</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq13" value="d" style="margin-top:3px;flex-shrink:0"> D. 2 and 4, but not 1 or 3</label>
+    </div>
+    <div id="ans-oq13" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ C — CPLR §3025(a): Within TWENTY days after service (1) or before response period expires (3). Options 2 and 4 say 30 days — wrong.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q14 · CPLR §4402</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">The court may order a continuance or new trial in the interest of justice on motion of any party:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq14" value="a" style="margin-top:3px;flex-shrink:0"> A. Twenty days before the trial</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq14" value="b" style="margin-top:3px;flex-shrink:0"> B. At any time during the trial</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq14" value="c" style="margin-top:3px;flex-shrink:0"> C. Eight days after service of the summons</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq14" value="d" style="margin-top:3px;flex-shrink:0"> D. Fifteen days after joinder of claims</label>
+    </div>
+    <div id="ans-oq14" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ B — CPLR §4402: "At any time DURING THE TRIAL."</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q15 · CPLR §1201</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">Unless the court appoints a guardian ad litem, an infant may be represented in court by:<br><em>1. The guardian of his property &nbsp;·&nbsp; 2. A parent that has legal custody &nbsp;·&nbsp; 3. An adult spouse who resides with the infant</em></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq15" value="a" style="margin-top:3px;flex-shrink:0"> A. 1 only</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq15" value="b" style="margin-top:3px;flex-shrink:0"> B. 2 only</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq15" value="c" style="margin-top:3px;flex-shrink:0"> C. 1 and 3, but not 2</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq15" value="d" style="margin-top:3px;flex-shrink:0"> D. 1, 2, and 3</label>
+    </div>
+    <div id="ans-oq15" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ D — CPLR §1201: All three are valid representatives.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q16 · CPLR §2304</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">A motion to quash, fix conditions, or modify a subpoena must be made in the:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq16" value="a" style="margin-top:3px;flex-shrink:0"> A. Supreme Court</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq16" value="b" style="margin-top:3px;flex-shrink:0"> B. Court in which the matter is returnable</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq16" value="c" style="margin-top:3px;flex-shrink:0"> C. Court of record</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq16" value="d" style="margin-top:3px;flex-shrink:0"> D. Court of Claims</label>
+    </div>
+    <div id="ans-oq16" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ B — CPLR §2304: "Made promptly in the COURT IN WHICH THE SUBPOENA IS RETURNABLE."</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q17 · CPLR §5003</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">Every order directing payment of money, docketed as a judgment, shall bear interest from the:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq17" value="a" style="margin-top:3px;flex-shrink:0"> A. Earliest ascertainable date of deposition</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq17" value="b" style="margin-top:3px;flex-shrink:0"> B. Final report</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq17" value="c" style="margin-top:3px;flex-shrink:0"> C. Date of reasonable breach</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq17" value="d" style="margin-top:3px;flex-shrink:0"> D. Date of such docketing</label>
+    </div>
+    <div id="ans-oq17" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ D — CPLR §5003: Interest from the DATE OF SUCH DOCKETING.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q18 · Uniform Civil Rules 202.22(a)(7)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">A "Military Calendar" is:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq18" value="a" style="margin-top:3px;flex-shrink:0"> A. Cases where either party is a military contractor</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq18" value="b" style="margin-top:3px;flex-shrink:0"> B. Cases where defendant was discharged from military 3 years ago</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq18" value="c" style="margin-top:3px;flex-shrink:0"> C. Cases where military seeks action within jurisdiction</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq18" value="d" style="margin-top:3px;flex-shrink:0"> D. Cases where a party or witness is presently unavailable due to military service</label>
+    </div>
+    <div id="ans-oq18" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ D — Uniform Rules 202.22(a)(7): Party or witness "in military service, and is not presently available for trial."</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q19 · FCA §§216-c, 233</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">Pursuant to Article 2 of the FCA, which statements are correct?<br><em>1. Clerk and deputy clerk shall be in each county &nbsp;·&nbsp; 2. No clerk/probation officer may prevent petition filing &nbsp;·&nbsp; 3. Court may order medical care for a child in need &nbsp;·&nbsp; 4. Child with physical disabilities = under 18 expected to be incapacitated &nbsp;·&nbsp; 5. Original Family Court order filed with County Clerk</em></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq19" value="a" style="margin-top:3px;flex-shrink:0"> A. 1, 2, and 4, but not 3 or 5</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq19" value="b" style="margin-top:3px;flex-shrink:0"> B. 2 and 3, but not 1, 4, or 5</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq19" value="c" style="margin-top:3px;flex-shrink:0"> C. 4 and 5, but not 1, 2, or 3</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq19" value="d" style="margin-top:3px;flex-shrink:0"> D. 1 and 3, but not 2, 4, or 5</label>
+    </div>
+    <div id="ans-oq19" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ B — FCA §216-c (no one may prevent petition filing) and FCA §233 (medical order for child in need) are correct.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q20 · FCA §580-311</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">Regarding a UIFSA petition (FCA §580-311) to modify a child support order of another state, which is NOT correct?</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq20" value="a" style="margin-top:3px;flex-shrink:0"> A. The petition must specify the relief sought</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq20" value="b" style="margin-top:3px;flex-shrink:0"> B. The petition must include social security numbers so far as known</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq20" value="c" style="margin-top:3px;flex-shrink:0"> C. The petition may include information to assist in locating respondent</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq20" value="d" style="margin-top:3px;flex-shrink:0"> D. The petition must have a copy of the other state's order attached</label>
+    </div>
+    <div id="ans-oq20" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ D — FCA §580-311: A copy of the other state's order is required UNLESS filed at the time of registration — not required in ALL cases.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q21 · PL §70.05</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">A sentence of imprisonment for a felony committed by a juvenile offender shall be a(n):</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq21" value="a" style="margin-top:3px;flex-shrink:0"> A. Definite sentence</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq21" value="b" style="margin-top:3px;flex-shrink:0"> B. Determinate sentence</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq21" value="c" style="margin-top:3px;flex-shrink:0"> C. Indeterminate sentence</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq21" value="d" style="margin-top:3px;flex-shrink:0"> D. Sentence of supervision</label>
+    </div>
+    <div id="ans-oq21" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ C — PL §70.05: "A sentence of imprisonment for a felony committed by a juvenile offender shall be an INDETERMINATE sentence."</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q22 · CPL §400.19(2)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">To qualify as a second child sexual assault felony offender, the defendant must have been at least what age at the time of the predicate felony?</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq22" value="a" style="margin-top:3px;flex-shrink:0"> A. 14 years or older</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq22" value="b" style="margin-top:3px;flex-shrink:0"> B. 16 years or older</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq22" value="c" style="margin-top:3px;flex-shrink:0"> C. 18 years or older</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq22" value="d" style="margin-top:3px;flex-shrink:0"> D. 19 years or older</label>
+    </div>
+    <div id="ans-oq22" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ C — CPL §400.19(2): The defendant must have been EIGHTEEN YEARS OF AGE OR OLDER at the time of the predicate felony.</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q23 · CPLR §3403(a)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">Which civil actions are entitled to a calendar preference under CPLR §3403?<br><em>1. Interests of justice require early trial &nbsp;·&nbsp; 2. Party is 70 years of age &nbsp;·&nbsp; 3. Dental malpractice action &nbsp;·&nbsp; 4. Terminally ill plaintiff alleging defendant's negligence</em></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq23" value="a" style="margin-top:3px;flex-shrink:0"> A. 1 and 2, but not 3 or 4</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq23" value="b" style="margin-top:3px;flex-shrink:0"> B. 1, 2 and 4, but not 3</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq23" value="c" style="margin-top:3px;flex-shrink:0"> C. 2 and 4, but not 1 or 3</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq23" value="d" style="margin-top:3px;flex-shrink:0"> D. 1, 2, 3, and 4</label>
+    </div>
+    <div id="ans-oq23" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ D — CPLR §3403(a): ALL FOUR qualify. Dental malpractice is covered under §3403(a)(5) (medical, dental, or podiatric malpractice).</div>
+  </div>
+  <div class="quiz-q" style="background:var(--white,#1c1f35);border:1px solid var(--border,rgba(255,255,255,.1));border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Q24 · CPLR §2101(e)</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.9)">Except where otherwise prescribed, copies rather than originals of which papers may be served or filed?<br><em>1. Affidavits &nbsp;·&nbsp; 2. Orders &nbsp;·&nbsp; 3. Exhibits &nbsp;·&nbsp; 4. Notes of Issue</em></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px">
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq24" value="a" style="margin-top:3px;flex-shrink:0"> A. 1, 2, and 3, but not 4</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq24" value="b" style="margin-top:3px;flex-shrink:0"> B. 2, 3, and 4, but not 1</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq24" value="c" style="margin-top:3px;flex-shrink:0"> C. 1, 3, and 4, but not 2</label>
+      <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);padding:6px 8px;border-radius:6px" class="oq-opt"><input type="radio" name="oq24" value="d" style="margin-top:3px;flex-shrink:0"> D. 1, 2, 3, and 4</label>
+    </div>
+    <div id="ans-oq24" style="display:none;font-size:13px;line-height:1.6;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;color:rgba(255,255,255,.85)">✓ D — CPLR §2101(e): "Copies of ALL PAPERS, including orders, affidavits and exhibits may be served or filed." All four are covered.</div>
+  </div>
+  <button onclick="checkOfficial()" style="background:#1a1f3c;color:#fbbf24;border:1px solid #c9952a;border-radius:8px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;width:100%;margin-top:8px">Check All Answers</button>
+  <div id="official-score" style="margin-top:16px;font-weight:700;font-size:18px;display:none"></div>
+</div>
+
 <script>
 // ── QUESTION DATA ─────────────────────────────────────────
 const QUIZ_BANKS = {
   art1: {
-    article: 'CPL Art. 1',
+    article: 'CPL Art. 1 — Definitions',
     scoreIds: { main:'sd1', sub:'ss1', fill:'sf1' },
     total: 56,
     questions: [
@@ -686,7 +998,7 @@ const QUIZ_BANKS = {
   },
 
   art10: {
-    article: 'CPL Art. 10',
+    article: 'CPL Art. 10 — Criminal Courts',
     scoreIds: { main:'sd10', sub:'ss10', fill:'sf10' },
     total: 8,
     questions: [
@@ -714,7 +1026,7 @@ const QUIZ_BANKS = {
   },
 
   misc: {
-    article: 'Misc CPL — Art. 30 Limitation Periods & Speedy Trial',
+    article: 'CPL Art. 30 — Limitation Periods',
     scoreIds: { main:'sdmisc', sub:'ssmisc', fill:'sfmisc' },
     total: 6,
     questions: [
@@ -727,7 +1039,7 @@ const QUIZ_BANKS = {
     ]
   },
   acc: {
-    article: 'CPL Arts. 100–110 — Accusatory Instruments',
+    article: 'CPL Arts. 100 & 110 — Accusatory Instruments',
     scoreIds: { main:'sdacc', sub:'ssacc', fill:'sfacc' },
     total: 4,
     questions: [
@@ -763,7 +1075,7 @@ const QUIZ_BANKS = {
   },
 
   localct: {
-    article: 'CPL Arts. 170 & 180 — Local Criminal Court Proceedings',
+    article: 'CPL Arts. 170 & 180 — Local Court Proceedings',
     scoreIds: { main:'sdlocalct', sub:'sslocalct', fill:'sflocalct' },
     total: 5,
     questions: [
@@ -787,7 +1099,7 @@ const QUIZ_BANKS = {
   },
 
   art30: {
-    article: 'CPL Art. 30',
+    article: 'CPL Art. 30 — Speedy Trial',
     scoreIds: { main:'sd30', sub:'ss30', fill:'sf30' },
     total: 5,
     questions: [
@@ -1079,7 +1391,7 @@ document.addEventListener('click',function(e){
   <a href="index.html" class="bnb-btn" id="bnb-home"><span class="bnb-icon">🏠</span>Home</a>
   <a href="game.html" class="bnb-btn" id="bnb-game"><span class="bnb-icon">🎮</span>Game</a>
   <a href="week1_quiz.html" class="bnb-btn" id="bnb-quiz"><span class="bnb-icon">❓</span>Quiz</a>
-  <a href="week1_notes_quiz.html" class="bnb-btn" id="bnb-notes"><span class="bnb-icon">📋</span>Notes</a>
+  <a href="week1_notes.html" class="bnb-btn" id="bnb-notes"><span class="bnb-icon">📋</span>Notes</a>
   <a href="study_dashboard.html" class="bnb-btn" id="bnb-dash"><span class="bnb-icon">📊</span>Dashboard</a>
 </nav>
 <script>
@@ -1087,7 +1399,7 @@ document.addEventListener('click',function(e){
   var path = window.location.pathname;
   var map = {
     'index.html':'bnb-home','game.html':'bnb-game',
-    'week1_quiz.html':'bnb-quiz','week1_notes_quiz.html':'bnb-notes',
+    'week1_quiz.html':'bnb-quiz','week1_notes.html':'bnb-notes',
     'study_dashboard.html':'bnb-dash'
   };
   Object.keys(map).forEach(function(k){

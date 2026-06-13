@@ -526,7 +526,7 @@ input, textarea, select,
     <a href="study_dashboard.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;text-decoration:none">
       📊 Study Dashboard
     </a>
-    <a href="week1_notes_quiz.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:600;text-decoration:none">
+    <a href="week1_notes.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:600;text-decoration:none">
       📋 Study Notes
     </a>
     <a href="game.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.3);color:#fbbf24;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;text-decoration:none">
@@ -1244,7 +1244,7 @@ document.addEventListener('click',function(e){
   <a href="index.html" class="bnb-btn" id="bnb-home"><span class="bnb-icon">🏠</span>Home</a>
   <a href="game.html" class="bnb-btn" id="bnb-game"><span class="bnb-icon">🎮</span>Game</a>
   <a href="week1_quiz.html" class="bnb-btn" id="bnb-quiz"><span class="bnb-icon">❓</span>Quiz</a>
-  <a href="week1_notes_quiz.html" class="bnb-btn" id="bnb-notes"><span class="bnb-icon">📋</span>Notes</a>
+  <a href="week1_notes.html" class="bnb-btn" id="bnb-notes"><span class="bnb-icon">📋</span>Notes</a>
   <a href="study_dashboard.html" class="bnb-btn" id="bnb-dash"><span class="bnb-icon">📊</span>Dashboard</a>
 </nav>
 <script>
@@ -1252,7 +1252,7 @@ document.addEventListener('click',function(e){
   var path = window.location.pathname;
   var map = {
     'index.html':'bnb-home','game.html':'bnb-game',
-    'week1_quiz.html':'bnb-quiz','week1_notes_quiz.html':'bnb-notes',
+    'week1_quiz.html':'bnb-quiz','week1_notes.html':'bnb-notes',
     'study_dashboard.html':'bnb-dash'
   };
   Object.keys(map).forEach(function(k){

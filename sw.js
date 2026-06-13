@@ -8,7 +8,7 @@ const FILES = [
   './index.html',
   './week1_schedule_final.html',
   './week2_schedule.html',
-  './week1_notes_quiz.html',
+  './week1_notes.html',
   './week1_quiz.html',
   './study_dashboard.html',
   './game.html',

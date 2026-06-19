@@ -378,11 +378,7 @@ async function closeModal() {
   document.getElementById('clue-modal').classList.remove('active');
   document.body.style.overflow = '';
   currentQ = null;
-  // Fire-and-forget — tile already greyed out in openClue(), no need to reload board
   if (qId) sb.from('question_bank').update({ is_used: true }).eq('id', qId);
-  // Just update progress counter based on current DOM state
-  const usedCount = document.querySelectorAll('.j-cell.used').length;
-  updateProgress(usedCount);
 }
 
 function handleOverlayClick(e) { if (e.target.id === 'clue-modal') closeModal(); }

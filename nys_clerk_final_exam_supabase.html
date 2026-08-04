@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>NYS Senior Court Clerk — Weekly Simulated Exam</title>
+<style>
+html { overflow-x:hidden; }
+@media print {
+  .no-print { display:none !important; }
+  body { background:#fff !important; }
+  .quiz-q { break-inside: avoid; border:1px solid #999 !important; }
+  table.results-table { break-inside: avoid; }
+}
+:root{
+  --navy:#1a1f3c;--navy-mid:#2d3561;
+  --gold:#c9952a;--gold-light:#f5e6c8;
+  --cream:#faf7f2;
+  --text:#1a1f3c;--text-muted:#6b7194;
+  --border:#e2ddd6;--white:#fff;
+  --fs-base:18px;--fs-sm:16px;--fs-h1:28px;--fs-h2:21px;
+  --pad-h:32px;
+}
+@media(max-width:768px){ :root{--pad-h:16px;--fs-h1:22px;--fs-h2:18px;--fs-base:16px;} }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--text);font-family:'Times New Roman',Times,serif;font-size:var(--fs-base);line-height:1.6}
+
+.header{background:var(--navy);padding:20px var(--pad-h);position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.header h1{color:#fff;font-size:var(--fs-h2);font-weight:700}
+.timer{font-family:Arial,sans-serif;font-size:24px;font-weight:700;color:var(--gold);background:rgba(0,0,0,.3);padding:8px 18px;border-radius:8px;border:1px solid var(--gold)}
+.timer.warn{color:#ef4444;border-color:#ef4444}
+
+.start-screen{max-width:700px;margin:60px auto;padding:0 var(--pad-h);text-align:center}
+.start-screen .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:36px}
+.start-screen h2{font-size:var(--fs-h1);color:var(--navy);margin-bottom:16px}
+.start-screen p{font-size:var(--fs-sm);color:var(--text-muted);margin-bottom:10px;text-align:left}
+.start-screen ul{text-align:left;margin:10px 0 10px 20px;font-size:var(--fs-sm);color:var(--text-muted)}
+.start-btn{background:var(--navy);color:var(--gold);border:1px solid var(--gold);border-radius:8px;padding:16px 32px;font-family:Arial,sans-serif;font-size:17px;font-weight:700;cursor:pointer;margin-top:20px}
+.start-btn:disabled{opacity:.5;cursor:not-allowed}
+.load-status{font-family:Arial,sans-serif;font-size:13px;color:var(--text-muted);margin-top:14px}
+.load-status.error{color:#ef4444}
+
+.container{max-width:850px;margin:20px auto 80px;padding:0 var(--pad-h)}
+.section-head{font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;border-bottom:2px solid var(--navy);padding:18px 0 8px;margin-top:10px}
+.quiz-q{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:16px}
+.q-num{font-weight:700;font-size:var(--fs-base);color:var(--navy);margin-bottom:6px}
+.statute-label{font-weight:400;font-style:italic;color:var(--text-muted);font-size:var(--fs-sm)}
+.q-text{font-size:var(--fs-base);line-height:1.6;margin-bottom:12px}
+.q-opts{display:flex;flex-direction:column;gap:6px}
+.oq-opt{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:var(--fs-base);line-height:1.5;padding:5px 8px;border-radius:6px}
+.oq-opt input{margin-top:5px;flex-shrink:0;width:17px;height:17px}
+.oq-opt.correct{background:rgba(34,197,94,.18)}
+.oq-opt.wrong{background:rgba(239,68,68,.18)}
+.fill-in-input{width:100%;font-family:'Times New Roman',Times,serif;font-size:var(--fs-base);padding:10px 12px;border:1px solid var(--border);border-radius:6px;background:var(--cream)}
+
+.submit-bar{position:sticky;bottom:0;background:var(--white);border-top:2px solid var(--navy);padding:14px var(--pad-h);text-align:center}
+.submit-btn{background:var(--navy);color:var(--gold);border:1px solid var(--gold);border-radius:8px;padding:14px 30px;font-family:Arial,sans-serif;font-size:16px;font-weight:700;cursor:pointer}
+.progress-note{font-family:Arial,sans-serif;font-size:13px;color:var(--text-muted);margin-bottom:8px}
+
+.results{max-width:900px;margin:20px auto 80px;padding:0 var(--pad-h)}
+.score-card{background:var(--white);border:2px solid var(--navy);border-radius:12px;padding:28px;text-align:center;margin-bottom:24px}
+.score-card h2{font-size:var(--fs-h1);color:var(--navy);margin-bottom:6px}
+.score-big{font-family:Arial,sans-serif;font-size:44px;font-weight:800;margin:10px 0}
+.score-big.pass{color:#22c55e}
+.score-big.fail{color:#ef4444}
+.score-meta{font-family:Arial,sans-serif;font-size:14px;color:var(--text-muted)}
+.action-row{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.action-btn{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;color:var(--text);cursor:pointer}
+.action-btn.gold{background:var(--gold-light);border-color:var(--gold);color:#7a5c14}
+
+table.results-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:Arial,sans-serif;margin-bottom:28px}
+table.results-table th{background:var(--navy);color:#fff;text-align:left;padding:10px 12px;font-size:13px}
+table.results-table td{padding:10px 12px;border-top:1px solid var(--border);font-size:13px;vertical-align:top}
+table.results-table tr:last-child td{font-weight:700;background:var(--gold-light)}
+.mark-row{font-size:15px;letter-spacing:2px;line-height:1.8;word-break:break-all}
+.mark-check{color:#22c55e;font-weight:900}
+.mark-x{color:#ef4444;font-weight:900}
+.legend{font-family:Arial,sans-serif;font-size:12px;color:var(--text-muted);margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>NYS Senior Court Clerk — Weekly Simulated Exam</h1>
+  <div class="timer no-print" id="timerDisplay" style="display:none">03:00:00</div>
+</div>
+
+<div class="start-screen no-print" id="startScreen">
+  <div class="card">
+    <h2>105-Question Timed Exam</h2>
+    <p>Loaded live from the question bank — a new random set and order every time you start:</p>
+    <ul>
+      <li><strong>Criminal Procedure Law</strong> — 30 questions per attempt</li><li><strong>Penal Law</strong> — 15 questions per attempt</li><li><strong>Civil Practice Law & Rules</strong> — 25 questions per attempt</li><li><strong>Family Court Act</strong> — 20 questions per attempt</li><li><strong>Misc Laws (Uniform Rules)</strong> — 15 questions per attempt</li>
+    </ul>
+    <p>You will have <strong>3 hours (180 minutes)</strong> from the moment you press Start. The exam auto-submits and scores itself when time runs out, or submit manually once every question is answered.</p>
+    <p>Your progress saves in this browser as you go — if the page is closed or refreshed, reopen it here to resume the SAME attempt. Starting a brand new attempt draws a fresh random set.</p>
+    <button class="start-btn" id="startBtn" onclick="startExam()" disabled>Loading questions…</button>
+    <div class="load-status" id="loadStatus">Connecting to question bank…</div>
+  </div>
+</div>
+
+<div class="container no-print" id="examContainer" style="display:none">
+  <div class="progress-note" id="progressNote"></div>
+  <div id="questionsWrap"></div>
+</div>
+
+<div class="submit-bar no-print" id="submitBar" style="display:none">
+  <button class="submit-btn" onclick="submitExam(false)">Submit Exam</button>
+</div>
+
+<div class="results" id="resultsWrap" style="display:none"></div>
+
+<script>
+const SUPABASE_URL = 'https://khddivyhzdlptkoznytl.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoZGRpdnloemRscHRrb3pueXRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNDk3OTksImV4cCI6MjA5NTgyNTc5OX0.jnTbiHdFPYK1K282polY59j3OG2TcrQesrly1UZojB8';
+const SECTION_CONFIG = [{"code": "CPL", "label": "Criminal Procedure Law", "count": 30}, {"code": "PL", "label": "Penal Law", "count": 15}, {"code": "CPLR", "label": "Civil Practice Law & Rules", "count": 25}, {"code": "FCA", "label": "Family Court Act", "count": 20}, {"code": "MISC", "label": "Misc Laws (Uniform Rules)", "count": 15}];
+const EXAM_SECONDS = 3 * 60 * 60;
+const STORAGE_KEY = 'nys_final_exam_state_v3';
+
+let POOL_BY_SECTION = {};
+let state = loadState();
+
+function loadState(){
+  try { const raw = localStorage.getItem(STORAGE_KEY); if(raw) return JSON.parse(raw); } catch(e){}
+  return null;
+}
+function saveState(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
+
+async function fetchQuestionPool(){
+  const statusEl = document.getElementById('loadStatus');
+  const btnEl = document.getElementById('startBtn');
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/exam_questions?select=*`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+    });
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const rows = await res.json();
+    rows.forEach(r => {
+      const q = {
+        id: r.id, subject: r.subject, statute: r.statute, q: r.question,
+        opts: r.options, correct: r.correct, type: r.type, explanation: r.explanation
+      };
+      if(!POOL_BY_SECTION[r.subject]) POOL_BY_SECTION[r.subject] = [];
+      POOL_BY_SECTION[r.subject].push(q);
+    });
+    const total = rows.length;
+    statusEl.textContent = `Loaded ${total} questions from the bank. Ready to start.`;
+    btnEl.disabled = false;
+    btnEl.textContent = 'Start 3-Hour Exam';
+    // If there's an in-progress or completed attempt saved, resume it instead
+    if(state){ renderExam(); }
+  } catch(e){
+    statusEl.textContent = 'Could not load questions from the bank (' + e.message + '). Check your internet connection and refresh.';
+    statusEl.classList.add('error');
+  }
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function drawExamQuestions(){
+  let n = 1;
+  const questions = [];
+  const sectionMeta = [];
+  SECTION_CONFIG.forEach(sec => {
+    const pool = POOL_BY_SECTION[sec.code] || [];
+    const picked = shuffle(pool).slice(0, sec.count);
+    const start = n;
+    picked.forEach(q => { questions.push({ ...q, n }); n++; });
+    sectionMeta.push({ code: sec.code, label: sec.label, start, end: n - 1, count: picked.length });
+  });
+  return { questions, sectionMeta };
+}
+
+function startExam(){
+  const drawn = drawExamQuestions();
+  state = { startTime: Date.now(), answers: {}, submitted: false, score: null,
+             questions: drawn.questions, sectionMeta: drawn.sectionMeta };
+  saveState();
+  renderExam();
+}
+
+function renderExam(){
+  document.getElementById('startScreen').style.display = 'none';
+  if(state.submitted){ renderResults(); return; }
+  document.getElementById('examContainer').style.display = 'block';
+  document.getElementById('submitBar').style.display = 'block';
+  document.getElementById('timerDisplay').style.display = 'inline-block';
+
+  const wrap = document.getElementById('questionsWrap');
+  let html = '';
+  let secIdx = 0;
+  const QUESTIONS = state.questions;
+  const SECTION_META = state.sectionMeta;
+  QUESTIONS.forEach((q) => {
+    const bound = SECTION_META[secIdx];
+    if(bound && q.n === bound.start){ html += `<div class="section-head">${bound.label} — Q${bound.start}–${bound.end}</div>`; }
+    if(bound && q.n === bound.end) secIdx++;
+
+    const optKeys = q.opts ? Object.keys(q.opts) : [];
+    let bodyHtml;
+    if(q.type === 'fill_in'){
+      const val = state.answers[q.id] || '';
+      bodyHtml = `<input type="text" class="fill-in-input" data-qid="${q.id}" value="${val.replace(/"/g,'&quot;')}" placeholder="Type your answer" oninput="recordAnswer('${q.id}', this.value)">`;
+    } else {
+      bodyHtml = `<div class="q-opts">${optKeys.map(k => {
+        const checked = state.answers[q.id] === k ? 'checked' : '';
+        return `<label class="oq-opt"><input type="radio" name="${q.id}" value="${k}" ${checked} onchange="recordAnswer('${q.id}','${k}')"> ${k.toUpperCase()}. ${q.opts[k]}</label>`;
+      }).join('')}</div>`;
+    }
+    html += `<div class="quiz-q">
+      <div class="q-num">${q.n}. <span class="statute-label">${q.statute}</span></div>
+      <div class="q-text">${q.q}</div>
+      ${bodyHtml}
+    </div>`;
+  });
+  wrap.innerHTML = html;
+
+  updateProgressNote();
+  tickTimer();
+  setInterval(tickTimer, 1000);
+}
+
+function recordAnswer(id, val){
+  state.answers[id] = val;
+  saveState();
+  updateProgressNote();
+}
+
+function updateProgressNote(){
+  const total = state.questions.length;
+  const answered = Object.keys(state.answers).filter(k => state.answers[k] && state.answers[k].toString().trim() !== '').length;
+  const note = document.getElementById('progressNote');
+  note.textContent = `${answered} of ${total} answered` + (answered < total ? ` — answer all ${total} to submit` : ' — ready to submit');
+}
+
+function tickTimer(){
+  const elapsed = Math.floor((Date.now() - state.startTime) / 1000);
+  const remaining = EXAM_SECONDS - elapsed;
+  const disp = document.getElementById('timerDisplay');
+  if(remaining <= 0){
+    disp.textContent = '00:00:00';
+    submitExam(true);
+    return;
+  }
+  const h = Math.floor(remaining/3600);
+  const m = Math.floor((remaining%3600)/60);
+  const s = remaining%60;
+  disp.textContent = [h,m,s].map(v=>String(v).padStart(2,'0')).join(':');
+  if(remaining <= 300) disp.classList.add('warn');
+}
+
+function normalizeAnswer(s){
+  return (s || '').toLowerCase().trim().replace(/[.,;:!?'"()]/g,'').replace(/\s+/g,' ');
+}
+
+function submitExam(auto){
+  if(state.submitted) return;
+  const QUESTIONS = state.questions;
+  if(!auto){
+    const unanswered = QUESTIONS.filter(q => !state.answers[q.id] || (typeof state.answers[q.id] === 'string' && state.answers[q.id].trim() === ''));
+    if(unanswered.length > 0){
+      alert(`You have ${unanswered.length} unanswered question(s). Please answer all ${QUESTIONS.length} questions before submitting.\n\nUnanswered: Q` + unanswered.map(q => q.n).join(', Q'));
+      const firstUnansweredEl = document.querySelector(`[data-qid="${unanswered[0].id}"], input[name="${unanswered[0].id}"]`);
+      if(firstUnansweredEl) firstUnansweredEl.closest('.quiz-q').scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+  }
+  let correct = 0;
+  const perQ = {};
+  QUESTIONS.forEach(q => {
+    let isCorrect;
+    if(q.type === 'fill_in'){
+      const given = normalizeAnswer(state.answers[q.id]);
+      const target = normalizeAnswer(q.correct);
+      isCorrect = given.length > 0 && (given === target || target.includes(given) || given.includes(target));
+    } else {
+      isCorrect = state.answers[q.id] === q.correct;
+    }
+    perQ[q.id] = isCorrect;
+    if(isCorrect) correct++;
+  });
+  state.submitted = true;
+  state.score = { correct, total: QUESTIONS.length, pct: Math.round(correct/QUESTIONS.length*100), auto,
+                   finishedAt: new Date().toISOString(), perQ };
+  saveState();
+  renderResults();
+}
+
+function renderResults(){
+  document.getElementById('examContainer').style.display = 'none';
+  document.getElementById('submitBar').style.display = 'none';
+  document.getElementById('timerDisplay').style.display = 'none';
+  const rw = document.getElementById('resultsWrap');
+  rw.style.display = 'block';
+
+  const QUESTIONS = state.questions;
+  const SECTION_META = state.sectionMeta;
+  const sc = state.score;
+  const passClass = sc.pct >= 70 ? 'pass' : 'fail';
+  const passLabel = sc.pct >= 70 ? 'PASSING' : 'BELOW PASSING (70%)';
+  const finishedDate = new Date(sc.finishedAt).toLocaleString();
+
+  let sectionRows = '';
+  SECTION_META.forEach(sec => {
+    const secQs = QUESTIONS.filter(q => q.n >= sec.start && q.n <= sec.end);
+    const secCorrect = secQs.filter(q => sc.perQ[q.id]).length;
+    const marks = secQs.map(q => sc.perQ[q.id]
+      ? '<span class="mark-check">\u2713</span>'
+      : '<span class="mark-x">\u2717</span>'
+    ).join(' ');
+    sectionRows += `<tr>
+      <td><strong>${sec.label}</strong></td>
+      <td>${sec.start}-${sec.end}</td>
+      <td>${sec.count}</td>
+      <td>${secCorrect}</td>
+      <td class="mark-row">${marks}</td>
+    </tr>`;
+  });
+  sectionRows += `<tr>
+    <td>Total</td><td></td><td>${sc.total}</td><td>${sc.correct}</td>
+    <td>Exam Score: ${sc.pct}.0</td>
+  </tr>`;
+
+  let reviewHtml = '';
+  let secIdx = 0;
+  QUESTIONS.forEach((q) => {
+    const bound = SECTION_META[secIdx];
+    if(bound && q.n === bound.start){ reviewHtml += `<div class="section-head">${bound.label} — Q${bound.start}–${bound.end}</div>`; }
+    if(bound && q.n === bound.end) secIdx++;
+
+    const chosen = state.answers[q.id];
+    let bodyHtml;
+    if(q.type === 'fill_in'){
+      const isCorrect = sc.perQ[q.id];
+      bodyHtml = `<div class="oq-opt ${isCorrect ? 'correct' : 'wrong'}">Your answer: ${chosen || '(blank)'}</div>
+        <div class="oq-opt correct">Correct answer: ${q.correct}</div>`;
+    } else {
+      const optKeys = q.opts ? Object.keys(q.opts) : [];
+      bodyHtml = `<div class="q-opts">${optKeys.map(k => {
+        let cls = 'oq-opt';
+        if(k === q.correct) cls += ' correct';
+        else if(k === chosen) cls += ' wrong';
+        return `<div class="${cls}">${k.toUpperCase()}. ${q.opts[k]}</div>`;
+      }).join('')}</div>`;
+    }
+    const status = sc.perQ[q.id] ? '\u2713 Correct' : '\u2717 Incorrect';
+    const explHtml = q.explanation ? `<div style="font-family:Arial,sans-serif;font-size:13px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">${q.explanation}</div>` : '';
+    reviewHtml += `<div class="quiz-q">
+      <div class="q-num">${q.n}. <span class="statute-label">${q.statute}</span> — <span style="font-family:Arial,sans-serif;font-size:13px">${status}</span></div>
+      <div class="q-text">${q.q}</div>
+      ${bodyHtml}
+      ${explHtml}
+    </div>`;
+  });
+
+  rw.innerHTML = `
+    <div class="score-card">
+      <h2>Exam Complete</h2>
+      <div class="score-big ${passClass}">${sc.correct} / ${sc.total} (${sc.pct}%)</div>
+      <div style="font-family:Arial,sans-serif;font-weight:700;color:${sc.pct>=70?'#22c55e':'#ef4444'}">${passLabel}</div>
+      <div class="score-meta" style="margin-top:6px">Finished ${sc.auto ? '(time expired) ' : ''}on ${finishedDate}</div>
+      <div class="action-row no-print">
+        <button class="action-btn gold" onclick="window.print()">Print / Save as PDF</button>
+        <button class="action-btn" onclick="resetExam()">Start New Attempt (new random set)</button>
+      </div>
+    </div>
+
+    <h2 style="font-size:var(--fs-h2);color:var(--navy);margin-bottom:10px;font-family:Arial,sans-serif">Score Breakdown by Section</h2>
+    <div class="legend">\u2713 = Correct Answer &nbsp;&nbsp; \u2717 = Incorrect or Missing Answer</div>
+    <table class="results-table">
+      <thead><tr><th>Section</th><th>Question #</th><th># of Questions</th><th># Correct</th><th></th></tr></thead>
+      <tbody>${sectionRows}</tbody>
+    </table>
+
+    <h2 style="font-size:var(--fs-h2);color:var(--navy);margin-bottom:12px;font-family:Arial,sans-serif">Answer Review</h2>
+    ${reviewHtml}
+  `;
+}
+
+function resetExam(){
+  if(!confirm('Start a new attempt? This clears your current results and draws a fresh random set of questions.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = null;
+  location.reload();
+}
+
+fetchQuestionPool();
+</script>
+
+</body>
+</html>

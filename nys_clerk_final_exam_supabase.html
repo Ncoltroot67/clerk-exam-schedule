@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>NYS Senior Court Clerk — Weekly Simulated Exam</title>
+<script src="clerk_sync.js"></script>
 <style>
 html { overflow-x:hidden; }
 @media print {
@@ -290,7 +291,21 @@ function submitExam(auto){
   state.score = { correct, total: QUESTIONS.length, pct: Math.round(correct/QUESTIONS.length*100), auto,
                    finishedAt: new Date().toISOString(), perQ };
   saveState();
+  syncResultsToCloud(state.score, QUESTIONS, perQ);
   renderResults();
+}
+
+function syncResultsToCloud(sc, QUESTIONS, perQ){
+  if(typeof CLERK_SYNC === 'undefined') return;
+  const weekLabel = 'Weekly Final Exam — ' + new Date().toLocaleDateString();
+  CLERK_SYNC.saveTestScore(weekLabel, `${sc.correct}/${sc.total} (${sc.pct}%)`, 'weekly_final_exam');
+  QUESTIONS.forEach(q => {
+    if(!perQ[q.id]){
+      const yours = state.answers[q.id] || '(blank)';
+      const correctText = q.type === 'fill_in' ? q.correct : (q.opts ? q.opts[q.correct] : q.correct);
+      CLERK_SYNC.saveWrongAnswer(q.subject, q.q.substring(0,120), String(yours).substring(0,120), String(correctText).substring(0,120));
+    }
+  });
 }
 
 function renderResults(){

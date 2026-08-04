@@ -1143,13 +1143,6 @@ document.addEventListener('DOMContentLoaded', function() {
   if (firstTab) firstTab.classList.add('active');
 });
 
-  const sc=document.getElementById('official-score');
-  sc.style.display='block';
-  const pct=Math.round(correct/total*100);
-  sc.innerHTML='Score: '+correct+' / '+total+' ('+pct+'%) '+(pct>=70?'✓ PASSING':'✗ Keep studying');
-  sc.style.color=pct>=70?'#22c55e':'#ef4444';
-}
-
 </script>
 
 <div class="toast" id="page-toast"></div>

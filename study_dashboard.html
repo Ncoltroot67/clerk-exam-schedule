@@ -284,6 +284,21 @@ input,textarea,select,.log-input,.diary-select,.diary-textarea,.gap-input,.anki-
     <div id="diary-feed"><div style="display:flex;flex-direction:column;gap:8px"><div class="skel-line short skeleton"></div><div class="skel-card skeleton"></div><div class="skel-card skeleton"></div></div></div>
   </div>
   <div class="divider"></div>
+  <!-- TEST SCORES -->
+  <div>
+    <div class="section-head">
+      <div>
+        <div class="section-label" style="color:var(--gold)">Weekly final exam &amp; game modes</div>
+        <div class="section-title">Test Scores</div>
+        <div class="section-sub">Auto-saved from the weekly final exam and Clerk Challenge game</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <span class="section-count" id="ts-count">Loading...</span>
+      </div>
+    </div>
+    <div id="ts-feed"><div style="display:flex;flex-direction:column;gap:8px"><div class="skel-line short skeleton"></div><div class="skel-card skeleton"></div><div class="skel-card skeleton"></div></div></div>
+  </div>
+  <div class="divider"></div>
   <!-- WRONG ANSWERS -->
   <div>
     <div class="section-head">
@@ -457,6 +472,15 @@ async function loadDiaryEntries(){
   if(!data.length){feed.innerHTML='<div class="empty"><span class="empty-icon">📔</span>Write your first diary entry after reading an article today</div>';return;}
   feed.innerHTML=data.map(d=>{const rating=parseInt(d.correct_answer)||0;const stars=starsHtml(rating);return'<div class="diary-entry"><div class="diary-entry-header"><div class="diary-article"><div class="diary-dot" style="background:'+getArticleColor(d.article)+'"></div>'+d.article+'</div><div style="display:flex;align-items:center;gap:10px">'+(stars?'<span class="diary-stars" style="color:var(--gold)">'+stars+'</span>':'')+'<div class="diary-date">'+(d.date_logged||'')+'</div></div></div><div class="diary-text">'+d.your_answer+'</div></div>';}).join('');
 }
+async function loadTestScoresFeed(){
+  const feed=document.getElementById('ts-feed');
+  const count=document.getElementById('ts-count');
+  if(!feed)return;
+  const data=await sb('test_scores','?user_id=eq.'+USER+'&order=created_at.desc&limit=30');
+  count.textContent=data.length+' recorded';
+  if(!data.length){feed.innerHTML='<div class="empty"><span class="empty-icon">📝</span>No test scores yet — take the weekly final exam or play Clerk Challenge to populate this feed</div>';return;}
+  feed.innerHTML=data.map(t=>'<div class="wa-item"><div class="wa-article">'+(t.week||'Test')+'</div><div class="wa-row"><div class="wa-yours">Score: <strong>'+(t.score||'')+'</strong></div>'+(t.notes?'<div class="wa-correct">'+t.notes+'</div>':'')+'<div class="wa-date">'+(t.created_at?new Date(t.created_at).toLocaleDateString():'')+'</div></div></div>').join('');
+}
 async function loadWrongAnswers(){
   const feed=document.getElementById('wa-feed');
   const count=document.getElementById('wa-count');
@@ -544,7 +568,7 @@ async function loadAll(){
   const stat=document.getElementById('status-text');
   dot.className='status-dot loading';
   stat.textContent='Loading...';
-  await Promise.all([loadDiaryEntries(),loadGaps(),loadWrongAnswers(),loadMnemonics()]);
+  await Promise.all([loadDiaryEntries(),loadGaps(),loadWrongAnswers(),loadMnemonics(),loadTestScoresFeed()]);
   loadSpacedRep();renderAnkiCards();
   dot.className='status-dot online';
   stat.textContent='Connected to Supabase';

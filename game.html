@@ -761,6 +761,115 @@ const ALL_QUESTIONS = [
    ans:"Murder 2° (PL §125.25(1) or (2)) and sexually motivated felony only",
    scenario:"A 13-year-old is charged with Robbery 1°. Defense moves to transfer to Family Court. You know this motion will succeed because at age 13 the only juvenile offender crimes are:"},
 
+  // ── CPLR ART. 4 — SPECIAL PROCEEDINGS ───────────────────
+  {n:51,q:"In a special proceeding, the party who commences it is styled the:",
+   opts:["a. Plaintiff","b. Petitioner","c. Claimant","d. Movant"],
+   correct:"b",article:"CPLR Art. 4",diff:1,
+   exp:"§401 — The party commencing a special proceeding is styled the petitioner; any adverse party is the respondent (not plaintiff/defendant).",
+   ans:"Petitioner",
+   scenario:"A pro se filer asks whether they're the 'plaintiff' in their Article 78 proceeding. You explain that in a special proceeding, the commencing party is called the:"},
+
+  {n:52,q:"After a special proceeding is commenced, which of the following requires leave of court?",
+   opts:["a. Filing the answer","b. Joinder, interpleader, third-party practice, or intervention","c. Appearing at the hearing","d. Requesting an adjournment"],
+   correct:"b",article:"CPLR Art. 4",diff:2,
+   exp:"§401 — After a special proceeding is commenced, no party may be joined or interpleaded and no third-party practice or intervention is allowed except by leave of court.",
+   ans:"Joinder, interpleader, third-party practice, or intervention",
+   scenario:"A non-party wants to intervene in a pending special proceeding. You advise that this requires:"},
+
+  {n:53,q:"In a special proceeding, objections in point of law by the respondent may be raised:",
+   opts:["a. Only by separate motion before answering","b. In the answer or by motion","c. Only at the hearing itself","d. Only if the petitioner consents"],
+   correct:"b",article:"CPLR Art. 4",diff:2,
+   exp:"§404(a) — A respondent may raise an objection in point of law either in the answer or by motion.",
+   ans:"In the answer or by motion",
+   scenario:"A respondent's attorney asks whether an objection in point of law must be a separate motion. You explain it may be raised:"},
+
+  {n:54,q:"In a special proceeding, if no triable issue of fact is raised, the court:",
+   opts:["a. Must hold a full jury trial","b. May make a summary determination on the pleadings and papers","c. Must dismiss the proceeding","d. Must refer the matter to arbitration"],
+   correct:"b",article:"CPLR Art. 4",diff:2,
+   exp:"§409(b) — Where no triable issue of fact is raised, the court shall make a summary determination on the pleadings, papers, and admissions.",
+   ans:"May make a summary determination on the pleadings and papers",
+   scenario:"At the hearing, neither side disputes the material facts — only the legal conclusion. The court's proper move under §409(b) is to:"},
+
+  // ── CPLR ART. 5 — VENUE ─────────────────────────────────
+  {n:55,q:"Under §503(a), if no party resides in the state, the place of trial is:",
+   opts:["a. Automatically New York County","b. Any county designated by the plaintiff","c. Automatically dismissed for lack of venue","d. Wherever the defendant's attorney is located"],
+   correct:"b",article:"CPLR Art. 5",diff:2,
+   exp:"§503(a) — If none of the parties resided in the state when the action commenced, venue may be any county designated by the plaintiff.",
+   ans:"Any county designated by the plaintiff",
+   scenario:"Neither party in a contract action resides in New York, but the case is properly filed here. The plaintiff selected the venue county because:"},
+
+  {n:56,q:"For venue purposes, a domestic corporation is deemed a resident of:",
+   opts:["a. Every county it does business in","b. The county of its principal office","c. The county where its CEO resides","d. New York County automatically"],
+   correct:"b",article:"CPLR Art. 5",diff:1,
+   exp:"§503(c) — A domestic corporation (or authorized foreign corporation) is deemed a resident of the county where its principal office is located.",
+   ans:"The county of its principal office",
+   scenario:"A plaintiff wants to sue a corporation in the county where it has a retail branch, not its headquarters. You advise that venue based on corporate residence is proper only in:"},
+
+  {n:57,q:"Where is a special proceeding properly commenced under §506, generally?",
+   opts:["a. Wherever the petitioner resides","b. Wherever the respondent resides or the determination was made","c. Only in Albany County","d. Wherever the attorney's office is located"],
+   correct:"b",article:"CPLR Art. 5",diff:2,
+   exp:"§506(a) — A special proceeding is generally commenced in the county where the respondent resides, is employed, or the determination being reviewed was made.",
+   ans:"Wherever the respondent resides or the determination was made",
+   scenario:"A petitioner wants to file an Article 78 proceeding challenging a local agency's decision. Proper venue under §506 is:"},
+
+  {n:58,q:"Which of the following is a ground for changing the place of trial under §510?",
+   opts:["a. The plaintiff's attorney prefers another county","b. An impartial trial cannot be had in the proper county","c. The defendant simply objects to the venue chosen","d. The case has been pending more than a year"],
+   correct:"b",article:"CPLR Art. 5",diff:2,
+   exp:"§510 — Grounds for change of venue include: the county designated is not proper; an impartial trial cannot be had in the proper county; or the convenience of material witnesses and the ends of justice will be promoted by the change.",
+   ans:"An impartial trial cannot be had in the proper county",
+   scenario:"Defense counsel moves to change venue, arguing pretrial publicity makes a fair trial impossible in the filing county. This ground falls under §510 because:"},
+
+  // ── FCA ART. 3 — JUVENILE DELINQUENCY ───────────────────
+  {n:59,q:"FCA Article 3 (Juvenile Delinquency) is organized into how many parts?",
+   opts:["a. 5","b. 6","c. 8","d. 10"],
+   correct:"c",article:"FCA Art. 3",diff:1,
+   exp:"FCA Art. 3 has 8 parts: (1) jurisdiction & preliminary procedures, (2) initial appearance & probable cause hearing, (3) discovery, (4) fact-finding hearing, (5) dispositional hearing, (6) post-dispositional procedures, (7) securing testimony & records, (8) general provisions.",
+   ans:"8",
+   scenario:"A trainee clerk asks how FCA Article 3 is structured. You tell them the juvenile delinquency article runs from jurisdiction through general provisions in this many parts:"},
+
+  {n:60,q:"In a juvenile delinquency proceeding, which stage comes immediately after the initial appearance/probable cause hearing (Part 2)?",
+   opts:["a. Dispositional hearing (Part 5)","b. Discovery (Part 3)","c. Post-dispositional procedures (Part 6)","d. General provisions (Part 8)"],
+   correct:"b",article:"FCA Art. 3",diff:2,
+   exp:"FCA Art. 3's part sequence runs jurisdiction (1) → initial appearance/probable cause (2) → discovery (3) → fact-finding (4) → dispositional (5) → post-dispositional (6) → testimony/records (7) → general (8).",
+   ans:"Discovery (Part 3)",
+   scenario:"A new clerk mixes up the order of a juvenile delinquency case. You correct them: after the initial appearance and probable cause hearing, the next stage is:"},
+
+  {n:61,q:"The 'fact-finding hearing' in a juvenile delinquency proceeding is roughly the equivalent of what stage in an adult criminal case?",
+   opts:["a. Arraignment","b. Trial","c. Sentencing","d. Grand jury presentation"],
+   correct:"b",article:"FCA Art. 3",diff:2,
+   exp:"FCA Art. 3, Part 4 (the fact-finding hearing) is where the court determines whether the allegations are established — the juvenile delinquency equivalent of a trial.",
+   ans:"Trial",
+   scenario:"A parent asks what a 'fact-finding hearing' is in their child's case. You explain it's essentially the juvenile delinquency equivalent of a:"},
+
+  {n:62,q:"'Post-dispositional procedures' in FCA Art. 3 fall under which part?",
+   opts:["a. Part 4","b. Part 5","c. Part 6","d. Part 7"],
+   correct:"c",article:"FCA Art. 3",diff:1,
+   exp:"FCA Art. 3, Part 6 covers post-dispositional procedures — matters that arise after the dispositional order (Part 5) has been entered.",
+   ans:"Part 6",
+   scenario:"A respondent's placement order needs a post-disposition modification. That falls under FCA Art. 3:"},
+
+  // ── FCA ART. 4 — SUPPORT PROCEEDINGS ────────────────────
+  {n:63,q:"FCA Article 4 (Support Proceedings) is organized into how many parts?",
+   opts:["a. 5","b. 7","c. 8","d. 9"],
+   correct:"b",article:"FCA Art. 4",diff:1,
+   exp:"FCA Art. 4 has 7 parts: (1) jurisdiction & duties of support, (2) venue & preliminary procedure, (3) hearing, (4) orders, (5) compliance with orders, (6) effect of action for separation/divorce/annulment, (7) undertaking.",
+   ans:"7",
+   scenario:"A clerk needs to know how many parts make up the Support Proceedings article. You tell them it runs jurisdiction through undertaking in this many parts:"},
+
+  {n:64,q:"Under FCA Art. 4, how does a pending action for divorce, separation, or annulment affect an existing support proceeding?",
+   opts:["a. It automatically terminates the Family Court proceeding","b. It's specifically addressed in Part 6 of Article 4","c. It has no effect on the support proceeding whatsoever","d. It transfers the case to Surrogate's Court"],
+   correct:"b",article:"FCA Art. 4",diff:2,
+   exp:"FCA Art. 4, Part 6 (Effect of Action for Separation, Divorce or Annulment) specifically governs how a matrimonial action interacts with a pending Family Court support proceeding.",
+   ans:"It's specifically addressed in Part 6 of Article 4",
+   scenario:"A petitioner's spouse just filed for divorce in Supreme Court while a support petition is pending in Family Court. You look to FCA Art. 4:"},
+
+  {n:65,q:"Which part of FCA Art. 4 governs the procedure for enforcing an existing support order?",
+   opts:["a. Part 2 — Venue and preliminary procedure","b. Part 4 — Orders","c. Part 5 — Compliance with orders","d. Part 7 — Undertaking"],
+   correct:"c",article:"FCA Art. 4",diff:2,
+   exp:"FCA Art. 4, Part 5 (Compliance with Orders) governs enforcement of an existing support order, as distinct from Part 4 which governs the making of the order itself.",
+   ans:"Part 5 — Compliance with orders",
+   scenario:"A custodial parent wants to enforce a support order that the other parent has stopped paying. The relevant part of FCA Art. 4 is:"},
+
 ];
 
 // ─── SCENARIOS (Court Clerk Simulator wrappers) ───────────

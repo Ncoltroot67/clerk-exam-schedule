@@ -240,15 +240,15 @@ const PWA = (() => {
   function fireNotification(r) {
     if (!('serviceWorker' in navigator)) {
       new Notification(r.title, {
-        body: r.body, icon: 'icons/icon-192.png',
+        body: r.body, icon: 'icon-192.png',
         tag: r.tag, vibrate: [100,50,100]
       });
       return;
     }
     navigator.serviceWorker.ready.then(reg => {
       reg.showNotification(r.title, {
-        body: r.body, icon: 'icons/icon-192.png',
-        badge: 'icons/badge-72.png', tag: r.tag,
+        body: r.body, icon: 'icon-192.png',
+        badge: 'icon-192.png', tag: r.tag,
         renotify: true, vibrate: [100,50,100],
         data: { url: r.url || 'index.html' },
         actions: [

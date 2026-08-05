@@ -136,11 +136,68 @@ async function fetchQuestionPool(){
     });
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const rows = await res.json();
+
+    // ══════════════════════════════════════════════════════════════════
+    // EXAM SCOPE — update this block as more material is covered in class.
+    // Questions outside this scope stay in the full bank (used by other
+    // tools like the game/Jeopardy) but are excluded from this exam only.
+    // ══════════════════════════════════════════════════════════════════
+    const SCOPE = {
+      CPL:  { maxArticle: 170 },   // CPL articles taught through 170 so far
+      CPLR: { maxArticle: 11 },    // CPLR articles taught through 11 so far
+      FCA:  { maxArticle: 3 },     // FCA articles taught through 3 so far (Art. 4+ excluded)
+      PL:   { maxArticle: null },  // no cap -- all current PL content (10/55/80) is covered
+      MISC: { excludeSubstrings: ['VTL'] }  // Uniform Rules covered; VTL not yet covered
+    };
+
+    function cplArticle(statute){
+      const m = (statute || '').match(/CPL\s+(\d+)/);
+      return m ? parseInt(m[1], 10) : null;
+    }
+    function cplrArticle(statute){
+      const m = (statute || '').match(/CPLR\s+[Rr]?(\d+)/);
+      if(!m) return null;
+      const n = parseInt(m[1], 10);
+      const ranges = [[201,215,2],[301,328,3],[401,411,4],[501,515,5],[601,606,6],[1001,1027,10],[1101,1103,11]];
+      for(const [lo,hi,art] of ranges){ if(n >= lo && n <= hi) return art; }
+      return n >= 100 ? Math.floor(n / 100) : n;
+    }
+    function fcaArticle(statute){
+      const m = (statute || '').match(/FCA\s+(\d+)/);
+      if(!m) return null;
+      const n = parseInt(m[1], 10);
+      const ranges = [[100,199,1],[200,299,2],[300,399,3],[400,499,4],[500,599,5],[600,699,6],[700,799,7],[800,899,8],[900,999,9],[1000,1085,10],[1086,1099,'10-A']];
+      for(const [lo,hi,art] of ranges){ if(n >= lo && n <= hi) return art; }
+      return null;
+    }
+    function isInScope(r){
+      if(r.subject === 'CPL' && SCOPE.CPL.maxArticle != null){
+        const art = cplArticle(r.statute);
+        if(art !== null && art > SCOPE.CPL.maxArticle) return false;
+      }
+      if(r.subject === 'CPLR' && SCOPE.CPLR.maxArticle != null){
+        const art = cplrArticle(r.statute);
+        if(art !== null && art > SCOPE.CPLR.maxArticle) return false;
+      }
+      if(r.subject === 'FCA' && SCOPE.FCA.maxArticle != null){
+        const art = fcaArticle(r.statute);
+        // "10-A" (string) is always beyond a numeric cap like 3, so this correctly excludes it too
+        if(art !== null && (typeof art === 'string' || art > SCOPE.FCA.maxArticle)) return false;
+      }
+      if(r.subject === 'MISC' && SCOPE.MISC.excludeSubstrings){
+        if(SCOPE.MISC.excludeSubstrings.some(s => (r.statute || '').includes(s))) return false;
+      }
+      return true;
+    }
+
     let skipped = 0;
+    let skippedOutOfScope = 0;
     rows.forEach(r => {
       // Skip multi-select ("select all correct") questions -- this exam only supports
       // single-answer radio buttons, so an array-type correct answer can't be scored/rendered.
       if(Array.isArray(r.correct)){ skipped++; return; }
+      // Skip questions from articles/laws not yet covered in class
+      if(!isInScope(r)){ skippedOutOfScope++; return; }
       // Skip malformed MC rows: correct answer must exist among the lettered options
       if(r.type !== 'fill_in'){
         if(!r.options || typeof r.correct !== 'string' || !(r.correct in r.options)){ skipped++; return; }
@@ -154,7 +211,7 @@ async function fetchQuestionPool(){
       if(!POOL_BY_SECTION[r.subject]) POOL_BY_SECTION[r.subject] = [];
       POOL_BY_SECTION[r.subject].push(q);
     });
-    const total = rows.length - skipped;
+    const total = rows.length - skipped - skippedOutOfScope;
     statusEl.textContent = `Loaded ${total} questions from the bank. Ready to start.`;
     btnEl.disabled = false;
     btnEl.textContent = 'Start 3-Hour Exam';

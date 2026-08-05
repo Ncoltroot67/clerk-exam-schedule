@@ -1,25 +1,27 @@
 // ── SERVICE WORKER — NYS Clerk Exam PWA v5 ───────────────
 // Simplified for maximum Safari compatibility
 
-const CACHE = 'clerk-exam-v9';
+const CACHE = 'clerk-exam-v10';
 
 const FILES = [
   './',
   './index.html',
   './week1_schedule_final.html',
   './week2_schedule.html',
+  './week3_schedule.html',
   './week1_notes.html',
   './week1_quiz.html',
   './study_dashboard.html',
   './game.html',
   './jeopardy.html',
+  './nys_clerk_final_exam_supabase.html',
   './offline.html',
   './clerk_sync.js',
   './pwa-features.js',
   './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/apple-touch-icon.png'
+  './icon-192.png',
+  './icon-512.png',
+  './apple-touch-icon.png'
 ];
 
 self.addEventListener('install', e => {

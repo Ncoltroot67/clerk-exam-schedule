@@ -192,7 +192,7 @@ body {
   <div class="nav-score">
     <span class="score-label">Score</span>
     <span class="score-val" id="score-display">$0</span>
-    <button class="reset-btn" onclick="resetBoard()">↺ Reset</button>
+    <button class="reset-btn" onclick="resetBoard()">🔄 New Board</button>
   </div>
 </div>
 
@@ -202,8 +202,7 @@ body {
 </div>
 
 <div class="game-tabs">
-  <button class="game-tab active" id="tab-week1_jeopardy" onclick="switchGame('week1_jeopardy')">⚖️ Week 1 — Courts &amp; Definitions</button>
-  <button class="game-tab" id="tab-week2_jeopardy" onclick="switchGame('week2_jeopardy')">📋 Week 2 — Procedure &amp; Instruments</button>
+  <div style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,255,255,.6);padding:6px 4px">Full question bank · fresh random board every time · categories auto-recycle when exhausted</div>
 </div>
 <div class="board-scroll">
   <div id="jeopardy-board" class="jeopardy-board">
@@ -244,19 +243,20 @@ const SB_URL = 'https://khddivyhzdlptkoznytl.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoZGRpdnloemRscHRrb3pueXRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNDk3OTksImV4cCI6MjA5NTgyNTc5OX0.jnTbiHdFPYK1K282polY59j3OG2TcrQesrly1UZojB8';
 const sb = window.supabase.createClient(SB_URL, SB_KEY);
 
-let currentGame = 'week1_jeopardy';
+const CAT_ORDER = ['CRIMINAL PROCEDURE LAW','PENAL LAW','CIVIL PRACTICE LAW & RULES','FAMILY COURT ACT','MISC LAWS'];
+const VALUES = [100,200,300,400,500];
 let TOTAL_QS = 25;
 let currentQ = null;
 let score = 0;
 let answered = 0;
 
-function switchGame(name) {
-  currentGame = name;
-  score = 0; answered = 0;
-  document.getElementById('score-display').textContent = '$0';
-  document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  loadBoard();
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 function checkSimilarity(userAns, correctAns) {
@@ -277,26 +277,39 @@ async function loadBoard() {
   const board = document.getElementById('jeopardy-board');
   board.innerHTML = '<div class="board-msg">Loading...</div>';
 
-  const { data: questions, error } = await sb
+  const { data: allUnused, error } = await sb
     .from('question_bank')
     .select('*')
     .eq('qtype', 'jeopardy')
-    .eq('game_name', currentGame)
-    .order('j_category')
-    .order('j_value');
+    .eq('is_used', false);
 
-  if (error || !questions || questions.length === 0) {
-    board.innerHTML = '<div class="board-msg error">Run question_bank_setup.sql in Supabase first.</div>';
+  if (error) {
+    board.innerHTML = '<div class="board-msg error">Run the Supabase migration first.</div>';
     return;
   }
 
-  TOTAL_QS = questions.length;
   const cats = {};
-  questions.forEach(q => {
+  (allUnused || []).forEach(q => {
     if (!cats[q.j_category]) cats[q.j_category] = [];
     cats[q.j_category].push(q);
   });
-  const catNames = Object.keys(cats);
+
+  // Any category with fewer than 5 unused clues left gets recycled (is_used reset) before drawing
+  for (const cat of CAT_ORDER) {
+    if (!cats[cat] || cats[cat].length < 5) {
+      await sb.from('question_bank').update({ is_used: false }).eq('qtype', 'jeopardy').eq('j_category', cat);
+      const { data: refreshed } = await sb.from('question_bank').select('*').eq('qtype', 'jeopardy').eq('j_category', cat).eq('is_used', false);
+      cats[cat] = refreshed || [];
+    }
+  }
+
+  const catNames = CAT_ORDER.filter(c => cats[c] && cats[c].length > 0);
+  const board25 = {};
+  catNames.forEach(cat => {
+    board25[cat] = shuffle(cats[cat]).slice(0, 5).map((q, i) => ({ ...q, j_value: VALUES[i] }));
+  });
+
+  TOTAL_QS = catNames.length * 5;
   board.style.gridTemplateColumns = `repeat(${catNames.length}, minmax(110px, 1fr))`;
   board.innerHTML = '';
 
@@ -307,20 +320,18 @@ async function loadBoard() {
     board.appendChild(h);
   });
 
-  let usedCount = 0;
-  for (let v = 100; v <= 500; v += 100) {
+  VALUES.forEach((v, vi) => {
     catNames.forEach(cat => {
-      const q = cats[cat].find(i => i.j_value === v);
+      const q = board25[cat][vi];
       const cell = document.createElement('div');
       if (!q) { cell.className = 'j-cell used'; board.appendChild(cell); return; }
-      if (q.is_used) usedCount++;
-      cell.className = q.is_used ? 'j-cell used' : 'j-cell';
-      cell.textContent = q.is_used ? '' : `$${v}`;
-      if (!q.is_used) cell.addEventListener('click', () => openClue(q, cell));
+      cell.className = 'j-cell';
+      cell.textContent = `$${v}`;
+      cell.addEventListener('click', () => openClue(q, cell));
       board.appendChild(cell);
     });
-  }
-  updateProgress(usedCount);
+  });
+  updateProgress(0);
 }
 
 async function openClue(q, cellEl) {
@@ -396,8 +407,7 @@ function updateProgress(usedCount) {
 }
 
 async function resetBoard() {
-  if (!confirm('Reset all questions? Score will be cleared.')) return;
-  await sb.from('question_bank').update({ is_used: false }).eq('game_name', currentGame);
+  if (!confirm('Draw a new board? Your score resets, but nothing is lost — categories just cycle in fresh questions.')) return;
   score = 0; answered = 0;
   document.getElementById('score-display').textContent = '$0';
   loadBoard();

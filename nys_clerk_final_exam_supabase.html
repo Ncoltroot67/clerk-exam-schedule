@@ -136,7 +136,17 @@ async function fetchQuestionPool(){
     });
     if(!res.ok) throw new Error('HTTP ' + res.status);
     const rows = await res.json();
+    let skipped = 0;
     rows.forEach(r => {
+      // Skip multi-select ("select all correct") questions -- this exam only supports
+      // single-answer radio buttons, so an array-type correct answer can't be scored/rendered.
+      if(Array.isArray(r.correct)){ skipped++; return; }
+      // Skip malformed MC rows: correct answer must exist among the lettered options
+      if(r.type !== 'fill_in'){
+        if(!r.options || typeof r.correct !== 'string' || !(r.correct in r.options)){ skipped++; return; }
+      } else {
+        if(typeof r.correct !== 'string' || !r.correct.trim()){ skipped++; return; }
+      }
       const q = {
         id: r.id, subject: r.subject, statute: r.statute, q: r.question,
         opts: r.options, correct: r.correct, type: r.type, explanation: r.explanation
@@ -144,7 +154,7 @@ async function fetchQuestionPool(){
       if(!POOL_BY_SECTION[r.subject]) POOL_BY_SECTION[r.subject] = [];
       POOL_BY_SECTION[r.subject].push(q);
     });
-    const total = rows.length;
+    const total = rows.length - skipped;
     statusEl.textContent = `Loaded ${total} questions from the bank. Ready to start.`;
     btnEl.disabled = false;
     btnEl.textContent = 'Start 3-Hour Exam';
@@ -238,7 +248,7 @@ function updateProgressNote(){
   const total = state.questions.length;
   const answered = Object.keys(state.answers).filter(k => state.answers[k] && state.answers[k].toString().trim() !== '').length;
   const note = document.getElementById('progressNote');
-  note.textContent = `${answered} of ${total} answered` + (answered < total ? ` — answer all ${total} to submit` : ' — ready to submit');
+  note.textContent = `${answered} of ${total} answered` + (answered < total ? ` — you can submit early, unanswered counted wrong` : ' — ready to submit');
 }
 
 function tickTimer(){
@@ -267,10 +277,12 @@ function submitExam(auto){
   if(!auto){
     const unanswered = QUESTIONS.filter(q => !state.answers[q.id] || (typeof state.answers[q.id] === 'string' && state.answers[q.id].trim() === ''));
     if(unanswered.length > 0){
-      alert(`You have ${unanswered.length} unanswered question(s). Please answer all ${QUESTIONS.length} questions before submitting.\n\nUnanswered: Q` + unanswered.map(q => q.n).join(', Q'));
-      const firstUnansweredEl = document.querySelector(`[data-qid="${unanswered[0].id}"], input[name="${unanswered[0].id}"]`);
-      if(firstUnansweredEl) firstUnansweredEl.closest('.quiz-q').scrollIntoView({behavior:'smooth', block:'center'});
-      return;
+      const proceed = confirm(`You have ${unanswered.length} unanswered question(s) (Q${unanswered.map(q => q.n).join(', Q')}).\n\nThese will be counted as incorrect if you submit now.\n\nPress OK to submit anyway, or Cancel to go back and answer them.`);
+      if(!proceed){
+        const firstUnansweredEl = document.querySelector(`[data-qid="${unanswered[0].id}"], input[name="${unanswered[0].id}"]`);
+        if(firstUnansweredEl) firstUnansweredEl.closest('.quiz-q').scrollIntoView({behavior:'smooth', block:'center'});
+        return;
+      }
     }
   }
   let correct = 0;

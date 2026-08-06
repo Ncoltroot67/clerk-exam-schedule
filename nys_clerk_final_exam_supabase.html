@@ -40,6 +40,13 @@ body{background:var(--cream);color:var(--text);font-family:'Times New Roman',Tim
 .start-btn:disabled{opacity:.5;cursor:not-allowed}
 .load-status{font-family:Arial,sans-serif;font-size:13px;color:var(--text-muted);margin-top:14px}
 .load-status.error{color:#ef4444}
+.section-picker{display:flex;flex-direction:column;gap:8px;margin:14px 0;text-align:left}
+.section-row{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer}
+.section-row input[type=checkbox]{width:18px;height:18px;flex-shrink:0;accent-color:var(--navy)}
+.section-row label{flex:1;font-size:var(--fs-sm);cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.section-row .sec-count-input{width:56px;font-family:'Times New Roman',Times,serif;font-size:var(--fs-sm);text-align:center;border:1px solid var(--border);border-radius:6px;padding:4px 6px;background:var(--cream)}
+.section-row.disabled{opacity:.45}
+.picker-total{font-family:Arial,sans-serif;font-size:13px;color:var(--text-muted);margin-top:6px}
 
 .container{max-width:850px;margin:20px auto 80px;padding:0 var(--pad-h)}
 .section-head{font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;border-bottom:2px solid var(--navy);padding:18px 0 8px;margin-top:10px}
@@ -88,13 +95,11 @@ table.results-table tr:last-child td{font-weight:700;background:var(--gold-light
 
 <div class="start-screen no-print" id="startScreen">
   <div class="card">
-    <h2>105-Question Timed Exam</h2>
-    <p>Loaded live from the question bank — a new random set and order every time you start:</p>
-    <ul>
-      <li><strong>Criminal Procedure Law</strong> — 30 questions per attempt</li><li><strong>Penal Law</strong> — 15 questions per attempt</li><li><strong>Civil Practice Law & Rules</strong> — 25 questions per attempt</li><li><strong>Family Court Act</strong> — 20 questions per attempt</li><li><strong>Misc Laws (Uniform Rules)</strong> — 15 questions per attempt</li>
-    </ul>
+    <h2 id="examTitle">105-Question Timed Exam</h2>
+    <p>Loaded live from the question bank — a new random set and order every time you start. Choose which sections to include:</p>
+    <div id="sectionPicker" class="section-picker"></div>
     <p>You will have <strong>3 hours (180 minutes)</strong> from the moment you press Start. The exam auto-submits and scores itself when time runs out, or submit manually once every question is answered.</p>
-    <p>Your progress saves in this browser as you go — if the page is closed or refreshed, reopen it here to resume the SAME attempt. Starting a brand new attempt draws a fresh random set.</p>
+    <p>Your progress saves in this browser as you go — if the page is closed or refreshed, reopen it here to resume the SAME attempt. Starting a brand new attempt draws a fresh random set using whatever sections you pick.</p>
     <button class="start-btn" id="startBtn" onclick="startExam()" disabled>Loading questions…</button>
     <div class="load-status" id="loadStatus">Connecting to question bank…</div>
   </div>
@@ -145,7 +150,7 @@ async function fetchQuestionPool(){
     const SCOPE = {
       CPL:  { maxArticle: 170 },   // CPL articles taught through 170 so far
       CPLR: { maxArticle: 11 },    // CPLR articles taught through 11 so far
-      FCA:  { maxArticle: 3 },     // FCA articles taught through 3 so far (Art. 4+ excluded)
+      FCA:  { maxArticle: 4 },     // FCA articles taught through 4 so far (Art. 5+ excluded)
       PL:   { maxArticle: null },  // no cap -- all current PL content (10/55/80) is covered
       MISC: { excludeSubstrings: ['VTL'] }  // Uniform Rules covered; VTL not yet covered
     };
@@ -215,11 +220,65 @@ async function fetchQuestionPool(){
     statusEl.textContent = `Loaded ${total} questions from the bank. Ready to start.`;
     btnEl.disabled = false;
     btnEl.textContent = 'Start 3-Hour Exam';
+    renderSectionPicker();
     // If there's an in-progress or completed attempt saved, resume it instead
     if(state){ renderExam(); }
   } catch(e){
     statusEl.textContent = 'Could not load questions from the bank (' + e.message + '). Check your internet connection and refresh.';
     statusEl.classList.add('error');
+  }
+}
+
+// Tracks which sections are included and how many questions to draw from each.
+// Defaults to every section checked, at its normal count.
+let sectionSelection = {};
+SECTION_CONFIG.forEach(sec => { sectionSelection[sec.code] = { checked: true, count: sec.count }; });
+
+function renderSectionPicker(){
+  const wrap = document.getElementById('sectionPicker');
+  wrap.innerHTML = SECTION_CONFIG.map(sec => {
+    const poolSize = (POOL_BY_SECTION[sec.code] || []).length;
+    const sel = sectionSelection[sec.code];
+    return `<div class="section-row ${sel.checked ? '' : 'disabled'}" id="secRow-${sec.code}">
+      <input type="checkbox" id="secChk-${sec.code}" ${sel.checked ? 'checked' : ''} onchange="onSectionToggle('${sec.code}')">
+      <label for="secChk-${sec.code}">
+        <span>${sec.label}</span>
+        <span style="display:flex;align-items:center;gap:6px;font-family:Arial,sans-serif;font-size:13px">
+          <input type="number" class="sec-count-input" id="secCount-${sec.code}" value="${sel.count}" min="0" max="${poolSize}" ${sel.checked ? '' : 'disabled'} onchange="onSectionCountChange('${sec.code}')" onclick="event.stopPropagation()">
+          <span style="color:var(--text-muted)">of ${poolSize} available</span>
+        </span>
+      </label>
+    </div>`;
+  }).join('');
+  updatePickerTotal();
+}
+
+function onSectionToggle(code){
+  const chk = document.getElementById('secChk-' + code);
+  sectionSelection[code].checked = chk.checked;
+  document.getElementById('secRow-' + code).classList.toggle('disabled', !chk.checked);
+  document.getElementById('secCount-' + code).disabled = !chk.checked;
+  updatePickerTotal();
+}
+function onSectionCountChange(code){
+  const input = document.getElementById('secCount-' + code);
+  let val = parseInt(input.value, 10) || 0;
+  const poolSize = (POOL_BY_SECTION[code] || []).length;
+  val = Math.max(0, Math.min(val, poolSize));
+  input.value = val;
+  sectionSelection[code].count = val;
+  updatePickerTotal();
+}
+function updatePickerTotal(){
+  const total = SECTION_CONFIG.reduce((sum, sec) => sum + (sectionSelection[sec.code].checked ? sectionSelection[sec.code].count : 0), 0);
+  document.getElementById('examTitle').textContent = `${total}-Question Timed Exam`;
+  const btnEl = document.getElementById('startBtn');
+  if(total === 0){
+    btnEl.disabled = true;
+    btnEl.textContent = 'Select at least one section';
+  } else if(!btnEl.textContent.includes('Loading')){
+    btnEl.disabled = false;
+    btnEl.textContent = 'Start 3-Hour Exam';
   }
 }
 
@@ -237,8 +296,10 @@ function drawExamQuestions(){
   const questions = [];
   const sectionMeta = [];
   SECTION_CONFIG.forEach(sec => {
+    const sel = sectionSelection[sec.code];
+    if(!sel.checked || sel.count <= 0) return;
     const pool = POOL_BY_SECTION[sec.code] || [];
-    const picked = shuffle(pool).slice(0, sec.count);
+    const picked = shuffle(pool).slice(0, sel.count);
     const start = n;
     picked.forEach(q => { questions.push({ ...q, n }); n++; });
     sectionMeta.push({ code: sec.code, label: sec.label, start, end: n - 1, count: picked.length });

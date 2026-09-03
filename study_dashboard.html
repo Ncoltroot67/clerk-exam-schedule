@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en"><!-- v:2026-06-09 -->
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Study Dashboard — NYS Clerk Exam</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+
+/* ══ MOBILE RENDERING FIX ══ */
+html {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  overflow-x: hidden;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100vw;
+}
+@media screen and (max-width: 768px) {
+  html, body { font-size: 18px; }
+  * { max-width: 100%; word-break: break-word; }
+  img, video, iframe, table { max-width: 100% !important; }
+  pre, code { white-space: pre-wrap; overflow-wrap: break-word; }
+}
+
+:root{
+  --navy:#1a1f3c;--navy-mid:#2d3561;
+  --gold:#c9952a;--gold-light:#f5e6c8;
+  --cream:#faf7f2;--white:#fff;
+  --sage:#4a7c6f;--sage-light:#e4edeb;
+  --coral:#c4503a;--coral-light:#fdf0ee;
+  --violet:#6b4fa0;--violet-light:#ede8f7;
+  --slate:#5a6279;--slate-light:#eaecf2;
+  --border:#e2ddd6;--muted:#6b7194;
+  --cpl:#2563eb;--pl:#dc2626;
+  --fs-h1:32px;--fs-h2:22px;--fs-h3:18px;
+  --fs-base:18px;--fs-sm:16px;--fs-xs:14px;--fs-xxs:12px;
+  --pad:32px;
+}
+@media(max-width:768px){:root{--pad:16px;--fs-h1:26px;--fs-h2:18px;}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:white;font-family:"DM Sans",sans-serif;font-size:var(--fs-base);line-height:1.65;min-height:100vh}
+.header{padding:28px var(--pad) 24px;border-bottom:1px solid rgba(255,255,255,.07)}
+.eyebrow{font-size:var(--fs-xxs);font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.header h1{font-family:"DM Serif Display",serif;font-size:var(--fs-h1);color:white;margin-bottom:14px}
+.header-btns{display:flex;gap:10px;flex-wrap:wrap}
+.hbtn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:var(--fs-xs);font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:white;transition:background .15s;cursor:pointer;font-family:inherit}
+.hbtn:hover{background:rgba(255,255,255,.14)}
+.hbtn.gold{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.status-bar{padding:8px var(--pad);background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.05);font-size:var(--fs-xxs);color:rgba(255,255,255,.4);display:flex;align-items:center;gap:8px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0}
+.status-dot.online{background:#4caf50;box-shadow:0 0 6px rgba(76,175,80,.5)}
+.status-dot.loading{background:var(--gold);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.sections{max-width:1000px;margin:0 auto;padding:32px var(--pad) 80px;display:flex;flex-direction:column;gap:40px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.section-label{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px}
+.section-title{font-family:"DM Serif Display",serif;font-size:var(--fs-h2);color:white}
+.section-sub{font-size:var(--fs-xs);color:rgba(255,255,255,.4);margin-top:3px}
+.section-count{font-size:var(--fs-xxs);font-family:"DM Mono",monospace;color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);border-radius:20px;padding:3px 10px}
+.divider{height:1px;background:rgba(255,255,255,.07);margin:0}
+.spinner{width:32px;height:32px;border:2px solid rgba(255,255,255,.1);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:40px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{text-align:center;padding:40px 20px;color:rgba(255,255,255,.3);font-size:var(--fs-xs)}
+.empty-icon{font-size:32px;display:block;margin-bottom:10px;opacity:.4}
+.wa-item{background:rgba(196,80,58,.07);border:1px solid rgba(196,80,58,.2);border-radius:10px;padding:14px 16px;margin-bottom:8px}
+.wa-article{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coral);margin-bottom:5px}
+.wa-question{font-size:var(--fs-sm);color:rgba(255,255,255,.8);line-height:1.5;margin-bottom:8px}
+.wa-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.wa-yours{font-size:var(--fs-xs);color:rgba(255,255,255,.4)}
+.wa-yours strong{color:#f87171}
+.wa-correct{font-size:var(--fs-xs);color:rgba(255,255,255,.4)}
+.wa-correct strong{color:#86efac}
+.wa-date{font-size:var(--fs-xxs);color:rgba(255,255,255,.25);font-family:"DM Mono",monospace;margin-left:auto}
+.log-form{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;margin-bottom:20px}
+.log-form-title{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:12px}
+.log-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.log-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:9px 12px;color:white;font-size:var(--fs-xs);font-family:inherit;outline:none;width:100%;transition:border-color .15s}
+.log-input:focus{border-color:var(--coral)}
+.log-input::placeholder{color:rgba(255,255,255,.25)}
+@media(max-width:600px){.log-row{grid-template-columns:1fr}}
+.mn-group{margin-bottom:24px}
+.mn-group-label{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.mn-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.mn-card{background:rgba(107,79,160,.1);border:1px solid rgba(107,79,160,.2);border-radius:8px;padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:background .15s}
+.mn-card:hover{background:rgba(107,79,160,.18)}
+.mn-front{font-size:var(--fs-xs);color:rgba(255,255,255,.6);margin-bottom:4px}
+.mn-back{font-size:var(--fs-sm);color:rgba(255,255,255,.9);font-style:italic;display:none;border-top:1px solid rgba(107,79,160,.3);padding-top:10px;margin-top:8px;line-height:1.6}
+.mn-back.show{display:block}
+.mn-hint{font-size:var(--fs-xxs);color:rgba(107,79,160,.7);margin-top:6px}
+.export-btn{font-size:var(--fs-xxs);font-weight:600;padding:5px 14px;border-radius:6px;background:rgba(107,79,160,.2);border:1px solid rgba(107,79,160,.35);color:rgba(255,255,255,.7);cursor:pointer;font-family:inherit;transition:all .15s}
+.export-btn:hover{background:rgba(107,79,160,.35)}
+.sr-table{width:100%;border-collapse:collapse}
+.sr-table th{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.3);padding:0 0 10px;text-align:left}
+.sr-table td{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:var(--fs-xs)}
+.sr-table tr:last-child td{border-bottom:none}
+.sr-art{color:rgba(255,255,255,.85);font-weight:500}
+.sr-date{color:rgba(255,255,255,.35);font-family:"DM Mono",monospace;font-size:var(--fs-xxs)}
+.sr-badge{display:inline-flex;padding:3px 10px;border-radius:10px;font-size:var(--fs-xxs);font-weight:600}
+.sr-overdue{background:rgba(196,80,58,.2);color:#f4a090;border:1px solid rgba(196,80,58,.3)}
+.sr-today{background:rgba(201,149,42,.2);color:#fbbf24;border:1px solid rgba(201,149,42,.3)}
+.sr-upcoming{background:rgba(74,124,111,.15);color:#6ee7b7;border:1px solid rgba(74,124,111,.25)}
+.sr-done{background:rgba(255,255,255,.06);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.08)}
+.back-row{padding:16px var(--pad) 0;max-width:1000px;margin:0 auto}
+.diary-entry{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;margin-bottom:10px}
+.diary-entry-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px}
+.diary-article{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;display:flex;align-items:center;gap:6px}
+.diary-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.diary-date{font-size:var(--fs-xxs);color:rgba(255,255,255,.25);font-family:"DM Mono",monospace}
+.diary-text{font-size:var(--fs-sm);color:rgba(255,255,255,.75);line-height:1.65}
+.diary-form{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;margin-bottom:20px}
+.diary-form-title{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:12px}
+.diary-select{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:9px 12px;color:white;font-size:var(--fs-xs);font-family:inherit;outline:none;width:100%;margin-bottom:8px;-webkit-appearance:none}
+.diary-select option{background:var(--navy)}
+.diary-textarea{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:12px;color:white;font-size:var(--fs-sm);font-family:inherit;outline:none;width:100%;resize:none;min-height:120px;line-height:1.65;transition:border-color .15s;margin-bottom:8px}
+.diary-textarea:focus{border-color:var(--sage)}
+.diary-textarea::placeholder{color:rgba(255,255,255,.2)}
+.diary-hint{font-size:var(--fs-xxs);color:rgba(255,255,255,.2);margin-bottom:10px;line-height:1.5}
+.prereading-card{background:linear-gradient(135deg,rgba(201,149,42,.12),rgba(201,149,42,.06));border:1px solid rgba(201,149,42,.25);border-radius:10px;padding:14px 16px;margin-bottom:12px;display:none;animation:slideDown .2s ease}
+.prereading-card.visible{display:block}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.prereading-label{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.prereading-questions{list-style:none;display:flex;flex-direction:column;gap:8px}
+.prereading-questions li{display:flex;align-items:flex-start;gap:10px;font-size:var(--fs-xs);color:rgba(255,255,255,.75);line-height:1.5}
+.pq-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:rgba(201,149,42,.2);border:1px solid rgba(201,149,42,.35);color:var(--gold);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.prereading-dismiss{margin-top:12px;font-size:var(--fs-xxs);color:rgba(255,255,255,.25);cursor:pointer;text-align:right;transition:color .15s}
+.prereading-dismiss:hover{color:rgba(255,255,255,.5)}
+.confidence-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.confidence-label{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);white-space:nowrap}
+.star-group{display:flex;gap:4px}
+.star-btn{background:none;border:none;font-size:24px;cursor:pointer;padding:2px 4px;border-radius:4px;transition:transform .1s;line-height:1;color:rgba(255,255,255,.2);min-height:44px;display:flex;align-items:center;justify-content:center}
+.star-btn.filled{color:var(--gold)}
+.star-btn:active{transform:scale(.85)}
+.confidence-desc{font-size:var(--fs-xxs);color:rgba(255,255,255,.3);min-width:100px;font-style:italic}
+.diary-stars{font-size:13px;letter-spacing:1px;line-height:1}
+.gap-input-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.18);border-radius:8px;padding:10px 12px}
+.gap-input-icon{font-size:18px;flex-shrink:0}
+.gap-input{background:none;border:none;outline:none;color:white;font-size:16px;font-family:inherit;width:100%;line-height:1.4}
+.gap-input::placeholder{color:rgba(255,255,255,.25)}
+.gap-item{display:flex;align-items:flex-start;gap:10px;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.14);border-radius:8px;padding:11px 14px;margin-bottom:7px}
+.gap-bullet{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);color:#fbbf24;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.gap-body{flex:1;min-width:0;overflow-wrap:break-word;word-break:break-word}
+.gap-art{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#fbbf24;margin-bottom:3px}
+.gap-text{font-size:var(--fs-sm);color:rgba(255,255,255,.8);line-height:1.5}
+.gap-date{font-size:var(--fs-xxs);color:rgba(255,255,255,.25);font-family:"DM Mono",monospace;margin-top:4px}
+.anki-form{background:rgba(107,79,160,.07);border:1px solid rgba(107,79,160,.18);border-radius:10px;padding:16px;margin-bottom:16px}
+.anki-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+@media(max-width:600px){.anki-fields{grid-template-columns:1fr}}
+.anki-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:10px 12px;color:white;font-size:16px;font-family:inherit;outline:none;width:100%;resize:vertical;min-height:72px;line-height:1.5;transition:border-color .15s}
+.anki-input:focus{border-color:var(--violet)}
+.anki-input::placeholder{color:rgba(255,255,255,.22)}
+.anki-card-list{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.anki-card-item{background:rgba(107,79,160,.09);border:1px solid rgba(107,79,160,.2);border-radius:8px;padding:11px 14px;display:flex;align-items:flex-start;gap:12px}
+.anki-card-body{flex:1;min-width:0}
+.anki-card-art{font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(107,79,160,.9);margin-bottom:5px}
+.anki-card-front{font-size:var(--fs-sm);color:rgba(255,255,255,.85);margin-bottom:4px;font-weight:500}
+.anki-card-back{font-size:var(--fs-sm);color:rgba(255,255,255,.5);font-style:italic}
+.anki-del{background:none;border:none;color:rgba(255,255,255,.2);font-size:18px;cursor:pointer;padding:0 4px;flex-shrink:0;transition:color .15s;min-height:32px;display:flex;align-items:center}
+.anki-del:hover{color:var(--coral)}
+.anki-export-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.anki-count{font-size:var(--fs-xxs);font-family:"DM Mono",monospace;color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);border-radius:20px;padding:3px 10px;margin-left:auto}
+.bottom-nav-bar{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0f1120;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:999;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.bnb-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 12px;border-radius:10px;text-decoration:none;color:rgba(255,255,255,.4);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-family:"DM Sans",system-ui,sans-serif;min-width:56px;transition:color .15s;background:none;border:none;cursor:pointer}
+.bnb-btn:hover,.bnb-btn.active{color:#e8a020}
+.bnb-icon{font-size:20px;line-height:1}
+body{padding-bottom:68px}
+.toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;color:white;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;font-family:"DM Sans",system-ui,sans-serif}
+.toast.show{opacity:1}
+.toast-success{background:#16a34a}
+.toast-error{background:#ef4444}
+.toast-info{background:#1a1f3c}
+.qab{position:fixed;bottom:76px;right:16px;width:48px;height:48px;border-radius:50%;background:#c9952a;color:#0f1120;border:none;font-size:22px;cursor:pointer;z-index:998;box-shadow:0 4px 16px rgba(201,149,42,.4);display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit}
+.qab:hover{transform:scale(1.08)}
+.qab:active{transform:scale(.95)}
+.qab-menu{position:fixed;bottom:134px;right:16px;background:#1c1f35;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:8px;z-index:998;display:none;flex-direction:column;gap:4px;min-width:200px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.qab-menu.open{display:flex}
+.qab-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:none;border:none;color:rgba(255,255,255,.8);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;transition:background .15s;white-space:nowrap}
+.qab-item:hover{background:rgba(255,255,255,.08)}
+.qab-item-icon{font-size:16px;width:20px;text-align:center}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,.06) 25%,rgba(255,255,255,.1) 50%,rgba(255,255,255,.06) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:6px}
+.skel-line{height:14px;margin-bottom:8px}
+.skel-line.short{width:40%}
+.skel-line.medium{width:65%}
+.skel-card{height:80px;border-radius:10px;margin-bottom:8px}
+:root{--safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px)}
+body{padding-bottom:calc(68px + env(safe-area-inset-bottom,0px));-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;-webkit-overflow-scrolling:touch}
+.bottom-nav-bar{padding-bottom:env(safe-area-inset-bottom,0px)!important;height:auto!important;padding-top:10px!important}
+.qab{bottom:calc(76px + env(safe-area-inset-bottom,0px))!important}
+.qab-menu{bottom:calc(134px + env(safe-area-inset-bottom,0px))!important}
+button,.btn,.hbtn,.bnb-btn,.mn-card,.diary-entry,{min-height:44px;cursor:pointer}
+input,textarea,select,.log-input,.diary-select,.diary-textarea{font-size:16px!important;border-radius:8px}
+.score-bar{flex-wrap:wrap!important;gap:10px!important}
+@media(max-width:600px){.log-row{grid-template-columns:1fr!important}.diary-textarea{min-height:140px!important}.section-head{flex-direction:column!important;align-items:flex-start!important}}
+@media(max-width:768px){html{font-size:20px}body{font-size:20px!important}
+.diary-text,.wa-question,.gap-text,.anki-card-front,.anki-card-back{font-size:18px!important}
+.section-title{font-size:20px!important}
+input,textarea,select,.log-input,.diary-select,.diary-textarea,.gap-input,.anki-input{font-size:20px!important}
+.star-btn{font-size:28px!important}
+.prereading-questions li{font-size:16px!important}
+.bnb-btn{font-size:12px!important}
+.hbtn{font-size:16px!important}}
+</style>
+</head>
+<body>
+<div class="status-bar">
+  <div class="status-dot loading" id="status-dot"></div>
+  <span id="status-text">Connecting to Supabase...</span>
+  <span style="margin-left:auto;font-family:'DM Mono',monospace;font-size:11px" id="last-sync"></span>
+</div>
+<div class="header">
+  <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859</div>
+  <h1>Study Dashboard</h1>
+  <div class="header-btns">
+    <a href="index.html" class="hbtn">← All Weeks</a>
+    <a href="quiz.html" class="hbtn">❓ Quizzes</a>
+    <button class="hbtn" onclick="loadAll()">↻ Refresh</button>
+    <button class="hbtn" onclick="document.getElementById('diary-article').focus();document.querySelector('.diary-form').scrollIntoView({behavior:'smooth'})">📔 New entry</button>
+  </div>
+</div>
+<div class="sections">
+  <!-- ARTICLE DIARY -->
+  <div>
+    <div class="section-head">
+      <div>
+        <div class="section-label" style="color:var(--sage)">After every article</div>
+        <div class="section-title">Article Diary</div>
+        <div class="section-sub">Write what you understand in your own words — 3–5 sentences max</div>
+      </div>
+      <span class="section-count" id="diary-count">Loading...</span>
+    </div>
+    <div class="diary-form">
+      <div class="diary-form-title">+ New entry — write after finishing an article</div>
+      <select class="diary-select" id="diary-article" onchange="onArticleSelect(this.value)">
+        <option value="">Select article...</option>
+        <optgroup label="Week 1">
+          <option>CPL Art. 1 — Definitions</option>
+          <option>CPL Art. 10 — Criminal Courts</option>
+          <option>CPL Art. 30 — Speedy Trial</option>
+          <option>PL Art. 10 — Mental States</option>
+          <option>PL Art. 55 — Classifications</option>
+          <option>PL Art. 80 — Sentences</option>
+        </optgroup>
+        <optgroup label="Week 2">
+          <option>CPL Art. 100 — Accusatory Instruments</option>
+          <option>CPL Art. 110 — Arraignment</option>
+          <option>CPL Art. 120 — Warrant of Arrest</option>
+          <option>CPL Art. 160 — Fingerprinting</option>
+        </optgroup>
+      </select>
+      <div class="prereading-card" id="prereading-card">
+        <div class="prereading-label">🎯 Hunt for these answers as you read</div>
+        <ul class="prereading-questions" id="prereading-qs"></ul>
+        <div class="prereading-dismiss" onclick="dismissPrereading()">✓ Got it — start reading</div>
+      </div>
+      <div class="diary-hint">Answer these three: What is this article about? What is the most important rule? What confused me?</div>
+      <textarea class="diary-textarea" id="diary-text" placeholder="In my own words..."></textarea>
+      <div class="confidence-row">
+        <span class="confidence-label">Confidence</span>
+        <div class="star-group" id="star-group">
+          <button class="star-btn" type="button" data-val="1" onclick="setStars(1)">★</button>
+          <button class="star-btn" type="button" data-val="2" onclick="setStars(2)">★</button>
+          <button class="star-btn" type="button" data-val="3" onclick="setStars(3)">★</button>
+          <button class="star-btn" type="button" data-val="4" onclick="setStars(4)">★</button>
+          <button class="star-btn" type="button" data-val="5" onclick="setStars(5)">★</button>
+        </div>
+        <span class="confidence-desc" id="confidence-desc">Tap to rate</span>
+      </div>
+      <div class="gap-input-row">
+        <span class="gap-input-icon">🤔</span>
+        <input class="gap-input" id="diary-gap" type="text" placeholder="What I still don't get — one line (optional)">
+      </div>
+      <button class="hbtn" onclick="saveDiaryEntry()" style="background:var(--sage);color:white;border-color:var(--sage)">Save entry</button>
+    </div>
+    <div id="gap-feed" style="margin-top:16px"></div>
+    <div id="diary-feed"><div style="display:flex;flex-direction:column;gap:8px"><div class="skel-line short skeleton"></div><div class="skel-card skeleton"></div><div class="skel-card skeleton"></div></div></div>
+  </div>
+  <div class="divider"></div>
+  <!-- TEST SCORES -->
+  <div>
+    <div class="section-head">
+      <div>
+        <div class="section-label" style="color:var(--gold)">Weekly final exam &amp; game modes</div>
+        <div class="section-title">Test Scores</div>
+        <div class="section-sub">Auto-saved from the weekly final exam and Clerk Challenge game</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <span class="section-count" id="ts-count">Loading...</span>
+      </div>
+    </div>
+    <div id="ts-feed"><div style="display:flex;flex-direction:column;gap:8px"><div class="skel-line short skeleton"></div><div class="skel-card skeleton"></div><div class="skel-card skeleton"></div></div></div>
+  </div>
+  <div class="divider"></div>
+  <!-- WRONG ANSWERS -->
+  <div>
+    <div class="section-head">
+      <div>
+        <div class="section-label" style="color:var(--coral)">Collected from quizzes</div>
+        <div class="section-title">Wrong Answers</div>
+        <div class="section-sub">Auto-saved every time you get a quiz question wrong</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <span class="section-count" id="wa-count">Loading...</span>
+        <button class="hbtn" onclick="clearWrongAnswers()" style="font-size:11px;border-color:rgba(196,80,58,.3);color:#f87171">Clear all</button>
+      </div>
+    </div>
+    <div class="log-form">
+      <div class="log-form-title">+ Log a wrong answer manually (from ClerkOne or Bluemedia)</div>
+      <div class="log-row">
+        <input class="log-input" id="wa-article" placeholder="Article — e.g. CPL Art. 30">
+        <input class="log-input" id="wa-yours" placeholder="Your answer">
+      </div>
+      <input class="log-input" id="wa-question" placeholder="Question or concept you missed" style="margin-bottom:8px">
+      <input class="log-input" id="wa-correct" placeholder="Correct answer" style="margin-bottom:10px">
+      <button class="hbtn" onclick="logWrongAnswer()">+ Log</button>
+    </div>
+    <div id="wa-feed"><div style="display:flex;flex-direction:column;gap:8px"><div class="skel-line short skeleton"></div><div class="skel-card skeleton"></div><div class="skel-card skeleton"></div></div></div>
+  </div>
+  <div class="divider"></div>
+  <!-- MNEMONICS -->
+  <div>
+    <div class="section-head">
+      <div>
+        <div class="section-label" style="color:var(--violet)">Collected from wind-down blocks</div>
+        <div class="section-title">Mnemonics</div>
+        <div class="section-sub">Tap a card to reveal your mnemonic · grouped by article</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="section-count" id="mn-count">Loading...</span>
+        <button class="export-btn" onclick="exportAnki()">↓ Export to Anki</button>
+      </div>
+    </div>
+    <div id="mn-feed"><div style="display:flex;flex-direction:column;gap:8px"><div class="skel-line short skeleton"></div><div class="skel-card skeleton"></div></div></div>
+  </div>
+  <div class="divider"></div>
+  <!-- SPACED REP -->
+  <div>
+    <div class="section-head">
+      <div>
+        <div class="section-label" style="color:var(--sage)">Expanding gap schedule</div>
+        <div class="section-title">Spaced Rep Diary</div>
+        <div class="section-sub">What to review today based on when you learned each article</div>
+      </div>
+      <span class="section-count" id="sr-due-count">Loading...</span>
+    </div>
+    <div id="sr-feed"><div style="display:flex;flex-direction:column;gap:8px"><div class="skel-line short skeleton"></div><div class="skel-card skeleton"></div></div></div>
+  </div>
+  <div class="divider"></div>
+  <!-- ANKI CARD BUILDER -->
+  <div>
+    <div class="section-head">
+      <div>
+        <div class="section-label" style="color:var(--violet)">Build · review · export</div>
+        <div class="section-title">Anki Card Builder</div>
+        <div class="section-sub">Type front + back · export as .txt to import into Anki</div>
+      </div>
+      <span class="anki-count" id="anki-count">0 cards</span>
+    </div>
+    <div class="anki-form">
+      <div class="diary-form-title">+ New card</div>
+      <select class="diary-select" id="anki-article" style="margin-bottom:10px">
+        <option value="">Select article...</option>
+        <optgroup label="Week 1">
+          <option>CPL Art. 1 — Definitions</option>
+          <option>CPL Art. 10 — Criminal Courts</option>
+          <option>CPL Art. 30 — Speedy Trial</option>
+          <option>PL Art. 10 — Mental States</option>
+          <option>PL Art. 55 — Classifications</option>
+          <option>PL Art. 80 — Sentences</option>
+        </optgroup>
+        <optgroup label="Week 2">
+          <option>CPL Art. 100 — Accusatory Instruments</option>
+          <option>CPL Art. 110 — Arraignment</option>
+          <option>CPL Art. 120 — Warrant of Arrest</option>
+          <option>CPL Art. 160 — Fingerprinting</option>
+        </optgroup>
+      </select>
+      <div class="anki-fields">
+        <textarea class="anki-input" id="anki-front" placeholder="Front — question or prompt"></textarea>
+        <textarea class="anki-input" id="anki-back" placeholder="Back — answer or definition"></textarea>
+      </div>
+      <button class="hbtn" onclick="addAnkiCard()" style="background:rgba(107,79,160,.3);border-color:rgba(107,79,160,.5);color:white">+ Add card</button>
+    </div>
+    <div class="anki-card-list" id="anki-card-list"></div>
+    <div class="anki-export-row">
+      <button class="export-btn" onclick="exportAnkiCards()" id="anki-export-btn" style="display:none">↓ Export all cards (.txt)</button>
+      <button class="hbtn" onclick="clearAnkiCards()" id="anki-clear-btn" style="display:none;font-size:11px;border-color:rgba(196,80,58,.3);color:#f87171">Clear all</button>
+    </div>
+  </div>
+</div>
+<div class="back-row">
+  <a href="index.html" style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px;font-size:var(--fs-xs);font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:40px">← Back to All Weeks</a>
+</div>
+<script>
+const SB_URL='https://khddivyhzdlptkoznytl.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoZGRpdnloemRscHRrb3pueXRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNDk3OTksImV4cCI6MjA5NTgyNTc5OX0.jnTbiHdFPYK1K282polY59j3OG2TcrQesrly1UZojB8';
+const USER='ncolton_main';
+const HDRS={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'};
+async function sb(table,query='',method='GET',body=null){try{const res=await fetch(SB_URL+'/rest/v1/'+table+query,{method,headers:HDRS,body:body?JSON.stringify(body):null});if(!res.ok)return[];return method==='GET'?res.json():true;}catch(e){return[];}}
+const SR_SCHEDULE=[
+  {article:'CPL Art. 1',color:'#2563eb',learned:'Jun 8',reviews:['Jun 9','Jun 11','Jun 23','Jul 9','Aug 8']},
+  {article:'CPL Art. 10',color:'#2563eb',learned:'Jun 9',reviews:['Jun 10','Jun 12','Jun 24','Jul 10','Aug 9']},
+  {article:'CPL Art. 30',color:'#2563eb',learned:'Jun 10',reviews:['Jun 11','Jun 14','Jun 26','Jul 12','Aug 10']},
+  {article:'PL Art. 10',color:'#dc2626',learned:'Jun 11',reviews:['Jun 12','Jun 14','Jun 26','Jul 13','Aug 11']},
+  {article:'PL Art. 55',color:'#dc2626',learned:'Jun 13',reviews:['Jun 14','Jun 16','Jun 28','Jul 14','Aug 13']},
+  {article:'CPL Art. 100',color:'#2563eb',learned:'Jun 15',reviews:['Jun 16','Jun 18','Jun 30','Jul 16']},
+  {article:'CPL Art. 110',color:'#2563eb',learned:'Jun 16',reviews:['Jun 17','Jun 19','Jul 1','Jul 17']},
+  {article:'CPL Art. 120',color:'#2563eb',learned:'Jun 17',reviews:['Jun 18','Jun 20','Jul 2','Jul 18']},
+  {article:'CPL Art. 160',color:'#2563eb',learned:'Jun 18',reviews:['Jun 19','Jun 21','Jul 3','Jul 19']},
+];
+const MONTHS={Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+function parseDate(str){const[mon,day]=str.split(' ');if(!MONTHS.hasOwnProperty(mon))return null;return new Date(2026,MONTHS[mon],parseInt(day));}
+function reviewStatus(reviews){const today=new Date();today.setHours(0,0,0,0);for(const r of reviews){const d=parseDate(r);if(!d)continue;const diff=Math.round((d-today)/86400000);if(diff<0)return{label:'Overdue ('+r+')',cls:'sr-overdue'};if(diff===0)return{label:'Due today',cls:'sr-today'};if(diff<=4)return{label:'Due '+r,cls:'sr-upcoming'};return{label:'Next: '+r,cls:'sr-done'};}return{label:'All reviews done',cls:'sr-done'};}
+const PRE_READING_PROMPTS={
+  'CPL Art. 1 — Definitions':['What are the 7 types of accusatory instruments — and what makes each one different?','When does a criminal action officially "commence"?','What is the difference between a felony complaint and an indictment?'],
+  'CPL Art. 10 — Criminal Courts':['What is the difference between superior courts and local criminal courts?','Which courts have trial jurisdiction over felonies vs. misdemeanors?','What is the role of the Appellate Division?'],
+  'CPL Art. 30 — Speedy Trial':['What are the speedy trial time limits for a felony, Class A misd, Class B misd, and petty offense?','What periods of time are "excludable"?','What happens if the prosecution exceeds the speedy trial limit?'],
+  'PL Art. 10 — Mental States':['What are the 4 mental states from most to least culpable?','What is the key difference between "knowingly" and "recklessly"?','What makes criminal negligence different from ordinary civil negligence?'],
+  'PL Art. 55 — Classifications':['What is the full classification ladder from most to least serious?','Which felony classes are violent felony offenses?','What is the difference between a Class E felony and a Class A misdemeanor?'],
+  'PL Art. 80 — Sentences':['What are the authorized sentence ranges for each felony class?','What is a definite vs. indeterminate sentence?','When is a mandatory minimum required?'],
+  'CPL Art. 100 — Accusatory Instruments':['What must an information contain to be legally sufficient?','What is the difference between a misdemeanor complaint and a misdemeanor information?','What happens if an information is facially insufficient?'],
+  'CPL Art. 110 — Arraignment':['What must happen at every arraignment?','What must the court advise the defendant at arraignment?','What bail options does the court have?'],
+  'CPL Art. 120 — Warrant of Arrest':['What must a warrant of arrest contain to be valid?','Who can execute a warrant of arrest, and where?','What is the difference between an arrest warrant and a desk appearance ticket?'],
+  'CPL Art. 160 — Fingerprinting':['Which offenses require mandatory fingerprinting?','What happens to fingerprint records if charges are dismissed?','What is a fingerprint order?']
+};
+const CONFIDENCE_LABELS={0:'Tap to rate',1:'Barely followed it',2:'Got the basics',3:'Pretty solid',4:'Strong grasp',5:'Could teach it'};
+let selectedStars=0;
+function setStars(val){selectedStars=val;document.querySelectorAll('.star-btn').forEach(b=>{b.classList.toggle('filled',parseInt(b.dataset.val)<=val);});document.getElementById('confidence-desc').textContent=CONFIDENCE_LABELS[val];}
+function resetStars(){selectedStars=0;document.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('filled'));document.getElementById('confidence-desc').textContent=CONFIDENCE_LABELS[0];}
+function onArticleSelect(val){const card=document.getElementById('prereading-card');const qs=document.getElementById('prereading-qs');if(!val){card.classList.remove('visible');return;}const prompts=PRE_READING_PROMPTS[val];if(!prompts){card.classList.remove('visible');return;}qs.innerHTML=prompts.map((q,i)=>'<li><span class="pq-num">'+(i+1)+'</span><span>'+q+'</span></li>').join('');card.classList.add('visible');}
+function dismissPrereading(){document.getElementById('prereading-card').classList.remove('visible');document.getElementById('diary-text').focus();}
+function getArticleColor(a){if(a.startsWith('CPL'))return'#2563eb';if(a.startsWith('PL'))return'#dc2626';return'#6b7280';}
+function starsHtml(r){if(!r||r<1)return'';const f=Math.min(5,Math.max(1,parseInt(r)));return'★'.repeat(f)+'☆'.repeat(5-f);}
+async function saveDiaryEntry(){
+  const article=document.getElementById('diary-article').value;
+  const text=document.getElementById('diary-text').value.trim();
+  if(!article||!text){showToast('Pick an article and write something first','error');return;}
+  const confidence=selectedStars||1;
+  const gap=document.getElementById('diary-gap').value.trim();
+  await sb('spaced_rep','','POST',{user_id:USER,article,learned_date:new Date().toLocaleDateString(),review_dates:'',last_reviewed:new Date().toISOString(),confidence,updated_at:new Date().toISOString()});
+  await sb('wrong_answers','','POST',{user_id:USER,article,question:'__DIARY__',your_answer:text,correct_answer:String(confidence),date_logged:new Date().toLocaleDateString()});
+  if(gap){await sb('wrong_answers','','POST',{user_id:USER,article,question:'__GAP__',your_answer:gap,correct_answer:'',date_logged:new Date().toLocaleDateString()});}
+  document.getElementById('diary-article').value='';
+  document.getElementById('diary-text').value='';
+  document.getElementById('diary-gap').value='';
+  document.getElementById('prereading-card').classList.remove('visible');
+  resetStars();
+  showToast('✓ Diary entry saved','success');
+  loadDiaryEntries();loadGaps();
+}
+async function loadGaps(){
+  const feed=document.getElementById('gap-feed');
+  if(!feed)return;
+  const data=await sb('wrong_answers','?user_id=eq.'+USER+'&question=eq.__GAP__&order=created_at.desc&limit=30');
+  if(!data.length){feed.innerHTML='';return;}
+  feed.innerHTML='<div style="font-size:var(--fs-xxs);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#fbbf24;margin-bottom:10px;display:flex;align-items:center;gap:7px"><span>🤔</span> Still don\'t get ('+data.length+')</div>'+data.map((d,i)=>'<div class="gap-item"><div class="gap-bullet">'+(i+1)+'</div><div class="gap-body"><div class="gap-art">'+d.article+'</div><div class="gap-text">'+d.your_answer+'</div><div class="gap-date">'+(d.date_logged||'')+'</div></div></div>').join('');
+}
+async function loadDiaryEntries(){
+  const feed=document.getElementById('diary-feed');
+  const count=document.getElementById('diary-count');
+  if(!feed)return;
+  const data=await sb('wrong_answers','?user_id=eq.'+USER+'&question=eq.__DIARY__&order=created_at.desc&limit=30');
+  count.textContent=data.length+' entries';
+  if(!data.length){feed.innerHTML='<div class="empty"><span class="empty-icon">📔</span>Write your first diary entry after reading an article today</div>';return;}
+  feed.innerHTML=data.map(d=>{const rating=parseInt(d.correct_answer)||0;const stars=starsHtml(rating);return'<div class="diary-entry"><div class="diary-entry-header"><div class="diary-article"><div class="diary-dot" style="background:'+getArticleColor(d.article)+'"></div>'+d.article+'</div><div style="display:flex;align-items:center;gap:10px">'+(stars?'<span class="diary-stars" style="color:var(--gold)">'+stars+'</span>':'')+'<div class="diary-date">'+(d.date_logged||'')+'</div></div></div><div class="diary-text">'+d.your_answer+'</div></div>';}).join('');
+}
+async function loadTestScoresFeed(){
+  const feed=document.getElementById('ts-feed');
+  const count=document.getElementById('ts-count');
+  if(!feed)return;
+  const data=await sb('test_scores','?user_id=eq.'+USER+'&order=created_at.desc&limit=30');
+  count.textContent=data.length+' recorded';
+  if(!data.length){feed.innerHTML='<div class="empty"><span class="empty-icon">📝</span>No test scores yet — take the weekly final exam or play Clerk Challenge to populate this feed</div>';return;}
+  feed.innerHTML=data.map(t=>'<div class="wa-item"><div class="wa-article">'+(t.week||'Test')+'</div><div class="wa-row"><div class="wa-yours">Score: <strong>'+(t.score||'')+'</strong></div>'+(t.notes?'<div class="wa-correct">'+t.notes+'</div>':'')+'<div class="wa-date">'+(t.created_at?new Date(t.created_at).toLocaleDateString():'')+'</div></div></div>').join('');
+}
+async function loadWrongAnswers(){
+  const feed=document.getElementById('wa-feed');
+  const count=document.getElementById('wa-count');
+  const data=await sb('wrong_answers','?user_id=eq.'+USER+'&question=neq.__DIARY__&question=neq.__GAP__&order=created_at.desc&limit=50');
+  count.textContent=data.length+' logged';
+  if(!data.length){feed.innerHTML='<div class="empty"><span class="empty-icon">🎯</span>No wrong answers yet — take a quiz to populate this feed</div>';return;}
+  feed.innerHTML=data.map(w=>'<div class="wa-item"><div class="wa-article">'+(w.article||'Unknown')+'</div><div class="wa-question">'+(w.question||'')+'</div><div class="wa-row">'+(w.your_answer?'<div class="wa-yours">You: <strong>'+w.your_answer+'</strong></div>':'')+(w.correct_answer?'<div class="wa-correct">Correct: <strong>'+w.correct_answer+'</strong></div>':'')+'<div class="wa-date">'+(w.date_logged||'')+'</div></div></div>').join('');
+}
+async function logWrongAnswer(){
+  const article=document.getElementById('wa-article').value.trim();
+  const question=document.getElementById('wa-question').value.trim();
+  const yours=document.getElementById('wa-yours').value.trim();
+  const correct=document.getElementById('wa-correct').value.trim();
+  if(!article||!question)return;
+  await sb('wrong_answers','','POST',{user_id:USER,article,question,your_answer:yours,correct_answer:correct,date_logged:new Date().toLocaleDateString()});
+  ['wa-article','wa-question','wa-yours','wa-correct'].forEach(id=>{document.getElementById(id).value='';});
+  showToast('✓ Logged','success');loadWrongAnswers();
+}
+async function clearWrongAnswers(){if(!confirm('Clear all wrong answers?'))return;await fetch(SB_URL+'/rest/v1/wrong_answers?user_id=eq.'+USER+'&question=neq.__DIARY__&question=neq.__GAP__',{method:'DELETE',headers:HDRS});loadWrongAnswers();}
+const MN_QUESTIONS={'CPL Art. 1':'What are the 7 accusatory instruments? When does a criminal action commence?','CPL Art. 10':'What are the two tiers of courts? Superior court trial jurisdiction?','CPL Art. 30':'Speedy trial deadline for a felony? What offenses are exempt?','PL Art. 10':'What are the 4 mental states from most to least culpable?','PL Art. 55':'What is the classification ladder from Class A felony to violation?','CPL Art. 100':'What must an information contain to be legally sufficient?','CPL Art. 110':'What must happen at every arraignment?','CPL Art. 120':'What must a warrant of arrest contain? Who executes it?','CPL Art. 160':'Which offenses require fingerprinting?'};
+const MN_COLORS={'CPL Art. 1':'#2563eb','CPL Art. 10':'#2563eb','CPL Art. 30':'#2563eb','PL Art. 10':'#dc2626','PL Art. 55':'#dc2626','CPL Art. 100':'#2563eb','CPL Art. 110':'#2563eb','CPL Art. 120':'#2563eb','CPL Art. 160':'#2563eb'};
+async function loadMnemonics(){
+  const feed=document.getElementById('mn-feed');
+  const count=document.getElementById('mn-count');
+  const remote=await sb('mnemonics','?user_id=eq.'+USER+'&order=updated_at.desc');
+  const byArticle={};
+  remote.forEach(r=>{if(!r.mnemonic_text)return;if(!byArticle[r.article])byArticle[r.article]=[];byArticle[r.article].push(r.mnemonic_text);});
+  const articles=Object.keys(byArticle);
+  const total=articles.reduce((a,k)=>a+byArticle[k].length,0);
+  count.textContent=total+' saved';
+  if(!total){feed.innerHTML='<div class="empty"><span class="empty-icon">🧠</span>No mnemonics saved yet</div>';return;}
+  feed.innerHTML=articles.map(art=>{const color=MN_COLORS[art]||'#6b7280';const cards=byArticle[art];return'<div class="mn-group"><div class="mn-group-label"><div class="mn-dot" style="background:'+color+'"></div>'+art+'</div>'+cards.map((text,i)=>{const id='mn-'+art.replace(/\s/g,'-')+'-'+i;const q=MN_QUESTIONS[art]||'Key rules for '+art;return'<div class="mn-card" onclick="flipMn(\''+id+'\')"><div class="mn-front">QUESTION</div><div style="font-size:14px;color:rgba(255,255,255,.8);line-height:1.5">'+q+'</div><div class="mn-back" id="'+id+'"><div style="font-size:12px;font-weight:700;text-transform:uppercase;color:rgba(107,79,160,.8);margin-bottom:6px">YOUR MNEMONIC</div><div style="color:white">'+text+'</div></div><div class="mn-hint" id="'+id+'-hint">▼ tap to reveal</div></div>';}).join('')+'</div>';}).join('');
+}
+function flipMn(id){const back=document.getElementById(id);const hint=document.getElementById(id+'-hint');if(!back)return;const showing=back.classList.contains('show');back.classList.toggle('show',!showing);if(hint)hint.textContent=showing?'▼ tap to reveal':'▲ tap to hide';}
+async function exportAnki(){const remote=await sb('mnemonics','?user_id=eq.'+USER+'&order=updated_at.desc');const lines=['#separator:tab','#html:false','#tags column:3',''];remote.forEach(r=>{if(!r.mnemonic_text)return;const q=MN_QUESTIONS[r.article]||'Key rules for '+r.article;const tag='nys_clerk::mnemonics::'+r.article.replace(/\s/g,'_').toLowerCase();lines.push(q+'\t'+r.mnemonic_text+'\t'+tag);});const blob=new Blob([lines.join('\n')],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='nys_clerk_mnemonics.txt';a.click();}
+function loadSpacedRep(){
+  const feed=document.getElementById('sr-feed');
+  const count=document.getElementById('sr-due-count');
+  const today=new Date();today.setHours(0,0,0,0);
+  const dueToday=SR_SCHEDULE.filter(e=>e.reviews.some(r=>{const d=parseDate(r);return d&&d.getTime()===today.getTime();}));
+  count.textContent=dueToday.length+' due today';
+  feed.innerHTML='<table class="sr-table"><thead><tr><th>Article</th><th>Learned</th><th>Review dates</th><th>Status</th></tr></thead><tbody>'+SR_SCHEDULE.map(e=>{const status=reviewStatus(e.reviews);return'<tr><td class="sr-art" style="display:flex;align-items:center;gap:7px"><div style="width:7px;height:7px;border-radius:50%;background:'+e.color+';flex-shrink:0"></div>'+e.article+'</td><td class="sr-date">'+e.learned+'</td><td class="sr-date">'+e.reviews.join(' · ')+'</td><td><span class="sr-badge '+status.cls+'">'+status.label+'</span></td></tr>';}).join('')+'</tbody></table>';
+}
+const ANKI_STORAGE_KEY='nys_clerk_anki_cards';
+function getAnkiCards(){try{return JSON.parse(localStorage.getItem(ANKI_STORAGE_KEY)||'[]');}catch(e){return[];}}
+function saveAnkiCards(cards){localStorage.setItem(ANKI_STORAGE_KEY,JSON.stringify(cards));}
+function renderAnkiCards(){
+  const cards=getAnkiCards();
+  const list=document.getElementById('anki-card-list');
+  const count=document.getElementById('anki-count');
+  const expBtn=document.getElementById('anki-export-btn');
+  const clrBtn=document.getElementById('anki-clear-btn');
+  count.textContent=cards.length+' card'+(cards.length!==1?'s':'');
+  expBtn.style.display=cards.length?'inline-flex':'none';
+  clrBtn.style.display=cards.length?'inline-flex':'none';
+  if(!cards.length){list.innerHTML='';return;}
+  list.innerHTML=cards.map((c,i)=>'<div class="anki-card-item"><div class="anki-card-body">'+(c.article?'<div class="anki-card-art">'+c.article+'</div>':'')+'<div class="anki-card-front">'+c.front+'</div><div class="anki-card-back">↳ '+c.back+'</div></div><button class="anki-del" onclick="deleteAnkiCard('+i+')" title="Delete">×</button></div>').join('');
+}
+function addAnkiCard(){
+  const article=document.getElementById('anki-article').value;
+  const front=document.getElementById('anki-front').value.trim();
+  const back=document.getElementById('anki-back').value.trim();
+  if(!front||!back){showToast('Fill in both front and back','error');return;}
+  const cards=getAnkiCards();
+  cards.unshift({article,front,back,added:new Date().toLocaleDateString()});
+  saveAnkiCards(cards);
+  document.getElementById('anki-front').value='';
+  document.getElementById('anki-back').value='';
+  renderAnkiCards();
+  showToast('✓ Card added','success');
+}
+function deleteAnkiCard(i){const cards=getAnkiCards();cards.splice(i,1);saveAnkiCards(cards);renderAnkiCards();}
+function clearAnkiCards(){if(!confirm('Delete all saved Anki cards?'))return;saveAnkiCards([]);renderAnkiCards();}
+function exportAnkiCards(){
+  const cards=getAnkiCards();
+  if(!cards.length)return;
+  const lines=['#separator:tab','#html:false','#tags column:3',''];
+  cards.forEach(c=>{const artKey=(c.article||'general').split('—')[0].trim().replace(/\s/g,'_').toLowerCase();lines.push(c.front+'\t'+c.back+'\tnys_clerk::builder::'+artKey);});
+  const blob=new Blob([lines.join('\n')],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='nys_clerk_custom_cards.txt';a.click();
+  showToast('↓ Exported '+cards.length+' cards','success');
+}
+async function loadAll(){
+  const dot=document.getElementById('status-dot');
+  const stat=document.getElementById('status-text');
+  dot.className='status-dot loading';
+  stat.textContent='Loading...';
+  await Promise.all([loadDiaryEntries(),loadGaps(),loadWrongAnswers(),loadMnemonics(),loadTestScoresFeed()]);
+  loadSpacedRep();renderAnkiCards();
+  dot.className='status-dot online';
+  stat.textContent='Connected to Supabase';
+  document.getElementById('last-sync').textContent='Synced '+new Date().toLocaleTimeString();
+}
+let ptStart=0;
+document.addEventListener('touchstart',function(e){if(window.scrollY===0)ptStart=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',function(e){if(ptStart>0){var dist=e.changedTouches[0].clientY-ptStart;if(dist>80){showToast('↻ Refreshing...','info');setTimeout(loadAll,300);}ptStart=0;}},{passive:true});
+document.addEventListener('DOMContentLoaded',loadAll);
+</script>
+<div class="toast" id="page-toast"></div>
+<script>
+function showToast(msg,type){var t=document.getElementById('page-toast');if(!t)return;t.textContent=msg;t.className='toast toast-'+(type||'info')+' show';clearTimeout(t._t);t._t=setTimeout(function(){t.className='toast';},2200);}
+</script>
+<button class="qab" id="qab-btn" onclick="toggleQAB()" title="Quick actions">＋</button>
+<div class="qab-menu" id="qab-menu">
+  <a href="#" class="qab-item" onclick="closeQAB();document.querySelector('.diary-form').scrollIntoView({behavior:'smooth'})"><span class="qab-item-icon">📔</span>Write diary entry</a>
+  <a href="#wa-article" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">❌</span>Log wrong answer</a>
+  <a href="game.html" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">🎮</span>Play a game</a>
+  <a href="quiz.html" class="qab-item" onclick="closeQAB()"><span class="qab-item-icon">❓</span>Take a quiz</a>
+</div>
+<script>
+function toggleQAB(){var m=document.getElementById('qab-menu');var b=document.getElementById('qab-btn');m.classList.toggle('open');b.textContent=m.classList.contains('open')?'✕':'＋';}
+function closeQAB(){var m=document.getElementById('qab-menu');var b=document.getElementById('qab-btn');if(m)m.classList.remove('open');if(b)b.textContent='＋';}
+document.addEventListener('click',function(e){if(!e.target.closest('#qab-btn')&&!e.target.closest('#qab-menu'))closeQAB();});
+</script>
+<nav class="bottom-nav-bar" id="bottom-nav">
+  <a href="index.html" class="bnb-btn" id="bnb-home"><span class="bnb-icon">🏠</span>Home</a>
+  <a href="game.html" class="bnb-btn" id="bnb-game"><span class="bnb-icon">🎮</span>Game</a>
+  <a href="quiz.html" class="bnb-btn" id="bnb-quiz"><span class="bnb-icon">❓</span>Quiz</a>
+  <a href="study_dashboard.html" class="bnb-btn active" id="bnb-dash"><span class="bnb-icon">📊</span>Dashboard</a>
+</nav>
+<script src="clerk_sync.js"></script>
+<script src="pwa-features.js"></script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1a1f3c">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-startup-image" href="icon-512.png">
+<title>ClerkPrep — NYS Senior Court Clerk</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+html { overflow-x:hidden; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body { overflow-x:hidden; min-width:0 !important; width:100% !important; max-width:100vw; }
+@media screen and (max-width:768px) {
+  * { max-width:100%; word-break:break-word; }
+  img, video, iframe, table { max-width:100% !important; }
+}
+:root{
+  --navy:#1a1f3c;--navy-mid:#2d3561;
+  --gold:#c9952a;--gold-light:#f5e6c8;
+  --cream:#faf7f2;
+  --text:#1a1f3c;--text-muted:#6b7194;
+  --border:#e2ddd6;--white:#fff;
+  --coral:#c4503a;--coral-light:#f9e8e5;
+  --teal:#0d9488;--teal-light:#ccfbf1;
+  --violet:#6b4fa0;--violet-light:#ede8f7;
+  --fs-base:16px;--fs-h1:30px;--fs-h2:20px;
+  --pad-h:20px;
+}
+@media(min-width:769px){ :root{--pad-h:36px;--fs-h1:36px;} }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;font-size:var(--fs-base);line-height:1.5;padding-bottom:80px}
+
+.header{background:var(--navy);padding:28px var(--pad-h) 26px;position:relative;overflow:hidden}
+.header::after{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(201,149,42,.15),transparent 70%)}
+.header .eyebrow{color:var(--gold-light);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;position:relative;z-index:1}
+.header h1{font-family:'DM Serif Display',serif;color:#fff;font-size:var(--fs-h1);margin:4px 0 10px;position:relative;z-index:1}
+.header-meta{display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:1}
+.meta-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:20px;padding:6px 14px;font-size:12px}
+.countdown-row{display:flex;align-items:center;gap:14px;margin-top:16px;position:relative;z-index:1}
+.countdown-num{font-family:'DM Serif Display',serif;font-size:32px;color:var(--gold)}
+.countdown-label{font-size:11px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.06em}
+
+.section{max-width:1200px;margin:0 auto;padding:0 var(--pad-h)}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy);margin:32px 0 14px}
+.section-sub{font-size:14px;color:var(--text-muted);margin-top:-10px;margin-bottom:18px}
+
+.hero-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:20px}
+@media(min-width:640px){ .hero-grid{grid-template-columns:1fr 1fr} }
+@media(min-width:1000px){ .hero-grid{grid-template-columns:repeat(3,1fr)} }
+
+.hero-card{display:block;text-decoration:none;border-radius:16px;padding:22px;position:relative;overflow:hidden;transition:transform .15s}
+.hero-card:active{transform:scale(.98)}
+.hero-card .hc-icon{font-size:34px;margin-bottom:10px;display:block}
+.hero-card .hc-title{font-family:'DM Serif Display',serif;font-size:21px;margin-bottom:6px}
+.hero-card .hc-desc{font-size:13px;line-height:1.5;opacity:.85}
+.hero-card .hc-badge{position:absolute;top:16px;right:16px;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:12px}
+
+.hc-exam{background:linear-gradient(135deg,var(--navy),var(--navy-mid));color:#fff}
+.hc-exam .hc-badge{background:var(--coral);color:#fff}
+.hc-game{background:linear-gradient(135deg,#7a5c14,var(--gold));color:#fff}
+.hc-game .hc-badge{background:rgba(0,0,0,.25);color:#fff}
+.hc-jeopardy{background:linear-gradient(135deg,#0f766e,var(--teal));color:#fff}
+.hc-jeopardy .hc-badge{background:rgba(0,0,0,.2);color:#fff}
+.hc-memory{background:linear-gradient(135deg,#5b3d94,var(--violet));color:#fff}
+.hc-memory .hc-badge{background:rgba(255,255,255,.2);color:#fff}
+.hc-quiz{background:var(--white);border:1px solid var(--border);color:var(--text)}
+.hc-quiz .hc-icon{filter:none}
+.hc-dash{background:var(--white);border:1px solid var(--border);color:var(--text)}
+
+.util-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+@media(min-width:640px){ .util-grid{grid-template-columns:repeat(4,1fr)} }
+.util-card{display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 10px;text-decoration:none;color:var(--text);text-align:center}
+.util-card .uc-icon{font-size:22px}
+.util-card .uc-label{font-size:13px;font-weight:600}
+
+.bottom-nav-bar{position:fixed;bottom:0;left:0;right:0;height:60px;background:#fff;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:999}
+.bnb-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 12px;border-radius:10px;text-decoration:none;color:#9ca3af;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;min-width:56px}
+.bnb-btn.active{color:var(--gold)}
+.bnb-icon{font-size:20px;line-height:1}
+
+/* iPhone safe-area (Dynamic Island + home indicator) support */
+body{padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+.bottom-nav-bar{padding-bottom:env(safe-area-inset-bottom,0px)!important;height:auto!important;padding-top:10px!important}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">NYS Senior Court Clerk · Exam No. 55-859</div>
+  <h1>ClerkPrep</h1>
+  <div class="header-meta">
+    <div class="meta-pill">🎯 Exam: Sat Oct 10, 2026</div>
+    <div class="meta-pill">📋 105 questions · passing 70</div>
+    <div class="meta-pill">🎓 VJC: Tue CPL · Wed CPLR · Thu Misc · Sat FCA</div>
+  </div>
+  <div class="countdown-row">
+    <div>
+      <div class="countdown-num" id="days-left">—</div>
+      <div class="countdown-label">Days to exam</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+
+  <div class="section-title">Play &amp; Practice</div>
+  <div class="section-sub">Everything here pulls live from the current question bank.</div>
+  <div class="hero-grid">
+
+    <a href="nys_clerk_final_exam_supabase.html" class="hero-card hc-exam">
+      <span class="hc-badge">Timed</span>
+      <span class="hc-icon">📝</span>
+      <div class="hc-title">Weekly Final Exam</div>
+      <div class="hc-desc">105 questions, 3-hour simulated exam. Fresh random set every attempt, scored with a full section breakdown.</div>
+    </a>
+
+    <a href="game.html" class="hero-card hc-game">
+      <span class="hc-badge">Modes</span>
+      <span class="hc-icon">🎮</span>
+      <div class="hc-title">Clerk Challenge</div>
+      <div class="hc-desc">Speed Round, A-vs-B, Mnemonic Master, and Court Clerk Simulator scenarios — nearly 1,800 questions.</div>
+    </a>
+
+    <a href="jeopardy.html" class="hero-card hc-jeopardy">
+      <span class="hc-badge">5 Categories</span>
+      <span class="hc-icon">⚖️</span>
+      <div class="hc-title">Law Jeopardy</div>
+      <div class="hc-desc">A fresh board every time — categories auto-recycle so you never run out of new clues.</div>
+    </a>
+
+    <a href="memory.html" class="hero-card hc-memory">
+      <span class="hc-badge">New</span>
+      <span class="hc-icon">🧠</span>
+      <div class="hc-title">Memory Match</div>
+      <div class="hc-desc">Quizlet-style flashcards and a timed matching game — statute to rule, article to definition.</div>
+    </a>
+
+    <a href="quiz.html" class="hero-card hc-quiz">
+      <span class="hc-icon">❓</span>
+      <div class="hc-title">Quizzes</div>
+      <div class="hc-desc">Article-by-article practice quizzes with instant scoring.</div>
+    </a>
+
+    <a href="study_dashboard.html" class="hero-card hc-dash">
+      <span class="hc-icon">📊</span>
+      <div class="hc-title">Study Dashboard</div>
+      <div class="hc-desc">Wrong answers, test scores, diary entries, and mnemonics — all in one feed.</div>
+    </a>
+
+  </div>
+
+  <div class="section-title">More</div>
+  <div class="util-grid">
+    <a href="study_dashboard.html" class="util-card"><span class="uc-icon">🔥</span><span class="uc-label">Wrong Answers</span></a>
+    <a href="jeopardy.html" class="util-card"><span class="uc-icon">🔄</span><span class="uc-label">New Board</span></a>
+    <a href="game.html" class="util-card"><span class="uc-icon">🎭</span><span class="uc-label">Scenarios</span></a>
+  </div>
+
+</div>
+
+<nav class="bottom-nav-bar" id="bottom-nav">
+  <a href="index.html" class="bnb-btn active"><span class="bnb-icon">🏠</span>Home</a>
+  <a href="game.html" class="bnb-btn"><span class="bnb-icon">🎮</span>Game</a>
+  <a href="quiz.html" class="bnb-btn"><span class="bnb-icon">❓</span>Quiz</a>
+  <a href="study_dashboard.html" class="bnb-btn"><span class="bnb-icon">📊</span>Dashboard</a>
+</nav>
+
+<script src="clerk_sync.js"></script>
+<script src="pwa-features.js"></script>
+<script>
+function updateCountdown(){
+  const exam = new Date('2026-10-10');
+  const now = new Date();
+  const days = Math.max(0, Math.ceil((exam - now) / (1000*60*60*24)));
+  document.getElementById('days-left').textContent = days;
+}
+updateCountdown();
+</script>
+
+</body>
+</html>

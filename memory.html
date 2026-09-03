@@ -71,9 +71,15 @@ body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;
 .match-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-family:Arial,sans-serif}
 .match-timer{font-size:22px;font-weight:800;color:var(--navy)}
 .match-stats{font-size:13px;color:var(--text-muted)}
-.match-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-@media(min-width:640px){ .match-grid{grid-template-columns:repeat(4,1fr)} }
-.match-tile{background:var(--white);border:2px solid var(--border);border-radius:10px;padding:14px 10px;min-height:90px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;line-height:1.35;cursor:pointer;user-select:none}
+.match-hint{font-family:Arial,sans-serif;font-size:12px;color:var(--text-muted);margin-bottom:12px;text-align:center}
+.match-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.match-col-head{font-family:Arial,sans-serif;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:6px;border-radius:6px;margin-bottom:2px}
+.col-head-q{background:#4a86e8;color:#fff}
+.col-head-a{background:#2fa360;color:#fff}
+.match-tile{position:relative;background:var(--white);border:2px solid var(--border);border-radius:10px;padding:12px 10px;min-height:64px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;line-height:1.35;cursor:pointer;user-select:none}
+.match-tile.tile-q{border-color:#8fb8e8;background:#eef5fd}
+.match-tile.tile-a{border-color:#a8d5b5;background:#eefbf1}
 .match-tile.selected{border-color:var(--violet);background:var(--violet-light)}
 .match-tile.matched{background:rgba(34,197,94,.12);border-color:var(--green);color:var(--green);opacity:.55;cursor:default}
 .match-tile.wrong{border-color:var(--red);background:rgba(239,68,68,.1);animation:shake .3s}
@@ -1970,14 +1976,16 @@ function markCard(known){
   nextCard();
 }
 
-// ══════════════════ MATCH GAME ══════════════════
-let matchTiles = [];
-let matchSelected = [];
-let matchFoundPairs = 0;
+// ══════════════════ MATCH GAME (two-column: Questions | Answers) ══════════════════
+let matchQuestions = [];
+let matchAnswers = [];
 let matchTotalPairs = 8;
+let matchFoundPairs = 0;
 let matchStartTime = null;
 let matchTimerInterval = null;
 let matchLocked = false;
+let selQ = null;   // index into matchQuestions currently selected
+let selA = null;   // index into matchAnswers currently selected
 
 function startMatchGame(){
   clearInterval(matchTimerInterval);
@@ -1987,15 +1995,11 @@ function startMatchGame(){
     return;
   }
   matchTotalPairs = pool.length;
-  let tiles = [];
-  pool.forEach(c => {
-    tiles.push({ pairId: c.id, text: c.front, type: 'q' });
-    tiles.push({ pairId: c.id, text: c.back, type: 'a' });
-  });
-  matchTiles = shuffle(tiles);
-  matchSelected = [];
+  matchQuestions = shuffle(pool.map(c => ({ pairId: c.id, text: c.front })));
+  matchAnswers = shuffle(pool.map(c => ({ pairId: c.id, text: c.back })));
   matchFoundPairs = 0;
   matchLocked = false;
+  selQ = null; selA = null;
   matchStartTime = Date.now();
 
   renderMatchGame();
@@ -2010,12 +2014,26 @@ function renderMatchGame(){
       <div class="match-stats">${matchFoundPairs} / ${matchTotalPairs} pairs</div>
       <button class="shuffle-btn" onclick="startMatchGame()">🔀 New game</button>
     </div>
-    <div class="match-grid" id="matchGrid">
+    <div class="match-hint">Tap a question, then tap its matching answer.</div>
+    <div class="match-columns">
+      <div class="match-col">
+        <div class="match-col-head col-head-q">Questions</div>
   `;
-  matchTiles.forEach((t, i) => {
-    html += `<div class="match-tile" data-i="${i}" onclick="tapTile(${i})">${t.text}</div>`;
+  matchQuestions.forEach((q, i) => {
+    html += `<div class="match-tile tile-q" data-qi="${i}" onclick="tapQuestion(${i})">${q.text}</div>`;
   });
-  html += `</div>`;
+  html += `
+      </div>
+      <div class="match-col">
+        <div class="match-col-head col-head-a">Answers</div>
+  `;
+  matchAnswers.forEach((a, i) => {
+    html += `<div class="match-tile tile-a" data-ai="${i}" onclick="tapAnswer(${i})">${a.text}</div>`;
+  });
+  html += `
+      </div>
+    </div>
+  `;
   view.innerHTML = html;
 }
 
@@ -2026,39 +2044,51 @@ function updateMatchTimer(){
   el.textContent = elapsed.toFixed(1) + 's';
 }
 
-function tapTile(i){
+function tapQuestion(i){
   if(matchLocked) return;
-  const tileEl = document.querySelector(`.match-tile[data-i="${i}"]`);
-  if(!tileEl || tileEl.classList.contains('matched') || tileEl.classList.contains('selected')) return;
+  const el = document.querySelector(`[data-qi="${i}"]`);
+  if(!el || el.classList.contains('matched')) return;
+  document.querySelectorAll('[data-qi]').forEach(e => e.classList.remove('selected'));
+  selQ = i;
+  el.classList.add('selected');
+  tryMatch();
+}
 
-  tileEl.classList.add('selected');
-  matchSelected.push(i);
+function tapAnswer(i){
+  if(matchLocked) return;
+  const el = document.querySelector(`[data-ai="${i}"]`);
+  if(!el || el.classList.contains('matched')) return;
+  document.querySelectorAll('[data-ai]').forEach(e => e.classList.remove('selected'));
+  selA = i;
+  el.classList.add('selected');
+  tryMatch();
+}
 
-  if(matchSelected.length === 2){
-    matchLocked = true;
-    const [i1, i2] = matchSelected;
-    const t1 = matchTiles[i1], t2 = matchTiles[i2];
-    if(t1.pairId === t2.pairId){
-      setTimeout(() => {
-        document.querySelector(`.match-tile[data-i="${i1}"]`).classList.add('matched');
-        document.querySelector(`.match-tile[data-i="${i2}"]`).classList.add('matched');
-        matchFoundPairs++;
-        document.querySelector('.match-stats').textContent = `${matchFoundPairs} / ${matchTotalPairs} pairs`;
-        matchSelected = [];
-        matchLocked = false;
-        if(matchFoundPairs === matchTotalPairs) finishMatchGame();
-      }, 300);
-    } else {
-      const el1 = document.querySelector(`.match-tile[data-i="${i1}"]`);
-      const el2 = document.querySelector(`.match-tile[data-i="${i2}"]`);
-      el1.classList.add('wrong'); el2.classList.add('wrong');
-      setTimeout(() => {
-        el1.classList.remove('selected','wrong');
-        el2.classList.remove('selected','wrong');
-        matchSelected = [];
-        matchLocked = false;
-      }, 600);
-    }
+function tryMatch(){
+  if(selQ === null || selA === null) return;
+  matchLocked = true;
+  const qEl = document.querySelector(`[data-qi="${selQ}"]`);
+  const aEl = document.querySelector(`[data-ai="${selA}"]`);
+  const q = matchQuestions[selQ], a = matchAnswers[selA];
+
+  if(q.pairId === a.pairId){
+    setTimeout(() => {
+      qEl.classList.add('matched'); qEl.classList.remove('selected');
+      aEl.classList.add('matched'); aEl.classList.remove('selected');
+      matchFoundPairs++;
+      document.querySelector('.match-stats').textContent = `${matchFoundPairs} / ${matchTotalPairs} pairs`;
+      selQ = null; selA = null;
+      matchLocked = false;
+      if(matchFoundPairs === matchTotalPairs) finishMatchGame();
+    }, 250);
+  } else {
+    qEl.classList.add('wrong'); aEl.classList.add('wrong');
+    setTimeout(() => {
+      qEl.classList.remove('selected','wrong');
+      aEl.classList.remove('selected','wrong');
+      selQ = null; selA = null;
+      matchLocked = false;
+    }, 600);
   }
 }
 
